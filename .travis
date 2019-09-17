@@ -1,5 +1,12 @@
 language: php
-php: '7.2'
-install:
+
+php:
+  - 7.2
+
+before_script:
   - cp .env.testing.example .env.testing
-  - composer install
+  - composer self-update
+  - composer install --no-interaction
+
+script:
+  - vendor/bin/phpunit
