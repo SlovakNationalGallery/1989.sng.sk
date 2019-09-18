@@ -36,6 +36,8 @@ class ItemCrudController extends CrudController
         // TODO: remove setFromDb() and manually define Fields and Columns
         // $this->crud->setFromDb();
         $this->crud->setColumns(['name', 'type']);
+        $this->crud->allowAccess('show'); // to show a "preview" button https://backpackforlaravel.com/docs/3.4/crud-buttons#default-buttons
+
         $this->crud->addField([
             'name' => 'name',
             'type' => 'text',
@@ -66,6 +68,8 @@ class ItemCrudController extends CrudController
         ], 'update');
 
 
+        // $this->crud->with('topics');
+
         // add asterisk for fields that are required in ItemRequest
         $this->crud->setRequiredFields(StoreRequest::class, 'create');
         $this->crud->setRequiredFields(UpdateRequest::class, 'edit');
@@ -87,5 +91,52 @@ class ItemCrudController extends CrudController
         // your additional operations after save here
         // use $this->data['entry'] or $this->crud->entry
         return $redirect_location;
+    }
+
+    public function show($id)
+    {
+        $content = parent::show($id);
+
+        // $this->crud->addColumn([
+        //     'name' => 'table',
+        //     'label' => 'Table',
+        //     'type' => 'table',
+        //     'columns' => [
+        //         'name'  => 'Name',
+        //         'desc'  => 'Description',
+        //         'price' => 'Price',
+        //     ]
+        // ]);
+
+        $this->crud->addColumn('name');
+        $this->crud->addColumn('type');
+        $this->crud->addColumn([
+            'name' => 'text',
+            'label' => 'Text',
+            'type' => 'markdown'
+        ]);
+        $this->crud->addColumn([
+            'name' => 'file',
+            'type' => 'image',
+            'width' => '200px',
+            'height' => '200px',
+        ]);
+        $this->crud->addColumn([
+            'label' => "Topics",
+            'type' => "select_multiple",
+            'name' => 'topics',
+            'entity' => 'topics',
+            'attribute' => "name",
+            'model' => "App\Models\Topic", // foreign key model
+        ]);
+        $this->crud->addColumn([
+            'name' => 'created_at',
+            'label' => 'Created At',
+            'type' => 'datetime'
+        ]);
+
+
+
+        return $content;
     }
 }

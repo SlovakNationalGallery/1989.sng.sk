@@ -35,6 +35,12 @@ class Topic extends Model
     |--------------------------------------------------------------------------
     */
 
+    public function items()
+    {
+        return $this->belongsToMany('App\Models\Item', 'topic_item');
+    }
+
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES
