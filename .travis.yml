@@ -4,7 +4,6 @@ php:
   - 7.2
 
 before_script:
-  - cp .env.testing.example .env.testing
   - composer self-update
   - composer install --no-interaction
 
