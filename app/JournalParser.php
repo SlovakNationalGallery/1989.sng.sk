@@ -34,12 +34,12 @@ class JournalParser
                 continue;
             }
 
-            if ($p->isDelimiter()) {
+            if ($p->isPageDelimiter()) {
                 $entry['content_raw'] .= $p->ownerDocument->saveHTML($p);
                 continue;
             }
 
-            $entry['content'] .= $p->ownerDocument->saveHTML($p);
+            $entry['content'] .= $p->getParsedContent();
             $entry['content_raw'] .= $p->ownerDocument->saveHTML($p);
         }
 
@@ -71,16 +71,20 @@ class JournalDOMElement extends DOMElement
         return preg_match('/^\s*\*\*\*.+\*\*\*\s*$/', $this->textContent);
     }
 
-    public function isDelimiter()
+    public function isPageDelimiter()
     {
         return preg_match('/^\s*---\s*$/', $this->textContent);
     }
-
 
     public function getParsedWeather()
     {
         $trimmed = str_replace('***', '', $this->textContent);
         $trimmed = trim($trimmed);
         return $trimmed;
+    }
+
+    public function getParsedContent()
+    {
+        return str_replace('---', '\n', $this->ownerDocument->saveHTML($this));
     }
 }

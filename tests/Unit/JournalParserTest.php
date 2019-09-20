@@ -41,8 +41,14 @@ class JournalParserTest extends TestCase
 
         $this->assertStringStartsWith('<p><a href="#article-23911" title="Nemecká spolková republika">NSR</a>', $parsed[0]->content_raw);
         $this->assertStringEndsWith("---</p>", $parsed[0]->content_raw);
+    }
+
+    public function testRemovesPageDelimitersFromParsedContent()
+    {
+        $parsed = self::$parsed;
 
         $this->assertStringStartsWith('<p><a href="#article-23911" title="Nemecká spolková republika">NSR</a>', $parsed[0]->content);
+        $this->assertStringNotContainsString('---', $parsed[0]->content);
         $this->assertStringEndsWith("7 bombových náloží –</p>", $parsed[0]->content);
     }
 }
