@@ -15,10 +15,11 @@ class JournalParser
         $xpath = new \DOMXPath($dom);
 
         $entries = array();
+        $entry = null;
 
         foreach ($xpath->query("//div[@class='pages']/div/div[@class='page-content']/p") as $p) {
             if ($p->isDate()) {
-                if (isset($entry)) $entries[] = (object) $entry;
+                if ($entry) array_push($entries, (object) $entry);
 
                 $entry = [
                     'date_raw' => $p->textContent,
@@ -43,7 +44,7 @@ class JournalParser
             $entry['content_raw'] .= $p->ownerDocument->saveHTML($p);
         }
 
-        $entries[] = (object) $entry;
+        array_push($entries, (object) $entry);
 
         return $entries;
     }
