@@ -23,7 +23,7 @@ class JournalParser
                 $entry = [
                     'date_raw' => $p->textContent,
                     'date' => $p->getParsedDate(),
-                    'content' => array(),
+                    'content_raw' => '',
                 ];
                 continue;
             }
@@ -34,7 +34,13 @@ class JournalParser
                 continue;
             }
 
+            if ($p->isDelimiter()) {
+                $entry['content_raw'] .= $p->ownerDocument->saveHTML($p);
+                continue;
+            }
 
+            $entry['content'] .= $p->ownerDocument->saveHTML($p);
+            $entry['content_raw'] .= $p->ownerDocument->saveHTML($p);
         }
 
         $entries[] = (object) $entry;
@@ -47,7 +53,7 @@ class JournalDOMElement extends DOMElement
 {
     public function isDate()
     {
-        return preg_match('/^\s*\d{1,2}\.\s?[XI]{1,2}\.\s?1989\s*/', $this->textContent);
+        return preg_match('/^\s*\d{1,2}\.\s?[XI]{1,2}\.\s?1989\s*$/', $this->textContent);
     }
 
     public function getParsedDate()
@@ -62,8 +68,14 @@ class JournalDOMElement extends DOMElement
 
     public function isWeather()
     {
-        return preg_match('/^\s*\*\*\*.+\*\*\*\s*/', $this->textContent);
+        return preg_match('/^\s*\*\*\*.+\*\*\*\s*$/', $this->textContent);
     }
+
+    public function isDelimiter()
+    {
+        return preg_match('/^\s*---\s*$/', $this->textContent);
+    }
+
 
     public function getParsedWeather()
     {
