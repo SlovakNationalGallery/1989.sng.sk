@@ -15,10 +15,10 @@ class CreateJournalEntriesTable extends Migration
     {
         Schema::create('journal_entries', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->date('written_at');
+            $table->date('written_at')->unique();
             $table->text('written_at_raw');
-            $table->text('weather');
-            $table->text('weather_raw');
+            $table->text('weather')->nullable();
+            $table->text('weather_raw')->nullable();
             $table->text('content');
             $table->text('content_raw');
             $table->timestamps();

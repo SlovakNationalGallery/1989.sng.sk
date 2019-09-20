@@ -25,6 +25,9 @@ class JournalParser
                     'date_raw' => $p->textContent,
                     'date' => $p->getParsedDate(),
                     'content_raw' => '',
+                    'content' => '',
+                    'weather_raw' => null,
+                    'weather' => null,
                 ];
                 continue;
             }
