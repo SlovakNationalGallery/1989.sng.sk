@@ -37,7 +37,7 @@ class Item extends Model
 
     public function topics()
     {
-        return $this->belongsToMany('App\Models\Topic', 'topic_item');
+        return $this->belongsToMany('App\Models\Topic')->using('App\Models\ItemTopic')->withPivot('order');
     }
 
     /*
