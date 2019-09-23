@@ -9,8 +9,6 @@
 # Tech setup
 
 ## Requirements
-
-
 This software is built with the [Laravel 6.x framework](http://laravel.com/) and [Backpack for Laravel](https://backpackforlaravel.com/)
 
 It requires
@@ -18,8 +16,6 @@ It requires
 * MySQL >= 5.7
 
 ## Local Installation
-
-Here are the steps for installation on a local machine.
 
 1. Clone this repository.
     ```
@@ -33,6 +29,8 @@ Here are the steps for installation on a local machine.
 3. Set `.env` file. you can copy values from `.env.example`
 4. Run `composer install` to fulfil required libraries.
 5. Run migrations to setup the database with
+
+Note: Visual Studio Code users can make use of [Dev Container](https://code.visualstudio.com/docs/remote/containers) config.
 
 ## Maintainer
 
