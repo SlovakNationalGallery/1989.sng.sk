@@ -22,9 +22,9 @@ class CreateItemsTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('topic_item', function (Blueprint $table) {
-            $table->integer('topic_id');
+        Schema::create('item_topic', function (Blueprint $table) {
             $table->integer('item_id');
+            $table->integer('topic_id');
             $table->integer('order');
         });
     }
@@ -37,6 +37,6 @@ class CreateItemsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('items');
-        Schema::dropIfExists('topic_item');
+        Schema::dropIfExists('item_topic');
     }
 }
