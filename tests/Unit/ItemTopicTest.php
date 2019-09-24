@@ -16,7 +16,7 @@ class ItemTopicTest extends TestCase
      *
      * @return void
      */
-    public function testRelationship()
+    public function testOrderAutomaticallyIncrements()
     {
         $topic = factory(\App\Models\Topic::class)->create();
         $topic->items()->createMany(
