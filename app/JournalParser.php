@@ -89,6 +89,6 @@ class JournalDOMElement extends DOMElement
 
     public function getParsedContent()
     {
-        return str_replace('---', '\n', $this->ownerDocument->saveHTML($this));
+        return str_replace('---', "\n", $this->ownerDocument->saveHTML($this));
     }
 }
