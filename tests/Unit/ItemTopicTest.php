@@ -12,7 +12,7 @@ class ItemTopicTest extends TestCase
 
 
     /**
-     * A basic unit test example.
+     * Test creating relationship between topic and items and incrementing order in the pivot table
      *
      * @return void
      */
