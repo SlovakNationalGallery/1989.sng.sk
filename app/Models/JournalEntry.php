@@ -8,4 +8,8 @@ use Backpack\CRUD\CrudTrait;
 class JournalEntry extends Model
 {
     use CrudTrait;
+
+    protected $dates = [
+        'written_at',
+    ];
 }
