@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use Carbon\Carbon;
 use App\JournalParser;
 use Tests\TestCase;
 
@@ -19,7 +20,7 @@ class JournalParserTest extends TestCase
         $parsed = self::$parsed;
 
         $this->assertEquals("1.X.1989", $parsed[0]->date_raw);
-        $this->assertInstanceOf(\DateTime::class, $parsed[0]->date);
+        $this->assertInstanceOf(Carbon::class, $parsed[0]->date);
         $this->assertEquals("1989-10-01", $parsed[0]->date->format('Y-m-d'));
 
         $this->assertEquals("4. X. 1989", $parsed[3]->date_raw);
@@ -47,8 +48,13 @@ class JournalParserTest extends TestCase
     {
         $parsed = self::$parsed;
 
-        $this->assertStringStartsWith('<p><a href="#article-23911" title="Nemecká spolková republika">NSR</a>', $parsed[0]->content);
+        $this->assertStringStartsWith('<p><a href="topic://Nemecká spolková republika">NSR</a>', $parsed[0]->content);
         $this->assertStringNotContainsString('---', $parsed[0]->content);
         $this->assertStringEndsWith("7 bombových náloží –</p>", $parsed[0]->content);
+    }
+
+    public function testTurnsTopicTagHrefsIntoLinks()
+    {
+        $this->assertStringStartsWith('<p><a href="topic://Nemecká spolková republika">NSR</a>', self::$parsed[0]->content);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use DOMElement;
 
 class JournalParser
@@ -67,7 +68,7 @@ class JournalDOMElement extends DOMElement
         $trimmed = str_replace('.X.',  '.10.', $trimmed);
         $trimmed = str_replace('.XI.', '.11.', $trimmed);
 
-        return \DateTime::createFromFormat('d.m.Y', $trimmed);
+        return Carbon::createFromFormat('d.m.Y', $trimmed);
     }
 
     public function isWeather()
@@ -89,6 +90,8 @@ class JournalDOMElement extends DOMElement
 
     public function getParsedContent()
     {
-        return str_replace('---', "\n", $this->ownerDocument->saveHTML($this));
+        $parsed = str_replace('---', "\n", $this->ownerDocument->saveHTML($this));
+        $parsed = preg_replace('/<a\s+href="#article-\d+"\s+title="(.+?)">/m', '<a href="topic://${1}">', $parsed);
+        return $parsed;
     }
 }
