@@ -14,14 +14,14 @@ class UpdateJournalEntriesTable extends Migration
     public function up()
     {
         Schema::table('journal_entries', function (Blueprint $table) {
-            $table->dropColumn('written_at_raw');
-            $table->dropColumn('weather_raw');
-            $table->dropColumn('content_raw');
+            $table->dropColumn(['written_at_raw', 'weather_raw', 'content_raw']);
+        });
 
+        Schema::table('journal_entries', function (Blueprint $table) {
             $table->increments('id')->change();
             $table->string('weather', 1024)->change();
 
-            $table->text('raw');
+            $table->text('raw')->default('');
             $table->text('excerpt')->nullable();
         });
     }
