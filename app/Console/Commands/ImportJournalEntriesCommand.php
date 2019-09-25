@@ -47,8 +47,7 @@ class ImportJournalEntriesCommand extends Command
         {
             foreach ($parsed_entries as $parsed_entry)
             {
-                $journal_entry = new JournalEntry;
-                $journal_entry->written_at = $parsed_entry->date;
+                $journal_entry = JournalEntry::firstOrNew(['written_at' => $parsed_entry->date->toDateString()]);
                 $journal_entry->weather = $parsed_entry->weather;
                 $journal_entry->content = $parsed_entry->content;
 
