@@ -45,6 +45,12 @@ class TopicCrudController extends CrudController
             'label' => "Topic name"
         ]);
         $this->crud->addField([
+            'name' => 'slug',
+            'label' => 'Slug (URL)',
+            'type' => 'text',
+            'hint' => 'Will be automatically generated from the topic name, if left empty.',
+        ]);
+        $this->crud->addField([
             'name' => 'description',
             'type' => 'simplemde',
             'label' => "Description"
