@@ -23,29 +23,27 @@ class JournalParser
                 if ($entry) array_push($entries, (object) $entry);
 
                 $entry = [
-                    'date_raw' => $p->textContent,
                     'date' => $p->getParsedDate(),
-                    'content_raw' => '',
-                    'content' => '',
-                    'weather_raw' => null,
                     'weather' => null,
+                    'content' => '',
+                    'raw' => $p->ownerDocument->saveHTML($p),
                 ];
                 continue;
             }
 
+            $entry['raw'] .= $p->ownerDocument->saveHTML($p);
+
             if ($p->isWeather()) {
-                $entry['weather_raw'] = $p->textContent;
                 $entry['weather'] = $p->getParsedWeather();
                 continue;
             }
 
             if ($p->isPageDelimiter()) {
-                $entry['content_raw'] .= $p->ownerDocument->saveHTML($p);
+                // TODO
                 continue;
             }
 
             $entry['content'] .= $p->getParsedContent();
-            $entry['content_raw'] .= $p->ownerDocument->saveHTML($p);
         }
 
         array_push($entries, (object) $entry);
