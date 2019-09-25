@@ -49,6 +49,7 @@ class JournalEntryCrudController extends CrudController
                     'toolbar' => [
                         ['style', ['bold', 'italic', 'underline', 'clear']],
                         ['insert', ['link']],
+                        ['view', ['codeview']],
                     ],
                 ]
             ],
@@ -59,6 +60,7 @@ class JournalEntryCrudController extends CrudController
                     'toolbar' => [
                         ['style', ['bold', 'italic', 'underline', 'clear']],
                         ['insert', ['link']],
+                        ['view', ['codeview']],
                     ],
                 ]
             ],
