@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Backpack\CRUD\CrudTrait;
+use Illuminate\Support\Str;
 
 class Topic extends Model
 {
@@ -19,7 +20,7 @@ class Topic extends Model
     // protected $primaryKey = 'id';
     public $timestamps = true;
     // protected $guarded = ['id'];
-    protected $fillable = ['name', 'description'];
+    protected $fillable = ['name', 'slug', 'description'];
     // protected $hidden = [];
     // protected $dates = [];
 
@@ -28,6 +29,16 @@ class Topic extends Model
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::creating(function ($model) {
+            if (empty($model->slug)) {
+                $model->slug = Str::slug($model->name, '-');
+            }
+        });
+    }
 
     /*
     |--------------------------------------------------------------------------
