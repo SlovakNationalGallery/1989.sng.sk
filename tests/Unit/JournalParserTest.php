@@ -19,11 +19,9 @@ class JournalParserTest extends TestCase
     {
         $parsed = self::$parsed;
 
-        $this->assertEquals("1.X.1989", $parsed[0]->date_raw);
         $this->assertInstanceOf(Carbon::class, $parsed[0]->date);
         $this->assertEquals("1989-10-01", $parsed[0]->date->format('Y-m-d'));
-
-        $this->assertEquals("4. X. 1989", $parsed[3]->date_raw);
+        $this->assertEquals("1989-10-02", $parsed[1]->date->format('Y-m-d'));
         $this->assertEquals("1989-10-04", $parsed[3]->date->format('Y-m-d'));
         $this->assertCount(30, $parsed);
     }
@@ -32,16 +30,15 @@ class JournalParserTest extends TestCase
     {
         $parsed = self::$parsed;
 
-        $this->assertEquals("***Ráno +12 °C***", $parsed[0]->weather_raw);
         $this->assertEquals("Ráno +12 °C", $parsed[0]->weather);
     }
 
-    public function testExtractsContentHTMLFromPages()
+    public function testExtractsRawEntryFromPages()
     {
         $parsed = self::$parsed;
 
-        $this->assertStringStartsWith('<p><a href="#article-23911" title="Nemecká spolková republika">NSR</a>', $parsed[0]->content_raw);
-        $this->assertStringEndsWith("---</p>", $parsed[0]->content_raw);
+        $this->assertStringStartsWith('<p>1.X.1989</p>', $parsed[0]->raw);
+        $this->assertStringEndsWith("---</p>", $parsed[0]->raw);
     }
 
     public function testRemovesPageDelimitersFromParsedContent()

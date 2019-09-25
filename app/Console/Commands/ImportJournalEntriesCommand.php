@@ -50,10 +50,7 @@ class ImportJournalEntriesCommand extends Command
                 $journal_entry = JournalEntry::firstOrNew(['written_at' => $parsed_entry->date->toDateString()]);
                 $journal_entry->weather = $parsed_entry->weather;
                 $journal_entry->content = $parsed_entry->content;
-
-                $journal_entry->written_at_raw = $parsed_entry->date_raw;
-                $journal_entry->weather_raw = $parsed_entry->weather_raw;
-                $journal_entry->content_raw = $parsed_entry->content_raw;
+                $journal_entry->raw = $parsed_entry->raw;
 
                 $journal_entry->save();
             }
