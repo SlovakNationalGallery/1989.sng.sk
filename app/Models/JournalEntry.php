@@ -9,9 +9,18 @@ class JournalEntry extends Model
 {
     use CrudTrait;
 
+    protected $fillable = [
+        'written_at',
+    ];
+
     protected $dates = [
         'written_at',
     ];
+
+    public function transcriptionPages()
+    {
+        return $this->belongsToMany('App\Models\JournalTranscriptionPage');
+    }
 
     public function getFormattedContent()
     {

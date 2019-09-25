@@ -4,6 +4,7 @@ namespace App;
 
 use Carbon\Carbon;
 use DOMElement;
+use \Ds\Set;
 
 class JournalParser
 {
@@ -19,6 +20,12 @@ class JournalParser
         $entry = null;
 
         foreach ($xpath->query("//div[@class='pages']/div/div[@class='page-content']/p") as $p) {
+            if ($entry) {
+                if (!in_array($p->getTranscriptionPageId(), $entry['transcription_page_ids'])) {
+                    array_push($entry['transcription_page_ids'], $p->getTranscriptionPageId());
+                }
+            }
+
             if ($p->isDate()) {
                 if ($entry) array_push($entries, (object) $entry);
 
@@ -27,6 +34,7 @@ class JournalParser
                     'weather' => null,
                     'content' => '',
                     'raw' => $p->ownerDocument->saveHTML($p),
+                    'transcription_page_ids' => [],
                 ];
                 continue;
             }
@@ -91,5 +99,10 @@ class JournalDOMElement extends DOMElement
         $parsed = str_replace('---', "\n", $this->ownerDocument->saveHTML($this));
         $parsed = preg_replace('/<a\s+href="#article-\d+"\s+title="(.+?)">/m', '<a href="topic://${1}">', $parsed);
         return $parsed;
+    }
+
+    public function getTranscriptionPageId()
+    {
+        return (int) substr($this->parentNode->parentNode->getAttribute('id'), 5);
     }
 }

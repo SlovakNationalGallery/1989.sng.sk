@@ -54,4 +54,13 @@ class JournalParserTest extends TestCase
     {
         $this->assertStringStartsWith('<p><a href="topic://Nemecká spolková republika">NSR</a>', self::$parsed[0]->content);
     }
+
+    public function testExtractsPagesForEntries()
+    {
+        $parsed = self::$parsed;
+
+        $this->assertContains(557267, $parsed[0]->transcription_page_ids);
+        $this->assertContains(557269, $parsed[0]->transcription_page_ids);
+        $this->assertContains(557270, $parsed[0]->transcription_page_ids);
+    }
 }
