@@ -21,7 +21,7 @@ class UpdateJournalEntriesTable extends Migration
             $table->increments('id')->change();
             $table->string('weather', 1024)->change();
 
-            $table->text('raw')->default('');
+            $table->text('raw')->nullable();
             $table->text('excerpt')->nullable();
         });
     }
