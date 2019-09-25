@@ -52,6 +52,7 @@ class ImportJournalEntriesCommand extends Command
                 $journal_entry->weather = $parsed_entry->weather;
                 $journal_entry->content = $parsed_entry->content;
                 $journal_entry->raw = $parsed_entry->raw;
+                $journal_entry->save();
 
                 foreach($parsed_entry->transcription_page_ids as $transcription_page_id)
                 {
@@ -61,9 +62,6 @@ class ImportJournalEntriesCommand extends Command
                 }
 
                 $journal_entry->transcriptionPages()->sync($parsed_entry->transcription_page_ids);
-
-
-                $journal_entry->save();
             }
         });
 

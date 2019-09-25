@@ -43,6 +43,16 @@ class JournalEntryCrudController extends CrudController
             ['name' => 'written_at', 'type' => 'text', 'attributes' => ['readonly' => 'readonly']],
             ['name' => 'weather'],
             [
+                'name' => 'excerpt',
+                'type' => 'summernote',
+                'options' => [
+                    'toolbar' => [
+                        ['style', ['bold', 'italic', 'underline', 'clear']],
+                        ['insert', ['link']],
+                    ],
+                ]
+            ],
+            [
                 'name' => 'content',
                 'type' => 'summernote',
                 'options' => [

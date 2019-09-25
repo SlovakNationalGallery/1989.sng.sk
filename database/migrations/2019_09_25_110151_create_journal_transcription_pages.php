@@ -15,6 +15,15 @@ class CreateJournalTranscriptionPages extends Migration
         Schema::create('journal_transcription_pages', function (Blueprint $table) {
             $table->integer('id')->unsigned();
             $table->timestamps();
+            $table->primary('id');
+        });
+
+        Schema::create('journal_entry_journal_transcription_page', function (Blueprint $table) {
+            $table->integer('journal_entry_id')->unsigned()->index('journal_entry_transcription_page_entry_id_index');
+            $table->foreign('journal_entry_id', 'journal_entry_transcription_page_entry_id_foreign')->references('id')->on('journal_entries')->onDelete('cascade');
+            $table->integer('journal_transcription_page_id')->unsigned()->index('journal_entry_transcription_page_page_id_index');
+            $table->foreign('journal_transcription_page_id', 'journal_entry_transcription_page_page_id_foreign')->references('id')->on('journal_transcription_pages')->onDelete('cascade');
+            $table->primary(['journal_entry_id', 'journal_transcription_page_id'], 'journal_entry_journal_transcription_page_primary');
         });
     }
 
@@ -25,6 +34,7 @@ class CreateJournalTranscriptionPages extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('journal_entry_journal_transcription_page');
         Schema::dropIfExists('journal_transcription_pages');
     }
 }

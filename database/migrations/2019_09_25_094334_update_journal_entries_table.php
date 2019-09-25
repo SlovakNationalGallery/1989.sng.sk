@@ -22,6 +22,7 @@ class UpdateJournalEntriesTable extends Migration
             $table->string('weather', 1024)->change();
 
             $table->text('raw');
+            $table->text('excerpt')->nullable();
         });
     }
 
@@ -33,6 +34,7 @@ class UpdateJournalEntriesTable extends Migration
     public function down()
     {
         Schema::table('journal_entries', function (Blueprint $table) {
+            $table->dropColumn('excerpt');
             $table->dropColumn('raw');
 
             $table->text('weather')->change();
