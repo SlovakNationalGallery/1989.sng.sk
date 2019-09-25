@@ -12,4 +12,10 @@ class JournalEntry extends Model
     protected $dates = [
         'written_at',
     ];
+
+    public function getFormattedContent()
+    {
+        // TODO link to actual path
+        return preg_replace('/href="topic:\/\/(.+?)"/', 'href="/path/to/topic/${1}"', $this->content);
+    }
 }

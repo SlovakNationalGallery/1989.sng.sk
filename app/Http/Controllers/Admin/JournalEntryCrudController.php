@@ -33,14 +33,50 @@ class JournalEntryCrudController extends CrudController
         |--------------------------------------------------------------------------
         */
 
-        // TODO: remove setFromDb() and manually define Fields and Columns
-        $this->crud->setFromDb();
+        $this->crud->addColumns([
+            ['name' => 'written_at', 'type' => 'date'],
+            ['name' => 'weather', 'type' => 'string'],
+            ['name' => 'content', 'type' => 'string'],
+        ]);
+
+        $this->crud->addFields([
+            ['name' => 'written_at', 'type' => 'text', 'attributes' => ['readonly' => 'readonly']],
+            ['name' => 'weather'],
+            [
+                'name' => 'content',
+                'type' => 'summernote',
+                'options' => [
+                    'toolbar' => [
+                        ['style', ['bold', 'italic', 'underline', 'clear']],
+                        ['insert', ['link']],
+                    ],
+                ]
+            ],
+        ]);
 
         // add asterisk for fields that are required in JournalEntryRequest
         $this->crud->setRequiredFields(StoreRequest::class, 'create');
         $this->crud->setRequiredFields(UpdateRequest::class, 'edit');
 
         $this->crud->allowAccess('show');
+        $this->crud->denyAccess('delete');
+    }
+
+    public function show($id)
+    {
+        $content = parent::show($id);
+
+        $this->crud->addColumns([
+            [
+                'name' => 'content',
+                'type' => 'model_function',
+                'function_name' => 'getFormattedContent',
+                'limit' => -1,
+            ],
+        ]);
+
+
+        return $content;
     }
 
     public function store(StoreRequest $request)
