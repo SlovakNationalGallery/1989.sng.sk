@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\JournalParser;
 use App\Models\JournalEntry;
+use App\Models\JournalTranscriptionPage;
 use Illuminate\Support\Facades\DB;
 
 class ImportJournalEntriesCommand extends Command
@@ -51,6 +52,16 @@ class ImportJournalEntriesCommand extends Command
                 $journal_entry->weather = $parsed_entry->weather;
                 $journal_entry->content = $parsed_entry->content;
                 $journal_entry->raw = $parsed_entry->raw;
+
+                foreach($parsed_entry->transcription_page_ids as $transcription_page_id)
+                {
+                    JournalTranscriptionPage::firstOrCreate([
+                        'id' => $transcription_page_id
+                    ]);
+                }
+
+                $journal_entry->transcriptionPages()->sync($parsed_entry->transcription_page_ids);
+
 
                 $journal_entry->save();
             }
