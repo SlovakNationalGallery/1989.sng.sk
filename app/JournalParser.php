@@ -4,7 +4,6 @@ namespace App;
 
 use Carbon\Carbon;
 use DOMElement;
-use \Ds\Set;
 
 class JournalParser
 {
