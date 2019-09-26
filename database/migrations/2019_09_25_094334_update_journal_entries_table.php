@@ -34,8 +34,7 @@ class UpdateJournalEntriesTable extends Migration
     public function down()
     {
         Schema::table('journal_entries', function (Blueprint $table) {
-            $table->dropColumn('excerpt');
-            $table->dropColumn('raw');
+            $table->dropColumn(['excerpt', 'raw']);
 
             $table->text('weather')->change();
             $table->bigIncrements('id')->change();
