@@ -46,7 +46,7 @@ class JournalParser
             }
 
             if ($p->isPageDelimiter()) {
-                // TODO
+                // no-op
                 continue;
             }
 
