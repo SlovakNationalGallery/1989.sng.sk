@@ -14,3 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+// TODO replace with controller once implemented
+Route::get('topics/{id}', ['as' => 'topic', function ($id) {
+    return App\Models\Topic::where('slug', $id)->firstOrFail();
+}]);
