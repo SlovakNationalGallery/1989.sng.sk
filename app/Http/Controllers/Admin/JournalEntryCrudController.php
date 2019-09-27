@@ -82,7 +82,7 @@ class JournalEntryCrudController extends CrudController
             [
                 'name' => 'content',
                 'type' => 'model_function',
-                'function_name' => 'getFormattedContent',
+                'function_name' => 'getContentFormattedAttribute',
                 'limit' => -1,
             ],
         ]);
