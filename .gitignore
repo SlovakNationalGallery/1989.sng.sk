@@ -10,3 +10,9 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+public/js/app.js
+public/js/popper.js.map
+public/js/popper.js
+public/js/app.js.map
+public/js/app.js
+public/css/app.css
