@@ -15,3 +15,12 @@ mix.js('resources/js/app.js', 'public/js')
     .options({ extractVueStyles: true })
     .sass('resources/sass/app.scss', 'public/css')
     .js('node_modules/popper.js/dist/popper.js', 'public/js').sourceMaps()
+    .webpackConfig({
+        resolve: {
+          alias: {
+            'vue$': 'vue/dist/vue.runtime.common.js'
+          }
+        }
+      })
+    .js('resources/js/app-client.js', 'public/js')
+    .js('resources/js/app-server.js', 'public/js/app-server.js');

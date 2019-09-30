@@ -19,3 +19,7 @@ Route::get('/', function () {
 Route::get('/day', function () {
     return view('day');
 });
+
+Route::get('/app', function () {
+    return view('vue');
+});
