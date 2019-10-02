@@ -24,7 +24,7 @@ class JournalEntry extends Model
 
     public function tags()
     {
-        return $this->belongsToMany('App\Models\JournalTag');
+        return $this->belongsToMany('App\Models\JournalTag', null, 'entry_id', 'tag_id');
     }
 
     public function getFormattedContent()

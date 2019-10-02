@@ -7,6 +7,7 @@ use App\JournalParser;
 use App\Models\JournalEntry;
 use App\Models\JournalTranscriptionPage;
 use App\Models\JournalTag;
+use App\Models\JournalTagCategory;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
@@ -43,11 +44,12 @@ class ImportJournalEntriesCommand extends Command
      */
     public function handle()
     {
-        $html = file_get_contents($this->argument('path'));
-        $parsedEntries = JournalParser::parse($html);
+        $journal = new JournalParser(file_get_contents($this->argument('path')));
+        $parsedJournal = $journal->parse();
 
-        $this->updateOrCreateTags($parsedEntries);
-        $this->updateorCreateEntries($parsedEntries);
+        $this->updateOrCreateTagCategories($parsedJournal->tag_categories);
+        $this->updateOrCreateTags($parsedJournal->tags);
+        $this->updateorCreateEntries($parsedJournal->entries);
     }
 
     private function updateOrCreateEntries(array $parsedEntries)
@@ -75,27 +77,31 @@ class ImportJournalEntriesCommand extends Command
         });
     }
 
-    private function updateOrCreateTags(array $parsedEntries)
+    private function updateOrCreateTags(array $parsedTags)
     {
-        $tags = [];
+        $allCategories = JournalTagCategory::all();
 
-        foreach ($parsedEntries as $parsedEntry)
+        DB::transaction(function() use ($parsedTags, $allCategories)
         {
-            foreach($parsedEntry->tags as $tag)
+            foreach($parsedTags as $tag)
             {
-                if (array_key_exists($tag->id, $tags)) continue;
-                $tags[$tag->id] = $tag;
-            }
-        }
-
-        DB::transaction(function() use ($tags)
-        {
-            foreach($tags as $tag)
-            {
-                JournalTag::updateOrCreate(
+                $tagRecord = JournalTag::updateOrCreate(
                     ['id' => $tag->id],
                     ['subject' => $tag->subject]
                 );
+
+                $tagRecord->categories()->sync($allCategories->whereIn('name', $tag->categories)->pluck('id'));
+            }
+        });
+    }
+
+    private function updateOrCreateTagCategories(array $parsedCategories)
+    {
+        DB::transaction(function() use ($parsedCategories)
+        {
+            foreach($parsedCategories as $category)
+            {
+                JournalTagCategory::firstOrCreate(['name' => $category]);
             }
         });
     }

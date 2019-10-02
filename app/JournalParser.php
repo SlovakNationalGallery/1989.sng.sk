@@ -4,41 +4,64 @@ namespace App;
 
 use Carbon\Carbon;
 use DOMElement;
+use Illuminate\Support\Arr;
 
 class JournalParser
 {
-    public static function parse($xhtml)
+    private $dom;
+    private $xpath;
+
+    private $entries;
+    private $tags;
+    private $tag_categories;
+
+    public function __construct($xhtml)
     {
         $dom = new \DOMDocument;
         $dom->registerNodeClass(DOMElement::class, JournalDOMElement::class);
-
         $dom->loadHTML($xhtml);
-        $xpath = new \DOMXPath($dom);
 
-        $entries = [];
-        $tags = [];
+        $this->dom = $dom;
+        $this->xpath = new \DOMXPath($dom);
+
+        $this->entries = [];
+        $this->tags = [];
+        $this->tag_categories = [];
+    }
+
+    public function parse()
+    {
+        $this->parseTagsAndCategories();
+        $this->parseEntries();
+
+        return (object) [
+            'entries' => $this->entries,
+            'tags' => $this->tags,
+            'tag_categories' => $this->tag_categories,
+        ];
+    }
+
+    private function parseEntries()
+    {
         $entry = null;
 
-        foreach ($xpath->query('//div[@class="pages"]/div/div[@class="page-content"]/p') as $p) {
+        foreach ($this->xpath->query('//div[@class="pages"]/div/div[@class="page-content"]/p') as $p) {
             if ($entry) {
                 if (!in_array($p->getTranscriptionPageId(), $entry->transcription_page_ids)) {
                     array_push($entry->transcription_page_ids, $p->getTranscriptionPageId());
                 }
 
-                foreach ($xpath->query('a', $p) as $a) {
+                foreach ($this->xpath->query('a', $p) as $a) {
                     $tagId = (int) substr($a->getAttribute('href'), 9);
+                    $tag = $this->tags[$tagId];
 
-                    if ($entry->hasTagId($tagId)) continue;
-
-                    array_push($entry->tags, (object) [
-                        'id' => $tagId,
-                        'subject' => $a->getAttribute('title'),
-                    ]);
+                    if ($entry->hasTag($tag)) continue;
+                    array_push($entry->tags, $tag);
                 }
             }
 
             if ($p->isDate()) {
-                if ($entry) array_push($entries, (object) $entry);
+                if ($entry) $this->entries[] = $entry;
 
                 $entry = new Entry($p);
                 $entry->date = $p->getParsedDate();
@@ -62,9 +85,31 @@ class JournalParser
             $entry->content .= $p->getParsedContent();
         }
 
-        array_push($entries, (object) $entry);
+        $this->entries[] = $entry;
+    }
 
-        return $entries;
+    private function parseTagsAndCategories()
+    {
+        foreach ($this->xpath->query('//div[@class="subjects"]/div') as $tagNode)
+        {
+            $id = (int) substr($tagNode->attributes['id']->value, 8);
+
+            if (array_key_exists($id, $this->tags)) continue;
+
+            $categoryNodes = $this->xpath->query('./div[@class="article-categories"]/ul/li/small/child::node()', $tagNode);
+            $categories = Arr::pluck($categoryNodes, 'wholeText');
+
+            foreach ($categories as $category)
+            {
+                if (!in_array($category, $this->tag_categories)) $this->tag_categories[] = $category;
+            }
+
+            $this->tags[$id] = (object) [
+                'id' => $id,
+                'subject' => $this->xpath->evaluate('string(./h3[@class="article-title"][1])', $tagNode),
+                'categories' => $categories,
+            ];
+        }
     }
 }
 
@@ -84,17 +129,9 @@ class Entry
         $this->tags = [];
     }
 
-    public function hasTagId($tagId)
+    public function hasTag($tag)
     {
-        foreach ($this->tags as $existingTag)
-        {
-            if ($tagId == $existingTag->id)
-            {
-                return true;
-            }
-        }
-
-        return false;
+        return in_array($tag->id, Arr::pluck($this->tags, 'id'));
     }
 }
 
