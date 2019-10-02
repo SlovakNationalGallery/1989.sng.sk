@@ -19,7 +19,7 @@ class UpdateJournalEntriesTable extends Migration
 
         Schema::table('journal_entries', function (Blueprint $table) {
             $table->increments('id')->change();
-            $table->string('weather', 1024)->change();
+            $table->string('weather')->change();
 
             $table->text('raw')->nullable();
             $table->text('excerpt')->nullable();
