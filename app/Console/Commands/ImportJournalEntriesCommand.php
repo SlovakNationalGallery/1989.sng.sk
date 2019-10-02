@@ -6,6 +6,8 @@ use Illuminate\Console\Command;
 use App\JournalParser;
 use App\Models\JournalEntry;
 use App\Models\JournalTranscriptionPage;
+use App\Models\JournalTag;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
 class ImportJournalEntriesCommand extends Command
@@ -42,28 +44,59 @@ class ImportJournalEntriesCommand extends Command
     public function handle()
     {
         $html = file_get_contents($this->argument('path'));
-        $parsed_entries = JournalParser::parse($html);
+        $parsedEntries = JournalParser::parse($html);
 
-        DB::transaction(function () use ($parsed_entries)
+        $this->updateOrCreateTags($parsedEntries);
+        $this->updateorCreateEntries($parsedEntries);
+    }
+
+    private function updateOrCreateEntries(array $parsedEntries)
+    {
+        DB::transaction(function() use ($parsedEntries)
         {
-            foreach ($parsed_entries as $parsed_entry)
+            foreach ($parsedEntries as $parsedEntry)
             {
-                $journal_entry = JournalEntry::firstOrNew(['written_at' => $parsed_entry->date->toDateString()]);
-                $journal_entry->weather = $parsed_entry->weather;
-                $journal_entry->content = $parsed_entry->content;
-                $journal_entry->raw = $parsed_entry->raw;
-                $journal_entry->save();
+                $journalEntry = JournalEntry::firstOrNew(['written_at' => $parsedEntry->date->toDateString()]);
+                $journalEntry->weather = $parsedEntry->weather;
+                $journalEntry->content = $parsedEntry->content;
+                $journalEntry->raw = $parsedEntry->raw;
+                $journalEntry->save();
 
-                foreach($parsed_entry->transcription_page_ids as $transcription_page_id)
+                foreach($parsedEntry->transcription_page_ids as $transcription_page_id)
                 {
                     JournalTranscriptionPage::firstOrCreate([
                         'id' => $transcription_page_id
                     ]);
                 }
 
-                $journal_entry->transcriptionPages()->sync($parsed_entry->transcription_page_ids);
+                $journalEntry->tags()->sync(Arr::pluck($parsedEntry->tags, 'id'));
+                $journalEntry->transcriptionPages()->sync($parsedEntry->transcription_page_ids);
             }
         });
+    }
 
+    private function updateOrCreateTags(array $parsedEntries)
+    {
+        $tags = [];
+
+        foreach ($parsedEntries as $parsedEntry)
+        {
+            foreach($parsedEntry->tags as $tag)
+            {
+                if (array_key_exists($tag->id, $tags)) continue;
+                $tags[$tag->id] = $tag;
+            }
+        }
+
+        DB::transaction(function() use ($tags)
+        {
+            foreach($tags as $tag)
+            {
+                JournalTag::updateOrCreate(
+                    ['id' => $tag->id],
+                    ['subject' => $tag->subject]
+                );
+            }
+        });
     }
 }

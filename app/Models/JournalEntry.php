@@ -22,6 +22,11 @@ class JournalEntry extends Model
         return $this->belongsToMany('App\Models\JournalTranscriptionPage');
     }
 
+    public function tags()
+    {
+        return $this->belongsToMany('App\Models\JournalTag');
+    }
+
     public function getFormattedContent()
     {
         // TODO link to actual path

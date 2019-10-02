@@ -15,33 +15,42 @@ class JournalParser
         $dom->loadHTML($xhtml);
         $xpath = new \DOMXPath($dom);
 
-        $entries = array();
+        $entries = [];
+        $tags = [];
         $entry = null;
 
-        foreach ($xpath->query("//div[@class='pages']/div/div[@class='page-content']/p") as $p) {
+        foreach ($xpath->query('//div[@class="pages"]/div/div[@class="page-content"]/p') as $p) {
             if ($entry) {
-                if (!in_array($p->getTranscriptionPageId(), $entry['transcription_page_ids'])) {
-                    array_push($entry['transcription_page_ids'], $p->getTranscriptionPageId());
+                if (!in_array($p->getTranscriptionPageId(), $entry->transcription_page_ids)) {
+                    array_push($entry->transcription_page_ids, $p->getTranscriptionPageId());
+                }
+
+                foreach ($xpath->query('a', $p) as $a) {
+                    $tagId = (int) substr($a->getAttribute('href'), 9);
+
+                    if ($entry->hasTagId($tagId)) continue;
+
+                    array_push($entry->tags, (object) [
+                        'id' => $tagId,
+                        'subject' => $a->getAttribute('title'),
+                    ]);
                 }
             }
 
             if ($p->isDate()) {
                 if ($entry) array_push($entries, (object) $entry);
 
-                $entry = [
-                    'date' => $p->getParsedDate(),
-                    'weather' => null,
-                    'content' => '',
-                    'raw' => $p->ownerDocument->saveHTML($p),
-                    'transcription_page_ids' => [],
-                ];
+                $entry = new Entry($p);
+                $entry->date = $p->getParsedDate();
+                $entry->raw = $p->ownerDocument->saveHTML($p);
+
                 continue;
             }
 
-            $entry['raw'] .= $p->ownerDocument->saveHTML($p);
+            $entry->raw .= $p->ownerDocument->saveHTML($p);
 
             if ($p->isWeather()) {
-                $entry['weather'] = $p->getParsedWeather();
+                $entry->weather = $p->getParsedWeather();
                 continue;
             }
 
@@ -50,12 +59,42 @@ class JournalParser
                 continue;
             }
 
-            $entry['content'] .= $p->getParsedContent();
+            $entry->content .= $p->getParsedContent();
         }
 
         array_push($entries, (object) $entry);
 
         return $entries;
+    }
+}
+
+class Entry
+{
+    public $date;
+    public $weather;
+    public $content;
+    public $raw;
+    public $transcription_page_ids;
+    public $tags;
+
+    public function __construct()
+    {
+        $this->content = '';
+        $this->transcription_page_ids = [];
+        $this->tags = [];
+    }
+
+    public function hasTagId($tagId)
+    {
+        foreach ($this->tags as $existingTag)
+        {
+            if ($tagId == $existingTag->id)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
 

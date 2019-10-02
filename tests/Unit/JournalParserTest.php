@@ -63,4 +63,24 @@ class JournalParserTest extends TestCase
         $this->assertContains(557269, $parsed[0]->transcription_page_ids);
         $this->assertContains(557270, $parsed[0]->transcription_page_ids);
     }
+
+    public function testExtractsTagsForEntries()
+    {
+        $entry = self::$parsed[0];
+
+        $this->assertCount(21, $entry->tags);
+
+        $expectedFirstTag = (object) [
+            'id' => 23911,
+            'subject' => 'Nemecká spolková republika',
+        ];
+
+        $expectedLastTag = (object) [
+            'id' => 23932,
+            'subject' => 'Kozmická obranná iniciatíva',
+        ];
+
+        $this->assertEquals($expectedFirstTag, $entry->tags[0]);
+        $this->assertEquals($expectedLastTag, $entry->tags[20]);
+    }
 }
