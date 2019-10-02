@@ -11,15 +11,12 @@
 |
 */
 
+// TODO replace me wirth welcome page
 Route::get('/', function () {
-    return view('welcome');
+    return view('vue');
 });
 
 
 Route::get('/day', function () {
-    return view('day');
-});
-
-Route::get('/app', function () {
     return view('vue');
 });

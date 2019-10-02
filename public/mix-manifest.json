@@ -2,6 +2,5 @@
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
     "/js/app-client.js": "/js/app-client.js",
-    "/js/app-server.js": "/js/app-server.js",
-    "/js/popper.js": "/js/popper.js"
+    "/js/app-server.js": "/js/app-server.js"
 }
