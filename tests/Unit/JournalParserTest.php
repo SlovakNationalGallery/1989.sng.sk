@@ -12,7 +12,7 @@ class JournalParserTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        self::$parsed = JournalParser::parse(file_get_contents('tests/Unit/fixtures/10-1989.html'));
+        self::$parsed = JournalParser::parse(file_get_contents('tests/Fixtures/journal-transcription-10-1989.html'));
     }
 
     public function testExtractsDatesFromPages()
