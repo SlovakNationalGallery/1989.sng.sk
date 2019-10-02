@@ -12,75 +12,86 @@ class JournalParserTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        self::$parsed = JournalParser::parse(file_get_contents('tests/Fixtures/journal-transcription-10-1989.html'));
+        $journal = new JournalParser(file_get_contents('tests/Fixtures/journal-transcription-10-1989.html'));
+        self::$parsed = $journal->parse();
     }
 
     public function testExtractsDatesFromPages()
     {
-        $parsed = self::$parsed;
+        $entries = self::$parsed->entries;
 
-        $this->assertInstanceOf(Carbon::class, $parsed[0]->date);
-        $this->assertEquals("1989-10-01", $parsed[0]->date->format('Y-m-d'));
-        $this->assertEquals("1989-10-02", $parsed[1]->date->format('Y-m-d'));
-        $this->assertEquals("1989-10-04", $parsed[3]->date->format('Y-m-d'));
-        $this->assertCount(30, $parsed);
+        $this->assertInstanceOf(Carbon::class, $entries[0]->date);
+        $this->assertEquals("1989-10-01", $entries[0]->date->format('Y-m-d'));
+        $this->assertEquals("1989-10-02", $entries[1]->date->format('Y-m-d'));
+        $this->assertEquals("1989-10-04", $entries[3]->date->format('Y-m-d'));
+        $this->assertCount(30, $entries);
     }
 
     public function testExtractsWeatherFromPages()
     {
-        $parsed = self::$parsed;
+        $entries = self::$parsed->entries;
 
-        $this->assertEquals("Ráno +12 °C", $parsed[0]->weather);
+        $this->assertEquals("Ráno +12 °C", $entries[0]->weather);
     }
 
     public function testExtractsRawEntryFromPages()
     {
-        $parsed = self::$parsed;
+        $entries = self::$parsed->entries;
 
-        $this->assertStringStartsWith('<p>1.X.1989</p>', $parsed[0]->raw);
-        $this->assertStringEndsWith("---</p>", $parsed[0]->raw);
+        $this->assertStringStartsWith('<p>1.X.1989</p>', $entries[0]->raw);
+        $this->assertStringEndsWith("---</p>", $entries[0]->raw);
     }
 
     public function testRemovesPageDelimitersFromParsedContent()
     {
-        $parsed = self::$parsed;
+        $entries = self::$parsed->entries;
 
-        $this->assertStringStartsWith('<p><a href="topic://Nemecká spolková republika">NSR</a>', $parsed[0]->content);
-        $this->assertStringNotContainsString('---', $parsed[0]->content);
-        $this->assertStringEndsWith("7 bombových náloží –</p>", $parsed[0]->content);
+        $this->assertStringStartsWith('<p><a href="topic://Nemecká spolková republika">NSR</a>', $entries[0]->content);
+        $this->assertStringNotContainsString('---', $entries[0]->content);
+        $this->assertStringEndsWith("7 bombových náloží –</p>", $entries[0]->content);
     }
 
     public function testTurnsTopicTagHrefsIntoLinks()
     {
-        $this->assertStringStartsWith('<p><a href="topic://Nemecká spolková republika">NSR</a>', self::$parsed[0]->content);
+        $entry = self::$parsed->entries[0];
+
+        $this->assertStringStartsWith('<p><a href="topic://Nemecká spolková republika">NSR</a>', $entry->content);
     }
 
     public function testExtractsPagesForEntries()
     {
-        $parsed = self::$parsed;
+        $entry = self::$parsed->entries[0];
 
-        $this->assertContains(557267, $parsed[0]->transcription_page_ids);
-        $this->assertContains(557269, $parsed[0]->transcription_page_ids);
-        $this->assertContains(557270, $parsed[0]->transcription_page_ids);
+        $this->assertContains(557267, $entry->transcription_page_ids);
+        $this->assertContains(557269, $entry->transcription_page_ids);
+        $this->assertContains(557270, $entry->transcription_page_ids);
     }
 
     public function testExtractsTagsForEntries()
     {
-        $entry = self::$parsed[0];
+        $entry = self::$parsed->entries[0];
 
         $this->assertCount(21, $entry->tags);
 
         $expectedFirstTag = (object) [
             'id' => 23911,
             'subject' => 'Nemecká spolková republika',
+            'categories' => ['krajina'],
         ];
 
         $expectedLastTag = (object) [
             'id' => 23932,
             'subject' => 'Kozmická obranná iniciatíva',
+            'categories' => ['pojem'],
         ];
 
         $this->assertEquals($expectedFirstTag, $entry->tags[0]);
         $this->assertEquals($expectedLastTag, $entry->tags[20]);
+    }
+
+    public function testExtractsGlobalTagAndTagCategories()
+    {
+        $this->assertCount(486, self::$parsed->tags);
+        $this->assertCount(7, self::$parsed->tag_categories);
     }
 }

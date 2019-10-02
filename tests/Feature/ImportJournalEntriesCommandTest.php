@@ -28,6 +28,10 @@ class ImportJournalEntriesCommandTest extends TestCase
 
         $this->assertEquals(486, JournalTag::count());
         $this->assertCount(21, JournalEntry::first()->tags);
+
+        $tag = JournalEntry::first()->tags->first();
+        $this->assertEquals(23911, $tag->id);
+        $this->assertEquals(['krajina'], $tag->categories->pluck('name')->all());
     }
 
     private function runCommand() {
