@@ -55,6 +55,11 @@ class TopicCrudController extends CrudController
             'type' => 'simplemde',
             'label' => "Description"
         ]);
+        $this->crud->addField([
+            'name' => 'items',
+            'type' => 'items_sortable',
+            'label' => "Items"
+        ], 'update');
 
         // add asterisk for fields that are required in TopicRequest
         $this->crud->setRequiredFields(StoreRequest::class, 'create');
