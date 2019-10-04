@@ -11,8 +11,7 @@ php:
   - 7.2
 
 env:
-  - DB_DATABASE=1989_test
-  - DB_USERNAME=root
+  - DB_DATABASE=1989_test DB_USERNAME=root
 
 before_install:
   - mysql -e 'CREATE DATABASE IF NOT EXISTS 1989_test;'
