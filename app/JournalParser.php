@@ -52,7 +52,7 @@ class JournalParser
                 }
 
                 foreach ($this->xpath->query('a', $p) as $a) {
-                    $tagId = (int) substr($a->getAttribute('href'), 9);
+                    $tagId = (int) substr($a->getAttribute('href'), strlen('#article-'));
                     $tag = $this->tags[$tagId];
 
                     if ($entry->hasTag($tag)) continue;
@@ -92,7 +92,7 @@ class JournalParser
     {
         foreach ($this->xpath->query('//div[@class="subjects"]/div') as $tagNode)
         {
-            $id = (int) substr($tagNode->attributes['id']->value, 8);
+            $id = (int) substr($tagNode->attributes['id']->value, strlen('article-'));
 
             if (array_key_exists($id, $this->tags)) continue;
 
@@ -178,6 +178,6 @@ class JournalDOMElement extends DOMElement
 
     public function getTranscriptionPageId()
     {
-        return (int) substr($this->parentNode->parentNode->getAttribute('id'), 5);
+        return (int) substr($this->parentNode->parentNode->getAttribute('id'), strlen('page-'));
     }
 }
