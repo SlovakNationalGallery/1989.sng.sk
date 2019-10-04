@@ -3,6 +3,10 @@ language: php
 services:
   - mysql
 
+cache:
+  directories:
+    - $HOME/.composer/cache/files
+
 php:
   - 7.2
 
@@ -10,7 +14,6 @@ before_install:
   - mysql -e 'CREATE DATABASE IF NOT EXISTS 1989_test;'
 
 before_script:
-  - composer self-update
   - composer install --no-interaction
 
 script:
