@@ -90,7 +90,8 @@ class ImportJournalEntriesCommand extends Command
                     ['subject' => $tag->subject]
                 );
 
-                $tagRecord->categories()->sync($allCategories->whereIn('name', $tag->categories)->pluck('id'));
+                $categoryIds = $allCategories->whereIn('name', $tag->categories)->pluck('id');
+                $tagRecord->categories()->sync($categoryIds);
             }
         });
     }
