@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class JournalTranscriptionPage extends Model
 {
+    public $incrementing = false;
+
     protected $fillable = [
         'id',
     ];

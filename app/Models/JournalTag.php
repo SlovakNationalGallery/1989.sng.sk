@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class JournalTag extends Model
 {
+    public $incrementing = false;
     protected $guarded = [];
 
     public function categories()
