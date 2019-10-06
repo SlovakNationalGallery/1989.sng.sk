@@ -14,7 +14,7 @@
             @click="day.active && selectDay(day)"
           >
             {{ day.dt }}. {{ day.m }}.
-          </div>
+          </div> 
         </transition-group>
       </div>
     <button @click="nextPeriod()">〉</button>
@@ -39,7 +39,7 @@ export default {
     }
   },
   data() {
-    return {
+    return { 
       selectedIndex: this.startAt
         ? this.days.findIndex(a => a.d === this.startAt)
         : this.days.findIndex(a => a.active),

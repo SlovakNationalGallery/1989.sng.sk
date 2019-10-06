@@ -1,10 +1,10 @@
 <template>
-  <div class="cldr">
+  <div id="calendar" class="cldr">
     <span @click="showCalendar = !showCalendar">📅</span>
     <transition name="slide">
       <months-view v-if="showCalendar" :days="days" @input="setDate($event)" />
     </transition>
-    <row-view :days="days" :startAt="startAt || ''" @input="setDate($event)" />
+    <row-view :days="days" :startAt="startAtDay" @input="setDate($event)" />
   </div>
 </template>
 
@@ -13,13 +13,13 @@ import RowView from "./RowView";
 import MonthsView from "./MonthsView";
 
 import dayjs from "dayjs";
-import utc from 'dayjs/plugin/utc';
-import 'dayjs/locale/sk';
+import utc from "dayjs/plugin/utc";
+import "dayjs/locale/sk";
 dayjs.extend(utc);
-dayjs.locale('sk');
-import weekOfYear from 'dayjs/plugin/weekOfYear'
+dayjs.locale("sk");
+import weekOfYear from "dayjs/plugin/weekOfYear";
 
-dayjs.extend(weekOfYear)
+dayjs.extend(weekOfYear);
 
 export default {
   name: "Calendar",
@@ -29,27 +29,30 @@ export default {
     return {
       days: [],
       cldr: [],
+      startAtDay: this.startAt || "",
       showCalendar: false
     };
   },
   created() {
-    let day = dayjs(this.start, 'YYYY-MM-DD')
+    let day = dayjs(this.start, "YYYY-MM-DD")
       .startOf("week")
-      .subtract(1, 'week');
-    const end = dayjs(this.end, 'YYYY-MM-DD')
+      .subtract(1, "week");
+    const end = dayjs(this.end, "YYYY-MM-DD")
       .endOf("week")
-      .add(1, 'week');
+      .add(1, "week");
     this.days = [];
     while (day.isBefore(end) || day.isSame(end)) {
       const newDay = {
-        d: day.format('YYYY-MM-DD'),
+        d: day.format("YYYY-MM-DD"),
         dt: day.date(),
         m: day.format("M"),
         y: day.format("YYYY"),
         w: +day.week(),
-        active: (day.isAfter(this.start) || day.isSame(this.start)) && (day.isBefore(this.end))
+        active:
+          (day.isAfter(this.start) || day.isSame(this.start)) &&
+          day.isBefore(this.end)
       };
-      day = day.add(1, 'day');
+      day = day.add(1, "day");
       this.days.push(newDay);
     }
   },

@@ -17,9 +17,7 @@ mix.js('resources/js/app.js', 'public/js')
     .webpackConfig({
         resolve: {
           alias: {
-            'vue$': 'vue/dist/vue.runtime.common.js'
+            'vue$': 'vue/dist/vue.min.js'
           }
         }
-      })
-    .js('resources/js/app-client.js', 'public/js')
-    .js('resources/js/app-server.js', 'public/js/app-server.js');
+      });
