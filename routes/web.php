@@ -14,3 +14,40 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::get('/day', function () {
+    // TODO some intro page?
+    return redirect('/day/1989-10-01');
+});
+
+Route::get('/day/{date?}', function ($date) {
+    $days = DB::table('journal_entries')
+        ->selectRaw(' MIN(written_at) as start, MAX(written_at) as end')
+        ->first();
+
+    $entries = DB::table('journal_entries')
+        ->selectRaw('*')
+        ->where('written_at', '=', $date)
+        ->get();
+
+    if ($entries->count() > 0) {
+        return view('day', [
+            'date' => $date,
+            'daysAvailable' => json_encode($days),
+            'entries' => json_encode($entries)
+        ]);
+    } else {
+        return redirect('/day/' . $days->start);
+    }
+});
+
+
+Route::get('/api/day/{date}', function ($date) {
+    $entries = DB::table('journal_entries')
+        ->selectRaw('*')
+        ->where('written_at', '=', $date)
+        ->get();
+
+    return $entries;
+});

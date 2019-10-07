@@ -11,5 +11,15 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+mix
+  .js('resources/js/app.js', 'public/js')
+  .js('resources/js/vendor.js', 'public/js/vendor.js')
+  .sass('resources/sass/app.scss', 'public/css')
+  .webpackConfig({
+    resolve: {
+      alias: {
+        'vue$': 'vue/dist/vue.min.js'
+      }
+    }
+  })
+  .options({ extractVueStyles: true });
