@@ -78,7 +78,7 @@
              }).disableSelection();
 
              $('input.sorter').on('keypress', function (e) {
-                 if(e.which === 13){
+                 if(e.key === "Enter"){
                     var position = $(this).val();
                     $(this).closest('tr').insertAfter($(`#table tbody tr:eq(${position})`));
                     reorder();
