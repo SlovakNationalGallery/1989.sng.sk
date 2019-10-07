@@ -67,7 +67,7 @@
             });
             $('#table tbody').sortable({
                 connectWith: "#items_sort option",
-                containment: "parent",
+                axis: "y",
                 handle: ".sort-handle",
                 placeholder: "array-row item item-placeholder ui-state-highlight",
                 cursor: "move",
