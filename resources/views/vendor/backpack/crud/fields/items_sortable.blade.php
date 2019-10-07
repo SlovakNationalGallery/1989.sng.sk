@@ -3,7 +3,6 @@
     <label>{!! $field['label'] !!}</label>
 
     <table class="table table-sm table-striped" id="table">
-        {{-- <p>Connected items:</p> --}}
         <select hidden multiple name="items[]" id="items">
            @foreach ($field['value'] as $item)
                <option selected data-id="{{ $item->id  }}"  value="{{ $item->id  }}">{{ $item->name  }}</option>
