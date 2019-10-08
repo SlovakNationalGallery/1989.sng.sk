@@ -1,0 +1,1 @@
+<span><img src="{!! $entry->{$column['name']} !!}" alt="Image Preview" /></span>

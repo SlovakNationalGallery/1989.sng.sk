@@ -60,6 +60,36 @@ class ItemCrudController extends CrudController
         ]);
 
         $this->crud->addField([
+            'name' => 'separator',
+            'type' => 'custom_html',
+            'value' => '<hr>'
+        ]);
+
+         $this->crud->addField([
+            'name' => 'author',
+            'type' => 'text',
+            'label' => "Author name"
+        ]);
+
+         $this->crud->addField([
+            'name' => 'author_role',
+            'type' => 'text',
+            'label' => "Author role"
+        ]);
+
+         $this->crud->addField([
+            'label' => 'Author image',
+            'name' => 'author_image',
+            'filename' => null, // set to null if not needed
+            'type' => 'base64_image',
+            'aspect_ratio' => 1, // set to 0 to allow any aspect ratio
+            'crop' => true, // set to true to allow cropping, false to disable
+            'src' => null, // null to read straight from DB, otherwise set to model accessor function
+        ]);
+
+
+
+        $this->crud->addField([
             'type' => 'select2_multiple',
             'name' => 'topics', // the relationship name in your Model
             'entity' => 'topics', // the relationship name in your Model
@@ -128,6 +158,11 @@ class ItemCrudController extends CrudController
             'entity' => 'topics',
             'attribute' => "name",
             'model' => "App\Models\Topic", // foreign key model
+        ]);
+        $this->crud->addColumn([
+            'name' => 'author_image',
+            'type' => 'base64_image',
+            'label' => "Author image"
         ]);
         $this->crud->addColumn([
             'name' => 'created_at',
