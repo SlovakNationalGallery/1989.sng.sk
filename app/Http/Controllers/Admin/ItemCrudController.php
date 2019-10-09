@@ -35,7 +35,7 @@ class ItemCrudController extends CrudController
 
         // TODO: remove setFromDb() and manually define Fields and Columns
         // $this->crud->setFromDb();
-        $this->crud->setColumns(['name', 'type']);
+        $this->crud->setColumns(['name', 'author', 'type', 'updated_at']);
         $this->crud->allowAccess('show'); // to show a "preview" button https://backpackforlaravel.com/docs/3.4/crud-buttons#default-buttons
 
         $this->crud->addField([
@@ -58,6 +58,48 @@ class ItemCrudController extends CrudController
             'type' => 'browse',
             'label' => "Media"
         ]);
+
+         $available_sources = \App\Models\Item::pluck('source', 'source');
+         $this->crud->addField([
+            'name' => 'source',
+            'label' => 'Source',
+            'type' => 'select2_from_array_allow_new',
+            'options' => $available_sources,
+            'allows_null' => true,
+        ]);
+
+        $this->crud->addField([
+            'name' => 'separator',
+            'type' => 'custom_html',
+            'value' => '<hr>'
+        ]);
+
+         $available_authors = \App\Models\Item::pluck('author', 'author');
+         $this->crud->addField([
+            'name' => 'author',
+            'label' => 'Author name',
+            'type' => 'select2_from_array_allow_new',
+            'options' => $available_authors,
+            'allows_null' => true,
+        ]);
+
+         $this->crud->addField([
+            'name' => 'author_role',
+            'type' => 'text',
+            'label' => "Author role"
+        ]);
+
+         $this->crud->addField([
+            'label' => 'Author image',
+            'name' => 'author_image',
+            'filename' => null,
+            'type' => 'base64_image',
+            'aspect_ratio' => 1, // crop to square
+            'crop' => true,
+            'src' => null, // null to read straight from DB, otherwise set to model accessor function
+        ]);
+
+
 
         $this->crud->addField([
             'type' => 'select2_multiple',
@@ -97,17 +139,6 @@ class ItemCrudController extends CrudController
     {
         $content = parent::show($id);
 
-        // $this->crud->addColumn([
-        //     'name' => 'table',
-        //     'label' => 'Table',
-        //     'type' => 'table',
-        //     'columns' => [
-        //         'name'  => 'Name',
-        //         'desc'  => 'Description',
-        //         'price' => 'Price',
-        //     ]
-        // ]);
-
         $this->crud->addColumn('name');
         $this->crud->addColumn('type');
         $this->crud->addColumn([
@@ -128,6 +159,11 @@ class ItemCrudController extends CrudController
             'entity' => 'topics',
             'attribute' => "name",
             'model' => "App\Models\Topic", // foreign key model
+        ]);
+        $this->crud->addColumn([
+            'name' => 'author_image',
+            'type' => 'base64_image',
+            'label' => "Author image"
         ]);
         $this->crud->addColumn([
             'name' => 'created_at',
