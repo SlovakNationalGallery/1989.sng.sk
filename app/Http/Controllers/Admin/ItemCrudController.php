@@ -92,10 +92,10 @@ class ItemCrudController extends CrudController
          $this->crud->addField([
             'label' => 'Author image',
             'name' => 'author_image',
-            'filename' => null, // set to null if not needed
+            'filename' => null,
             'type' => 'base64_image',
-            'aspect_ratio' => 1, // set to 0 to allow any aspect ratio
-            'crop' => true, // set to true to allow cropping, false to disable
+            'aspect_ratio' => 1, // crop to square
+            'crop' => true,
             'src' => null, // null to read straight from DB, otherwise set to model accessor function
         ]);
 
