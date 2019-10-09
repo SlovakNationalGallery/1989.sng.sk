@@ -41,31 +41,36 @@ class ItemCrudController extends CrudController
         $this->crud->addField([
             'name' => 'name',
             'type' => 'text',
-            'label' => "Item name"
+            'label' => 'Item name'
         ]);
         $this->crud->addField([
             'name' => 'type',
             'type' => 'enum',
-            'label' => "Type"
+            'label' => 'Type'
         ]);
         $this->crud->addField([
             'name' => 'text',
             'type' => 'simplemde',
-            'label' => "Text"
+            'label' => 'Text'
         ]);
         $this->crud->addField([
             'name' => 'file',
             'type' => 'browse',
-            'label' => "Media"
+            'label' => 'Media'
+        ]);
+        $this->crud->addField([
+             'name' => 'iip_path',
+             'type' => 'text',
+             'label' => 'IIP path'
         ]);
 
-         $available_sources = \App\Models\Item::pluck('source', 'source');
-         $this->crud->addField([
-            'name' => 'source',
-            'label' => 'Source',
-            'type' => 'select2_from_array_allow_new',
-            'options' => $available_sources,
-            'allows_null' => true,
+        $available_sources = \App\Models\Item::pluck('source', 'source');
+        $this->crud->addField([
+           'name' => 'source',
+           'label' => 'Source',
+           'type' => 'select2_from_array_allow_new',
+           'options' => $available_sources,
+           'allows_null' => true,
         ]);
 
         $this->crud->addField([
@@ -99,7 +104,11 @@ class ItemCrudController extends CrudController
             'src' => null, // null to read straight from DB, otherwise set to model accessor function
         ]);
 
-
+        $this->crud->addField([
+             'name' => 'year',
+             'type' => 'text',
+             'label' => 'Year'
+        ]);
 
         $this->crud->addField([
             'type' => 'select2_multiple',
