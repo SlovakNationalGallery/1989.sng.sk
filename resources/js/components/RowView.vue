@@ -135,8 +135,6 @@ export default {
   cursor: pointer;
   text-align: center;
   transition: all 0.5s;
-
-  /* transition: background-color 0.1s ease-in-out; */
 }
 
 .cldr-row-day.selected {
