@@ -24,6 +24,7 @@ class Item extends Model
         'type',
         'text',
         'file',
+        'source',
         'author',
         'author_role',
         'author_image',

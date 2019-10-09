@@ -59,6 +59,15 @@ class ItemCrudController extends CrudController
             'label' => "Media"
         ]);
 
+         $available_sources = \App\Models\Item::pluck('source', 'source');
+         $this->crud->addField([
+            'name' => 'source',
+            'label' => 'Source',
+            'type' => 'select2_from_array_allow_new',
+            'options' => $available_sources,
+            'allows_null' => true,
+        ]);
+
         $this->crud->addField([
             'name' => 'separator',
             'type' => 'custom_html',
