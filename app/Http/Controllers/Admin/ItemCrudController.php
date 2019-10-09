@@ -65,10 +65,13 @@ class ItemCrudController extends CrudController
             'value' => '<hr>'
         ]);
 
+         $available_authors = \App\Models\Item::pluck('author', 'author');
          $this->crud->addField([
             'name' => 'author',
-            'type' => 'text',
-            'label' => "Author name"
+            'label' => 'Author name',
+            'type' => 'select2_from_array_allow_new',
+            'options' => $available_authors,
+            'allows_null' => true,
         ]);
 
          $this->crud->addField([
