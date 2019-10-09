@@ -1,4 +1,4 @@
-<!-- field_type_name -->
+<!-- items sortable -->
 <div @include('crud::inc.field_wrapper_attributes') >
     <label>{!! $field['label'] !!}</label>
 
