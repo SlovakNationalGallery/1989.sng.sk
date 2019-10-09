@@ -62,6 +62,49 @@ class TopicCrudController extends CrudController
             'label' => "Items"
         ], 'update');
 
+        $this->crud->addField([
+            'name' => 'previous_topic',
+            'label' => 'Previous Topic',
+            'type' => 'topic_link',
+            'entity' => 'previousTopic',
+        ]);
+
+        $this->crud->addField([
+            'name' => 'previous_topic_blurb',
+            'label' => '',
+            'type' => 'textarea',
+            'attributes' => [
+                'placeholder' => 'Intro text about previous topic',
+            ],
+            'wrapperAttributes' => [
+                'style' => 'margin-top: -2em',
+            ]
+        ]);
+
+        $this->crud->addField([
+            'label' => "Next Topic",
+            'type' => 'select',
+            'name' => 'next_topic_id',
+            'entity' => 'nextTopic',
+            'attribute' => 'name',
+            'model' => "App\Models\Topic",
+            'options'   => (function ($query) {
+                 return $query->orderBy('name', 'ASC')->get();
+             }),
+        ]);
+
+        $this->crud->addField([
+            'name' => 'next_topic_blurb',
+            'label' => '',
+            'type' => 'textarea',
+            'attributes' => [
+                'placeholder' => 'Intro text about next topic',
+            ],
+            'wrapperAttributes' => [
+                'style' => 'margin-top: -2em',
+            ]
+        ]);
+
         // add asterisk for fields that are required in TopicRequest
         $this->crud->setRequiredFields(StoreRequest::class, 'create');
         $this->crud->setRequiredFields(UpdateRequest::class, 'edit');
@@ -134,6 +177,27 @@ class TopicCrudController extends CrudController
             'name' => 'created_at',
             'label' => 'Created At',
             'type' => 'datetime'
+        ]);
+        $this->crud->removeColumn('previous_topic');
+        $this->crud->addColumn([
+            'label' => 'Previous Topic',
+            'name' => 'previous_topic',
+            'type' => 'topic_link',
+            'entity' => 'previousTopic',
+        ]);
+        $this->crud->addColumn([
+            'label' => '',
+            'name' => 'previous_topic',
+            'type' => 'topic_link',
+            'entity' => 'previousTopic',
+        ]);
+
+        $this->crud->removeColumn('next_topic');
+        $this->crud->addColumn([
+            'label' => 'Next Topic',
+            'name' => 'next_topic',
+            'type' => 'topic_link',
+            'entity' => 'nextTopic',
         ]);
 
 

@@ -20,7 +20,14 @@ class Topic extends Model
     // protected $primaryKey = 'id';
     public $timestamps = true;
     // protected $guarded = ['id'];
-    protected $fillable = ['name', 'slug', 'description', 'next_topic_id'];
+    protected $fillable = [
+        'name',
+        'slug',
+        'description',
+        'next_topic_id',
+        'previous_topic_blurb',
+        'next_topic_blurb',
+    ];
     // protected $hidden = [];
     // protected $dates = [];
 
