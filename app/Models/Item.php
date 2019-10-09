@@ -19,16 +19,7 @@ class Item extends Model
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     // protected $guarded = ['id'];
-    protected $fillable = [
-        'name',
-        'type',
-        'text',
-        'file',
-        'source',
-        'author',
-        'author_role',
-        'author_image',
-    ];
+    protected $fillable = ['name', 'type', 'text', 'file'];
     // protected $hidden = [];
     // protected $dates = [];
 
