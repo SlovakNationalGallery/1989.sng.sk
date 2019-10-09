@@ -20,7 +20,7 @@ class Topic extends Model
     // protected $primaryKey = 'id';
     public $timestamps = true;
     // protected $guarded = ['id'];
-    protected $fillable = ['name', 'slug', 'description'];
+    protected $fillable = ['name', 'slug', 'description', 'next_topic_id'];
     // protected $hidden = [];
     // protected $dates = [];
 
@@ -49,6 +49,16 @@ class Topic extends Model
     public function items()
     {
         return $this->belongsToMany('App\Models\Item')->using('App\Models\ItemTopic')->withPivot('order')->orderBy('order', 'asc');
+    }
+
+    public function nextTopic()
+    {
+        return $this->belongsTo(self::class);
+    }
+
+    public function previousTopic()
+    {
+        return $this->belongsTo(self::class);
     }
 
 

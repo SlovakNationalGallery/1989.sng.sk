@@ -7,6 +7,7 @@ use Backpack\CRUD\app\Http\Controllers\CrudController;
 // VALIDATION: change the requests to match your own file names if you need form validation
 use App\Http\Requests\TopicRequest as StoreRequest;
 use App\Http\Requests\TopicRequest as UpdateRequest;
+use App\Http\Requests\TopicRequest;
 use Backpack\CRUD\CrudPanel;
 
 /**
@@ -72,6 +73,8 @@ class TopicCrudController extends CrudController
         $redirect_location = parent::storeCrud($request);
         // your additional operations after save here
         // use $this->data['entry'] or $this->crud->entry
+        $this->setPreviousTopic($request);
+
         return $redirect_location;
     }
 
@@ -88,6 +91,8 @@ class TopicCrudController extends CrudController
             $items[$item_id] = ['order' => $order];
         }
         $entry->items()->sync($items);
+
+        $this->setPreviousTopic($request);
 
         return $redirect_location;
     }
@@ -134,5 +139,13 @@ class TopicCrudController extends CrudController
 
 
         return $content;
+    }
+
+    private function setPreviousTopic(TopicRequest $request) {
+        if ($request->get('next_topic_id') == null) return;
+
+        $topic = $this->crud->entry;
+        $nextTopic = $topic->nextTopic;
+        $nextTopic->previousTopic()->associate($topic)->save();
     }
 }
