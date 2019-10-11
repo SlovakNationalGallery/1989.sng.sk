@@ -55,6 +55,11 @@ class TopicCrudController extends CrudController
             'type' => 'simplemde',
             'label' => "Description"
         ]);
+        $this->crud->addField([
+            'name' => 'items',
+            'type' => 'items_sortable',
+            'label' => "Items"
+        ], 'update');
 
         // add asterisk for fields that are required in TopicRequest
         $this->crud->setRequiredFields(StoreRequest::class, 'create');
@@ -74,8 +79,16 @@ class TopicCrudController extends CrudController
     {
         // your additional operations before save here
         $redirect_location = parent::updateCrud($request);
+
         // your additional operations after save here
         // use $this->data['entry'] or $this->crud->entry
+        $entry = $this->crud->getCurrentEntry();
+        $items = [];
+        foreach ($request->get('items_sort', []) as $item_id => $order) {
+            $items[$item_id] = ['order' => $order];
+        }
+        $entry->items()->sync($items);
+
         return $redirect_location;
     }
 
