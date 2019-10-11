@@ -100,7 +100,10 @@ class TopicCrudController extends CrudController
             'attribute' => 'name',
             'model' => 'App\Models\Topic',
             'options'   => (function ($query) {
-                 return $query->orderBy('name', 'ASC')->get();
+                $entryId = $this->crud->getCurrentEntryId();
+                if ($entryId) $query = $query->where('id', '!=', $entryId);
+
+                return $query->orderBy('name', 'ASC')->get();
              }),
         ]);
 
