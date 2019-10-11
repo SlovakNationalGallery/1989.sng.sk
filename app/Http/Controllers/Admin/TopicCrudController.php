@@ -17,6 +17,15 @@ use Backpack\CRUD\CrudPanel;
  */
 class TopicCrudController extends CrudController
 {
+    private static $ITEMS_COLUMN = [
+        'name' => 'items',
+        'label' => "Items",
+        'type' => "select_multiple",
+        'entity' => 'items',
+        'attribute' => "name",
+        'model' => "App\Models\Topic"
+    ];
+
     public function setup()
     {
         /*
@@ -34,11 +43,8 @@ class TopicCrudController extends CrudController
         |--------------------------------------------------------------------------
         */
 
-        // TODO: remove setFromDb() and manually define Fields and Columns
-        // $this->crud->setFromDb();
-        $this->crud->setColumns(['name', 'slug']);
+        $this->crud->setColumns(['name', self::$ITEMS_COLUMN]);
         $this->crud->allowAccess('show'); // to show a "preview" button https://backpackforlaravel.com/docs/3.4/crud-buttons#default-buttons
-
 
         $this->crud->addField([
             'name' => 'name',
@@ -55,6 +61,11 @@ class TopicCrudController extends CrudController
             'name' => 'description',
             'type' => 'simplemde',
             'label' => "Description"
+        ]);
+        $this->crud->addField([
+            'name' => 'cover_image',
+            'type' => 'browse',
+            'label' => 'Cover Image'
         ]);
         $this->crud->addField([
             'name' => 'items',
@@ -143,64 +154,36 @@ class TopicCrudController extends CrudController
     public function show($id)
     {
         $content = parent::show($id);
-
-        // $this->crud->with('items');
-
-        // $this->crud->addColumn([
-        //     'name' => 'items',
-        //     'label' => 'Items',
-        //     'type' => 'table',
-        //     'columns' => [
-        //         'id'  => 'ID',
-        //         'type'  => 'Type',
-        //         'name'  => 'Name',
-        //         'text'  => 'Text',
-        //     ]
-        // ]);
-
-        $this->crud->addColumn('name');
-        // $this->crud->addColumn('type');
-        $this->crud->addColumn([
-            'name' => 'description',
-            'label' => 'Description',
-            'type' => 'markdown'
+        $this->crud->setColumns([
+            'name',
+            'slug',
+            [
+                'name' => 'description',
+                'label' => 'Description',
+                'type' => 'markdown'
+            ],
+            [
+                'name' => 'cover_image',
+                'type' => 'image',
+                'width' => '400px',
+                'height' => '300px',
+            ],
+            self::$ITEMS_COLUMN,
+            [
+                'name' => 'previous_topic',
+                'label' => 'Previous Topic',
+                'type' => 'topic_link',
+                'entity' => 'previousTopic',
+            ],
+            'previous_topic_blurb',
+            [
+                'label' => 'Next Topic',
+                'name' => 'next_topic',
+                'type' => 'topic_link',
+                'entity' => 'nextTopic',
+            ],
+            'next_topic_blurb',
         ]);
-        $this->crud->addColumn([
-            'label' => "Items",
-            'type' => "select_multiple",
-            'name' => 'items',
-            'entity' => 'items',
-            'attribute' => "name",
-            'model' => "App\Models\Topic", // foreign key model
-        ]);
-        $this->crud->addColumn([
-            'name' => 'created_at',
-            'label' => 'Created At',
-            'type' => 'datetime'
-        ]);
-        $this->crud->removeColumn('previous_topic');
-        $this->crud->addColumn([
-            'label' => 'Previous Topic',
-            'name' => 'previous_topic',
-            'type' => 'topic_link',
-            'entity' => 'previousTopic',
-        ]);
-        $this->crud->addColumn([
-            'label' => '',
-            'name' => 'previous_topic',
-            'type' => 'topic_link',
-            'entity' => 'previousTopic',
-        ]);
-
-        $this->crud->removeColumn('next_topic');
-        $this->crud->addColumn([
-            'label' => 'Next Topic',
-            'name' => 'next_topic',
-            'type' => 'topic_link',
-            'entity' => 'nextTopic',
-        ]);
-
-
 
         return $content;
     }

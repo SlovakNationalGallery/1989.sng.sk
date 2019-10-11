@@ -22,6 +22,8 @@ class UpdateTopics extends Migration
 
             $table->string('next_topic_blurb')->nullable();
             $table->string('previous_topic_blurb')->nullable();
+
+            $table->string('cover_image');
         });
     }
 
@@ -33,7 +35,7 @@ class UpdateTopics extends Migration
     public function down()
     {
         Schema::table('topics', function (Blueprint $table) {
-            $table->dropColumn(['previous_topic_blurb', 'next_topic_blurb']);
+            $table->dropColumn(['cover_image', 'previous_topic_blurb', 'next_topic_blurb']);
             $table->dropForeign(['previous_topic_id']);
             $table->dropForeign(['next_topic_id']);
             $table->dropColumn(['previous_topic_id', 'next_topic_id']);
