@@ -12,5 +12,6 @@ $factory->define(Topic::class, function (Faker $faker) {
         'name' => $name,
         'slug' => Str::slug($name, '-'),
         'description' => $faker->text(),
+        'cover_image' => $faker->image(),
     ];
 });
