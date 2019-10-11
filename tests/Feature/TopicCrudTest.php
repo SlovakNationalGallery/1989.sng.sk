@@ -23,8 +23,7 @@ class TopicCrudTest extends TestCase
 
         $response = $this->actingAs($user, 'backpack')
                          ->followingRedirects()
-                         ->patch(url($controller->crud->getRoute(), $topic1->id), ['id' => $topic1->id, 'next_topic_id' => $topic2->id]);
-
+                         ->patch(url($controller->crud->getRoute(), $topic1->id), array_merge($topic1->getAttributes(), ['next_topic_id' => $topic2->id]));
         $response->assertStatus(200);
 
         $topic1->refresh();
