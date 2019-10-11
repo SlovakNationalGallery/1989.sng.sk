@@ -19,11 +19,11 @@ class TopicCrudController extends CrudController
 {
     private static $ITEMS_COLUMN = [
         'name' => 'items',
-        'label' => "Items",
-        'type' => "select_multiple",
+        'label' => 'Items',
+        'type' => 'select_multiple',
         'entity' => 'items',
-        'attribute' => "name",
-        'model' => "App\Models\Topic"
+        'attribute' => 'name',
+        'model' => 'App\Models\Topic'
     ];
 
     public function setup()
@@ -49,7 +49,7 @@ class TopicCrudController extends CrudController
         $this->crud->addField([
             'name' => 'name',
             'type' => 'text',
-            'label' => "Topic name"
+            'label' => 'Topic name'
         ]);
         $this->crud->addField([
             'name' => 'slug',
@@ -60,7 +60,7 @@ class TopicCrudController extends CrudController
         $this->crud->addField([
             'name' => 'description',
             'type' => 'simplemde',
-            'label' => "Description"
+            'label' => 'Description'
         ]);
         $this->crud->addField([
             'name' => 'cover_image',
@@ -70,7 +70,7 @@ class TopicCrudController extends CrudController
         $this->crud->addField([
             'name' => 'items',
             'type' => 'items_sortable',
-            'label' => "Items"
+            'label' => 'Items'
         ], 'update');
 
         $this->crud->addField([
@@ -93,12 +93,12 @@ class TopicCrudController extends CrudController
         ]);
 
         $this->crud->addField([
-            'label' => "Next Topic",
+            'label' => 'Next Topic',
             'type' => 'select',
             'name' => 'next_topic_id',
             'entity' => 'nextTopic',
             'attribute' => 'name',
-            'model' => "App\Models\Topic",
+            'model' => 'App\Models\Topic',
             'options'   => (function ($query) {
                  return $query->orderBy('name', 'ASC')->get();
              }),
