@@ -45,7 +45,7 @@ class ItemCrudController extends CrudController
         ]);
         $this->crud->addField([
             'name' => 'type',
-            'type' => 'enum',
+            'type' => 'enum_toggle_other_fields',
             'label' => 'Type'
         ]);
         $this->crud->addField([
@@ -56,12 +56,18 @@ class ItemCrudController extends CrudController
         $this->crud->addField([
             'name' => 'file',
             'type' => 'browse',
-            'label' => 'Media'
+            'label' => 'Media',
+            'wrapperAttributes' => [
+               'data-only-for-type' => 'image sound video slogan'
+             ],
         ]);
         $this->crud->addField([
              'name' => 'iip_path',
              'type' => 'text',
-             'label' => 'IIP path'
+             'label' => 'IIP path',
+             'wrapperAttributes' => [
+                'data-only-for-type' => 'image'
+              ],
         ]);
 
         $available_sources = \App\Models\Item::pluck('source', 'source');
@@ -102,6 +108,9 @@ class ItemCrudController extends CrudController
             'aspect_ratio' => 1, // crop to square
             'crop' => true,
             'src' => null, // null to read straight from DB, otherwise set to model accessor function
+            'wrapperAttributes' => [
+               'data-only-for-type' => 'quotation author_text'
+             ],
         ]);
 
         $this->crud->addField([
