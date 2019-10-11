@@ -1,6 +1,6 @@
 <!-- topic_link -->
 @php
-    $topic = $entry->{$field['entity']};
+    $topic = isset($entry) ? $entry->{$field['entity']} : null;
 @endphp
 
 <div @include('crud::inc.field_wrapper_attributes') >
