@@ -27,6 +27,7 @@ class Topic extends Model
         'next_topic_id',
         'previous_topic_blurb',
         'next_topic_blurb',
+        'cover_image',
     ];
     // protected $hidden = [];
     // protected $dates = [];
