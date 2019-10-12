@@ -28,6 +28,8 @@ class Item extends Model
         'author',
         'author_role',
         'author_image',
+        'iip_path',
+        'year',
     ];
     // protected $hidden = [];
     // protected $dates = [];
