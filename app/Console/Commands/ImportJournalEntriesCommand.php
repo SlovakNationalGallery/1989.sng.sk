@@ -56,6 +56,8 @@ class ImportJournalEntriesCommand extends Command
     {
         DB::transaction(function() use ($parsedEntries)
         {
+            $allTags = JournalTag::all();
+
             foreach ($parsedEntries as $parsedEntry)
             {
                 $journalEntry = JournalEntry::firstOrNew(['written_at' => $parsedEntry->date->toDateString()]);
@@ -71,7 +73,9 @@ class ImportJournalEntriesCommand extends Command
                     ]);
                 }
 
-                $journalEntry->tags()->sync(Arr::pluck($parsedEntry->tags, 'id'));
+                $entryTagIds = $allTags->whereIn('subject', Arr::pluck($parsedEntry->tags, 'subject'))->pluck('id');
+
+                $journalEntry->tags()->sync($entryTagIds);
                 $journalEntry->transcriptionPages()->sync($parsedEntry->transcription_page_ids);
             }
         });
@@ -79,16 +83,13 @@ class ImportJournalEntriesCommand extends Command
 
     private function updateOrCreateTags(array $parsedTags)
     {
-        $allCategories = JournalTagCategory::all();
-
-        DB::transaction(function() use ($parsedTags, $allCategories)
+        DB::transaction(function() use ($parsedTags)
         {
+            $allCategories = JournalTagCategory::all();
+
             foreach($parsedTags as $tag)
             {
-                $tagRecord = JournalTag::updateOrCreate(
-                    ['id' => $tag->id],
-                    ['subject' => $tag->subject]
-                );
+                $tagRecord = JournalTag::firstOrCreate(['subject' => $tag->subject]);
 
                 $categoryIds = $allCategories->whereIn('name', $tag->categories)->pluck('id');
                 $tagRecord->categories()->sync($categoryIds);
