@@ -145,11 +145,11 @@ class JournalDOMElement extends DOMElement
     public function getParsedDate()
     {
         $trimmed = preg_replace('/\s/', '', $this->textContent);
-        $trimmed = str_replace('.VIII.', '.9.', $trimmed);
+        $trimmed = str_replace('.VIII.', '.8.', $trimmed);
         $trimmed = str_replace('.IX.', '.9.', $trimmed);
         $trimmed = str_replace('.X.',  '.10.', $trimmed);
         $trimmed = str_replace('.XI.', '.11.', $trimmed);
-        $trimmed = str_replace('.XII.', '.11.', $trimmed);
+        $trimmed = str_replace('.XII.', '.12.', $trimmed);
 
         return Carbon::createFromFormat('d.m.Y', $trimmed);
     }
