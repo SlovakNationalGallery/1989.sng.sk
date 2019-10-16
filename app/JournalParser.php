@@ -46,20 +46,6 @@ class JournalParser
         $entry = null;
 
         foreach ($this->xpath->query('//div[@class="pages"]/div/div[@class="page-content"]/p') as $p) {
-            if ($entry) {
-                if (!in_array($p->getTranscriptionPageId(), $entry->transcription_page_ids)) {
-                    array_push($entry->transcription_page_ids, $p->getTranscriptionPageId());
-                }
-
-                foreach ($this->xpath->query('a', $p) as $a) {
-                    $tagId = (int) substr($a->getAttribute('href'), strlen('#article-'));
-                    $tag = $this->tags[$tagId];
-
-                    if ($entry->hasTag($tag)) continue;
-                    array_push($entry->tags, $tag);
-                }
-            }
-
             if ($p->isDate()) {
                 if ($entry) $this->entries[] = $entry;
 
@@ -68,6 +54,18 @@ class JournalParser
                 $entry->raw = $p->ownerDocument->saveHTML($p);
 
                 continue;
+            }
+
+            if (!in_array($p->getTranscriptionPageId(), $entry->transcription_page_ids)) {
+                array_push($entry->transcription_page_ids, $p->getTranscriptionPageId());
+            }
+
+            foreach ($this->xpath->query('a', $p) as $a) {
+                $tagId = (int) substr($a->getAttribute('href'), strlen('#article-'));
+                $tag = $this->tags[$tagId];
+
+                if ($entry->hasTag($tag)) continue;
+                array_push($entry->tags, $tag);
             }
 
             $entry->raw .= $p->ownerDocument->saveHTML($p);

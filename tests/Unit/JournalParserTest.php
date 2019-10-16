@@ -60,11 +60,15 @@ class JournalParserTest extends TestCase
 
     public function testExtractsPagesForEntries()
     {
-        $entry = self::$parsed->entries[0];
+        $entryEndingMidPage = self::$parsed->entries[0];
 
-        $this->assertContains(557267, $entry->transcription_page_ids);
-        $this->assertContains(557269, $entry->transcription_page_ids);
-        $this->assertContains(557270, $entry->transcription_page_ids);
+        $this->assertContains(557267, $entryEndingMidPage->transcription_page_ids);
+        $this->assertContains(557269, $entryEndingMidPage->transcription_page_ids);
+        $this->assertContains(557270, $entryEndingMidPage->transcription_page_ids);
+
+        $entryEndingWithPage = self::$parsed->entries[1];
+        $this->assertContains(557270, $entryEndingWithPage->transcription_page_ids);
+        $this->assertNotContains(557271, $entryEndingWithPage->transcription_page_ids);
     }
 
     public function testExtractsTagsForEntries()
