@@ -22,3 +22,4 @@ Route::get('/day', function () {
 });
 
 Route::get('/day/{date?}', 'DayController@dayViewParams')->name('day');
+Route::resource('journal-entries', 'JournalEntryController');

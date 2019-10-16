@@ -17,6 +17,11 @@ class JournalEntry extends Model
         'written_at',
     ];
 
+    public function getRouteKeyName()
+    {
+        return 'written_at';
+    }
+
     public function transcriptionPages()
     {
         return $this->belongsToMany('App\Models\JournalTranscriptionPage');
