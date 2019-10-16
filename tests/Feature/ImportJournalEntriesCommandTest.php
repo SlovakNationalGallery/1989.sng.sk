@@ -35,6 +35,6 @@ class ImportJournalEntriesCommandTest extends TestCase
     }
 
     private function runCommand() {
-        $this->artisan('journal:import', ['path' => 'tests/Fixtures/journal-transcription-10-1989.html']);
+        $this->artisan('journal:import', ['--path' => 'tests/Fixtures/journal-transcription-10-1989.html']);
     }
 }
