@@ -11,6 +11,6 @@
         @endforeach
     </div>
     <div>
-        {!! $entry->content !!}
+        {!! $entry->content_formatted !!}
     </div>
 @stop

@@ -32,9 +32,11 @@ class JournalEntry extends Model
         return $this->belongsToMany('App\Models\JournalTag', null, 'entry_id', 'tag_id');
     }
 
-    public function getFormattedContent()
+    public function getContentFormattedAttribute()
     {
-        // TODO link to actual path
-        return preg_replace('/href="topic:\/\/(.+?)"/', 'href="/path/to/topic/${1}"', $this->content);
+        return preg_replace_callback('/href="topic:\/\/(.+?)"/', function($matches) {
+            return 'href="' . route('journal-entries.index', ['tag' => $matches[1]]) . '" ' .
+                   'title="' . $matches[1] . '"';
+        }, $this->content);
     }
 }
