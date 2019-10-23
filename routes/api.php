@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Resources\JournalEntry as JournalEntryResource;
 use App\Models\JournalEntry;
 use Illuminate\Http\Request;
 
@@ -18,6 +19,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/day/{date}', function ($date) {
-    return JournalEntry::where('written_at', '=', $date)->get();
-})->name('api.day');
+Route::get('/journal-entries/{journalEntry}', function (JournalEntry $journalEntry) {
+    return JournalEntryResource::make($journalEntry);
+})->name('api.journal-entries.show');
