@@ -63,7 +63,7 @@
             // wannabe vue-router replacement for now
             dayClbck: function($day) {
                 this.startAt = $day;
-                axios.get("{{route('api.day',[':day:'])}}".replace(':day:', $day))
+                axios.get("{{route('api.journal-entries.show',[':day:'])}}".replace(':day:', $day))
                     .then((res) => {
                         window.history.replaceState({
                             day: $day
