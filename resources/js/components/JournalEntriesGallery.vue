@@ -19,10 +19,9 @@ import dayjs from "dayjs"
 
 export default {
   name: "JournalEntriesGallery",
-  props: ['date'],
+  props: ['date', 'filter'],
   data() {
     return {
-      filter: null,
       availableDays: [],
     }
   },

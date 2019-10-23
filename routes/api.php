@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Resources\JournalEntry as JournalEntryResource;
+use App\Http\Resources\JournalEntryCollection;
 use App\Models\JournalEntry;
 use Illuminate\Http\Request;
 
@@ -22,3 +23,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/journal-entries/{journalEntry}', function (JournalEntry $journalEntry) {
     return JournalEntryResource::make($journalEntry);
 })->name('api.journal-entries.show');
+
+Route::get('/journal-entries', function (Request $request) {
+    $tag = $request->query('tag');
+    $journalEntries = JournalEntry::whereHas('tags', function($query) use ($tag) {
+        if ($tag) $query->where('subject', $tag);
+    })->get();
+
+    return new JournalEntryCollection($journalEntries);
+})->name('api.journal-entries.index');
