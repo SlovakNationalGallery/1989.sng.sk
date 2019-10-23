@@ -37,7 +37,7 @@ export default {
       return date.format(`D. [${romanNumbers[date.month()]}]. YYYY`)
     },
     contentCompiled() {
-      const regex = /<a href="topic:\/\/(.+?)">(.+?)<\/a>/g
+      const regex = /<a\s+href="topic:\/\/(.+?)">(.*?)<\/a>/gs
       const contentWithRouterLinks = this.content.replace(regex, `<router-link :to="'/journal-entries?tag=$1'">$2</router-link>`)
 
       const template = Vue.compile(`<div>${contentWithRouterLinks}</div>`)
