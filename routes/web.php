@@ -28,4 +28,4 @@ Route::get('/day/{date?}', 'DayController@dayViewParams')->name('day');
 
 Route::get('journal-entries/{journalEntry}', function () {
     return view('journal_entries');
-});
+})->name('journal-entries.show');
