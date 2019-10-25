@@ -5,7 +5,12 @@ import JournalEntriesGallery from './components/JournalEntriesGallery'
 const router = new VueRouter({
     mode: 'history',
     routes: [
-        { path: '/journal-entries/:date?', component: JournalEntriesGallery, props: ({params, query}) => ({ date: params.date, filter: query.tag }) }
+        {
+          path: '/journal-entries/:date?',
+          component: JournalEntriesGallery,
+          name: 'journal-entries',
+          props: ({params, query}) => ({ date: params.date, filter: query.filter })
+        }
     ]
 })
 

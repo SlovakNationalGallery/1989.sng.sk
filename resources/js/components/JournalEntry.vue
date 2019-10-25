@@ -1,15 +1,14 @@
 <template>
   <div>
-    <h2>{{ dateFormatted }}</h2>
+    <h2>{{ date | romanize }}</h2>
     <div style="display: flex">
-      <!-- <img
+      <img
         v-for="id in transcriptionPagesIds"
         :key="id"
         :src="`https://fromthepage.com/image-service/${id}/full/full/0/default.jpg`"
         width="300"
-      /> -->
+      />
     </div>
-   <!-- <div v-html="content" ></div> -->
    <div :is="contentCompiled"></div>
   </div>
 </template>
@@ -32,13 +31,12 @@ export default {
     this.fetchData(this.date);
   },
   computed: {
-    dateFormatted() {
-      const date = dayjs(this.date, "YYYY-MM-DD")
-      return date.format(`D. [${romanNumbers[date.month()]}]. YYYY`)
-    },
     contentCompiled() {
       const regex = /<a\s+href="topic:\/\/(.+?)">(.*?)<\/a>/gs
-      const contentWithRouterLinks = this.content.replace(regex, `<router-link :to="'/journal-entries?tag=$1'">$2</router-link>`)
+      const contentWithRouterLinks = this.content.replace(
+        regex,
+        `<router-link :to="{ name: 'journal-entries', params: { date: '${this.date}' }, query: { filter: '$1' }}">$2</router-link>`
+      )
 
       const template = Vue.compile(`<div>${contentWithRouterLinks}</div>`)
       return { ...template, data: () => ({}) }

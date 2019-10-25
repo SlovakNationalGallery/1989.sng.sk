@@ -15,7 +15,7 @@ class JournalEntry extends JsonResource
     public function toArray($request)
     {
         return [
-            'written_at' => $this->written_at,
+            'written_at' => $this->written_at->toDateString(),
             'content' => $this->content,
             'excerpt' => $this->excerpt,
             'transcription_pages_ids' => $this->transcriptionPages()->pluck('id')
