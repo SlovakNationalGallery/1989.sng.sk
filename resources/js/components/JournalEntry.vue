@@ -28,7 +28,7 @@ export default {
   },
   computed: {
     contentCompiled() {
-      const regex = /<a\s+href="topic:\/\/(.+?)">(.*?)<\/a>/gs
+      const regex = /<a\s+href="tag:\/\/(.+?)">(.*?)<\/a>/gs
       const contentWithRouterLinks = this.content.replace(
         regex,
         `<router-link :to="{ name: 'journal-entries', params: { date: '${this.date}' }, query: { filter: '$1' }}">$2</router-link>`

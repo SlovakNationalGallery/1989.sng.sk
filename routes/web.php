@@ -23,6 +23,10 @@ Route::get('/day', function () {
 
 Route::get('/day/{date?}', 'DayController@dayViewParams')->name('day');
 
+Route::get('journal-entries', function () {
+    return view('journal_entries');
+})->name('journal-entries.index');
+
 Route::get('journal-entries/{journalEntry}', function () {
     return view('journal_entries');
 })->name('journal-entries.show');
