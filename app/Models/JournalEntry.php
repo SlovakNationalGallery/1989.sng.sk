@@ -31,17 +31,4 @@ class JournalEntry extends Model
     {
         return $this->belongsToMany('App\Models\JournalTag', null, 'entry_id', 'tag_id');
     }
-
-    public function getWrittenAtFormattedAttribute()
-    {
-        $romanConversion = [
-            8 => 'VIII',
-            9 => 'IX',
-            10 => 'X',
-            11 => 'XI',
-            12 => 'XII',
-        ];
-
-        return join('. ', [$this->written_at->day, $romanConversion[$this->written_at->month], $this->written_at->year]);
-    }
 }
