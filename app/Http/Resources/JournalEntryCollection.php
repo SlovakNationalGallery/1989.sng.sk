@@ -17,7 +17,7 @@ class JournalEntryCollection extends ResourceCollection
         return [
             'data' => $this->collection->map(function($journalEntry) {
                 return [
-                    'written_at' => $journalEntry->written_at,
+                    'written_at' => $journalEntry->written_at->toDateString(),
                 ];
             })
         ];

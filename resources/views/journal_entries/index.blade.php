@@ -4,10 +4,11 @@
 @endpush
 
 @section('content')
-    <h2>Journal entries for tag "{{ $tag->subject }}"</h2>
-    <ul>
-        @foreach($entries as $entry)
-            <li><a href="{{route('journal-entries.show', $entry)}}">{{$entry->written_at}}</a></li>
-        @endforeach
-    </ul>
+    <router-view></router-view>
 @stop
+
+@push('scripts')
+<script defer>
+    new Vue({ router: Router, el: '#app' })
+</script>
+@endpush
