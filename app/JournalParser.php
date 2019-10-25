@@ -178,7 +178,7 @@ class JournalDOMElement extends DOMElement
             function ($matches) use ($allTags)
             {
                 $tagSubject = $allTags[$matches[1]]->subject;
-                return "<a href=\"topic://$tagSubject\">";
+                return "<a href=\"tag://$tagSubject\">";
             },
             $parsed);
         return $parsed;

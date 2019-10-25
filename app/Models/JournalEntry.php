@@ -31,4 +31,9 @@ class JournalEntry extends Model
     {
         return $this->belongsToMany('App\Models\JournalTag', null, 'entry_id', 'tag_id');
     }
+
+    public function getContentFormattedAttribute() {
+        return preg_replace('/<a\s+href="tag:\/\/(.+?)">(.*?)<\/a>/gs', '/<a href="tag:\/\/(.+?)">(.*?)<\/a>/gs')
+        return $this->content;
+    }
 }
