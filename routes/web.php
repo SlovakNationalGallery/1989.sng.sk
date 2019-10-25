@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Resources\JournalEntry as JournalEntryResource;
+use App\Models\JournalEntry;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,4 +25,7 @@ Route::get('/day', function () {
 });
 
 Route::get('/day/{date?}', 'DayController@dayViewParams')->name('day');
-Route::resource('journal-entries', 'JournalEntryController');
+
+Route::get('journal-entries/{journalEntry}', function () {
+    return view('journal_entries');
+});
