@@ -14,10 +14,6 @@
 </template>
 
 <script>
-import dayjs from "dayjs"
-
-const romanNumbers = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII']
-
 export default {
   name: "JournalEntry",
   props: ['date'],

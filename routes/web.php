@@ -1,8 +1,5 @@
 <?php
 
-use App\Http\Resources\JournalEntry as JournalEntryResource;
-use App\Models\JournalEntry;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
