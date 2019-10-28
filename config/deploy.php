@@ -94,7 +94,7 @@ return [
     'options' => [
         'application' => env('APP_NAME', 'Laravel'),
         'repository' => 'git@github.com:SlovakNationalGallery/1989.sng.sk.git',
-        'shared_dirs' => ['storage'],
+        'shared_dirs' => ['storage', 'resources/fonts'],
         'bin/php' => '/usr/bin/php7.2',
         'php_fpm_service' => 'php7.2-fpm',
         'http_user' => 'www-data',

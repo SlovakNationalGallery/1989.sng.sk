@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xml:space="preserve"
+   enable-background="new 0 0 1700.791 1700.789"
+   viewBox="0 0 1700.791 1700.789"
+   height="1700.789px"
+   width="1700.791px"
+   y="0px"
+   x="0px"
+   id="Layer_1"
+   version="1.1"><metadata
+   id="metadata82">
+  <rdf:RDF>
+    <cc:Work
+       rdf:about="">
+      <dc:format>image/svg+xml</dc:format>
+      <dc:type
+         rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      <dc:title>sng_web</dc:title>
+    </cc:Work>
+  </rdf:RDF>
+</metadata>
+<defs
+   id="defs80" />
+
+<title
+   id="title73">sng_web</title>
+
+<path
+   style="fill:#ffffff"
+   id="path75"
+   d="M908.264,908.264h676.082v282.289h-559.639v116.443h559.639v282.289H908.264V908.264z M908.264,198.308l593.513,593.512  H908.264V199.014V198.308z M116.444,116.444h676.082V791.82H116.444V116.444z M988.011,116.444h593.512v593.513L988.011,116.444z   M0,0v908.264h792.525v676.082H116.444v-559.638H0v676.081h1700.791V0H0z" />
+
+</svg>
