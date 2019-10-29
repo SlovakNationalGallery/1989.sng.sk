@@ -39,15 +39,59 @@ class ItemCrudController extends CrudController
         $this->crud->allowAccess('show'); // to show a "preview" button https://backpackforlaravel.com/docs/3.4/crud-buttons#default-buttons
 
         $this->crud->addField([
-            'name' => 'name',
-            'type' => 'text',
-            'label' => 'Item name'
-        ]);
-        $this->crud->addField([
             'name' => 'type',
             'type' => 'enum_toggle_other_fields',
             'label' => 'Type'
         ]);
+
+        $this->crud->addField([
+            'name' => 'name',
+            'type' => 'text',
+            'label' => 'Item name'
+        ]);
+         $available_authors = \App\Models\Item::pluck('author', 'author');
+         $this->crud->addField([
+            'name' => 'author',
+            'label' => 'Author name',
+            'type' => 'select2_from_array_allow_new',
+            'options' => $available_authors,
+            'allows_null' => true,
+            'wrapperAttributes' => [
+               'data-only-for-type' => 'text quotation image sound video comment author_text'
+             ],
+        ]);
+
+         $this->crud->addField([
+            'name' => 'author_role',
+            'type' => 'text',
+            'label' => "Author role",
+            'wrapperAttributes' => [
+               'data-only-for-type' => 'quotation author_text'
+             ],
+        ]);
+
+         $this->crud->addField([
+            'label' => 'Author image',
+            'name' => 'author_image',
+            'filename' => null,
+            'type' => 'base64_image',
+            'aspect_ratio' => 1, // crop to square
+            'crop' => true,
+            'src' => null, // null to read straight from DB, otherwise set to model accessor function
+            'wrapperAttributes' => [
+               'data-only-for-type' => 'quotation author_text'
+             ],
+        ]);
+
+        $this->crud->addField([
+             'name' => 'year',
+             'type' => 'text',
+             'label' => 'Year',
+             'wrapperAttributes' => [
+                'data-only-for-type' => 'image text'
+              ],
+        ]);
+
         $this->crud->addField([
             'name' => 'text',
             'type' => 'simplemde',
@@ -77,46 +121,15 @@ class ItemCrudController extends CrudController
            'type' => 'select2_from_array_allow_new',
            'options' => $available_sources,
            'allows_null' => true,
+           'wrapperAttributes' => [
+               'data-only-for-type' => 'text quotation image sound video comment author_text'
+            ],
         ]);
 
         $this->crud->addField([
             'name' => 'separator',
             'type' => 'custom_html',
             'value' => '<hr>'
-        ]);
-
-         $available_authors = \App\Models\Item::pluck('author', 'author');
-         $this->crud->addField([
-            'name' => 'author',
-            'label' => 'Author name',
-            'type' => 'select2_from_array_allow_new',
-            'options' => $available_authors,
-            'allows_null' => true,
-        ]);
-
-         $this->crud->addField([
-            'name' => 'author_role',
-            'type' => 'text',
-            'label' => "Author role"
-        ]);
-
-         $this->crud->addField([
-            'label' => 'Author image',
-            'name' => 'author_image',
-            'filename' => null,
-            'type' => 'base64_image',
-            'aspect_ratio' => 1, // crop to square
-            'crop' => true,
-            'src' => null, // null to read straight from DB, otherwise set to model accessor function
-            'wrapperAttributes' => [
-               'data-only-for-type' => 'quotation author_text'
-             ],
-        ]);
-
-        $this->crud->addField([
-             'name' => 'year',
-             'type' => 'text',
-             'label' => 'Year'
         ]);
 
         $this->crud->addField([
