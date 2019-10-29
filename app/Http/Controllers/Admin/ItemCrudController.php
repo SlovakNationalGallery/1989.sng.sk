@@ -167,8 +167,8 @@ class ItemCrudController extends CrudController
         $this->crud->addColumn([
             'name' => 'file',
             'type' => 'image',
-            'width' => '200px',
-            'height' => '200px',
+            'width' => '400px',
+            'height' => 'auto',
         ]);
         $this->crud->addColumn([
             'label' => "Topics",
