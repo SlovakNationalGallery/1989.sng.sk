@@ -43,6 +43,20 @@ class ItemCrudController extends CrudController
             'model' => 'App\Models\Topic',
         ])->beforeColumn('updated_at');
 
+        $this->crud->addFilter([
+          'name' => 'topics',
+          'type' => 'select2_multiple',
+          'label'=> 'Topics'
+        ], function() {
+            return \App\Models\Topic::all()->pluck('name', 'id')->toArray();
+        }, function($values) {
+            foreach (json_decode($values) as $key => $value) {
+                $this->crud->query = $this->crud->query->whereHas('topics', function ($query) use ($value) {
+                    $query->where('topic_id', $value);
+                });
+            }
+        });
+
         $this->crud->allowAccess('show'); // to show a "preview" button https://backpackforlaravel.com/docs/3.4/crud-buttons#default-buttons
 
         $this->crud->addField([
