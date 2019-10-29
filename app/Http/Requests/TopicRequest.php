@@ -27,7 +27,6 @@ class TopicRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'cover_image' => 'required',
         ];
     }
 
