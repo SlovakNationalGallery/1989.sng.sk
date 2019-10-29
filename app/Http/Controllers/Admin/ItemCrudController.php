@@ -44,6 +44,26 @@ class ItemCrudController extends CrudController
         ])->beforeColumn('updated_at');
 
         $this->crud->addFilter([
+          'name' => 'author',
+          'type' => 'select2',
+          'label'=> 'Author'
+        ], function() {
+            return \App\Models\Item::pluck('author', 'author')->toArray();
+        }, function($value) {
+                $this->crud->addClause('where', 'author', $value);
+        });
+
+        $this->crud->addFilter([
+          'name' => 'type',
+          'type' => 'select2',
+          'label'=> 'Type'
+        ], function() {
+            return \App\Models\Item::getEnumValuesAsAssociativeArray('type');
+        }, function($value) {
+                $this->crud->addClause('where', 'type', $value);
+        });
+
+        $this->crud->addFilter([
           'name' => 'topics',
           'type' => 'select2_multiple',
           'label'=> 'Topics'
