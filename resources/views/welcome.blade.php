@@ -2,16 +2,7 @@
 @push('styles')
 
 <style>
-    :root {
-        --purple: #746495;
-        --blue: #637FCF;
-        --light-blue: #5C83FC;
-        --red: #D43C3D;
-    }
-
-    html {
-        background: #666;
-    }
+    @import '../css/app.css';
 
     body {
         background-image: url("{{asset('/images/intro/BG-0' . random_int(2, 4) . '.jpg') }}");
@@ -59,6 +50,10 @@
         padding: 1rem;
     }
 
+    .header {
+        transform: translate(2em);
+    }
+
     .header * {
         text-align: center;
     }
@@ -86,7 +81,6 @@
 
     .header .with-bg:first-child div:not(.bg) {
         margin-left: -4rem;
-
     }
 
     .header .cnt {
@@ -139,7 +133,7 @@
     }
 
     .intro .bg {
-        background: #5C83FC;
+        background-color: #637fcf;
     }
 
     .intro .cnt {
