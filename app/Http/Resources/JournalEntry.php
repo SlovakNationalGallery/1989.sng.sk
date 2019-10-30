@@ -17,8 +17,9 @@ class JournalEntry extends JsonResource
         return [
             'written_at' => $this->written_at->toDateString(),
             'content' => $this->content,
+            'content_for_frontpage' => $this->content_for_frontpage,
             'excerpt' => $this->excerpt,
-            'transcription_pages_ids' => $this->transcriptionPages()->pluck('id')
+            'transcription_pages_ids' => $this->transcriptionPages()->pluck('id'),
         ];
     }
 }

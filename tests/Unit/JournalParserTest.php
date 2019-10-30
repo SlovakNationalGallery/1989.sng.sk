@@ -46,7 +46,7 @@ class JournalParserTest extends TestCase
     {
         $entries = self::$parsed->entries;
 
-        $this->assertStringStartsWith('<p><a href="topic://Nemecká spolková republika">NSR</a>', $entries[0]->content);
+        $this->assertStringStartsWith('<p><a href="tag://Nemecká spolková republika">NSR</a>', $entries[0]->content);
         $this->assertStringNotContainsString('---', $entries[0]->content);
         $this->assertStringEndsWith("7 bombových náloží –</p>", $entries[0]->content);
     }
@@ -55,14 +55,14 @@ class JournalParserTest extends TestCase
     {
         $entry = self::$parsed->entries[0];
 
-        $this->assertStringStartsWith('<p><a href="topic://Nemecká spolková republika">NSR</a>', $entry->content);
+        $this->assertStringStartsWith('<p><a href="tag://Nemecká spolková republika">NSR</a>', $entry->content);
     }
 
     public function testExtractsAuthoritativeSubjectForTag()
     {
         $entryWithUnauthoritativeTagSubject = self::$parsed->entries[5];
-        $this->assertStringNotContainsString('topic://Miloslav Mečíř', $entryWithUnauthoritativeTagSubject->content);
-        $this->assertStringContainsString('topic://Miloslav Měčíř', $entryWithUnauthoritativeTagSubject->content);
+        $this->assertStringNotContainsString('tag://Miloslav Mečíř', $entryWithUnauthoritativeTagSubject->content);
+        $this->assertStringContainsString('tag://Miloslav Měčíř', $entryWithUnauthoritativeTagSubject->content);
     }
 
     public function testExtractsPagesForEntries()
