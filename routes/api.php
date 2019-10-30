@@ -14,10 +14,6 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::get('/day/{date}', function ($date) {
     return JournalEntry::where('written_at', '=', $date)->get();
 })->name('api.day');

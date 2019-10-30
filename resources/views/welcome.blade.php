@@ -43,7 +43,6 @@
     }
 
     .cnt {
-        max-width: 40vw;
         position: relative;
         z-index: 10;
         padding: 1rem;
@@ -221,6 +220,16 @@
         width: 3rem;
     }
 
+    #overlay {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 0;
+        background: rgba(0, 0, 0, .6);
+    }
+
     @media (max-width:600px) {
         .shift-block {
             transform: none !important;
@@ -242,6 +251,7 @@
 @endpush
 
 @section('content')
+<div id="overlay"></div>
 <div class="header shift-block with-bg">
     <div class="bg"></div>
     <div class="cnt">
