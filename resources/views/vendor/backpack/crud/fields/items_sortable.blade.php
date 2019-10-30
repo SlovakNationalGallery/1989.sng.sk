@@ -11,7 +11,7 @@
         @foreach ($field['value'] as $item)
             <tr class="array-row item">
                 <td>
-                    {{ $item->name  }}
+                    {{ $item->full_name  }}
                 </td>
                 <td>
                     {{ $item->type  }}
@@ -35,7 +35,7 @@
        @foreach ($options as $option)
            {{-- list only unused options --}}
            @if( !(in_array($option->getKey(), $field['value']->pluck($option->getKeyName(), $option->getKeyName())->toArray())))
-               <option value="{{ $option->getKey() }}" data-type="{{ $option->type }}">{{ $option->name }}</option>
+               <option value="{{ $option->getKey() }}" data-type="{{ $option->type }}">{{ $option->full_name }}</option>
            @endif
        @endforeach
     </select>

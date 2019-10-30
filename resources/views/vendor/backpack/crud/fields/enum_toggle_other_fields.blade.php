@@ -5,6 +5,8 @@
     @php
         $entity_model = $crud->model;
         $possible_values = $entity_model::getPossibleEnumValues($field['name']);
+        $start_with_values = ['image'];
+        $possible_values = array_unique(array_merge($start_with_values, $possible_values));
     @endphp
     <select
         name="{{ $field['name'] }}"
