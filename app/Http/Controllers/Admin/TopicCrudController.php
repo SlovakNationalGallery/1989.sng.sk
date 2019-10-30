@@ -22,7 +22,7 @@ class TopicCrudController extends CrudController
         'label' => 'Items',
         'type' => 'select_multiple',
         'entity' => 'items',
-        'attribute' => 'name',
+        'attribute' => 'full_name',
         'model' => 'App\Models\Topic'
     ];
 
