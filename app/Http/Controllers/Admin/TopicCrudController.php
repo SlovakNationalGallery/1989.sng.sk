@@ -43,9 +43,35 @@ class TopicCrudController extends CrudController
         |--------------------------------------------------------------------------
         */
 
-        $this->crud->setColumns(['name', self::$ITEMS_COLUMN]);
+        $this->crud->setColumns(['name', 'category']);
+
+        $this->crud->addColumn([
+            'name' => 'is_active',
+            'label' => 'Is active',
+            'type' => 'boolean',
+        ]);
+
+        $this->crud->addColumn([
+            'name' => 'items',
+            'label' => 'Items',
+            'type' => 'array_count',
+        ]);
+
+        $this->crud->addColumn([
+            'name' => 'updated_at',
+            'label' => 'Updated at',
+            'type' => 'datetime',
+        ]);
+
         $this->crud->allowAccess('show'); // to show a "preview" button https://backpackforlaravel.com/docs/3.4/crud-buttons#default-buttons
 
+        $this->crud->addField([
+            'name' => 'category',
+            'type' => 'select_from_array',
+            'label' => 'Category',
+            'allows_null' => true,
+            'options' => \App\Models\Topic::$available_categories,
+        ]);
         $this->crud->addField([
             'name' => 'name',
             'type' => 'text',
@@ -117,6 +143,12 @@ class TopicCrudController extends CrudController
             'wrapperAttributes' => [
                 'style' => 'margin-top: -2em',
             ]
+        ]);
+        $this->crud->addField([
+            'name' => 'is_active',
+            'type' => 'checkbox',
+            'label' => 'Is active',
+            'hint' => 'Will be not displayed on frontend until is published'
         ]);
 
         // add asterisk for fields that are required in TopicRequest

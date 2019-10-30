@@ -33,7 +33,8 @@ class ItemCrudController extends CrudController
         |--------------------------------------------------------------------------
         */
 
-        $this->crud->setColumns(['name', 'author', 'type', 'year', 'updated_at']);
+        $this->crud->setColumns(['name', 'author', 'type', 'year']);
+
         $this->crud->addColumn([
             'name' => 'topics',
             'label' => 'Topics',
@@ -41,7 +42,13 @@ class ItemCrudController extends CrudController
             'entity' => 'topics',
             'attribute' => 'name',
             'model' => 'App\Models\Topic',
-        ])->beforeColumn('updated_at');
+        ]);
+
+        $this->crud->addColumn([
+            'name' => 'updated_at',
+            'label' => 'Updated at',
+            'type' => 'datetime',
+        ]);
 
         $this->crud->addFilter([
           'name' => 'author',

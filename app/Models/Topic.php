@@ -28,6 +28,16 @@ class Topic extends Model
         'previous_topic_blurb',
         'next_topic_blurb',
         'cover_image',
+        'category',
+        'is_active',
+    ];
+
+    public static $available_categories = [
+        'topic' => 'Témy',
+        'term' => 'Heslá',
+        'event' => 'Udalosti',
+        'person' => 'Osobnosti',
+        'author' => 'Autori',
     ];
     // protected $hidden = [];
     // protected $dates = [];
