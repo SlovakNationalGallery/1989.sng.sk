@@ -4,8 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Backpack\CRUD\CrudTrait;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Log;
 
 class JournalEntry extends Model
 {

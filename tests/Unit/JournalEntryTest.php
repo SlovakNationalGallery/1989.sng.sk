@@ -7,7 +7,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\JournalEntry;
 use App\Models\JournalTag;
 use App\Models\JournalTagCategory;
-use App\Models\Topic;
 
 class JournalEntryTest extends TestCase
 {
