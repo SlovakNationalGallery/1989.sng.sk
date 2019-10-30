@@ -210,7 +210,15 @@ class TopicCrudController extends CrudController
     public function show($id)
     {
         $content = parent::show($id);
+        $model = $this->crud->getModel();
+
         $this->crud->setColumns([
+            [
+                'name' => 'category',
+                'label' => 'Category',
+                'type' => 'select_from_array',
+                'options' => $model::$available_categories,
+            ],
             'name',
             'slug',
             [
@@ -239,6 +247,11 @@ class TopicCrudController extends CrudController
                 'entity' => 'nextTopic',
             ],
             'next_topic_blurb',
+            [
+                'label' => 'Is active',
+                'name' => 'is_active',
+                'type' => 'boolean',
+            ],
         ]);
 
         return $content;
