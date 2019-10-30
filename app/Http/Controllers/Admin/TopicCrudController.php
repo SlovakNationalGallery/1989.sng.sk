@@ -22,7 +22,7 @@ class TopicCrudController extends CrudController
         'label' => 'Items',
         'type' => 'select_multiple',
         'entity' => 'items',
-        'attribute' => 'name',
+        'attribute' => 'full_name',
         'model' => 'App\Models\Topic'
     ];
 
@@ -169,7 +169,7 @@ class TopicCrudController extends CrudController
                 'name' => 'cover_image',
                 'type' => 'image',
                 'width' => '400px',
-                'height' => '300px',
+                'height' => 'auto',
             ],
             self::$ITEMS_COLUMN,
             [

@@ -33,21 +33,106 @@ class ItemCrudController extends CrudController
         |--------------------------------------------------------------------------
         */
 
-        // TODO: remove setFromDb() and manually define Fields and Columns
-        // $this->crud->setFromDb();
-        $this->crud->setColumns(['name', 'author', 'type', 'updated_at']);
+        $this->crud->setColumns(['name', 'author', 'type', 'year', 'updated_at']);
+        $this->crud->addColumn([
+            'name' => 'topics',
+            'label' => 'Topics',
+            'type' => 'select_multiple',
+            'entity' => 'topics',
+            'attribute' => 'name',
+            'model' => 'App\Models\Topic',
+        ])->beforeColumn('updated_at');
+
+        $this->crud->addFilter([
+          'name' => 'author',
+          'type' => 'select2',
+          'label'=> 'Author'
+        ], function() {
+            return \App\Models\Item::pluck('author', 'author')->toArray();
+        }, function($value) {
+                $this->crud->addClause('where', 'author', $value);
+        });
+
+        $this->crud->addFilter([
+          'name' => 'type',
+          'type' => 'select2',
+          'label'=> 'Type'
+        ], function() {
+            return \App\Models\Item::getEnumValuesAsAssociativeArray('type');
+        }, function($value) {
+                $this->crud->addClause('where', 'type', $value);
+        });
+
+        $this->crud->addFilter([
+          'name' => 'topics',
+          'type' => 'select2_multiple',
+          'label'=> 'Topics'
+        ], function() {
+            return \App\Models\Topic::all()->pluck('name', 'id')->toArray();
+        }, function($values) {
+            foreach (json_decode($values) as $key => $value) {
+                $this->crud->query = $this->crud->query->whereHas('topics', function ($query) use ($value) {
+                    $query->where('topic_id', $value);
+                });
+            }
+        });
+
         $this->crud->allowAccess('show'); // to show a "preview" button https://backpackforlaravel.com/docs/3.4/crud-buttons#default-buttons
+
+        $this->crud->addField([
+            'name' => 'type',
+            'type' => 'enum_toggle_other_fields',
+            'label' => 'Type'
+        ]);
 
         $this->crud->addField([
             'name' => 'name',
             'type' => 'text',
             'label' => 'Item name'
         ]);
-        $this->crud->addField([
-            'name' => 'type',
-            'type' => 'enum_toggle_other_fields',
-            'label' => 'Type'
+         $available_authors = \App\Models\Item::pluck('author', 'author');
+         $this->crud->addField([
+            'name' => 'author',
+            'label' => 'Author name',
+            'type' => 'select2_from_array_allow_new',
+            'options' => $available_authors,
+            'allows_null' => true,
+            'wrapperAttributes' => [
+               'data-only-for-type' => 'text quotation image sound video comment author_text'
+             ],
         ]);
+
+         $this->crud->addField([
+            'name' => 'author_role',
+            'type' => 'text',
+            'label' => "Author role",
+            'wrapperAttributes' => [
+               'data-only-for-type' => 'quotation author_text'
+             ],
+        ]);
+
+         $this->crud->addField([
+            'label' => 'Author image',
+            'name' => 'author_image',
+            'filename' => null,
+            'type' => 'base64_image',
+            'aspect_ratio' => 1, // crop to square
+            'crop' => true,
+            'src' => null, // null to read straight from DB, otherwise set to model accessor function
+            'wrapperAttributes' => [
+               'data-only-for-type' => 'quotation author_text'
+             ],
+        ]);
+
+        $this->crud->addField([
+             'name' => 'year',
+             'type' => 'text',
+             'label' => 'Year',
+             'wrapperAttributes' => [
+                'data-only-for-type' => 'image text'
+              ],
+        ]);
+
         $this->crud->addField([
             'name' => 'text',
             'type' => 'simplemde',
@@ -77,46 +162,15 @@ class ItemCrudController extends CrudController
            'type' => 'select2_from_array_allow_new',
            'options' => $available_sources,
            'allows_null' => true,
+           'wrapperAttributes' => [
+               'data-only-for-type' => 'text quotation image sound video comment author_text'
+            ],
         ]);
 
         $this->crud->addField([
             'name' => 'separator',
             'type' => 'custom_html',
             'value' => '<hr>'
-        ]);
-
-         $available_authors = \App\Models\Item::pluck('author', 'author');
-         $this->crud->addField([
-            'name' => 'author',
-            'label' => 'Author name',
-            'type' => 'select2_from_array_allow_new',
-            'options' => $available_authors,
-            'allows_null' => true,
-        ]);
-
-         $this->crud->addField([
-            'name' => 'author_role',
-            'type' => 'text',
-            'label' => "Author role"
-        ]);
-
-         $this->crud->addField([
-            'label' => 'Author image',
-            'name' => 'author_image',
-            'filename' => null,
-            'type' => 'base64_image',
-            'aspect_ratio' => 1, // crop to square
-            'crop' => true,
-            'src' => null, // null to read straight from DB, otherwise set to model accessor function
-            'wrapperAttributes' => [
-               'data-only-for-type' => 'quotation author_text'
-             ],
-        ]);
-
-        $this->crud->addField([
-             'name' => 'year',
-             'type' => 'text',
-             'label' => 'Year'
         ]);
 
         $this->crud->addField([
@@ -167,8 +221,8 @@ class ItemCrudController extends CrudController
         $this->crud->addColumn([
             'name' => 'file',
             'type' => 'image',
-            'width' => '200px',
-            'height' => '200px',
+            'width' => '400px',
+            'height' => 'auto',
         ]);
         $this->crud->addColumn([
             'label' => "Topics",

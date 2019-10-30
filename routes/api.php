@@ -23,3 +23,4 @@ Route::get('/day/{date}', function ($date) {
 })->name('api.day');
 
 Route::post('/subscribe', 'SubscriptionController@store');
+Route::apiResource('journal-entries', 'Api\JournalEntryController', ['as' => 'api']);

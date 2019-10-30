@@ -40,9 +40,10 @@
     <div id="calendar">
         <calendar :start="daysAvailable.start" :start-at="startAt" :end="daysAvailable.end" :day-callback="dayClbck"></calendar>
         <transition-group name="fade" tag="div">
-            <div v-for="entry in content" v-bind:key="entry.id" class="entry-item">
+            <div v-for="entry in content" v-bind:key="entry.written_at" class="entry-item">
                 <div class="weather" v-if="entry.weather" v-html="entry.weather"> </div>
                 <div class="content" v-html="entry.content_raw"> </div>
+                <a :href="'{{route('journal-entries.show', ':date:')}}'.replace(':date:', entry.written_at)">Read whole entry</a>
             </div>
         </transition-group>
     </div>
@@ -63,7 +64,7 @@
             // wannabe vue-router replacement for now
             dayClbck: function($day) {
                 this.startAt = $day;
-                axios.get("{{route('api.day',[':day:'])}}".replace(':day:', $day))
+                axios.get("{{route('api.journal-entries.show',[':day:'])}}".replace(':day:', $day))
                     .then((res) => {
                         window.history.replaceState({
                             day: $day

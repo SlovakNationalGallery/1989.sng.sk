@@ -58,6 +58,13 @@ class JournalParserTest extends TestCase
         $this->assertStringStartsWith('<p><a href="topic://Nemecká spolková republika">NSR</a>', $entry->content);
     }
 
+    public function testExtractsAuthoritativeSubjectForTag()
+    {
+        $entryWithUnauthoritativeTagSubject = self::$parsed->entries[5];
+        $this->assertStringNotContainsString('topic://Miloslav Mečíř', $entryWithUnauthoritativeTagSubject->content);
+        $this->assertStringContainsString('topic://Miloslav Měčíř', $entryWithUnauthoritativeTagSubject->content);
+    }
+
     public function testExtractsPagesForEntries()
     {
         $entryEndingMidPage = self::$parsed->entries[0];

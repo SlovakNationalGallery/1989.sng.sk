@@ -17,6 +17,11 @@ class JournalEntry extends Model
         'written_at',
     ];
 
+    public function getRouteKeyName()
+    {
+        return 'written_at';
+    }
+
     public function transcriptionPages()
     {
         return $this->belongsToMany('App\Models\JournalTranscriptionPage');
@@ -25,11 +30,5 @@ class JournalEntry extends Model
     public function tags()
     {
         return $this->belongsToMany('App\Models\JournalTag', null, 'entry_id', 'tag_id');
-    }
-
-    public function getFormattedContent()
-    {
-        // TODO link to actual path
-        return preg_replace('/href="topic:\/\/(.+?)"/', 'href="/path/to/topic/${1}"', $this->content);
     }
 }
