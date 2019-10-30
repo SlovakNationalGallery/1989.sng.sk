@@ -20,12 +20,5 @@ if (mix.inProduction()) {
   mix
     .version()
     .disableNotifications()
-    .webpackConfig({
-      resolve: {
-        alias: {
-          'vue$': 'vue/dist/vue.min.js'
-        }
-      }
-    })
     .options({ extractVueStyles: true })
 };
