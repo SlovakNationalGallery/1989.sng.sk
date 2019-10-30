@@ -80,7 +80,7 @@ class JournalParser
                 continue;
             }
 
-            $entry->content .= $p->getParsedContent();
+            $entry->content .= $p->getParsedContent($this->tags);
         }
 
         $this->entries[] = $entry;
@@ -169,10 +169,18 @@ class JournalDOMElement extends DOMElement
         return $trimmed;
     }
 
-    public function getParsedContent()
+    public function getParsedContent($allTags)
     {
         $parsed = str_replace('---', "\n", $this->ownerDocument->saveHTML($this));
-        $parsed = preg_replace('/<a\s+href="#article-\d+"\s+title="(.+?)">/m', '<a href="topic://${1}">', $parsed);
+
+        $parsed = preg_replace_callback(
+            '/<a\s+href="#article-(\d+?)".+?>/m',
+            function ($matches) use ($allTags)
+            {
+                $tagSubject = $allTags[$matches[1]]->subject;
+                return "<a href=\"topic://$tagSubject\">";
+            },
+            $parsed);
         return $parsed;
     }
 
