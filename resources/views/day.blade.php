@@ -31,6 +31,11 @@
     .weather {
         margin: 2em;
     }
+
+    .journal-entry-tag {
+        font-weight: bold;
+        cursor: pointer;
+    }
 </style>
 @endpush
 
@@ -41,8 +46,8 @@
         <calendar :start="daysAvailable.start" :start-at="startAt" :end="daysAvailable.end" :day-callback="dayClbck"></calendar>
         <transition-group name="fade" tag="div">
             <div v-for="entry in content" v-bind:key="entry.written_at" class="entry-item">
-                <div class="weather" v-if="entry.weather" v-html="entry.weather"> </div>
-                <div class="content" v-html="entry.content_raw"> </div>
+                <div class="weather" v-if="entry.weather" v-html="entry.weather"></div>
+                <div class="content" v-html="entry.content_for_frontpage"></div>
                 <a :href="'{{route('journal-entries.show', ':date:')}}'.replace(':date:', entry.written_at)">Read whole entry</a>
             </div>
         </transition-group>
@@ -72,6 +77,22 @@
                         this.content = (res.data);
                     });
             }
+        },
+        mounted: function() {
+            $('body').popover({
+                container: 'body',
+                placement: 'bottom',
+                html: true,
+                content: function() {
+                    const tag = $(this).data('tag');
+                    const categories = $(this).data('tag-categories').split(',');
+                    const route = "{{route('journal-entries.show', ['journalEntry' => $date, 'filter' => 'TAG_PLACEHOLDER'] )}}"
+                        .replace('TAG_PLACEHOLDER', tag);
+                    return `<strong>${tag}</strong><br /><span>Kategórie: ${categories.join(', ')}</span><br /><a href="${route}">Preskúmať heslo</a>`;
+                },
+                title: '',
+                selector: '.journal-entry-tag'
+            })
         }
     })
 </script>
