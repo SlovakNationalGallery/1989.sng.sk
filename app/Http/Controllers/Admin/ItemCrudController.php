@@ -35,7 +35,7 @@ class ItemCrudController extends CrudController
 
         // TODO: remove setFromDb() and manually define Fields and Columns
         // $this->crud->setFromDb();
-        $this->crud->setColumns(['name', 'author', 'type', 'updated_at']);
+        $this->crud->setColumns(['name', 'author', 'type', 'year', 'updated_at']);
         $this->crud->allowAccess('show'); // to show a "preview" button https://backpackforlaravel.com/docs/3.4/crud-buttons#default-buttons
 
         $this->crud->addField([

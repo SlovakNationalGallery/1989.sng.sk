@@ -63,6 +63,13 @@ class Item extends Model
     |--------------------------------------------------------------------------
     */
 
+    public function getFullNameAttribute()
+    {
+        $full_name = ($this->author) ? $this->author . ': ' . $this->name : $this->name;
+        $full_name .= ($this->year) ? ' (' . $this->year . ')' : '';
+        return $full_name;
+    }
+
     /*
     |--------------------------------------------------------------------------
     | MUTATORS
