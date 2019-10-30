@@ -17,15 +17,6 @@ use Backpack\CRUD\CrudPanel;
  */
 class TopicCrudController extends CrudController
 {
-    private static $ITEMS_COLUMN = [
-        'name' => 'items',
-        'label' => 'Items',
-        'type' => 'select_multiple',
-        'entity' => 'items',
-        'attribute' => 'full_name',
-        'model' => 'App\Models\Topic'
-    ];
-
     public function setup()
     {
         /*
@@ -232,7 +223,11 @@ class TopicCrudController extends CrudController
                 'width' => '400px',
                 'height' => 'auto',
             ],
-            self::$ITEMS_COLUMN,
+            [
+                'name' => 'items',
+                'label' => 'Items',
+                'type' => 'items_table',
+            ],
             [
                 'name' => 'previous_topic',
                 'label' => 'Previous Topic',
@@ -251,6 +246,16 @@ class TopicCrudController extends CrudController
                 'label' => 'Is active',
                 'name' => 'is_active',
                 'type' => 'boolean',
+            ],
+            [
+                'label' => 'Created at',
+                'name' => 'created_at',
+                'type' => 'datetime',
+            ],
+            [
+                'label' => 'Updated at',
+                'name' => 'updated_at',
+                'type' => 'datetime',
             ],
         ]);
 
