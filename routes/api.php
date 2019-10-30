@@ -22,4 +22,4 @@ Route::get('/day/{date}', function ($date) {
     return JournalEntry::where('written_at', '=', $date)->get();
 })->name('api.day');
 
-Route::post('/subscribe', 'SubscriptionController@subscribe');
+Route::post('/subscribe', 'SubscriptionController@store');

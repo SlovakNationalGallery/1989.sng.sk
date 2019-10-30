@@ -7,11 +7,15 @@
         --blue: #637FCF;
         --light-blue: #5C83FC;
         --red: #D43C3D;
+    }
 
+    html {
+        background: #666;
     }
 
     body {
-        background: url('../images/intro/BG-0{{random_int(2, 5)}}.jpg') fixed;
+        background-image: url("{{asset('/images/intro/BG-0' . random_int(2, 4) . '.jpg') }}");
+        background-attachment: fixed;
         background-size: cover;
         text-align: center;
         background-position: top center;
@@ -57,6 +61,32 @@
 
     .header * {
         text-align: center;
+    }
+
+    .header .with-bg:first-child {
+        background-color: transparent;
+    }
+
+    .header .with-bg:first-child .bg {
+        background-color: white;
+        max-width: calc(100% - 4rem);
+    }
+
+    .header .with-bg:first-child .bg::before {
+        content: "";
+        background-image: url("{{asset('/images/intro/border-02.svg')}}");
+        background-repeat: repeat-y;
+        background-size: 4rem auto;
+        position: absolute;
+        left: -3.9rem;
+        height: 100%;
+        top: 0;
+        width: 4rem;
+    }
+
+    .header .with-bg:first-child div:not(.bg) {
+        margin-left: -4rem;
+
     }
 
     .header .cnt {
@@ -130,9 +160,6 @@
         align-content: center;
         transform: translateX(5%);
         margin: auto;
-    }
-
-    .newsletter>* {
         max-width: 34vw;
     }
 
@@ -237,7 +264,7 @@
 </div>
 
 
-{{-- <div class="newsletter shift-block">
+<div class="newsletter shift-block">
     <div class="intro with-bg">
         <div class="bg">&nbsp;</div>
         <div class="cnt container-fluid row">
@@ -254,10 +281,10 @@
 
 <div class="newsletter2 with-bg shift-block paper-border">
     <div class="bg">&nbsp;</div>
-    <div class="cnt border">
-        <form id="form">
+    <div class="cnt border container-fluid">
+        <form id="subscribe_form">
             <h3>Prihláste sa na newsletter</h3>
-            <div class="container-fluid row">
+            <div class=" row">
                 <div class="col-md-7">
                     <input type="email" name="user_email" id="user_email" class="form-control">
                 </div>
@@ -267,8 +294,16 @@
                 </div>
             </div>
         </form>
+        <div id="subscribe_form_done" class="row" style="display: none;">
+            <h3>Vďaka!</h3>
+        </div>
+        <div id="subscribe_form_error" class="row" style="display: none;">
+            <div class="col-sm-12">
+                Auč:( Niekde asi máme chybu, skúste to prosím neskôr.
+            </div>
+        </div>
     </div>
-</div> --}}
+</div>
 
 <div class="for-schools shift-block with-bg">
     <div class="bg">&nbsp;</div>
@@ -280,11 +315,11 @@
 </div>
 
 <div class="footer">
-    Pripravuje <a href="http://www.sng.sk">Slovenská národná galéria</a>
     <div class="icons row">
-        <a class="col-sm-12" href="http://lab.sng.sk" title="lab.sng"><img
-                src="{{asset('images/intro/lab_sng.svg')}}" /><br />lab.sng</a>
+        <a class="col-sm-12" href="http://www.sng.sk" title="Slovenská národná galéria"><img
+                src="{{asset('images/intro/sng_web.svg')}}" /><br />SNG</a>
     </div>
+    <div>Vyrobil: <a href="http://www.lab.sng.sk">lab.SNG</a></div>
 </div>
 @stop
 
@@ -300,17 +335,24 @@
 });
 
 
-$("#form").submit(function($frm){
+$("#subscribe_form").submit(function($frm){
 
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-    console.log($frm);
+    
     $.post('../api/subscribe', {'user_email': $("#user_email").val()}, function(e){
-        console.log(e);
-    })
+        if (e.res || e.subscribed){
+            $("#subscribe_form").slideUp();
+            $("#subscribe_form_done").slideDown();
+        }
+    }).fail(function(e){
+        $("#subscribe_form").slideUp();
+        $("#subscribe_form_error").slideDown();
+        return false;
+    });
 
     return false;
 })
