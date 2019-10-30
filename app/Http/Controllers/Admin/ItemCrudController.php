@@ -33,9 +33,50 @@ class ItemCrudController extends CrudController
         |--------------------------------------------------------------------------
         */
 
-        // TODO: remove setFromDb() and manually define Fields and Columns
-        // $this->crud->setFromDb();
         $this->crud->setColumns(['name', 'author', 'type', 'updated_at']);
+        $this->crud->addColumn([
+            'name' => 'topics',
+            'label' => 'Topics',
+            'type' => 'select_multiple',
+            'entity' => 'topics',
+            'attribute' => 'name',
+            'model' => 'App\Models\Topic',
+        ])->beforeColumn('updated_at');
+
+        $this->crud->addFilter([
+          'name' => 'author',
+          'type' => 'select2',
+          'label'=> 'Author'
+        ], function() {
+            return \App\Models\Item::pluck('author', 'author')->toArray();
+        }, function($value) {
+                $this->crud->addClause('where', 'author', $value);
+        });
+
+        $this->crud->addFilter([
+          'name' => 'type',
+          'type' => 'select2',
+          'label'=> 'Type'
+        ], function() {
+            return \App\Models\Item::getEnumValuesAsAssociativeArray('type');
+        }, function($value) {
+                $this->crud->addClause('where', 'type', $value);
+        });
+
+        $this->crud->addFilter([
+          'name' => 'topics',
+          'type' => 'select2_multiple',
+          'label'=> 'Topics'
+        ], function() {
+            return \App\Models\Topic::all()->pluck('name', 'id')->toArray();
+        }, function($values) {
+            foreach (json_decode($values) as $key => $value) {
+                $this->crud->query = $this->crud->query->whereHas('topics', function ($query) use ($value) {
+                    $query->where('topic_id', $value);
+                });
+            }
+        });
+
         $this->crud->allowAccess('show'); // to show a "preview" button https://backpackforlaravel.com/docs/3.4/crud-buttons#default-buttons
 
         $this->crud->addField([
@@ -167,8 +208,8 @@ class ItemCrudController extends CrudController
         $this->crud->addColumn([
             'name' => 'file',
             'type' => 'image',
-            'width' => '200px',
-            'height' => '200px',
+            'width' => '400px',
+            'height' => 'auto',
         ]);
         $this->crud->addColumn([
             'label' => "Topics",

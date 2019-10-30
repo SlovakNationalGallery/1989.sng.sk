@@ -169,7 +169,7 @@ class TopicCrudController extends CrudController
                 'name' => 'cover_image',
                 'type' => 'image',
                 'width' => '400px',
-                'height' => '300px',
+                'height' => 'auto',
             ],
             self::$ITEMS_COLUMN,
             [
