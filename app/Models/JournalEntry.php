@@ -38,7 +38,7 @@ class JournalEntry extends Model
             $tagsCategories[$tag->subject] = $tag->categories->pluck('name')->all();
         };
 
-        return preg_replace_callback('/<a\s+href="tag:\/\/(.+?)">(.*?)<\/a>/m', function($matches) use ($tagsCategories) {
+        return preg_replace_callback('/<a\s+href="tag:\/\/(.+?)">((.|\n)*?)<\/a>/m', function($matches) use ($tagsCategories) {
             $tag = $matches[1];
             $categories = join(',', $tagsCategories[$tag]);
 
