@@ -44,7 +44,6 @@
 
     .cnt {
         max-width: 40vw;
-        min-width: 400px;
         position: relative;
         z-index: 10;
         padding: 1rem;
@@ -184,6 +183,7 @@
         color: white;
         margin: auto;
         width: 30em;
+        max-width: 80vw;
         padding: 1rem;
     }
 
@@ -224,9 +224,16 @@
     @media (max-width:600px) {
         .shift-block {
             transform: none !important;
+            max-width: 90vw !important;
         }
 
-        .shift-block .cnt {
+        .with-bg,
+        .with-bg .bg {
+            min-width: 60vw !important;
+        }
+
+        .shift-block .cnt,
+        .with-bg {
             max-width: 90vw;
         }
     }
@@ -235,19 +242,17 @@
 @endpush
 
 @section('content')
-<div class="header shift-block">
-    <div class="with-bg">
-        <div class="bg"></div>
-        <div class="cnt">
-            <h1>ČAS-OPIS <span>1989</span></h1>
-        </div>
+<div class="header shift-block with-bg">
+    <div class="bg"></div>
+    <div class="cnt">
+        <h1>ČAS-OPIS <span>1989</span></h1>
     </div>
-    <div class="subheader shift-block with-bg">
-        <div class="bg"></div>
-        <div class="cnt">
-            Vizuálna kultúra, idey a udalosti Nežnej revolúcie, prebudenie občianskej spoločnosti a šírenie jej
-            posolstiev.
-        </div>
+</div>
+<div class="subheader shift-block with-bg">
+    <div class="bg"></div>
+    <div class="cnt">
+        Vizuálna kultúra, idey a udalosti Nežnej revolúcie, prebudenie občianskej spoločnosti a šírenie jej
+        posolstiev.
     </div>
 </div>
 <div class="deadline shift-block with-bg">
@@ -279,10 +284,10 @@
         <form id="subscribe_form">
             <h3>Prihláste sa na newsletter</h3>
             <div class=" row">
-                <div class="col-md-7">
+                <div class="col-md-7 col-sm-6">
                     <input type="email" name="user_email" id="user_email" class="form-control">
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-5 col-sm-6">
                     {{ csrf_field() }}
                     <button type="submit" class="btn btn-primary">Chcem byť v obraze</button>
                 </div>
