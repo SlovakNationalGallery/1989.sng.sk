@@ -63,6 +63,27 @@ class TopicCrudController extends CrudController
             'type' => 'datetime',
         ]);
 
+        $this->crud->addFilter([
+          'name' => 'category',
+          'type' => 'dropdown',
+          'label'=> 'Category'
+        ], function() {
+            return \App\Models\Topic::$available_categories;
+        }, function($value) {
+            $this->crud->addClause('where', 'category', $value);
+        });
+
+        $this->crud->addFilter([
+          'type' => 'simple',
+          'name' => 'active',
+          'label'=> 'Active'
+        ],
+        false,
+        function() {
+            $this->crud->addClause('active');
+        });
+
+
         $this->crud->allowAccess('show'); // to show a "preview" button https://backpackforlaravel.com/docs/3.4/crud-buttons#default-buttons
 
         $this->crud->addField([
