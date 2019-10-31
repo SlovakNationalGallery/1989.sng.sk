@@ -17,15 +17,6 @@ use Backpack\CRUD\CrudPanel;
  */
 class TopicCrudController extends CrudController
 {
-    private static $ITEMS_COLUMN = [
-        'name' => 'items',
-        'label' => 'Items',
-        'type' => 'select_multiple',
-        'entity' => 'items',
-        'attribute' => 'full_name',
-        'model' => 'App\Models\Topic'
-    ];
-
     public function setup()
     {
         /*
@@ -43,9 +34,56 @@ class TopicCrudController extends CrudController
         |--------------------------------------------------------------------------
         */
 
-        $this->crud->setColumns(['name', self::$ITEMS_COLUMN]);
+        $this->crud->setColumns(['name', 'category']);
+
+        $this->crud->addColumn([
+            'name' => 'is_active',
+            'label' => 'Is active',
+            'type' => 'boolean',
+        ]);
+
+        $this->crud->addColumn([
+            'name' => 'items',
+            'label' => 'Items',
+            'type' => 'array_count',
+        ]);
+
+        $this->crud->addColumn([
+            'name' => 'updated_at',
+            'label' => 'Updated at',
+            'type' => 'datetime',
+        ]);
+
+        $this->crud->addFilter([
+          'name' => 'category',
+          'type' => 'dropdown',
+          'label'=> 'Category'
+        ], function() {
+            return \App\Models\Topic::$available_categories;
+        }, function($value) {
+            $this->crud->addClause('where', 'category', $value);
+        });
+
+        $this->crud->addFilter([
+          'type' => 'simple',
+          'name' => 'active',
+          'label'=> 'Active'
+        ],
+        false,
+        function() {
+            $this->crud->addClause('active');
+        });
+
+
         $this->crud->allowAccess('show'); // to show a "preview" button https://backpackforlaravel.com/docs/3.4/crud-buttons#default-buttons
 
+        $this->crud->addField([
+            'name' => 'category',
+            'type' => 'select_from_array',
+            'label' => 'Category',
+            'allows_null' => true,
+            'options' => \App\Models\Topic::$available_categories,
+        ]);
         $this->crud->addField([
             'name' => 'name',
             'type' => 'text',
@@ -118,6 +156,12 @@ class TopicCrudController extends CrudController
                 'style' => 'margin-top: -2em',
             ]
         ]);
+        $this->crud->addField([
+            'name' => 'is_active',
+            'type' => 'checkbox',
+            'label' => 'Is active',
+            'hint' => 'Will be not displayed on frontend until is published'
+        ]);
 
         // add asterisk for fields that are required in TopicRequest
         $this->crud->setRequiredFields(StoreRequest::class, 'create');
@@ -157,7 +201,15 @@ class TopicCrudController extends CrudController
     public function show($id)
     {
         $content = parent::show($id);
+        $model = $this->crud->getModel();
+
         $this->crud->setColumns([
+            [
+                'name' => 'category',
+                'label' => 'Category',
+                'type' => 'select_from_array',
+                'options' => $model::$available_categories,
+            ],
             'name',
             'slug',
             [
@@ -171,7 +223,11 @@ class TopicCrudController extends CrudController
                 'width' => '400px',
                 'height' => 'auto',
             ],
-            self::$ITEMS_COLUMN,
+            [
+                'name' => 'items',
+                'label' => 'Items',
+                'type' => 'items_table',
+            ],
             [
                 'name' => 'previous_topic',
                 'label' => 'Previous Topic',
@@ -186,6 +242,21 @@ class TopicCrudController extends CrudController
                 'entity' => 'nextTopic',
             ],
             'next_topic_blurb',
+            [
+                'label' => 'Is active',
+                'name' => 'is_active',
+                'type' => 'boolean',
+            ],
+            [
+                'label' => 'Created at',
+                'name' => 'created_at',
+                'type' => 'datetime',
+            ],
+            [
+                'label' => 'Updated at',
+                'name' => 'updated_at',
+                'type' => 'datetime',
+            ],
         ]);
 
         return $content;
