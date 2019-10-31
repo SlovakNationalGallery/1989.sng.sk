@@ -1,8 +1,31 @@
-// Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+//fonts
+@import 'fonts.scss';
 
 // Variables
 @import 'variables';
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+html, body{
+    background-color: #333;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    padding: 0.5em;
+}
+
+h2 {
+    font-weight: normal;
+}
+
+a {
+    color: #ccc;
+}
+
+a:hover {
+    color: white;
+}

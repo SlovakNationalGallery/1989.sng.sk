@@ -2,23 +2,32 @@
 $body-bg: #f8fafc;
 
 // Typography
-$font-family-sans-serif: 'Nunito', sans-serif;
-$font-size-base: 0.9rem;
+$font-family-base: 'AvenirLTPro-Roman';
+
+$headings-font-family: 'Gabriello Web';
+$headings-font-weight: 700;
+
+$font-size-base: 1rem !default; // Assumes the browser default, typically `16px`
 $line-height-base: 1.6;
 
+$h1-font-size: 3.9em;
+$h2-font-size: 3.2em;
+$h3-font-size: 2.1em;
+$h4-font-size: 1.1em;
 // Colors
 $white:    #fff;
 $black:    #000;
-$blue: #3490dc;
 $indigo: #6574cd;
-$purple: #9561e2;
 $pink: #f66d9b;
-$red: #e3342f;
 $orange: #f6993f;
 $yellow: #ffed4a;
 $green: #38c172;
 $teal: #4dc0b5;
 $cyan: #6cb2eb;
+$light-blue: #5c83fc;
+$blue: #637fcf;
+$purple: #746495;
+$red: #e3342f;
 
 // Navbar
 $navbar-dark-color:                 rgba($white, .5);
