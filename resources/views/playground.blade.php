@@ -12,6 +12,7 @@
 
     #paper-containers {
         background: #666;
+        padding: 1rem;
     }
 
 </style>
