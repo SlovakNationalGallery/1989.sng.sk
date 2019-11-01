@@ -1,6 +1,5 @@
 .file-paper {
     @include paper-bck(4rem);
-    margin: 0.5rem;
 }
 
 .file-paper::before {
@@ -66,5 +65,44 @@
     transform: translate(+0.25em, -0.25em);
     &::after {
         transform: translate(-0.5em, +0.5em);
+    }
+}
+
+.ruled::before {
+    @extend %before-after-sizing;
+    top: -1rem;
+    background: url($row-double-line);
+    background-size: auto 1.5rem;
+    background-position: left bottom;
+    background-repeat: repeat-x;
+    background-position-x: -1rem;
+    height: 1rem;
+    margin: 0;
+}
+.ruled {
+    position: relative;
+    background: url($row-line);
+    background-position: left bottom;
+    background-size: auto 1.5rem;
+    line-height: 1.5rem;
+    margin-left: 20px;
+    padding: 0rem 1rem 0rem 0.3rem;
+    margin: 1rem 0 1rem 1rem;
+    > * {
+        line-height: 1.5rem !important;
+        padding: 0;
+        margin: 0;
+    }
+    > h1,
+    h2 {
+        line-height: 4.5rem !important;
+        padding: 0;
+        margin: 0;
+    }
+    > h3,
+    h4 {
+        line-height: 2.2rem !important;
+        padding: 0.8rem 0 0 0;
+        margin: 0;
     }
 }

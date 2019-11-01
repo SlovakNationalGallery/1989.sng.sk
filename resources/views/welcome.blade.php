@@ -75,10 +75,10 @@
     }
 
     .subheader {
-        transform: translate(50%, -3em);
+        transform: translate(33%, -3em);
         position: relative;
         margin: auto;
-        max-width: 20vw;
+        max-width: 40vw;
         min-width: 250px;
         background: #D43C3D;
         font-family: 'AvenirLTPro-Black';
@@ -88,11 +88,11 @@
     .subheader .cnt {
         margin-bottom: 1rem;
         padding: 2rem 1rem;
-        max-width: 20vw;
+        max-width: 40vw;
         min-width: 250px;
         transform: translate(-0.5rem, -0.5rem);
         background-image: url("{{asset('/images/intro/02-Perex-01.png')}}");
-
+        background-size: cover;
     }
 
     .deadline {
@@ -219,13 +219,15 @@
             margin-right: auto;
         }
 
-        .header{
+        .header {
             width: 80vw;
         }
-        .subheader{
+
+        .subheader {
             width: 60vw;
             transform: translateX(8%) !important;
         }
+
         .with-bg,
         .with-bg .bg {
             min-width: 60vw !important;
@@ -248,8 +250,9 @@
 <div class="subheader shift-block with-bg">
     <div class="bg"></div>
     <div class="cnt">
-        Vizuálna kultúra, idey a udalosti Nežnej revolúcie, prebudenie občianskej spoločnosti a šírenie jej
-        posolstiev.
+        <b>Ako sa tvorili a šírili kľúčové myšlienky Novembra 1989?</b> <br />Deň po dni sledujeme vývoj Neznej
+        revolúcie v denníku Júliusa Kollera a prostredníctvom fotografií, plagátov, rozhovorov a&nbsp;videí spoznávame
+        kreativitu občanov, ich požiadavky, názory a nádeje.
     </div>
 </div>
 <div class="deadline shift-block with-bg">
@@ -281,10 +284,10 @@
         <form id="subscribe_form" class="container-fluid">
             <h3>Prihláste sa na newsletter</h3>
             <div class="row">
-                <div class="col-md-7 col-sm-6">
+                <div class="col-md-6 col-sm-12">
                     <input type="email" name="user_email" id="user_email" class="form-control">
                 </div>
-                <div class="col-md-5 col-sm-6">
+                <div class="col-md-6 offset-md-0 col-sm-8 offset-sm-5">
                     {{ csrf_field() }}
                     <button type="submit" class="btn btn-primary">Chcem byť v obraze</button>
                 </div>

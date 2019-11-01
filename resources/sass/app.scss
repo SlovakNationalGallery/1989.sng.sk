@@ -3,6 +3,7 @@
 
 // Variables
 @import 'variables';
+@import 'textures';
 
 @import 'mixins';
 @import 'backgrounds';
@@ -32,4 +33,8 @@ a {
 
 a:hover {
     color: white;
+}
+
+button {
+    white-space: nowrap;
 }
