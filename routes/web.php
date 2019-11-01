@@ -21,6 +21,10 @@ Route::get('/day', function () {
     return redirect('/day/1989-10-01');
 });
 
+Route::get('/playground', function () {
+    return view('playground');
+});
+
 Route::get('/day/{date?}', 'DayController@dayViewParams')->name('day');
 
 Route::get('journal-entries', function () {

@@ -50,43 +50,23 @@
 
     .header {
         transform: translate(2em);
+        width: 60vw;
+        max-width: 40rem;
+        margin: auto;
     }
 
     .header * {
         text-align: center;
     }
 
-    .header .with-bg:first-child {
-        background-color: transparent;
-    }
+    .header::after {
+        background-image: url("{{asset('/images/intro/01-Cover-01.png')}}");
 
-    .header .with-bg:first-child .bg {
-        background-color: white;
-        max-width: calc(100% - 4rem);
-    }
-
-    .header .with-bg:first-child .bg::before {
-        content: "";
-        background-image: url("{{asset('/images/intro/border-02.svg')}}");
-        background-repeat: repeat-y;
-        background-size: 4rem auto;
-        position: absolute;
-        left: -3.9rem;
-        height: 100%;
-        top: 0;
-        width: 4rem;
-    }
-
-    .header .with-bg:first-child div:not(.bg) {
-        margin-left: -4rem;
     }
 
     .header .cnt {
         margin-bottom: 1rem;
         padding: 2rem 1rem;
-        transform: translate(0.5rem, 0.5rem);
-        background-image: url("{{asset('/images/intro/01-Cover-01.png')}}");
-        background-size: cover;
     }
 
     .header span {
@@ -210,7 +190,7 @@
 
     .paper-border>.border::before {
         content: "";
-        background-image: url("{{asset('/images/intro/border-01.svg')}}");
+        background-image: url("{{asset('/images/border-01.svg')}}");
         background-repeat: repeat-y;
         background-size: 1.25rem auto;
         position: absolute;
@@ -234,6 +214,8 @@
         .shift-block {
             transform: none !important;
             max-width: 90vw !important;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .with-bg,
@@ -252,11 +234,8 @@
 
 @section('content')
 <div id="overlay"></div>
-<div class="header shift-block with-bg">
-    <div class="bg"></div>
-    <div class="cnt">
-        <h1>ČAS-OPIS <span>1989</span></h1>
-    </div>
+<div class="header file-paper bg-v1">
+    <h1>ČAS-OPIS <span>1989</span></h1>
 </div>
 <div class="subheader shift-block with-bg">
     <div class="bg"></div>
