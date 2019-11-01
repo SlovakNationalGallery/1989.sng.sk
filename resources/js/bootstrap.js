@@ -1,5 +1,4 @@
-// TODO decide about lodash
-// window._ = require('lodash');
+window._ = require('lodash');
 
 // Initialize and configure Vue and its router
 window.Vue = require('vue');
