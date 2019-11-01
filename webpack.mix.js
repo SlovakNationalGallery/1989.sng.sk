@@ -11,11 +11,7 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.options({
-    // see https://github.com/JeffreyWay/laravel-mix/issues/432
-    // otherwise 'npm run watch' rebuilds in infinite loop without changing anything
-    processCssUrls: false  
-})
+mix
   .js('resources/js/app.js', 'public/js')
   .sass('resources/sass/app.scss', 'public/css')
   .extract(['vue', 'bootstrap', 'axios']);

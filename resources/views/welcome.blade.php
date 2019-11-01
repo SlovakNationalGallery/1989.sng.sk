@@ -50,9 +50,10 @@
 
     .header {
         transform: translate(2em);
-        width: 60vw;
+        width: 40vw;
         max-width: 40rem;
         margin: auto;
+        padding: 2.5em 1em;
     }
 
     .header * {
@@ -61,7 +62,7 @@
 
     .header::after {
         background-image: url("{{asset('/images/intro/01-Cover-01.png')}}");
-
+        background-position: center;
     }
 
     .header .cnt {
@@ -137,7 +138,7 @@
 
     .newsletter2 {
         transform: translateX(-2%);
-        max-width: 34vw;
+        max-width: 38vw;
         margin: 0 auto 6em auto;
     }
 
@@ -218,6 +219,13 @@
             margin-right: auto;
         }
 
+        .header{
+            width: 80vw;
+        }
+        .subheader{
+            width: 60vw;
+            transform: translateX(8%) !important;
+        }
         .with-bg,
         .with-bg .bg {
             min-width: 60vw !important;
@@ -234,7 +242,7 @@
 
 @section('content')
 <div id="overlay"></div>
-<div class="header file-paper bg-v1">
+<div class="header file-paper bg-v1 shift-block">
     <h1>ČAS-OPIS <span>1989</span></h1>
 </div>
 <div class="subheader shift-block with-bg">
@@ -269,10 +277,10 @@
 
 <div class="newsletter2 with-bg shift-block paper-border">
     <div class="bg">&nbsp;</div>
-    <div class="cnt border container-fluid">
-        <form id="subscribe_form">
+    <div class="block-paper">
+        <form id="subscribe_form" class="container-fluid">
             <h3>Prihláste sa na newsletter</h3>
-            <div class=" row">
+            <div class="row">
                 <div class="col-md-7 col-sm-6">
                     <input type="email" name="user_email" id="user_email" class="form-control">
                 </div>
@@ -297,7 +305,7 @@
     <div class="bg">&nbsp;</div>
     <div class="cnt">
         <h3>Pre školy</h3>
-        V októbri zverejníme prvý zo série článkov pre študentov, ktoré na príklade tém Novembra 89 priblížia
+        Čoskoro zverejníme prvý zo série článkov pre študentov, ktoré na príklade tém Novembra 89 priblížia
         princípy, vznik a šírenie konšpiračných teórií.
     </div>
 </div>

@@ -15,7 +15,6 @@
 
 .block-paper {
     @include paper-bck(1rem);
-    margin: 0.5rem;
 }
 
 .block-paper::before {
@@ -30,7 +29,6 @@
 
 .tableau-paper {
     @include paper-bck(1rem, true);
-    margin: 0.5rem;
 }
 
 .tableau-paper::before {

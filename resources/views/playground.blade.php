@@ -6,6 +6,10 @@
         background-image: url("{{asset('/images/intro/01-Cover-01.png')}}");
     }
 
+    div[class*="bg-"] {
+        margin: 0.5em;
+    }
+
     #paper-containers {
         background: #666;
     }
