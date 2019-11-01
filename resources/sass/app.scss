@@ -4,10 +4,14 @@
 // Variables
 @import 'variables';
 
+@import 'mixins';
+@import 'backgrounds';
+
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
-html, body{
+html,
+body {
     background-color: #333;
 }
 

@@ -17,7 +17,7 @@
     <router-link :to="{ name: 'journal-entries', params: { date: nextDate }, query: { filter } }">Next</router-link>
 
     <transition name="fade">
-      <keep-alive :max=10>
+      <keep-alive :max="10">
         <journal-entry :key="date" :date="currentDate"></journal-entry>
       </keep-alive>
     </transition>
