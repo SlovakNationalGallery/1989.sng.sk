@@ -28,6 +28,16 @@ class Topic extends Model
         'previous_topic_blurb',
         'next_topic_blurb',
         'cover_image',
+        'category',
+        'is_active',
+    ];
+
+    public static $available_categories = [
+        'topic' => 'Témy',
+        'term' => 'Heslá',
+        'event' => 'Udalosti',
+        'person' => 'Osobnosti',
+        'author' => 'Autori',
     ];
     // protected $hidden = [];
     // protected $dates = [];
@@ -75,6 +85,17 @@ class Topic extends Model
     | SCOPES
     |--------------------------------------------------------------------------
     */
+
+    /**
+     * Scope a query to only include active topics.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', 1);
+    }
 
     /*
     |--------------------------------------------------------------------------

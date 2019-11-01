@@ -18,12 +18,9 @@ class TopicCrudTest extends TestCase
         $topic1 = factory(Topic::class)->create();
         $topic2 = factory(Topic::class)->create();
 
-        $controller = new TopicCrudController();
-        $controller->setup();
-
         $response = $this->actingAs($user, 'backpack')
                          ->followingRedirects()
-                         ->patch(url($controller->crud->getRoute(), $topic1->id), array_merge($topic1->getAttributes(), ['next_topic_id' => $topic2->id]));
+                         ->patch(route('crud.topic.update', $topic1->id), array_merge($topic1->getAttributes(), ['next_topic_id' => $topic2->id]));
         $response->assertStatus(200);
 
         $topic1->refresh();
