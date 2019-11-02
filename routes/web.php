@@ -34,3 +34,6 @@ Route::get('journal-entries', function () {
 Route::get('journal-entries/{journalEntry}', function () {
     return view('journal_entries');
 })->name('journal-entries.show');
+
+
+Route::get('/{slug}/visual-editor', 'TopicController@visualEditor')->name('visual-editor');
