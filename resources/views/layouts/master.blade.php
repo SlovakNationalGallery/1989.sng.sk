@@ -6,13 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <meta name="description" content="Vizuálna kultúra, idey a udalosti Nežnej revolúcie, prebudenie občianskej spoločnosti a šírenie jej posolstiev.">
+  <meta name="description" content="Deň po dni sledujeme vývoj Neznej revolúcie v denníku Júliusa Kollera a prostredníctvom fotografií, plagátov, rozhovorov a videí spoznávame kreativitu občanov, ich požiadavky, názory a nádeje.">
 
   <meta property="og:title" content="Čas-opis 1989" />
-  <meta property="og:description" content="Vizuálna kultúra, idey a udalosti Nežnej revolúcie, prebudenie občianskej spoločnosti a šírenie jej posolstiev." />
+  <meta property="og:description" content="Deň po dni sledujeme vývoj Neznej revolúcie v denníku Júliusa Kollera a prostredníctvom fotografií, plagátov, rozhovorov a videí spoznávame kreativitu občanov, ich požiadavky, názory a nádeje." />
+  <meta property="og:keywords" content="November 1989, Nežná revolúcia, Július Koller, Verejnosť proti násiliu, plagáty, Čas-opis"/>
   <meta property="og:type" content="website" />
+  <meta property="og:author" content="http://lab.sng.sk/" />
   <meta property="og:url" content="{{ url()->current() }}" />
-  <meta property="og:image" content="{{ asset('/images/ogimage.jpg') }}" />
+  <meta property="og:image" content="{{ asset('/images/Og-Cas-OPIS.png') }}" />
   <meta property="og:site_name" content="Čas-opis 1989" />
   @show
 
