@@ -57,10 +57,15 @@ export default {
     }
   },
   methods: {
-    setDate(date) {
-      this.dayCallback(date);
+    setDate(date, runCallback = true) {
+      runCallback && this.dayCallback(date);
       this.showCalendar = false;
       this.startAtDay = date;
+    }
+  },
+  watch: {
+    $route(to, from) {
+      this.setDate(to.params.date, false);
     }
   }
 };
