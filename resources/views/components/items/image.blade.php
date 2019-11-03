@@ -1,0 +1,1 @@
+<img src="{{ asset($item->file) }}" alt="{{ $item->full_name }}" />

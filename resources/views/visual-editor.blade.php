@@ -126,14 +126,30 @@
           border: 1px dashed #666;
         }
 
+        .top-right {
+            top: 10px;
+            right: 10px;
+        }
+
     </style>
 @endpush
 
 @section('content')
+
+<div id="result">
+    @if (Session::has('status'))
+        <div class="alert alert-success  offset4 span4"><button type="button" class="close">×</button>{{ Session::get('status') }}</div>
+    @endif
+</div>
+
+
 <div class="header">
     <h1>{{ $topic->name }}</h1>
 </div>
 
+<div class="position-fixed top-right p-2">
+    <a href="#" onclick="event.preventDefault(); save();">Save</a>
+</div>
 
 <div id="items">
     @foreach ($topic->items as $i=>$item)
@@ -148,9 +164,8 @@
                 data-orig-width="{{$item->pivot->width}}"
                 data-orig-height="{{$item->pivot->height}}"
                 style="left: {{$item->pivot->pos_x}}px; top: {{$item->pivot->pos_y}}px; width: {{$item->pivot->width}}px; height: {{$item->pivot->height}}px;" >
-                @if ($item->file)
-                    <img src="{{ asset($item->file) }}" />
-                    <button type="button" onclick="location.href='/delete/{{ $item->id }}';" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                @if (true)
+                    @include($item->getComponent(), ['item' => $item])
                 @else
                     <a href="{{ asset($item->file) }}" class="image-link" title="{{$item->name}}" data-author="{{$item->author}}">
                         <img src="{{ asset($item->file) }}" />
@@ -165,13 +180,8 @@
 
 
 @push('scripts')
-    {{-- <script src="//code.jquery.com/jquery-1.12.3.min.js"></script> --}}
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script> --}}
-    {{-- <script src="//cdnjs.cloudflare.com/ajax/libs/interact.js/1.2.6/interact.min.js"></script> --}}
-    {{-- <script src="//code.jquery.com/jquery-1.12.3.min.js"></script> --}}
     <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
-
-    <script src="/js/edit.js"></script>
-
+    <script src="{{ asset('/js/edit.js') }}"></script>
 
 @endpush

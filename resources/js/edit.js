@@ -39,8 +39,6 @@ document.addEventListener("DOMContentLoaded", function() {
       target.style.height  = event.rect.height + 'px';
     });
 
-
-  // this is used later in the resizing and gesture demos
 });
 
   function dragMoveListener (event) {
@@ -59,24 +57,24 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   function exportPhoto() {
-    var $photo = $( '.drag-and-resize' ).first();
-    var $photoContainer = $( '.resize' ).first();
+    var $item = $( '.drag-and-resize' ).first();
+    var $itemContainer = $( '.resize' ).first();
 
     var data = {};
     data['windowWidth'] = $( window ).width();
-    data['photo'] = {};
-    data['photo']['id'] = $photo.data('id');
-    data['photo']['pos-x'] = $photo.data('x');
-    data['photo']['pos-y'] = $photo.data('y');
-    data['photo']['width'] = $photo.width();
-    data['photo']['height'] = $photo.height();
-    data['photo']['container'] = $photoContainer.height();
+    data['item'] = {};
+    data['item']['id'] = $item.data('id');
+    data['item']['pos-x'] = $item.data('x');
+    data['item']['pos-y'] = $item.data('y');
+    data['item']['width'] = $item.width();
+    data['item']['height'] = $item.height();
+    data['item']['container'] = $itemContainer.height();
     return JSON.stringify(data);
   }
 
   function save() {
     $.ajax({
-        url: '/save',
+        url: './save',
         type: "POST",
         data: exportPhoto(),
         contentType: "application/json",
@@ -99,8 +97,8 @@ document.addEventListener("DOMContentLoaded", function() {
   window.dragMoveListener = dragMoveListener;
 
 
-  // $(function () {
-  //     $.ajaxSetup({
-  //         headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
-  //     });
-  // });
+  $(function () {
+      $.ajaxSetup({
+          headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+      });
+  });

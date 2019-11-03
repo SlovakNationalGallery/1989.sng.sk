@@ -36,4 +36,5 @@ Route::get('journal-entries/{journalEntry}', function () {
 })->name('journal-entries.show');
 
 
-Route::get('/{slug}/visual-editor', 'TopicController@visualEditor')->name('visual-editor');
+Route::get('/{slug}/visual-editor', 'TopicController@visualEditor')->name('topic.editor');
+Route::post('/{slug}/save', 'TopicController@save')->name('topic.save');
