@@ -10,7 +10,7 @@
         }
 
 
-        #items div.photo img {
+        #items div.item img {
           width: 100%;
           height: 100%;
           -webkit-transition: opacity .2s ease-in-out;
@@ -19,17 +19,17 @@
 
         }
 
-        #items div.photo a:hover img {
+        #items div.item a:hover img {
           opacity: 0.9;
         }
 
-        #items div.photo {
+        #items div.item {
           background-color: #fff;
           position: absolute;
           z-index: 10;
         }
 
-        #items div.photo button {
+        #items div.item button {
           position: absolute;
           top: 7px;
           right: 10px;
@@ -57,11 +57,11 @@
               padding: 30px;
             }
 
-            #items .photo-container {
+            #items .item-container {
               height: auto !important;
             }
 
-            #items div.photo {
+            #items div.item {
               margin: 0 0 30px 0 !important;
               width: 100% !important;
               height: auto !important;
@@ -102,14 +102,14 @@
           font-size: 12px !important;
         }
 
-        .photo-container {
+        .item-container {
           position: relative;
           width: 100%;
           min-height: 1px;
         }
 
 
-        .photo-container.resize {
+        .item-container.resize {
           /*background-color: #ddd;*/
           background: repeating-linear-gradient(
             45deg,
@@ -150,9 +150,9 @@
 
 <div id="items">
     @foreach ($topic->items as $i=>$item)
-        <div class="photo-container {{ ($i==0) ? 'resize' : '' }}" style="height: {{$item->pivot->container}}px" data-orig-height="{{$item->pivot->container}}" >
+        <div class="item-container {{ ($i==0) ? 'resize' : '' }}" style="height: {{$item->pivot->container}}px" data-orig-height="{{$item->pivot->container}}" >
             <div
-                class="photo {{ ($i==0) ? 'drag-and-resize' : '' }}"
+                class="item {{ ($i==0) ? 'drag-and-resize' : '' }}"
                 data-id="{{$item->id}}"
                 data-orig-x="{{$item->pivot->pos_x}}"
                 data-orig-y="{{$item->pivot->pos_y}}"
@@ -180,5 +180,39 @@
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script> --}}
     <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
     <script src="{{ asset('/js/edit.js') }}"></script>
+
+    <script>
+        function repositionItems() {
+
+          var ratio = $( window ).width() / 1280;
+
+          $( '.item-container' ).each(function( index ) {
+            var height = $(this).data('orig-height') || 0;
+            $(this).css("height", height * ratio);
+          });
+
+          $( '.item' ).each(function( index ) {
+            var width = $(this).data('orig-width') || 0;
+            var height = $(this).data('orig-height') || 0;
+
+            var x = (parseFloat($(this).data('orig-x')) || 0) * ratio;
+            var y = (parseFloat($(this).data('orig-y')) || 0) * ratio;
+
+            $(this).css("height", height * ratio);
+            $(this).css("width", width * ratio);
+
+            $(this).css("left", x + 'px');
+            $(this).css("top", y + 'px');
+
+            $(this).attr('data-x', x)
+            $(this).attr('data-y', y)
+
+          });
+        }
+
+        $(window).on("resize", function () {
+            repositionItems();
+        }).resize();
+    </script>
 
 @endpush
