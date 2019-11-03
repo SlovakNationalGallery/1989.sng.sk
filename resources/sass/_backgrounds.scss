@@ -1,69 +1,70 @@
 .file-paper {
     @include paper-bck(4rem);
-}
-
-.file-paper::before {
-    @extend %before-after-sizing;
-    @extend %file-paper-bgr;
-}
-
-.file-paper::after {
-    @extend %before-after-sizing;
-    background-size: cover;
+    &::before {
+        @extend %before-after-sizing;
+        @extend %file-paper-bgr;
+    }
+    &::after,
+    .bg {
+        @extend %before-after-sizing;
+        background-size: cover;
+    }
 }
 
 .block-paper {
     @include paper-bck(1rem);
-}
-
-.block-paper::before {
-    @extend %before-after-sizing;
-    @extend %block-paper-bgr;
-}
-
-.block-paper::after {
-    @extend %before-after-sizing;
-    background-size: cover;
+    &::before {
+        @extend %before-after-sizing;
+        @extend %block-paper-bgr;
+    }
+    &::after,
+    .bg {
+        @extend %before-after-sizing;
+        background-size: cover;
+    }
 }
 
 .tableau-paper {
     @include paper-bck(1rem, true);
-}
-
-.tableau-paper::before {
-    @extend %before-after-sizing;
-    @extend %tableau-paper-bgr;
-}
-
-.tableau-paper::after {
-    @extend %before-after-sizing;
-    background-size: cover;
+    &::before {
+        @extend %before-after-sizing;
+        @extend %tableau-paper-bgr;
+    }
+    &::after,
+    .bg {
+        @extend %before-after-sizing;
+        background-size: cover;
+    }
 }
 
 .bg-v1 {
     transform: translate(-0.25em, -0.25em);
-    &::after {
+    &::after,
+    .bg {
         transform: translate(+0.5em, +0.5em);
     }
 }
 
 .bg-v2 {
     transform: translate(-0.25em, +0.25em);
-    &::after {
+    &::after,
+    .bg {
         transform: translate(+0.5em, -0.5em);
     }
 }
 
 .bg-v3 {
     transform: translate(+0.25em, +0.25em);
-    &::after {
+    &::after,
+    .bg {
         transform: translate(-0.5em, -0.5em);
     }
 }
 
 .bg-v4 {
     transform: translate(+0.25em, -0.25em);
-    &::after {
+    &::after,
+    .bg {
         transform: translate(-0.5em, +0.5em);
     }
 }

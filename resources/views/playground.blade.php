@@ -6,12 +6,12 @@
         font-size: 9pt;
     }
 
-    div[class*="bg-"]::after {
+    div[class*="bg-"]>.bg {
         background-image: url("{{asset('/images/intro/01-Cover-01.png')}}");
     }
 
-    div[class*="bg-"] {
-        margin: 0.25em;
+    div[class*="col-"] {
+        padding: 0.5em;
     }
 
     #paper-containers {
@@ -34,6 +34,7 @@
         <div class="col-md-12">
             <div class="block-paper">
                 <h4>paper containers</h4>
+                <div class="bg"> </div>
                 texture image has to be added as <b>::after</b> pseudoelement
             </div>
         </div>
@@ -44,31 +45,37 @@
             <div class="col-md-2">
                 <div class="file-paper">
                     <h4>file-paper</h4>
+                    <div class="bg"> </div>
                 </div>
             </div>
             <div class="col-md-2">
                 <div class="file-paper bg-v0">
                     <h4>file-paper + bg</h4>
+                    <div class="bg"> </div>
                 </div>
             </div>
             <div class="col-md-2">
                 <div class="file-paper bg-v1">
                     <h4>file-paper bg-v1</h4>
+                    <div class="bg"> </div>
                 </div>
             </div>
             <div class="col-md-2">
                 <div class="file-paper bg-v2">
                     <h4>file-paper bg-v2</h4>
+                    <div class="bg"> </div>
                 </div>
             </div>
             <div class="col-md-2">
                 <div class="file-paper bg-v3">
                     <h4>file-paper bg-v3</h4>
+                    <div class="bg"> </div>
                 </div>
             </div>
             <div class="col-md-2">
                 <div class="file-paper bg-v4">
                     <h4>file-paper bg-v4</h4>
+                    <div class="bg"> </div>
                 </div>
             </div>
         </div>
@@ -78,31 +85,37 @@
             <div class="col-md-2">
                 <div class="block-paper ">
                     <h4>block-paper </h4>
+                    <div class="bg"> </div>
                 </div>
             </div>
             <div class="col-md-2">
                 <div class="block-paper bg-v0">
                     <h4>block-paper + bg</h4>
+                    <div class="bg"> </div>
                 </div>
             </div>
             <div class="col-md-2">
                 <div class="block-paper bg-v1">
                     <h4>block-paper bg-v1</h4>
+                    <div class="bg"> </div>
                 </div>
             </div>
             <div class="col-md-2">
                 <div class="block-paper bg-v2">
                     <h4>block-paper bg-v2</h4>
+                    <div class="bg"> </div>
                 </div>
             </div>
             <div class="col-md-2">
                 <div class="block-paper bg-v3">
                     <h4>block-paper bg-v3</h4>
+                    <div class="bg"> </div>
                 </div>
             </div>
             <div class="col-md-2">
                 <div class="block-paper bg-v4">
                     <h4>block-paper bg-v4</h4>
+                    <div class="bg"> </div>
                 </div>
             </div>
         </div>
@@ -113,31 +126,37 @@
             <div class="col-md-2">
                 <div class="tableau-paper ">
                     <h4>tableau-paper </h4>
+                    <div class="bg"> </div>
                 </div>
             </div>
             <div class="col-md-2">
                 <div class="tableau-paper bg-v0">
                     <h4>tableau-paper + bg</h4>
+                    <div class="bg"> </div>
                 </div>
             </div>
             <div class="col-md-2">
                 <div class="tableau-paper bg-v1">
                     <h4>tableau-paper bg-v1</h4>
+                    <div class="bg"> </div>
                 </div>
             </div>
             <div class="col-md-2">
                 <div class="tableau-paper bg-v2">
                     <h4>tableau-paper bg-v2</h4>
+                    <div class="bg"> </div>
                 </div>
             </div>
             <div class="col-md-2">
                 <div class="tableau-paper bg-v3">
                     <h4>tableau-paper bg-v3</h4>
+                    <div class="bg"> </div>
                 </div>
             </div>
             <div class="col-md-2">
                 <div class="tableau-paper bg-v4">
                     <h4>tableau-paper bg-v4</h4>
+                    <div class="bg"> </div>
                 </div>
             </div>
         </div>
@@ -161,6 +180,7 @@
                 zabiť na druhej strane hranice, Pohraničná stráž mala pokyn ...
 
                 <h4>.ruled h4</h4>
+                <div class="bg"> </div>
                 Pri strážení hranice sa využívala aj pomoc civilistov, ktorí spĺňali množstvo kritérií - patrili
                 k Pomocníkom pohraničnej stráže (PPS). Ich úlohou bolo sledovať a udávať ľudí podozrivých z
                 prípravy na prekročenie hranice. Za takúto pomoc boli aj finančne odmeňovaní. ...
@@ -168,4 +188,7 @@
         </div>
     </div>
 </div>
+
+@include('components.letters_expositions')
+@include('components.footer')
 @stop

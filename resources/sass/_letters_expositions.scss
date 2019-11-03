@@ -1,0 +1,25 @@
+#letters-expositions {
+    margin: auto;
+    .shift-block {
+        z-index: 0;
+        padding: 3rem 2rem;
+        width: 40vw;
+    }
+    #letters {
+        background: white;
+        left: 5%;
+        &::after {
+            @extend %before-after-sizing;
+            background: url('../images/vzdelavacie_listy.png');
+        }
+    }
+    #expos {
+        left: 55%;
+        color: white;
+        background: $blue;
+        &::after {
+            @extend %before-after-sizing;
+            background: url('../images/vystavy.png');
+        }
+    }
+}

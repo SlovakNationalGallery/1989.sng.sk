@@ -1,0 +1,33 @@
+.shift-block-container {
+    position: relative;
+    width: 100%;
+    z-index: 1;
+    &:last-child {
+        z-index: 0;
+    }
+    .shift-block {
+        position: absolute;
+        max-width: 40vw;
+        transition: all 0.1s ease-in-out;
+
+        &:last-child {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+    }
+}
+
+@media (max-width: map-get($grid-breakpoints, md ) - 1px) {
+    .shift-block-container {
+        height: auto !important;
+    }
+    .shift-block {
+        transform: none !important;
+        max-width: 90vw !important;
+        margin: 1em auto;
+        width: 90vw !important;
+        position: relative;
+        left: unset !important;
+        top: unset !important;
+    }
+}

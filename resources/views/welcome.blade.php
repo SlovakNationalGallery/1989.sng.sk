@@ -2,8 +2,6 @@
 @push('styles')
 
 <style>
-    @import '../css/app.css';
-
     body {
         background-image: url("{{asset('/images/intro/BG-0' . random_int(2, 4) . '.jpg') }}");
         background-attachment: fixed;
@@ -88,8 +86,6 @@
     .subheader .cnt {
         margin-bottom: 1rem;
         padding: 2rem 1rem;
-        max-width: 40vw;
-        min-width: 250px;
         transform: translate(-0.5rem, -0.5rem);
         background-image: url("{{asset('/images/intro/02-Perex-01.png')}}");
         background-size: cover;
@@ -181,26 +177,6 @@
         display: inline-block;
     }
 
-    .paper-border {
-        position: relative;
-    }
-
-    .paper-border>div:not(.border) {
-        margin-left: -1.2rem;
-    }
-
-    .paper-border>.border::before {
-        content: "";
-        background-image: url("{{asset('/images/border-01.svg')}}");
-        background-repeat: repeat-y;
-        background-size: 1.25rem auto;
-        position: absolute;
-        left: -1.2rem;
-        height: 100%;
-        top: 0;
-        width: 3rem;
-    }
-
     #overlay {
         position: fixed;
         top: 0;
@@ -215,18 +191,13 @@
         .shift-block {
             transform: none !important;
             max-width: 90vw !important;
-            margin-left: auto;
-            margin-right: auto;
+            margin: 1em auto;
         }
 
         .header {
-            width: 80vw;
+            width: 90vw;
         }
 
-        .subheader {
-            width: 60vw;
-            transform: translateX(8%) !important;
-        }
 
         .with-bg,
         .with-bg .bg {

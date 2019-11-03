@@ -53,6 +53,8 @@
         </transition-group>
     </div>
 </div>
+@include('components.letters_expositions')
+@include('components.footer')
 
 @stop
 
