@@ -1,6 +1,6 @@
 html,
 body {
-    background-color: #333;
+    background-color: $gray-dark;
 }
 
 h1,
@@ -14,9 +14,6 @@ h2 {
     font-weight: normal;
 }
 
-a {
-    color: #ccc;
-}
 
 a:hover {
     color: white;

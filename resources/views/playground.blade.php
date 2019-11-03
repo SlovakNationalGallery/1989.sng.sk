@@ -190,5 +190,5 @@
 </div>
 
 @include('components.letters_expositions')
-@include('components.footer')
+@include('components.footer', ['topics' => App\Models\Topic::orderBy('name', 'asc')->get()->groupBy('category')]);
 @stop

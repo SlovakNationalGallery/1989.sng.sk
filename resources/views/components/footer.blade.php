@@ -3,12 +3,12 @@
     @foreach (App\Models\Topic::$available_categories as $catKey => $cat)
     @if (isset($topics[$catKey]))
     <dl>
-        <dt>{!! $cat !!}</dt>
-        @foreach ($topics[$catKey]->all() as $topic)
+        <dt>{{ $cat }}</dt>
+        @foreach ($topics[$catKey] as $topic)
         @if ($topic->is_active)
-            <dd><a href="#TODO">{!! $topic->name!!}</a></dd>
+            <dd><a href="#TODO">{{ $topic->name }}</a></dd>
         @else
-            <dd class="inactive">{!! $topic->name!!}</dd>
+            <dd class="inactive">{{ $topic->name }}</dd>
         @endif
         @endforeach
     </dl>
