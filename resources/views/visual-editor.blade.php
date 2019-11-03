@@ -35,11 +35,6 @@
           right: 10px;
         }
 
-        #items {
-          margin-top: 200px;
-          padding: 10px;
-        }
-
         @media(max-width: 720px) {
 
             .navbar-brand svg {
@@ -134,6 +129,8 @@
     </style>
 @endpush
 
+@section('body-class', 'bg-light')
+
 @section('content')
 
 <div id="result">
@@ -143,7 +140,7 @@
 </div>
 
 
-<div class="header">
+<div class="header text-center">
     <h1>{{ $topic->name }}</h1>
 </div>
 
