@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/day/{date}', function ($date) {
-    return JournalEntry::where('written_at', '=', $date)->get();
+    return JournalEntry::where('written_at', '=', $date)->first();
 })->name('api.day');
 
 Route::post('/subscribe', 'SubscriptionController@store');

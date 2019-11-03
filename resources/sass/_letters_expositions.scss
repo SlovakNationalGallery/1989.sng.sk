@@ -10,7 +10,7 @@
         left: 5%;
         &::after {
             @extend %before-after-sizing;
-            background: url('../images/vzdelavacie_listy.png');
+            background: url('/images/vzdelavacie_listy.png');
         }
     }
     #expos {
@@ -19,7 +19,7 @@
         background: $blue;
         &::after {
             @extend %before-after-sizing;
-            background: url('../images/vystavy.png');
+            background: url('/images/vystavy.png');
         }
     }
 }

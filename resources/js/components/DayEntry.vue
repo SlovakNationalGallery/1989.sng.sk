@@ -12,20 +12,11 @@
 <script>
 export default {
   name: "DayEntry",
-  props: ["date"],
-  data() {
-    return {
-      transcriptionPagesIds: [],
-      content: ""
-    };
-  },
-  mounted() {
-    this.fetchData(this.date);
-  },
+  props: ["date", "content"],
   computed: {
     contentCompiled() {
       const regex = /<a\s+href="tag:\/\/(.+?)">(.*?)<\/a>/gs;
-      const contentWithRouterLinks = this.content.replace(
+      const contentWithRouterLinks = `${this.content}`.replace(
         regex,
         `<router-link :to="{ name: 'journal-entries', params: { date: '${
           this.date
@@ -35,28 +26,12 @@ export default {
       const template = Vue.compile(`<div>${contentWithRouterLinks}</div>`);
       return { ...template, data: () => ({}) };
     }
-  },
-  watch: {
-    date(newDate, oldDate) {
-      this.fetchData(this.newDate);
-    }
-  },
-  methods: {
-    fetchData(date) {
-      axios
-        .get(`/api/journal-entries/${this.date}`)
-        .then(({ data: { data } }) => {
-          this.transcriptionPagesIds = data.transcription_pages_ids;
-          this.content = data.content;
-        });
-    }
   }
 };
 </script>
 
 <style lang="scss">
 .day-content {
-  max-width: 70vw;
   p {
     display: inline !important;
   }

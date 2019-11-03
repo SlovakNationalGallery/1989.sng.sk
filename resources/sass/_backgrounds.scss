@@ -72,7 +72,7 @@
 .ruled::before {
     @extend %before-after-sizing;
     top: -1rem;
-    background: url($row-double-line);
+    background: url("/images/row-double-line.svg");
     background-size: auto 1.5rem;
     background-position: left bottom;
     background-repeat: repeat-x;
@@ -82,7 +82,7 @@
 }
 .ruled {
     position: relative;
-    background: url($row-line);
+    background: url("/images/row-line.svg");
     background-position: left bottom;
     background-size: auto 1.5rem;
     line-height: 1.5rem;

@@ -10,13 +10,14 @@ const router = new VueRouter({
         path: '/journal-entries/:date?',
         component: JournalEntriesGallery,
         name: 'journal-entries',
-        props: ({params, query}) => ({ date: params.date, filter: query.filter })
+        props: ({params, query}) => ({ date: params.date, filter: query.filter }),
+        meta: { transitionName: 'slide' },
       },
       {
         path: '/day/:date?',
         component: DayEntriesGallery,
         name: 'day-entries',
-        props: ({params, query}) => ({ date: params.date})
+        props: ({params}) => ({ date: params.date}),
       }
     ]
 })

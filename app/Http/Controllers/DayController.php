@@ -20,7 +20,7 @@ class DayController extends Controller
                 'entries' => json_encode($entries)
             ]);
         } else {
-            return redirect()->route('day', $days->start || '1989-11-1');
+            return redirect()->route('day', isset($days->start) ? $days->start : '1989-11-1');
         }
     }
 }
