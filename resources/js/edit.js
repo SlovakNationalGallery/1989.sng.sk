@@ -73,6 +73,8 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   function save() {
+    $('#save').addClass("disabled");
+    $('#save').html("saving...");
     $.ajax({
         url: './save',
         type: "POST",
@@ -80,12 +82,11 @@ document.addEventListener("DOMContentLoaded", function() {
         contentType: "application/json",
         // complete: callback
         success: function(data){
-          $("#result").html('<div class="alert alert-success  offset4 span4"><button type="button" class="close">×</button>'+data.response+'</div>');
+          $('#save').html("success");
           window.setTimeout(function () {
-               $(".alert").fadeTo(500, 0).slideUp(500, function () {
-                   $(this).remove();
-               });
-           }, 5000);
+               $('#save').html("save");
+               $('#save').removeClass("disabled");
+           }, 2000);
 
         },
         failure: function(errMsg) {

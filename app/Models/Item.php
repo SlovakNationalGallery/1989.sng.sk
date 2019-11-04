@@ -36,6 +36,7 @@ class Item extends Model
 
     const COMPONENT_PREFIX = 'components.items.';
     const DEFAULT_WIDTH = 1280;
+    const DEFAULT_MARGIN = 40;
 
     /*
     |--------------------------------------------------------------------------

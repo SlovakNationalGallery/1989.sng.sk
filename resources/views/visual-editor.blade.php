@@ -124,6 +124,7 @@
         .top-right {
             top: 10px;
             right: 10px;
+            z-index: 10;
         }
 
     </style>
@@ -145,7 +146,7 @@
 </div>
 
 <div class="position-fixed top-right p-2">
-    <a href="#" onclick="event.preventDefault(); save();">Save</a>
+    <a href="#" onclick="event.preventDefault(); save();" class="btn btn-secondary" id="save">Save</a>
 </div>
 
 <div id="items">
