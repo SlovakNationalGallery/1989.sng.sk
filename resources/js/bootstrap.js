@@ -23,7 +23,19 @@ try {
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-window.axios = require('axios');
+import axios from 'axios'
+import { setupCache } from 'axios-cache-adapter'
+ 
+// Create `axios-cache-adapter` instance
+const cache = setupCache({
+  maxAge: 15 * 60 * 1000
+})
+ 
+// Create `axios` instance passing the newly created `cache.adapter`
+window.axios = axios.create({
+  adapter: cache.adapter
+})
+ 
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 

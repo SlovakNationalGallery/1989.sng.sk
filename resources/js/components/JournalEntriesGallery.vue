@@ -16,11 +16,11 @@
     <router-link :to="{ name: 'journal-entries', params: { date: previousDate }, query: { filter } }">Previous</router-link>
     <router-link :to="{ name: 'journal-entries', params: { date: nextDate }, query: { filter } }">Next</router-link>
 
-    <transition name="fade">
+    <transition-page>
       <keep-alive :max="10">
         <journal-entry :key="date" :date="currentDate"></journal-entry>
       </keep-alive>
-    </transition>
+    </transition-page>
   </div>
 </template>
 
@@ -51,7 +51,6 @@ export default {
   },
   watch: {
     filter(newValue, oldValue) {
-      console.log(oldValue, newValue)
       this.fetchAvailableDays(newValue)
     }
   },
@@ -66,12 +65,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
-}
-.fade-enter, .fade-leave-to {
-  opacity: 0;
-}
-</style>

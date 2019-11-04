@@ -1,69 +1,70 @@
 .file-paper {
     @include paper-bck(4rem);
-}
-
-.file-paper::before {
-    @extend %before-after-sizing;
-    @extend %file-paper-bgr;
-}
-
-.file-paper::after {
-    @extend %before-after-sizing;
-    background-size: cover;
+    &::before {
+        @extend %before-after-sizing;
+        @extend %file-paper-bgr;
+    }
+    &::after,
+    .bg {
+        @extend %before-after-sizing;
+        background-size: cover;
+    }
 }
 
 .block-paper {
     @include paper-bck(1rem);
-}
-
-.block-paper::before {
-    @extend %before-after-sizing;
-    @extend %block-paper-bgr;
-}
-
-.block-paper::after {
-    @extend %before-after-sizing;
-    background-size: cover;
+    &::before {
+        @extend %before-after-sizing;
+        @extend %block-paper-bgr;
+    }
+    &::after,
+    .bg {
+        @extend %before-after-sizing;
+        background-size: cover;
+    }
 }
 
 .tableau-paper {
     @include paper-bck(1rem, true);
-}
-
-.tableau-paper::before {
-    @extend %before-after-sizing;
-    @extend %tableau-paper-bgr;
-}
-
-.tableau-paper::after {
-    @extend %before-after-sizing;
-    background-size: cover;
+    &::before {
+        @extend %before-after-sizing;
+        @extend %tableau-paper-bgr;
+    }
+    &::after,
+    .bg {
+        @extend %before-after-sizing;
+        background-size: cover;
+    }
 }
 
 .bg-v1 {
     transform: translate(-0.25em, -0.25em);
-    &::after {
+    &::after,
+    .bg {
         transform: translate(+0.5em, +0.5em);
     }
 }
 
 .bg-v2 {
     transform: translate(-0.25em, +0.25em);
-    &::after {
+    &::after,
+    .bg {
         transform: translate(+0.5em, -0.5em);
     }
 }
 
 .bg-v3 {
     transform: translate(+0.25em, +0.25em);
-    &::after {
+    &::after,
+    .bg {
         transform: translate(-0.5em, -0.5em);
     }
 }
 
 .bg-v4 {
     transform: translate(+0.25em, -0.25em);
-    &::after {
+    &::after,
+    .bg {
         transform: translate(-0.5em, +0.5em);
     }
 }
@@ -71,7 +72,7 @@
 .ruled::before {
     @extend %before-after-sizing;
     top: -1rem;
-    background: url($row-double-line);
+    background: url("/images/row-double-line.svg");
     background-size: auto 1.5rem;
     background-position: left bottom;
     background-repeat: repeat-x;
@@ -81,7 +82,7 @@
 }
 .ruled {
     position: relative;
-    background: url($row-line);
+    background: url("/images/row-line.svg");
     background-position: left bottom;
     background-size: auto 1.5rem;
     line-height: 1.5rem;

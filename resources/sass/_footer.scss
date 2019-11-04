@@ -1,0 +1,28 @@
+#footer {
+    text-align: center;
+    @media (min-width: map-get($grid-breakpoints, sm)) {
+        column-count: 2;
+    }
+    @media (min-width: map-get($grid-breakpoints, md)) {
+        column-count: 3;
+    }
+    dl {
+        break-inside: avoid;
+        text-align: left;
+        padding: 0 0 1rem 0;
+        padding: 0;
+        margin: 0;
+        color: $gray;
+
+        dt {
+            font-family: 'AvenirLTPro-Black';
+            color: white;
+            text-transform: uppercase;
+            border-bottom: 1px solid white;
+            display: inline;
+        }
+        a {
+            color: white;
+        }
+    }
+}

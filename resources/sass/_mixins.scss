@@ -9,21 +9,21 @@
 }
 
 %block-paper-bgr {
-    background-image: url($block-paper-left);
+    background-image: url("/images/block-paper-left.svg");
     background-repeat: repeat-y;
     background-size: 1.25rem 1.2rem;
     width: 1.25rem;
 }
 
 %file-paper-bgr {
-    background-image: url($file-paper-left);
+    background-image: url("/images/file-paper.svg");
     background-repeat: repeat-y;
     background-size: 4rem auto;
     width: 4rem;
 }
 
 %tableau-paper-bgr {
-    background: url($block-paper-left) top left repeat-y, url($block-paper-right) top right repeat-y;
+    background: url("/images/block-paper-left.svg") top left repeat-y, url("/images/block-paper-right.svg") top right repeat-y;
     background-repeat: repeat-y;
     background-size: 1.25rem 1.2rem;
 }

@@ -1,0 +1,32 @@
+button,
+.btn {
+    white-space: nowrap;
+    background: transparent !important;
+    border: 2px solid;
+    margin: 0.5rem auto;
+
+    a {
+        color: black;
+    }
+
+    &:active {
+        border-color: white;
+    }
+    &:hover {
+        color: black;
+        > * {
+            border-bottom: 1px solid black;
+            color: black;
+        }
+    }
+    &.btn-dark {
+        border-color: white;
+        a {
+            color: white;
+        }
+        &:hover a {
+            border-bottom: 1px solid white;
+            color: white;
+        }
+    }
+}
