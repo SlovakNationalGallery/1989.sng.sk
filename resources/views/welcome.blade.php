@@ -186,6 +186,9 @@
         z-index: 0;
         background: rgba(0, 0, 0, .6);
     }
+    button#submit{
+        background: #637fcf !important;
+    }
 
     @media (max-width:600px) {
         .shift-block {
@@ -260,7 +263,7 @@
                 </div>
                 <div class="col-md-6 offset-md-0 col-sm-8 offset-sm-5">
                     {{ csrf_field() }}
-                    <button type="submit" class="btn btn-primary">Chcem byť v obraze</button>
+                    <button id="submit" type="submit" class="btn btn-dark">Chcem byť v obraze</button>
                 </div>
             </div>
         </form>
