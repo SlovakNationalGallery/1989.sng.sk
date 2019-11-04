@@ -11,7 +11,7 @@ class SubscriptionController extends Controller
     {
         $input = $request->all();
         // subscribe just returns true / false
-        $res = Newsletter::subscribe($input['user_email']);
+        $res = Newsletter::subscribePending($input['user_email']);
 
         // hence we double check if the user is already there
         $subscribed = Newsletter::isSubscribed($input['user_email']);
