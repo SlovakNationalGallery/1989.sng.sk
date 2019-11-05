@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use \App\Models\Topic;
 use \App\Models\Item;
+use \App\Models\ItemTopic;
 
 class TopicController extends Controller
 {
@@ -23,16 +24,20 @@ class TopicController extends Controller
 
         $topic = Topic::where('slug', $slug)->firstOrFail();
 
-        $ratio = Item::DEFAULT_WIDTH / $request->input('windowWidth');
+        $ratio = ItemTopic::DEFAULT_CONTAINER_WIDTH / $request->input('windowWidth');
 
-        $item_data = $request->input('item');
-        $topic->items()->updateExistingPivot($item_data['id'], [
-            'width' => $item_data['width'] * $ratio,
-            'height' => $item_data['height'] * $ratio,
-            'pos_x' => $item_data['pos-x'] * $ratio,
-            'pos_y' => $item_data['pos-y'] * $ratio,
-            'container' => $item_data['container'] * $ratio,
-        ]);
+        $items_data = $request->input('items');
+        foreach ($items_data as $id => $item) {
+            $items_data[$id] = [
+                'width' => $item['width'] * $ratio,
+                'height' => $item['height'] * $ratio,
+                'pos_x' => $item['pos-x'] * $ratio,
+                'pos_y' => $item['pos-y'] * $ratio,
+                'container' => $item['container'] * $ratio,
+            ];
+        }
+
+        $topic->items()->sync($items_data);
 
         return response()->json(['response' => 'Saved']);
     }

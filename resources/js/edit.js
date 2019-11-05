@@ -71,19 +71,22 @@ function dragMoveListener (event) {
   target.setAttribute('data-y', y);
 }
 
-function exportPhoto() {
-  var $item = $( '.drag-and-resize' ).first();
-  var $itemContainer = $( '.resize' ).first();
-
+function exportItems() {
   var data = {};
   data['windowWidth'] = $( window ).width();
-  data['item'] = {};
-  data['item']['id'] = $item.data('id');
-  data['item']['pos-x'] = $item.data('x');
-  data['item']['pos-y'] = $item.data('y');
-  data['item']['width'] = $item.width();
-  data['item']['height'] = $item.height();
-  data['item']['container'] = $itemContainer.height();
+  data['items'] = {};
+
+  $( '.item' ).each(function( index ) {
+    var id = $(this).data('id');
+    $container = $(this).parent('.item-container');
+    data['items'][id] = {};
+    data['items'][id]['pos-x'] = $(this).data('x');
+    data['items'][id]['pos-y'] = $(this).data('y');
+    data['items'][id]['width'] = $(this).width();
+    data['items'][id]['height'] = $(this).height();
+    data['items'][id]['container'] = $container.height();
+  });
+
   return JSON.stringify(data);
 }
 
@@ -93,7 +96,7 @@ function save() {
   $.ajax({
       url: './save',
       type: "POST",
-      data: exportPhoto(),
+      data: exportItems(),
       contentType: "application/json",
       // complete: callback
       success: function(data){
