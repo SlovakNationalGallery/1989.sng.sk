@@ -151,9 +151,9 @@
 
 <div id="items">
     @foreach ($topic->items as $i=>$item)
-        <div class="item-container {{ ($i==0) ? 'resize' : '' }}" style="height: {{$item->pivot->container}}px" data-orig-height="{{$item->pivot->container}}" >
+        <div class="item-container" style="height: {{$item->pivot->container}}px" data-orig-height="{{$item->pivot->container}}" >
             <div
-                class="item {{ ($i==0) ? 'drag-and-resize' : '' }}"
+                class="item {{ ($item->file) ? 'preserve-aspect-ratio' : '' }}"
                 data-id="{{$item->id}}"
                 data-orig-x="{{$item->pivot->pos_x}}"
                 data-orig-y="{{$item->pivot->pos_y}}"

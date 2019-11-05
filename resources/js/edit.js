@@ -1,69 +1,66 @@
-document.addEventListener("DOMContentLoaded", function() {
-
-
-
-});
-
 function initInteract($element) {
-  // item
+  $('*').removeClass('resize');
+  $('*').removeClass('drag-and-resize');
+
   $element.addClass('drag-and-resize');
   $container = $element.parent('.item-container');
   $container.addClass('resize');
 
-  interact($element[0])
-  .draggable({
-    onmove: window.dragMoveListener
-  })
-  .resizable({
-    preserveAspectRatio: true,
-    edges: { left: true, right: true, bottom: true, top: true }
-  })
-  .on('resizemove', function (event) {
-    var target = event.target,
-        x = (parseFloat(target.getAttribute('data-x')) || 0),
-        y = (parseFloat(target.getAttribute('data-y')) || 0);
+  var preserveAspectRatio = ($element.hasClass('preserve-aspect-ratio')) ? true : false;
 
-    // update the element's style
-    target.style.width  = event.rect.width + 'px';
-    target.style.height = event.rect.height + 'px';
-
-    // translate when resizing from top or left edges
-    x += event.deltaRect.left;
-    y += event.deltaRect.top;
-
-    target.style.left = x + 'px';
-    target.style.top = y + 'px';
-
-    target.setAttribute('data-x', x);
-    target.setAttribute('data-y', y);
-    // target.textContent = Math.round(event.rect.width) + '×' + Math.round(event.rect.height);
-  });
-
-  interact($container[0])
+  if (!interact.isSet($element[0])) {
+    interact($element[0])
+    .draggable({
+      onmove: window.dragMoveListener
+    })
     .resizable({
-      edges: { left: false, right: false, bottom: true, top: false }
+      preserveAspectRatio: preserveAspectRatio,
+      edges: { left: true, right: true, bottom: true, top: true }
     })
     .on('resizemove', function (event) {
-      var target = event.target;
-      target.style.height  = event.rect.height + 'px';
-    });
-}
+      var target = event.target,
+          x = (parseFloat(target.getAttribute('data-x')) || 0),
+          y = (parseFloat(target.getAttribute('data-y')) || 0);
 
-function disableInteract() {
-  $('*').removeClass('resize');
-  $('*').removeClass('drag-and-resize');
+      // update the element's style
+      target.style.width  = event.rect.width + 'px';
+      target.style.height = event.rect.height + 'px';
+
+      // translate when resizing from top or left edges
+      x += event.deltaRect.left;
+      y += event.deltaRect.top;
+
+      target.style.left = x + 'px';
+      target.style.top = y + 'px';
+
+      target.setAttribute('data-x', x);
+      target.setAttribute('data-y', y);
+      // target.textContent = Math.round(event.rect.width) + '×' + Math.round(event.rect.height);
+    });
+  }
+
+  if (!interact.isSet($container[0])) {
+    interact($container[0])
+      .resizable({
+        edges: { left: false, right: false, bottom: true, top: false }
+      })
+      .on('resizemove', function (event) {
+        var target = event.target;
+        target.style.height  = event.rect.height + 'px';
+      });
+    }
 }
 
 $('.item').on('click', function (event) {
-  disableInteract();
   initInteract($(this));
 })
 
 function dragMoveListener (event) {
   var target = event.target,
-      // keep the dragged position in the data-x/data-y attributes
-      x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
-      y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+
+  // keep the dragged position in the data-x/data-y attributes
+  x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+  y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
 
   // translate the element
   target.style.left = x + 'px';
