@@ -37,26 +37,6 @@
 
         @media(max-width: 720px) {
 
-            .navbar-brand svg {
-              width: 150px;
-              height: 150px;
-            }
-
-            .navbar-transparent .navbar-nav>li {
-                padding: 5px 5px !important;
-                position: static;
-                text-align: center;
-            }
-
-            .navbar-transparent  .navbar-collapse ul.navbar-left {
-              margin-top: 130px;
-            }
-
-            #items {
-              margin-top: 150px;
-              padding: 30px;
-            }
-
             #items .item-container {
               height: auto !important;
             }
@@ -110,20 +90,19 @@
 
 
         .item-container.resize {
-          /*background-color: #ddd;*/
           background: repeating-linear-gradient(
             45deg,
-            #ddd,
-            #ddd 10px,
-            #d9d9d6 10px,
-            #d9d9d6 20px
+            #f8f9fa,
+            #f8f9fa 10px,
+            #f0f0f0 10px,
+            #f0f0f0 20px
           );
-          border: 1px dashed #666;
+          border: 1px dashed #aaa;
         }
 
         .top-right {
-            top: 10px;
-            right: 10px;
+            top: 15px;
+            right: 15px;
             z-index: 10;
         }
 

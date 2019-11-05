@@ -10,6 +10,18 @@ use \App\Models\ItemTopic;
 
 class TopicController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['show']]);
+    }
+
+    public function show(Request $request, $slug)
+    {
+        $topic = Topic::where('slug', $slug)->firstOrFail();
+        // @todo
+        return 'todo';
+    }
+
     public function visualEditor(Request $request, $slug)
     {
 
