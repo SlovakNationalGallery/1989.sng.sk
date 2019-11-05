@@ -12,7 +12,7 @@ class TopicController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['show']]);
+        $this->middleware(\Backpack\Base\app\Http\Middleware\CheckIfAdmin::class, ['except' => ['show']]);
     }
 
     public function show(Request $request, $slug)
