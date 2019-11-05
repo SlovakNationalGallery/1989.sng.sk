@@ -1,8 +1,65 @@
 <template>
-  <div>
-    <transition-page>
-      <day-entry :key="date" :date="currentDate" :content="content"></day-entry>
-    </transition-page>
+  <div class="day-content">
+    <div class="shift-block-container ">
+      <div class="shift-block koller doubled-bg bg-v3">
+        <div class="profile-pic">
+          <img class="w-100 h-100" src="/images/koller.jpg" />
+        </div>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="intro">
+                <h1>Časo-pis</h1>
+                <i>
+                  Denník Júliusa Kollera dokumentujúci udalosti a nálady
+                  v spoločnosti počas zlomového roku
+                </i>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <a :href="'/journal-entries/' + date" class="read-casopis">
+                <img class="w-100" src="/images/read_casopis.jpg" />
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <transition-page>
+          <div :key="date">
+            <h4 class="date">{{ date | romanize }}</h4>
+            <div class="weather" v-if="dayData.weather">
+              {{ dayData.weather }}
+            </div>
+          </div>
+        </transition-page>
+
+        <transition-page>
+          <day-entry
+            :key="date"
+            :date="currentDate"
+            :dayData="dayData"
+          ></day-entry>
+        </transition-page>
+      </div>
+
+      <div class="shift-block koller-reply doubled-bg bg-v1">
+        <div class="profile-pic ">
+          <img class="w-100 h-100" src="/images/zatkuliak.jpg" />
+        </div>
+        <transition-page>
+          <div :key="date">
+            TODO Na Národní tříde bolo zranených 568 ľudí, následne, v skorých
+            ranných hodinách vyhlásili študenti DAMU prvý štrajk. <br />Účasť
+            Štátnej bezpečnosti na akcii 17. novembra 1989 nebola do dnešných
+            dní uspokojivo vysvetlená, čo je základom konšpiračných teórií o
+            počiatkoch udalostí spätých s „nežnou revolúciou“.
+            <div class="credit">
+              ŽATKULIAK, Jozef a kol.: November '89. Prodama, Bratislava 2009
+            </div>
+          </div>
+        </transition-page>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -13,7 +70,7 @@ export default {
   data() {
     return {
       availableDays: [],
-      content: ""
+      dayData: ""
     };
   },
   computed: {
@@ -23,12 +80,12 @@ export default {
   },
   mounted() {
     axios.get(`/api/day/${this.date}`).then(({ data }) => {
-      this.content = data.content;
+      this.dayData = data;
     });
   },
   beforeRouteUpdate(to, from, next) {
     axios.get(`/api/day/${to.params.date}`).then(({ data }) => {
-      this.content = data.content;
+      this.dayData = data;
       next();
     });
   }
