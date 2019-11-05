@@ -8,7 +8,6 @@
         background-size: cover;
         text-align: center;
         background-position: top center;
-        padding-top: 10vh;
     }
 
     .container {
@@ -177,15 +176,6 @@
         display: inline-block;
     }
 
-    #overlay {
-        position: fixed;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        z-index: 0;
-        background: rgba(0, 0, 0, .6);
-    }
     button#submit{
         background: #637fcf !important;
     }
@@ -217,7 +207,6 @@
 @endpush
 
 @section('content')
-<div id="overlay"></div>
 <div class="header file-paper bg-v1 shift-block">
     <h1>ČAS-OPIS <span>1989</span></h1>
 </div>

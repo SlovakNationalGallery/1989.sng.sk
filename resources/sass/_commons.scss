@@ -14,9 +14,112 @@ h2 {
     font-weight: normal;
 }
 
-
 a:hover {
     color: white;
     border-bottom: 1px solid white;
     text-decoration: none;
+}
+
+#overlay {
+    padding-top: 10vh;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+/// MORE content-focused styling
+
+// DAY VIEW
+
+.day-content {
+    margin-top: 10rem;
+
+    .container-fluid {
+        padding-right: 2rem;
+        margin-left: -$grid-gutter-width / 2;
+    }
+    h1,
+    h2,
+    h3,
+    h4 {
+        padding-left: 0;
+    }
+
+    .read-casopis {
+        display: block;
+        max-width: 200px;
+        float: right;
+        @media (min-width: map-get( $grid-breakpoints, md)) {
+            margin-bottom: -1rem; // compensate image size, on the left side is just a weather caption
+        }
+    }
+    .day-entry {
+        p {
+            display: inline !important;
+        }
+        br {
+            display: none;
+        }
+        .read-more {
+            color: $blue;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+        .ruled {
+            padding-right: 4rem;
+            margin-right: $background-shift;
+        }
+    }
+
+    .shift-block {
+        max-width: 90vw;
+        max-width: map-get($grid-breakpoints, lg);
+        position: relative !important;
+        padding: 2rem 0rem 2rem 3rem;
+        margin: auto;
+        &.koller {
+            .profile-pic {
+                transform: translate(3rem, -5.5rem);
+            }
+            &::before {
+                background: url('/images/bg_koller.png');
+            }
+            &::after {
+                background: white;
+            }
+            z-index: 1;
+        }
+
+        &.koller-reply {
+            left: 0;
+            transform: translate(9%, -1rem);
+            padding: 4rem 5rem;
+            max-width: map-get($grid-breakpoints, lg) * 0.9;
+
+            .profile-pic {
+                transform: translate(-4rem, 2.5rem);
+            }
+            &::before {
+                background: white;
+            }
+            &::after {
+                background: url('/images/bg_koller_reply.png');
+            }
+            .credit {
+                position: absolute;
+                bottom: 0.5rem;
+                right: 8rem;
+            }
+            z-index: 0;
+        }
+    }
+
+    .profile-pic {
+        position: absolute;
+        top: 0;
+        border-radius: 50%;
+        display: block;
+        overflow: hidden;
+        left: 0;
+        width: 8rem;
+        height: 8rem;
+    }
 }

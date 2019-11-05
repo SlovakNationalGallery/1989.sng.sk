@@ -1,23 +1,24 @@
 <template>
   <div class="cldr-row">
-    <button @click="prevPeriod()">〈</button>
-      <div class="cldr-days-wrap">
-        <transition-group name="list" :class="direction">
-          <div
-            class="cldr-row-day"
-            v-for="(day, i) in days"
-            :key="day.d"
-            :class="{ inactive: !day.active, selected: day.d === selectedDay }"
-            :style="{
-              left: (100 * (i - selectedIndex + middle)) / displayCount + '%'
-            }"
-            @click="day.active && selectDay(day)"
-          >
-            {{ day.dt }}. {{ day.m }}.
-          </div> 
-        </transition-group>
-      </div>
-    <button @click="nextPeriod()">〉</button>
+    <button class='btn btn-dark' @click="prevPeriod()">〈</button>
+    <div class="cldr-days-wrap">
+      <transition-group name="list" :class="direction">
+        <div
+          class="cldr-row-day"
+          v-for="(day, i) in days"
+          :key="day.d"
+          :class="{ inactive: !day.active, selected: day.d === selectedDay }"
+          :style="{
+            left: (100 * (i - selectedIndex + middle)) / displayCount + '%'
+          }"
+          @click="day.active && selectDay(day)"
+        >
+          <div>{{ day.dt }}</div>
+          <div>{{ day.m }}</div>
+        </div>
+      </transition-group>
+    </div>
+    <button class="btn btn-dark" @click="nextPeriod()">〉</button>
   </div>
 </template>
 
@@ -39,7 +40,7 @@ export default {
     }
   },
   data() {
-    return { 
+    return {
       selectedIndex: this.startAt
         ? this.days.findIndex(a => a.d === this.startAt)
         : this.days.findIndex(a => a.active),
@@ -96,7 +97,6 @@ export default {
 </script>
 
 <style lang="scss">
-
 .cldr-row {
   position: relative;
 }
@@ -105,7 +105,7 @@ export default {
   top: 0;
   bottom: 0;
   left: 0;
-  width: 5vw;
+  width: 3rem;
 }
 .cldr-row button:last-child {
   right: 0;
@@ -115,8 +115,12 @@ export default {
   position: relative;
   left: 10vw;
   width: 80vw;
-  height: 2.5em;
+  height: 6em;
   overflow-x: hidden;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 .cldr-row-day {
@@ -124,24 +128,24 @@ export default {
   position: absolute;
   margin: 0;
   top: 0;
-  width: calc(80vw / 9);
-  max-width: calc(80vw / 9);
-  height: 2.5em;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  width: 4rem;
+  height: 4.5rem;
   overflow: hidden;
   cursor: pointer;
   text-align: center;
   transition: all 0.5s;
-}
+  color: white;
+  border: 2px solid white;
+  border-radius: 3px;
 
-.cldr-row-day.selected {
-  background: red;
-}
-.cldr-row-day.inactive {
-  color: #aaa;
-  pointer-events: none;
+  &.selected {
+    background: white;
+    color: black;
+  }
+
+  &.inactive {
+    color: #aaa;
+    pointer-events: none;
+  }
 }
 </style>

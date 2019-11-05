@@ -9,7 +9,7 @@ button,
     }
 
     &:active {
-        border-color: white;
+        border-color: $white;
     }
     &:hover {
         color: black;
@@ -19,13 +19,13 @@ button,
         }
     }
     &.btn-dark {
-        border-color: white;
+        border-color: $white;
         a {
-            color: white;
+            color: $white;
         }
         &:hover a {
-            border-bottom: 1px solid white;
-            color: white;
+            border-bottom: 1px solid $white;
+            color: $white;
         }
     }
 }

@@ -34,6 +34,7 @@ export default {
     };
   },
   created() {
+    dayjs.locale('sk');  
     let day = dayjs(this.start, "YYYY-MM-DD")
       .startOf("week")
       .subtract(1, "week");
@@ -45,7 +46,7 @@ export default {
       const newDay = {
         d: day.format("YYYY-MM-DD"),
         dt: day.date(),
-        m: day.format("M"),
+        m: day.format("MMMM"),
         y: day.format("YYYY"),
         w: +day.week(),
         active:
@@ -92,6 +93,7 @@ export default {
   text-align: left;
   background: rgba(255, 255, 255, 0.95);
 }
+
 .cldr-week {
   display: inline-block;
   text-align: right;

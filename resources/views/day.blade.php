@@ -3,6 +3,16 @@
 @section('title', trans('intro.title'))
 
 @push('styles')
+
+<style>
+    body {
+        background-image: url("{{asset('/images/intro/BG-0' . random_int(2, 4) . '.jpg') }}");
+        background-attachment: fixed;
+        background-size: cover;
+        background-position: top center;
+    }
+
+</style>
 @endpush
 
 @section('content')

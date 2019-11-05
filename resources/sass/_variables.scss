@@ -15,8 +15,8 @@ $h2-font-size: 3.2em;
 $h3-font-size: 2.1em;
 $h4-font-size: 1.1em;
 // Colors
-$white:    #fff;
-$black:    #000;
+$white: #fff;
+$black: #000;
 $indigo: #6574cd;
 $pink: #f66d9b;
 $orange: #f6993f;
@@ -28,15 +28,21 @@ $light-blue: #5c83fc;
 $blue: #637fcf;
 $purple: #746495;
 $red: #e3342f;
-$gray: #B4B4B4;
+$gray: #b4b4b4;
 $gray-dark: #333;
 
 // Navbar
-$navbar-dark-color:                 rgba($white, .5);
-$navbar-light-color:                rgba($black, .5);
+$navbar-dark-color: rgba($white, 0.5);
+$navbar-light-color: rgba($black, 0.5);
 
 // add this to fix `npm run prod` https://github.com/twbs/bootstrap/issues/25211#issuecomment-366543785
-$navbar-dark-toggler-icon-bg:       url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#{str-replace(str-replace(#{$navbar-dark-color}, "(", "%28"), ")", "%29")}' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
-$navbar-light-toggler-icon-bg:      url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#{str-replace(str-replace(#{$navbar-light-color}, "(", "%28"), ")", "%29")}' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+$navbar-dark-toggler-icon-bg: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#{str-replace(str-replace(#{$navbar-dark-color}, '(', '%28'), ')', '%29')}' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+$navbar-light-toggler-icon-bg: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#{str-replace(str-replace(#{$navbar-light-color}, '(', '%28'), ')', '%29')}' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
 
-$link-color:  $gray;
+$link-color: $gray;
+
+$grid-gutter-width: 2rem;
+$font-size-base: 0.8rem;
+
+// Custom
+$background-shift: 0.5rem;
