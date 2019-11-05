@@ -66,7 +66,14 @@ class Topic extends Model
 
     public function items()
     {
-        return $this->belongsToMany('App\Models\Item')->using('App\Models\ItemTopic')->withPivot('order')->orderBy('order', 'asc');
+        return $this->belongsToMany('App\Models\Item')->using('App\Models\ItemTopic')->withPivot([
+            'order',
+            'width',
+            'height',
+            'container',
+            'pos_x',
+            'pos_y',
+        ])->orderBy('order', 'asc');
     }
 
     public function nextTopic()

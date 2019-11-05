@@ -34,11 +34,30 @@ class Item extends Model
     // protected $hidden = [];
     // protected $dates = [];
 
+    const COMPONENT_PREFIX = 'components.items.';
+
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
+
+    public function getComponent()
+    {
+        $component = '';
+
+        switch ($this->type) {
+            case 'image':
+                $component = 'image';
+                break;
+
+            default:
+                $component = 'text';
+                break;
+        }
+
+        return self::COMPONENT_PREFIX . $component;
+    }
 
     /*
     |--------------------------------------------------------------------------

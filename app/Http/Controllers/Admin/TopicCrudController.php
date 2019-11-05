@@ -77,6 +77,8 @@ class TopicCrudController extends CrudController
 
         $this->crud->allowAccess('show'); // to show a "preview" button https://backpackforlaravel.com/docs/3.4/crud-buttons#default-buttons
 
+        $this->crud->addButtonFromView('line', 'position', 'position', 'beginning');
+
         $this->crud->addField([
             'name' => 'category',
             'type' => 'select_from_array',
