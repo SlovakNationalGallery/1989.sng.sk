@@ -1,6 +1,6 @@
 <template>
   <div class="cldr-row">
-    <button @click="prevPeriod()">〈</button>
+    <button @click="prevPeriod()" :disabled="this.selectedIndex - navigationOffset <= 0">〈</button>
     <carousel
       class="carousel"
       :navigateTo="navigateTo"
@@ -19,7 +19,7 @@
         ></calendar-day>
       </slide>
     </carousel>
-    <button @click="nextPeriod()">〉</button>
+    <button @click="nextPeriod()" :disabled="this.selectedIndex + navigationOffset >= days.length - 1">〉</button>
   </div>
 </template>
 
@@ -85,18 +85,10 @@ export default {
       this.selectedIndex = index
     },
     updatePerPage() {
-      function minSize(daysCount) {
-        const dayWidth = 50
-        const gutter = 10
-        const buttonWidth = 40
-        // This needs to be kept in sync with CSS dimensions under .cldr-row
-        return daysCount * (dayWidth + gutter) + 2 * (buttonWidth + 3 * gutter)
-      }
-
-      if (window.innerWidth > minSize(9)) return this.perPage = 9
-      if (window.innerWidth > minSize(7)) return this.perPage = 7
-      if (window.innerWidth > minSize(5)) return this.perPage = 5
-      if (window.innerWidth > minSize(3)) return this.perPage = 3
+      if (window.innerWidth >= 1440) return this.perPage = 9
+      if (window.innerWidth >= 1024) return this.perPage = 7
+      if (window.innerWidth >= 768) return this.perPage = 5
+      if (window.innerWidth >= 425) return this.perPage = 3
 
       return this.perPage = 1
     },
@@ -106,47 +98,56 @@ export default {
 
 <style lang="scss" scoped>
 .cldr-row {
-  $day-width: 60px;
-  $gutter: 10px;
-  $button-width: 40px;
+  $day-slide-width: 90px;
 
   display: flex;
   justify-content: center;
 
   button {
-    width: $button-width;
-    height: $day-width;
+    width: 80px;
+    height: 76px;
     color: white;
+    border: none;
+    font-size: 3rem;
+    font-weight: bold;
+    opacity: .8;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    &:disabled {
+      opacity: .2
+    }
   }
 
   .carousel {
-    display: flex;
-    margin-left: 2 * $gutter;
-    margin-right: 2 * $gutter;
-    width: 9 * ($day-width + $gutter) - $gutter;
+    margin-left: 20px;
+    margin-right: 20px;
+    width: $day-slide-width;
 
-    @media screen and (width: 9 * ($day-width + $gutter) + 2 * ($button-width + 3 * $gutter)) {
-      width: 7 * ($day-width + $gutter) - $gutter;
+    @media screen and (min-width: 425px) {
+      width: 3 * $day-slide-width;
     }
-    @media screen and (width: 7 * ($day-width + $gutter) + 2 * ($button-width + 3 * $gutter)) {
-      width: 5 * ($day-width + $gutter) - $gutter;
-    }
-    @media screen and (width: 5 * ($day-width + $gutter) + 2 * ($button-width + 3 * $gutter)) {
-      width: 3 * ($day-width + $gutter) - $gutter;
-    }
-    @media screen and (max-width: 2 * ($day-width + $gutter) + 2 * ($button-width + 3 * $gutter)) {
-      width: 1 * ($day-width + $gutter) - $gutter;
-    }
-  }
 
-  .day {
-    flex-shrink: 0;
-    margin-left: $gutter;
-    width: $day-width;
-    height: $day-width;
+    @media screen and (min-width: 768px) {
+      width: 5 * $day-slide-width;
+    }
 
-    &:first-child {
-      margin-left: 0;
+    @media screen and (min-width: 1024px) {
+      width: 7 * $day-slide-width;
+    }
+
+    @media screen and (min-width: 1440px) {
+      width: 9 * $day-slide-width;
+    }
+
+    .VueCarousel-slide {
+      width: $day-slide-width;
+
+      .day {
+        margin: auto;
+      }
     }
   }
 }
