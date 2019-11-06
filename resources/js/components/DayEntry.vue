@@ -11,7 +11,7 @@ export default {
   computed: {
     contentCompiled() {
       const regex = /<a\s+href="tag:\/\/(.+?)">(.*?)<\/a>/gs;
-      let content = this.dayData.content || "";
+      let content = this.dayData.content_for_frontpage || this.dayData.content || "";
       const breakingP = `${content}`.match(/^[\S\s]{100,2000}<\/p>/g);
       if (
         breakingP &&

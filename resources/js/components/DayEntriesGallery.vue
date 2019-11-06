@@ -42,17 +42,17 @@
         </transition-page>
       </div>
 
-      <div class="shift-block koller-reply doubled-bg bg-v1">
+      <div
+        v-if="dayData.zatkuliak"
+        class="shift-block koller-reply doubled-bg bg-v1"
+      >
         <div class="profile-pic ">
           <img class="w-100 h-100" src="/images/zatkuliak.jpg" />
         </div>
         <transition-page>
-          <div :key="date">
-            TODO Na Národní tříde bolo zranených 568 ľudí, následne, v skorých
-            ranných hodinách vyhlásili študenti DAMU prvý štrajk. <br />Účasť
-            Štátnej bezpečnosti na akcii 17. novembra 1989 nebola do dnešných
-            dní uspokojivo vysvetlená, čo je základom konšpiračných teórií o
-            počiatkoch udalostí spätých s „nežnou revolúciou“.
+          <div>
+            <div v-html="dayData.zatkuliak"></div>
+
             <div class="credit">
               ŽATKULIAK, Jozef a kol.: November '89. Prodama, Bratislava 2009
             </div>

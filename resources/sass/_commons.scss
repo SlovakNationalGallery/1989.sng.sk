@@ -63,25 +63,37 @@ a:hover {
             white-space: nowrap;
             cursor: pointer;
         }
-        .ruled {
-            padding-right: 4rem;
-            margin-right: $background-shift;
-        }
     }
 
     .shift-block {
         max-width: 90vw;
-        max-width: map-get($grid-breakpoints, lg);
+        line-height: $ruled-paper-line-height;
+        @media (min-width: map-get( $grid-breakpoints, lg)) {
+            max-width: map-get($grid-breakpoints, md);
+        }
         position: relative !important;
         padding: 2rem 0rem 2rem 3rem;
         margin: auto;
+        .profile-pic {
+            transform: translate(3rem, -5.5rem);
+        }
         &.koller {
-            .profile-pic {
-                transform: translate(3rem, -5.5rem);
-            }
+            padding: 2rem 0 2rem 1rem;
+
             &::before {
                 background: url('/images/bg_koller.png');
             }
+            .ruled {
+                padding: 0rem 2rem 2rem 0;
+                margin-right: $background-shift;
+            }
+            @media (min-width: map-get( $grid-breakpoints, lg)) {
+                padding: 2rem 0rem 2rem 3rem;
+                .ruled {
+                    padding-right: 4rem;
+                }
+            }
+
             &::after {
                 background: white;
             }
@@ -90,13 +102,20 @@ a:hover {
 
         &.koller-reply {
             left: 0;
+            line-height: 2rem;
             transform: translate(9%, -1rem);
-            padding: 4rem 5rem;
-            max-width: map-get($grid-breakpoints, lg) * 0.9;
-
-            .profile-pic {
-                transform: translate(-4rem, 2.5rem);
+            padding: 4em 2rem 2rem 2rem;
+            max-width: 80vw;
+            margin-top: 8rem;
+            @media (min-width: map-get( $grid-breakpoints, lg)) {
+                max-width: map-get($grid-breakpoints, md) * 0.9;
+                padding: 4em 4rem 2rem 5rem;
+                margin-top: 0;
+                .profile-pic {
+                    transform: translate(-4rem, 2.5rem);
+                }
             }
+
             &::before {
                 background: white;
             }
@@ -104,9 +123,9 @@ a:hover {
                 background: url('/images/bg_koller_reply.png');
             }
             .credit {
-                position: absolute;
-                bottom: 0.5rem;
-                right: 8rem;
+                text-align: right;
+                margin-top: 2rem;
+                margin-right: 1rem;
             }
             z-index: 0;
         }

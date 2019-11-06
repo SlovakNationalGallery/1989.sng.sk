@@ -19,6 +19,7 @@ class JournalEntry extends JsonResource
             'content' => $this->content,
             'content_for_frontpage' => $this->content_for_frontpage,
             'excerpt' => $this->excerpt,
+            'zatkuliak' => $this->zatkuliak,
             'transcription_pages_ids' => $this->transcriptionPages()->pluck('id'),
         ];
     }

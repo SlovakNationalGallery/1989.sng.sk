@@ -37,8 +37,7 @@
     }
 }
 
-.doubled-bg{
-    @include paper-bck(1rem);
+.doubled-bg {
     &::before {
         @extend %before-after-sizing;
     }
@@ -53,20 +52,20 @@
     transform: translate(-$background-shift / 2, -$background-shift / 2);
     &::after,
     .bg {
-        transform: translate(+$background-shift, +$background-shift);
+        transform: translate(+ $background-shift, + $background-shift);
     }
 }
 
 .bg-v2 {
-    transform: translate(-$background-shift / 2, +$background-shift / 2);
+    transform: translate(-$background-shift / 2, + $background-shift / 2);
     &::after,
     .bg {
-        transform: translate(+$background-shift, -$background-shift);
+        transform: translate(+ $background-shift, -$background-shift);
     }
 }
 
 .bg-v3 {
-    transform: translate(+$background-shift / 2, +$background-shift / 2);
+    transform: translate(+ $background-shift / 2, + $background-shift / 2);
     &::after,
     .bg {
         transform: translate(-$background-shift, -$background-shift);
@@ -74,10 +73,10 @@
 }
 
 .bg-v4 {
-    transform: translate(+$background-shift / 2, -$background-shift / 2);
+    transform: translate(+ $background-shift / 2, -$background-shift / 2);
     &::after,
     .bg {
-        transform: translate(-$background-shift, +$background-shift);
+        transform: translate(-$background-shift, + $background-shift);
     }
 }
 
@@ -96,26 +95,26 @@
     position: relative;
     background: url('/images/row-line.svg');
     background-position: left bottom;
-    background-size: auto 2rem;
-    line-height: 2rem !important;
+    background-size: auto $ruled-paper-line-height;
+    line-height: $ruled-paper-line-height !important;
     padding: 0rem 1rem 0rem 0rem;
     margin: 1rem 0 1rem 0rem;
     z-index: 0;
     * {
-        line-height: 2rem !important;
+        line-height: $ruled-paper-line-height !important;
         padding: 0;
         margin: 0;
     }
     h1,
     h2 {
-        line-height: 2rem !important;
-        padding: 2rem 0;
+        line-height: $ruled-paper-line-height !important;
+        padding: $ruled-paper-line-height 0;
         margin: 0;
     }
     h3,
     h4 {
-        line-height: 2rem !important;
-        padding: 1rem 0;
+        line-height: $ruled-paper-line-height !important;
+        padding: $ruled-paper-line-height / 2 0;
         margin: 0;
     }
 }

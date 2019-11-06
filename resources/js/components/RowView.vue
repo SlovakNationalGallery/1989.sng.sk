@@ -1,6 +1,6 @@
 <template>
   <div class="cldr-row">
-    <button class='btn btn-dark' @click="prevPeriod()">〈</button>
+    <button class="btn btn-dark" @click="prevPeriod()">〈</button>
     <div class="cldr-days-wrap">
       <transition-group name="list" :class="direction">
         <div
@@ -78,6 +78,7 @@ export default {
         this.selectedIndex - this.displayCount,
         this.startIndex
       );
+      this.$emit("input", this.days[this.selectedIndex].d);
     },
     nextPeriod() {
       this.direction = "left";
@@ -85,6 +86,7 @@ export default {
         this.selectedIndex + this.displayCount,
         this.endIndex
       );
+      this.$emit("input", this.days[this.selectedIndex].d);
     },
     selectDay(d) {
       const target = this.days.indexOf(d);
