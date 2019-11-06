@@ -7,10 +7,10 @@
         column-count: 3;
     }
     dl {
+        cursor: pointer;
         break-inside: avoid;
         text-align: left;
         padding: 0 0 1rem 0;
-        padding: 0;
         margin: 0;
         color: $gray;
 
@@ -19,7 +19,8 @@
             color: white;
             text-transform: uppercase;
             border-bottom: 1px solid white;
-            display: inline;
+            display: inline-block;
+            margin: .5rem 0;
         }
         a {
             color: white;

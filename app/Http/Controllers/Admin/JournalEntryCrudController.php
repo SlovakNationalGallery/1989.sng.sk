@@ -37,6 +37,7 @@ class JournalEntryCrudController extends CrudController
             ['name' => 'written_at', 'type' => 'date'],
             ['name' => 'weather', 'type' => 'string'],
             ['name' => 'content', 'type' => 'string'],
+            ['name' => 'zatkuliak', 'type' => 'string'],
         ]);
 
         $this->crud->addFields([
@@ -55,6 +56,17 @@ class JournalEntryCrudController extends CrudController
             ],
             [
                 'name' => 'content',
+                'type' => 'summernote',
+                'options' => [
+                    'toolbar' => [
+                        ['style', ['bold', 'italic', 'underline', 'clear']],
+                        ['insert', ['link']],
+                        ['view', ['codeview']],
+                    ],
+                ]
+            ],
+            [
+                'name' => 'zatkuliak',
                 'type' => 'summernote',
                 'options' => [
                     'toolbar' => [
