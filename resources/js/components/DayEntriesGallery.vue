@@ -50,7 +50,7 @@
           <img class="w-100 h-100" src="/images/zatkuliak.jpg" />
         </div>
         <transition-page>
-          <div>
+          <div :key="date">
             <div v-html="dayData.zatkuliak"></div>
 
             <div class="credit">
