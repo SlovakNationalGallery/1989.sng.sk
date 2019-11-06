@@ -12,14 +12,14 @@ export default {
     contentCompiled() {
       const regex = /<a\s+href="tag:\/\/(.+?)">(.*?)<\/a>/gs;
       let content =
-        this.dayData.content_for_frontpage || this.dayData.content || "";
+        this.dayData.content_for_frontpage || "";
       const breakingP = `${content}`.match(/^[\S\s]{100,2000}<\/p>/g);
       if (
         breakingP &&
         breakingP[0] &&
         breakingP[0].length < content.length &&
-        breakingP[0].length > 800 &&
-        content.length - breakingP[0].length > 800
+        breakingP[0].length > 1000 &&
+        content.length - breakingP[0].length > 1000
       ) {
         // TODO update when final texts are available
         content =
