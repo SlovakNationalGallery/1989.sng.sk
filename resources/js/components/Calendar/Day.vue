@@ -1,5 +1,5 @@
 <template>
-  <div class="day" @click="onClick" :class="{ selected, active }">
+  <div class="day" @click="$emit('click', $event)" :class="{ selected, active }">
     {{ dateParsed.format("D") }}
     <div class="month">{{ dateParsed.format("MMMM") }}</div>
   </div>
@@ -16,10 +16,6 @@ import weekOfYear from "dayjs/plugin/weekOfYear";
 export default {
   name: "CalendarDay",
   props: {
-    onClick: {
-      type: Function,
-      required: true,
-    },
     date: {
       type: String,
       required: true,

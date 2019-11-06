@@ -4,7 +4,7 @@
     <transition name="slide">
       <months-view v-if="showCalendar" :days="days" @input="setDate($event)" />
     </transition>
-    <row-view :days="days" :startAt="startAtDay" @input="setDate($event)" />
+    <row-view :days="days" :startAt="startAt" @change="setDate($event)" />
   </div>
 </template>
 
@@ -29,12 +29,11 @@ export default {
     return {
       days: [],
       cldr: [],
-      startAtDay: this.startAt || "",
       showCalendar: false
     };
   },
   created() {
-    dayjs.locale('sk');  
+    dayjs.locale('sk');
     let day = dayjs(this.start, "YYYY-MM-DD")
       .startOf("week")
       .subtract(1, "week");
@@ -61,7 +60,6 @@ export default {
     setDate(date, runCallback = true) {
       runCallback && this.dayCallback(date);
       this.showCalendar = false;
-      this.startAtDay = date;
     }
   },
   watch: {
