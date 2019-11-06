@@ -14,8 +14,7 @@
         text-align: center;
     }
 
-    .with-bg {
-        background-color: white;
+    .doubled-bg {
         margin: auto;
         max-width: 40vw;
         min-width: 400px;
@@ -25,19 +24,11 @@
         position: relative;
     }
 
-    .with-bg>* {
+    .doubled-bg>* {
         background-size: cover;
         background-position: center center;
     }
 
-    .bg {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        z-index: 0;
-    }
 
     .cnt {
         position: relative;
@@ -45,50 +36,6 @@
         padding: 1rem;
     }
 
-    .header {
-        transform: translate(2em);
-        width: 40vw;
-        max-width: 40rem;
-        margin: auto;
-        padding: 2.5em 1em;
-    }
-
-    .header * {
-        text-align: center;
-    }
-
-    .header::after {
-        background-image: url("{{asset('/images/intro/01-Cover-01.png')}}");
-        background-position: center;
-    }
-
-    .header .cnt {
-        margin-bottom: 1rem;
-        padding: 2rem 1rem;
-    }
-
-    .header span {
-        font-family: 'AvenirLTPro-Roman';
-    }
-
-    .subheader {
-        transform: translate(33%, -3em);
-        position: relative;
-        margin: auto;
-        max-width: 40vw;
-        min-width: 250px;
-        background: #D43C3D;
-        font-family: 'AvenirLTPro-Black';
-        z-index: 10;
-    }
-
-    .subheader .cnt {
-        margin-bottom: 1rem;
-        padding: 2rem 1rem;
-        transform: translate(-0.5rem, -0.5rem);
-        background-image: url("{{asset('/images/intro/02-Perex-01.png')}}");
-        background-size: cover;
-    }
 
     .deadline {
         max-width: 30vw;
@@ -146,8 +93,11 @@
         transform: translate(0.5rem, -0.5rem);
     }
 
+    .for-schools::before {
+        background: white;
+    }
 
-    .for-schools .bg {
+    .for-schools::after {
         background-image: url("{{asset('/images/intro/06-For-schools-01.png')}}");
         transform: translate(0.5rem, 0.5rem);
         padding: 1em;
@@ -176,7 +126,7 @@
         display: inline-block;
     }
 
-    button#submit{
+    button#submit {
         background: #637fcf !important;
     }
 
@@ -192,13 +142,13 @@
         }
 
 
-        .with-bg,
-        .with-bg .bg {
+        .doubled-bg,
+        .doubled-bg .bg {
             min-width: 60vw !important;
         }
 
         .shift-block .cnt,
-        .with-bg {
+        .doubled-bg {
             max-width: 90vw;
         }
     }
@@ -207,18 +157,8 @@
 @endpush
 
 @section('content')
-<div class="header file-paper bg-v1 shift-block">
-    <h1>ČAS-OPIS <span>1989</span></h1>
-</div>
-<div class="subheader shift-block with-bg">
-    <div class="bg"></div>
-    <div class="cnt">
-        <b>Ako sa tvorili a šírili kľúčové myšlienky Novembra 1989?</b> <br />Deň po dni sledujeme vývoj Neznej
-        revolúcie v denníku Júliusa Kollera a prostredníctvom fotografií, plagátov, rozhovorov a&nbsp;videí spoznávame
-        kreativitu občanov, ich požiadavky, názory a nádeje.
-    </div>
-</div>
-<div class="deadline shift-block with-bg">
+@include('components.header')
+<div class="deadline shift-block doubled-bg">
     <div class="bg"></div>
     <div class="cnt">
         <h3>Spúšťame 11. novembra 2019</h3>
@@ -227,7 +167,7 @@
 
 
 <div class="newsletter shift-block">
-    <div class="intro with-bg">
+    <div class="intro doubled-bg">
         <div class="bg">&nbsp;</div>
         <div class="cnt container-fluid row">
             <div class="col-md-3"><img src="{{asset('images/intro/calendar-icon.svg')}}" /></div>
@@ -241,7 +181,7 @@
 </div>
 
 
-<div class="newsletter2 with-bg shift-block paper-border">
+<div class="newsletter2 doubled-bg shift-block paper-border">
     <div class="bg">&nbsp;</div>
     <div class="block-paper">
         <form id="subscribe_form" class="container-fluid">
@@ -267,13 +207,11 @@
     </div>
 </div>
 
-<div class="for-schools shift-block with-bg">
-    <div class="bg">&nbsp;</div>
-    <div class="cnt">
-        <h3>Pre školy</h3>
-        Čoskoro zverejníme prvý zo série článkov pre študentov, ktoré na príklade tém Novembra 89 priblížia
-        princípy, vznik a šírenie konšpiračných teórií.
-    </div>
+<div class="for-schools shift-block doubled-bg">
+    <h3>Pre školy</h3>
+    Čoskoro zverejníme prvý zo série článkov pre študentov, ktoré na príklade tém Novembra 89 priblížia
+    princípy, vznik a šírenie konšpiračných teórií.
+
 </div>
 
 <div class="footer">

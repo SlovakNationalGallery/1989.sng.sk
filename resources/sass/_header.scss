@@ -1,0 +1,44 @@
+.header {
+    transform: translate(2em);
+    width: 40vw;
+    max-width: 40rem;
+    margin: auto;
+    padding: 2.5em 1em;
+}
+
+.header * {
+    text-align: center;
+}
+
+.header::after {
+    background-image: url('/images/intro/01-Cover-01.png');
+    background-position: center;
+}
+
+.header .cnt {
+    margin-bottom: 1rem;
+    padding: 2rem 1rem;
+}
+
+.header span {
+    font-family: 'AvenirLTPro-Roman';
+}
+
+.subheader {
+    transform: translate(33%, -3em);
+    position: relative;
+    margin: auto;
+    max-width: 40vw;
+    min-width: 250px;
+    background: #d43c3d;
+    font-family: 'AvenirLTPro-Black';
+    z-index: 10;
+}
+
+.subheader .cnt {
+    margin-bottom: 1rem;
+    padding: 2rem 1rem;
+    transform: translate(-0.5rem, -0.5rem);
+    background-image: url('/images/intro/02-Perex-01.png');
+    background-size: cover;
+}

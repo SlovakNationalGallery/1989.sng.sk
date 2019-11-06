@@ -16,7 +16,7 @@
 @endpush
 
 @section('content')
-
+@include('components.header')
 <div id="calendar">
     <calendar :start="daysAvailable.start" :start-at="startAt" :end="daysAvailable.end" :day-callback="dayClbck">
     </calendar>
