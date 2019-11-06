@@ -1,6 +1,6 @@
 <template>
   <div class="cldr-row">
-    <button @click="prevPeriod()" :disabled="this.selectedIndex - navigationOffset <= 0">〈</button>
+    <button @click="prevPeriod()" :disabled="this.selectedIndex - navigationOffset <= firstNavigateableIndex">〈</button>
     <carousel
       class="carousel"
       :navigateTo="navigateTo"
@@ -19,7 +19,7 @@
         ></calendar-day>
       </slide>
     </carousel>
-    <button @click="nextPeriod()" :disabled="this.selectedIndex + navigationOffset >= days.length - 1">〉</button>
+    <button @click="nextPeriod()" :disabled="this.selectedIndex + navigationOffset >= lastNavigateableIndex">〉</button>
   </div>
 </template>
 
@@ -73,13 +73,19 @@ export default {
     navigationOffset() {
       return (this.perPage - 1) / 2
     },
+    firstNavigateableIndex() {
+      return _.findIndex(this.days, 'active')
+    },
+    lastNavigateableIndex() {
+      return _.findLastIndex(this.days, 'active')
+    }
   },
   methods: {
     prevPeriod() {
-      this.selectedIndex = Math.max(this.selectedIndex - this.perPage, 0 + this.navigationOffset)
+      this.selectedIndex = Math.max(this.selectedIndex - this.perPage, this.firstNavigateableIndex)
     },
     nextPeriod() {
-      this.selectedIndex = Math.min(this.selectedIndex + this.perPage, this.days.length - this.navigationOffset - 1)
+      this.selectedIndex = Math.min(this.selectedIndex + this.perPage, this.lastNavigateableIndex)
     },
     onSlideClick(index) {
       this.selectedIndex = index
