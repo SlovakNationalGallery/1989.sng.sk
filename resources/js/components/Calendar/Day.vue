@@ -7,11 +7,8 @@
 
 <script>
 import dayjs from "dayjs";
-import utc from "dayjs/plugin/utc";
 import "dayjs/locale/sk";
-dayjs.extend(utc);
 dayjs.locale("sk");
-import weekOfYear from "dayjs/plugin/weekOfYear";
 
 export default {
   name: "CalendarDay",
@@ -38,32 +35,40 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .day {
-  width: 80px;
-  height: 80px;
+  width: 76px;
+  height: 76px;
   padding-top: 10px;
-  cursor: pointer;
   text-align: center;
-  transition: all 0.5s;
   color: white;
-  border: 2px solid white;
-  border-radius: 2px;
-  font-size: 16px;
+  border: 4px solid white;
+  transition: all, .3s;
+  border-radius: 4px;
+  font-size: 28px;
   font-weight: bold;
+  opacity: .5;
+  pointer-events: none;
 
   .month {
-    font-size: 7px;
+    font-size: 12px;
     font-weight: normal;
-    margin-top: -2px;
+    margin-top: -8px;
   }
 
   &.selected {
-    background: red;
+    color: black;
+    background: white;
   }
-}
-.cldr-row-day.inactive {
-  color: #aaa;
-  pointer-events: none;
+
+  &.active {
+    opacity: 1;
+    cursor: pointer;
+    pointer-events: inherit;
+
+    &:hover {
+      color: black;
+      background: white;
+    }
+  }
 }
 </style>
