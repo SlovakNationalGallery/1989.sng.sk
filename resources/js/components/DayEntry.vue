@@ -11,7 +11,8 @@ export default {
   computed: {
     contentCompiled() {
       const regex = /<a\s+href="tag:\/\/(.+?)">(.*?)<\/a>/gs;
-      let content = this.dayData.content_for_frontpage || this.dayData.content || "";
+      let content =
+        this.dayData.content_for_frontpage || this.dayData.content || "";
       const breakingP = `${content}`.match(/^[\S\s]{100,2000}<\/p>/g);
       if (
         breakingP &&
@@ -20,6 +21,7 @@ export default {
         breakingP[0].length > 800 &&
         content.length - breakingP[0].length > 800
       ) {
+        // TODO update when final texts are available
         content =
           content.substr(0, breakingP[0].length) +
           " <span @click='showMore()' class='read-more' v-if='!show'>Prečítaj si celý deň</span><transition name='slide-in'><div v-if='show'>" +
@@ -27,14 +29,12 @@ export default {
           "</div></transition>";
       }
 
-      const contentWithRouterLinks = content.replace(
-        regex,
-        `<router-link :to="{ name: 'journal-entries', params: { date: '${
-          this.date
-        }' }, query: { filter: '$1' }}">$2</router-link>`
-      );
+      // TODO update with router links
+      const contentWithReadMe = content
+        .replace(regex, `<i>$2</i>`)
+        .replace(/(\W\w{1,2})\s/g, `$1&nbsp;`);
 
-      const template = Vue.compile(`<div >${contentWithRouterLinks}</div>`);
+      const template = Vue.compile(`<div>${contentWithReadMe}</div>`);
       return {
         ...template,
         data: () => ({ show: false }),
