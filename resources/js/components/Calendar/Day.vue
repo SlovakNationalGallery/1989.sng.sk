@@ -1,5 +1,5 @@
 <template>
-  <div class="day" @click="$emit('click', $event)" :class="{ selected, active }">
+  <div class="cldr-day" @click="$emit('click', $event)" :class="{ selected, active }">
     {{ dateParsed.format("D") }}
     <div class="month">{{ dateParsed.format("MMMM") }}</div>
   </div>
@@ -34,8 +34,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.day {
+<style lang="scss">
+.cldr-day {
   width: 76px;
   height: 76px;
   padding-top: 10px;
