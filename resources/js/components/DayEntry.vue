@@ -1,18 +1,16 @@
 <template>
   <div class="day-entry">
-    <div class="ruled" :is="contentCompiled"></div>
+    <div class="ruled" v-html="content"></div>
   </div>
 </template>
 
 <script>
 export default {
   name: "DayEntry",
-  props: ["date", "dayData"],
+  props: ["date", "content"],
   computed: {
     contentCompiled() {
-      const regex = /<a\s+href="tag:\/\/(.+?)">(.*?)<\/a>/gs;
-      let content =
-        this.dayData.content_for_frontpage || "";
+      let content = this.content
       const breakingP = `${content}`.match(/^[\S\s]{100,2000}<\/p>/g);
       if (
         breakingP &&
@@ -31,7 +29,6 @@ export default {
 
       // TODO update with router links
       const contentWithReadMe = content
-        .replace(regex, `<i>$2</i>`)
         .replace(/(\W\w{1,2})\s/g, `$1&nbsp;`);
 
       const template = Vue.compile(`<div>${contentWithReadMe}</div>`);
