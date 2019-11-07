@@ -1,6 +1,6 @@
 <template>
   <div class="cldr-row">
-    <button @click="prevPeriod()" :disabled="this.selectedIndex - navigationOffset <= firstNavigateableIndex">〈</button>
+    <button @click="prevPeriod()" :disabled="selectedIndex - navigationOffset <= firstNavigateableIndex">〈</button>
     <carousel
       class="carousel"
       :navigateTo="navigateTo"
@@ -19,7 +19,7 @@
         ></calendar-day>
       </slide>
     </carousel>
-    <button @click="nextPeriod()" :disabled="this.selectedIndex + navigationOffset >= lastNavigateableIndex">〉</button>
+    <button @click="nextPeriod()" :disabled="selectedIndex + navigationOffset >= lastNavigateableIndex">〉</button>
   </div>
 </template>
 
@@ -102,7 +102,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .cldr-row {
   $day-slide-width: 90px;
 
@@ -120,6 +120,7 @@ export default {
 
     &:hover {
       opacity: 1;
+      color: white;
     }
 
     &:disabled {
@@ -150,10 +151,7 @@ export default {
 
     .VueCarousel-slide {
       width: $day-slide-width;
-
-      .day {
-        margin: auto;
-      }
+      text-align: center;
     }
   }
 }
