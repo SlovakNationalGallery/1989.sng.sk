@@ -1,57 +1,12 @@
-@extends('layouts.master')
+@extends('layouts.topic')
 @push('styles')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" />
 
     <style>
-
         .drag-and-resize {
           box-sizing: border-box;
           z-index: 50;
         }
-
-
-        #items div.item img {
-          width: 100%;
-          height: 100%;
-          -webkit-transition: opacity .2s ease-in-out;
-          -moz-transition: opacity .2s ease-in-out;
-          transition: opacity .2s ease-in-out;
-
-        }
-
-        #items div.item a:hover img {
-          opacity: 0.9;
-        }
-
-        #items div.item {
-          background-color: #fff;
-          position: absolute;
-          z-index: 10;
-        }
-
-        #items div.item button {
-          position: absolute;
-          top: 7px;
-          right: 10px;
-        }
-
-        @media(max-width: 720px) {
-
-            #items .item-container {
-              height: auto !important;
-            }
-
-            #items div.item {
-              margin: 0 0 30px 0 !important;
-              width: 100% !important;
-              height: auto !important;
-              position: static !important;
-              left: 0 !important;
-              top: 0 !important;
-            }
-        }
-
-
         /* magnific popup */
 
         .mfp-with-zoom .mfp-container,
@@ -109,8 +64,6 @@
     </style>
 @endpush
 
-@section('body-class', 'bg-light')
-
 @section('content')
 
 <div id="result">
@@ -120,15 +73,11 @@
 </div>
 
 
-<div class="header text-center">
-    <h1>{{ $topic->name }}</h1>
-</div>
-
 <div class="position-fixed top-right p-2">
     <a href="#" onclick="event.preventDefault(); save();" class="btn btn-secondary" id="save">Save</a>
 </div>
 
-<div id="items">
+@section('items')
     @foreach ($topic->items as $i=>$item)
         <div class="item-container" style="height: {{$item->pivot->container}}px" data-orig-height="{{$item->pivot->container}}" >
             <div
@@ -151,10 +100,7 @@
             </div>
         </div>
     @endforeach
-</div>
-
-@stop
-
+@endsection
 
 @push('scripts')
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script> --}}
