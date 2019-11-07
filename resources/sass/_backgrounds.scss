@@ -1,5 +1,5 @@
 .file-paper {
-    @include paper-bck(4rem);
+    @include paper-bck(3rem);
     &::before {
         @extend %before-after-sizing;
         @extend %file-paper-bgr;
