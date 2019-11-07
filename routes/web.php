@@ -38,4 +38,4 @@ Route::get('journal-entries/{journalEntry}', function () {
 
 Route::get('/{topic}', 'TopicController@show')->name('topics.show');
 Route::get('/{topic}/edit', 'TopicController@edit')->name('topics.edit');
-Route::post('/{topic}/save', 'TopicController@update')->name('topics.update');
+Route::match(['put', 'patch'], '/{topic}', 'TopicController@update')->name('topics.update');
