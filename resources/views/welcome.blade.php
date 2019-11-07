@@ -207,21 +207,25 @@
 @endpush
 
 @section('content')
-<div class="header file-paper bg-v1 shift-block">
-    <h1>ČAS-OPIS <span>1989</span></h1>
-</div>
-<div class="subheader shift-block with-bg">
-    <div class="bg"></div>
-    <div class="cnt">
-        <b>Ako sa tvorili a šírili kľúčové myšlienky Novembra 1989?</b> <br />Deň po dni sledujeme vývoj Neznej
-        revolúcie v denníku Júliusa Kollera a prostredníctvom fotografií, plagátov, rozhovorov a&nbsp;videí spoznávame
-        kreativitu občanov, ich požiadavky, názory a nádeje.
-    </div>
-</div>
-<div class="deadline shift-block with-bg">
-    <div class="bg"></div>
-    <div class="cnt">
-        <h3>Spúšťame 11. novembra 2019</h3>
+<div id="overlay">
+    <div class="container-fluid py-4 h-100 px-lg-4 px-xxl-5">
+        <div class="header file-paper bg-v1 shift-block">
+            <h1>ČAS-OPIS <span>1989</span></h1>
+        </div>
+        <div class="subheader shift-block with-bg">
+            <div class="bg"></div>
+            <div class="cnt">
+                <b>Ako sa tvorili a šírili kľúčové myšlienky Novembra 1989?</b> <br />Deň po dni sledujeme vývoj Neznej
+                revolúcie v denníku Júliusa Kollera a prostredníctvom fotografií, plagátov, rozhovorov a&nbsp;videí spoznávame
+                kreativitu občanov, ich požiadavky, názory a nádeje.
+            </div>
+        </div>
+        <div class="deadline shift-block with-bg">
+            <div class="bg"></div>
+            <div class="cnt">
+                <h3>Spúšťame 11. novembra 2019</h3>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -304,7 +308,7 @@ $("#subscribe_form").submit(function($frm){
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-    
+
     $.post('../api/subscribe', {'user_email': $("#user_email").val()}, function(e){
         if (e.res || e.subscribed){
             $("#subscribe_form").slideUp();

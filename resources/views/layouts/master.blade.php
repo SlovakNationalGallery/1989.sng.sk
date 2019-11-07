@@ -51,10 +51,8 @@
 </head>
 
 <body class="@yield('body-class', '')">
-  <div id="overlay">
-    <div class="container-fluid py-4 h-100 px-lg-4 px-xxl-5" id="app">
-      @yield('content')
-    </div>
+  <div id="app">
+    @yield('content')
   </div>
   <script type="text/javascript" src="{{ mix('/js/manifest.js') }}"></script>
   <script type="text/javascript" src="{{ mix('/js/vendor.js') }}"></script>
