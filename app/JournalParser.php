@@ -5,6 +5,7 @@ namespace App;
 use Carbon\Carbon;
 use DOMElement;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 
 class JournalParser
 {
@@ -137,11 +138,15 @@ class JournalDOMElement extends DOMElement
 {
     public function isDate()
     {
-        return preg_match('/^\s*\d{1,2}\.\s?[XI]{1,2}\.\s?1989\s*$/', $this->textContent);
+        // Exception due to source typo at https://fromthepage.com/lab-sng/december-1989/12-december/display/557798
+        if (Str::contains($this->textContent, '7. XII. 1')) return true;
+        return preg_match('/^\s*\d{1,2}\.\s?[XIV]{1,4}\.\s?1989\s*$/', $this->textContent);
     }
 
     public function getParsedDate()
     {
+        if (Str::contains($this->textContent, '7. XII. 1')) return new Carbon('1989-12-07');
+
         $trimmed = preg_replace('/\s/', '', $this->textContent);
         $trimmed = str_replace('.VIII.', '.8.', $trimmed);
         $trimmed = str_replace('.IX.', '.9.', $trimmed);
