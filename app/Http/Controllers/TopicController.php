@@ -17,7 +17,7 @@ class TopicController extends Controller
 
     public function show(Topic $topic)
     {
-        return 'todo';
+        return view('topics/show', compact('topic'));
     }
 
     public function edit(Topic $topic)
