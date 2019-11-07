@@ -47,6 +47,10 @@ class Topic extends Model
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 
     protected static function boot()
     {

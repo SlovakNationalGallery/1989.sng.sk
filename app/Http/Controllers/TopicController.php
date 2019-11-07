@@ -15,27 +15,18 @@ class TopicController extends Controller
         $this->middleware(\Backpack\Base\app\Http\Middleware\CheckIfAdmin::class, ['except' => ['show']]);
     }
 
-    public function show(Request $request, $slug)
+    public function show(Topic $topic)
     {
-        $topic = Topic::where('slug', $slug)->firstOrFail();
-        // @todo
         return 'todo';
     }
 
-    public function visualEditor(Request $request, $slug)
+    public function edit(Topic $topic)
     {
-
-        $topic = Topic::where('slug', $slug)->firstOrFail();
-        return view('visual-editor', [
-            'topic' => $topic
-        ]);
+        return view('topics/edit', compact('topic'));
     }
 
-    public function save(Request $request, $slug)
+    public function update(Topic $topic, Request $request)
     {
-
-        $topic = Topic::where('slug', $slug)->firstOrFail();
-
         $ratio = ItemTopic::DEFAULT_CONTAINER_WIDTH / $request->input('windowWidth');
 
         $items_data = $request->input('items');
