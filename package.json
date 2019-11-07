@@ -16,6 +16,7 @@
         "dayjs": "^1.8.16",
         "jquery": "^3.2",
         "laravel-mix": "^5.0.0",
+        "laravel-mix-polyfill": "^1.1.0",
         "lodash": "^4.17.13",
         "popper.js": "^1.16.0",
         "resolve-url-loader": "^2.3.1",
@@ -26,6 +27,7 @@
     },
     "dependencies": {
         "axios-cache-adapter": "^2.4.1",
+        "babel-polyfill": "^6.26.0",
         "vue-carousel": "^0.18.0",
         "vue-router": "^3.1.3"
     }

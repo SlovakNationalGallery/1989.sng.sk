@@ -24,7 +24,7 @@ dayjs.extend(weekOfYear);
 export default {
   name: "Calendar",
   components: { RowView, MonthsView },
-  props: ["start", "end", "startAt", "dayCallback"],
+  props: ["start", "end", "startAt"],
   data() {
     return {
       days: [],
@@ -57,16 +57,11 @@ export default {
     }
   },
   methods: {
-    setDate(date, runCallback = true) {
-      runCallback && this.dayCallback(date);
+    setDate(date) {
+      Router.push({ name: 'day-entries', params: { date }});
       this.showCalendar = false;
     }
   },
-  watch: {
-    $route(to, from) {
-      this.setDate(to.params.date, false);
-    }
-  }
 };
 </script>
 
