@@ -38,6 +38,7 @@
         </div>
     </div>
 
+    @yield('before-items')
 
     <div id="items">
         @yield('items')

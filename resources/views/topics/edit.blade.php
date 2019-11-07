@@ -64,18 +64,18 @@
     </style>
 @endpush
 
-@section('content')
+@section('before-items')
+    <div id="result">
+        @if (Session::has('status'))
+            <div class="alert alert-success  offset4 span4"><button type="button" class="close">×</button>{{ Session::get('status') }}</div>
+        @endif
+    </div>
 
-<div id="result">
-    @if (Session::has('status'))
-        <div class="alert alert-success  offset4 span4"><button type="button" class="close">×</button>{{ Session::get('status') }}</div>
-    @endif
-</div>
 
-
-<div class="position-fixed top-right p-2">
-    <a href="#" onclick="event.preventDefault(); save();" class="btn btn-secondary" id="save">Save</a>
-</div>
+    <div class="position-fixed top-right p-2">
+        <a href="#" onclick="event.preventDefault(); save();" class="btn btn-secondary" id="save">Save</a>
+    </div>
+@endsection
 
 @section('items')
     @foreach ($topic->items as $i=>$item)
