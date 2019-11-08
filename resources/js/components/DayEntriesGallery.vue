@@ -37,7 +37,7 @@
           <day-entry
             :key="date"
             :date="currentDate"
-            :content="dayData.content_for_frontpage"
+            :content="dayData.excerpt"
           ></day-entry>
         </transition-page>
       </div>
