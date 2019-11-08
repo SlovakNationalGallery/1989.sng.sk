@@ -52,12 +52,6 @@ a:hover {
         }
     }
     .day-entry {
-        p {
-            display: inline !important;
-        }
-        br {
-            display: none;
-        }
         .read-more {
             color: $blue;
             white-space: nowrap;
@@ -126,6 +120,7 @@ a:hover {
                 text-align: right;
                 margin-top: 2rem;
                 margin-right: 1rem;
+                font-size: 0.8em;
             }
             z-index: 0;
         }
