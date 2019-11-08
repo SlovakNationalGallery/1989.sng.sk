@@ -150,7 +150,15 @@ class ItemCrudController extends CrudController
             'type' => 'browse',
             'label' => 'Media',
             'wrapperAttributes' => [
-               'data-only-for-type' => 'image sound video slogan'
+               'data-only-for-type' => 'image sound slogan'
+             ],
+        ]);
+        $this->crud->addField([
+            'name' => 'video',
+            'type' => 'video',
+            'label' => 'Link to video file on Vimeo',
+            'wrapperAttributes' => [
+               'data-only-for-type' => 'video'
              ],
         ]);
         $this->crud->addField([
@@ -230,6 +238,11 @@ class ItemCrudController extends CrudController
             'type' => 'image',
             'width' => '400px',
             'height' => 'auto',
+        ]);
+        $this->crud->addColumn([
+            'name' => 'video',
+            'type' => 'video',
+            'label' => 'Video',
         ]);
         $this->crud->addColumn([
             'label' => "Topics",

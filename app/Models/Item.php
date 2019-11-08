@@ -24,6 +24,7 @@ class Item extends Model
         'type',
         'text',
         'file',
+        'video',
         'source',
         'author',
         'author_role',
@@ -33,6 +34,10 @@ class Item extends Model
     ];
     // protected $hidden = [];
     // protected $dates = [];
+
+    protected $casts = [
+        'video' => 'array',
+    ];
 
     const COMPONENT_PREFIX = 'components.items.';
 
