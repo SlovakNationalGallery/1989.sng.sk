@@ -2,36 +2,36 @@
 
 @push('styles')
 <style>
-    body {
-        background-color: $gray-light;
-    }
-    .cover-image {
+    #topic .cover-image {
         background-image: url("/{{ $topic->cover_image }}");
-        background-attachment: fixed;
-        background-size: cover;
-        background-position: top center;
-        height: 60vh;
-        width: 100%;
-        position: absolute;
     }
-    .container {
-        position: relative;
+
+    #previous-topic .image {
+        background-image: url("/{{ $previousTopic->cover_image  ?? '' }}");
     }
-    .description {
-        font-size: .9em;
+    #next-topic .image {
+        background-image: url("/{{ $nextTopic->cover_image ?? '' }}");
     }
+
+    /* TODO -- replace with a share button */
+    #share-button-placeholder {
+        height: 40px;
+    }
+
 </style>
 @endpush
 
 @section('content')
-<div class="topic">
+<div id="topic">
     <div class="header text-center">
         <div class="cover-image"></div>
+        <div class="cover-image-overlay"></div>
         <div class="container pt-2">
-            <h3>ČAS-OPIS 1989</h3>
-            <h1 class="mt-4">{{ $topic->name }}</h1>
+            <a href="/" title="Prejsť na úvodnú stránku"><h3 id="top-nav">ČAS-OPIS <span class="year">1989</span></h3></a>
+            <h1 id="title" class="mt-5">{{ $topic->name }}</h1>
+            <div id="share-button-placeholder"></div>
             <div class="row">
-                <div class="description offset-3 col-6 file-paper text-left pt-5 pr-5">
+                <div class="offset-lg-3 col-lg-6 file-paper text-left pt-4 pr-5">
                     {!! parsedown($topic->description) !!}
                 </div>
             </div>
@@ -43,5 +43,47 @@
     <div id="items">
         @yield('items')
     </div>
+
+    <footer style="background-color: #4384FF">
+        <div class="container">
+            <div class="row">
+                <div id="previous-topic" class="col-md-6 related-topic">
+                @if ($previousTopic)
+                    @if ($previousTopic->cover_image)
+                        <a href="{{ route('topics.show', $nextTopic) }}">
+                            <div class="image-container"><div class="image"></div></div>
+                        </a>
+                    @else
+                        <div class="image-placeholder"></div>
+                    @endif
+                    <div class="description px-4">
+                        <h4>Predchádzajúce</h4>
+                        <a href="{{ route('topics.show', $previousTopic) }}"><h3 class="p-0" style="color: white">{{ $previousTopic->name }}</h3></a>
+                        <p style="color: white">{{ $topic->previous_topic_blurb }}</p>
+                    </div>
+                @endif
+                </div>
+                <div id="next-topic" class="col-md-6 related-topic">
+                @if ($nextTopic)
+                    @if ($nextTopic->cover_image)
+                        <a href="{{ route('topics.show', $nextTopic) }}">
+                            <div class="image-container"><div class="image"></div></div>
+                        </a>
+                    @else
+                        <div class="image-placeholder"></div>
+                    @endif
+                    <div class="description px-4">
+                        <h4>Nasledujúce</h4>
+                        <a href="{{ route('topics.show', $nextTopic) }}"><h3 class="p-0" style="color: white">{{ $nextTopic->name }}</h3></a>
+                        <p style="color: white">{{ $topic->next_topic_blurb }}</p>
+                    </div>
+                @endif
+                </div>
+            </div>
+        </div>
+        <div class="text-center">
+            <a href="#top" title="Na začiatok stránky" class="jump-to-top"><img src="{{ asset('images/caret-up.svg') }}" /></a>
+        </div>
+    </footer>
 </div>
 @endsection

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use \App\Models\Topic;
-use \App\Models\Item;
 use \App\Models\ItemTopic;
 
 class TopicController extends Controller
@@ -17,12 +16,19 @@ class TopicController extends Controller
 
     public function show(Topic $topic)
     {
-        return view('topics/show', compact('topic'));
+        if (!$topic->is_active) abort(404);
+
+        $nextTopic = $topic->nextTopic()->active()->first();
+        $previousTopic = $topic->previousTopic()->active()->first();
+
+        return view('topics/show', compact('topic', 'nextTopic', 'previousTopic'));
     }
 
     public function edit(Topic $topic)
     {
-        return view('topics/edit', compact('topic'));
+        $nextTopic = $topic->nextTopic;
+        $previousTopic = $topic->previousTopic;
+        return view('topics/edit', compact('topic', 'nextTopic', 'previousTopic'));
     }
 
     public function update(Topic $topic, Request $request)
