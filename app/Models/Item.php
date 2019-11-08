@@ -36,7 +36,7 @@ class Item extends Model
     // protected $dates = [];
 
     protected $casts = [
-        'video' => 'array',
+        'video' => 'object',
     ];
 
     const COMPONENT_PREFIX = 'components.items.';

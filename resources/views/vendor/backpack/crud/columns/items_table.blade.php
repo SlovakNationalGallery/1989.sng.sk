@@ -8,6 +8,13 @@
         @foreach ($results as $item)
             <tr class="array-row item">
                 <td>
+                    @if ($item->file)
+                        <img src="{{ asset($item->file) }}" alt="{{ $item->full_name }}" style="height: 50px; width: auto">
+                    @elseif ($item->video)
+                        <img src="{{$item->video->image}}" alt="{{$item->video->title}}" style="height: 50px; width: auto" />
+                    @endif
+                </td>
+                <td>
                     {{ $item->full_name  }}
                 </td>
                 <td>
