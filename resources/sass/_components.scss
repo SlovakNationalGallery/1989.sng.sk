@@ -1,5 +1,5 @@
 .item {
-    & > .item-image {
+    &>.item-image {
         .item-image-background {
             background-color: white;
             margin-top: 10px;
@@ -15,6 +15,25 @@
             .item-image-description {
                 padding: 10px 20px;
                 box-shadow: 0 2px 5px rgba($black, .075);
+            }
+        }
+    }
+
+    &>.item-text {
+        .item-text-content {
+            padding-left: 4em;
+            padding-top: 2em;
+            padding-right: 1em;
+        }
+
+        .read-more-link {
+            padding-left: 4em;
+
+            .btn-link {
+                border: none;
+                padding: 0;
+                color: black;
+                font-weight: bold;
             }
         }
     }
