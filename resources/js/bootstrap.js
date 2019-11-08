@@ -1,5 +1,6 @@
-// TODO decide about lodash
-// window._ = require('lodash');
+import 'babel-polyfill'
+
+window._ = require('lodash');
 
 // Initialize and configure Vue and its router
 window.Vue = require('vue');
@@ -25,17 +26,17 @@ try {
 
 import axios from 'axios'
 import { setupCache } from 'axios-cache-adapter'
- 
+
 // Create `axios-cache-adapter` instance
 const cache = setupCache({
   maxAge: 15 * 60 * 1000
 })
- 
+
 // Create `axios` instance passing the newly created `cache.adapter`
 window.axios = axios.create({
   adapter: cache.adapter
 })
- 
+
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 

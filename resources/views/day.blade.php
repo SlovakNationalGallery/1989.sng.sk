@@ -18,8 +18,11 @@
 @section('content')
 @include('components.header')
 <div id="calendar">
-    <calendar :start="daysAvailable.start" :start-at="startAt" :end="daysAvailable.end" :day-callback="dayClbck">
-    </calendar>
+    <calendar
+        start="{{ $days->first()->toDateString() }}"
+        end="{{ $days->last()->toDateString() }}"
+        start-at="{{ $date }}"
+    ></calendar>
 </div>
 <transition-page>
     <router-view></router-view>
@@ -27,24 +30,4 @@
 @include('components.letters_expositions')
 @include('components.footer', ['topics' => App\Models\Topic::orderBy('name', 'asc')->get()->groupBy('category')]);
 
-)
-
 @stop
-
-@push('scripts')
-<script defer>
-    new Vue({ router: Router, el: '#app',
-        data: {
-            daysAvailable: {!!$daysAvailable ?? '{}'!!},
-            startAt: '{{ $date }}',
-            content: {!!$entries ?? '{}'!!},
-        },
-        methods: {
-            dayClbck: function($day) {
-                this.startAt = $day;
-                Router.push({ path: `/day/${$day}`});
-            }
-        },
-    })
-</script>
-@endpush

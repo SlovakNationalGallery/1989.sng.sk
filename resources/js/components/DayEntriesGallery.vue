@@ -37,7 +37,7 @@
           <day-entry
             :key="date"
             :date="currentDate"
-            :dayData="dayData"
+            :content="dayData.content_for_frontpage"
           ></day-entry>
         </transition-page>
       </div>
@@ -65,7 +65,7 @@
 
 <script>
 export default {
-  name: "JournalEntriesGallery",
+  name: "DayEntriesGallery",
   props: ["date"],
   data() {
     return {
@@ -79,12 +79,12 @@ export default {
     }
   },
   mounted() {
-    axios.get(`/api/day/${this.date}`).then(({ data }) => {
+    axios.get(`/api/journal-entries/${this.date}`).then(({ data: { data } }) => {
       this.dayData = data;
     });
   },
   beforeRouteUpdate(to, from, next) {
-    axios.get(`/api/day/${to.params.date}`).then(({ data }) => {
+    axios.get(`/api/journal-entries/${to.params.date}`).then(({ data: { data } }) => {
       this.dayData = data;
       next();
     });

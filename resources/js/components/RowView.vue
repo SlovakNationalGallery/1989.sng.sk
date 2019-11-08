@@ -1,38 +1,39 @@
 <template>
   <div class="cldr-row">
-    <button class="btn btn-dark" @click="prevPeriod()">〈</button>
-    <div class="cldr-days-wrap">
-      <transition-group name="list" :class="direction">
-        <div
-          class="cldr-row-day"
-          v-for="(day, i) in days"
-          :key="day.d"
-          :class="{ inactive: !day.active, selected: day.d === selectedDay }"
-          :style="{
-            left: (100 * (i - selectedIndex + middle)) / displayCount + '%'
-          }"
-          @click="day.active && selectDay(day)"
-        >
-          <div>{{ day.dt }}</div>
-          <div>{{ day.m }}</div>
-        </div>
-      </transition-group>
-    </div>
-    <button class="btn btn-dark" @click="nextPeriod()">〉</button>
+    <button @click="prevPeriod()" :disabled="selectedIndex - navigationOffset <= firstNavigateableIndex">〈</button>
+    <carousel
+      class="carousel"
+      :navigateTo="navigateTo"
+      :scrollPerPage="false"
+      :paginationEnabled="false"
+      :mouse-drag="false"
+      :perPage="perPage"
+    >
+      <slide v-for="(day, i) in days" :key="day.d">
+        <calendar-day
+          class="day"
+          :date="day.d"
+          :active="day.active"
+          :selected="selectedIndex === i"
+          @click="onSlideClick(i)"
+        ></calendar-day>
+      </slide>
+    </carousel>
+    <button @click="nextPeriod()" :disabled="selectedIndex + navigationOffset >= lastNavigateableIndex">〉</button>
   </div>
 </template>
 
 <script>
+import CalendarDay from './Calendar/Day'
+import { Carousel, Slide } from 'vue-carousel';
+
 export default {
   name: "RowView",
+  components: { CalendarDay, Carousel, Slide },
   props: {
     startAt: {
       type: String,
       required: true
-    },
-    displayCount: {
-      type: Number,
-      default: 7
     },
     days: {
       type: Array,
@@ -41,113 +42,117 @@ export default {
   },
   data() {
     return {
-      selectedIndex: this.startAt
-        ? this.days.findIndex(a => a.d === this.startAt)
-        : this.days.findIndex(a => a.active),
-      middle: Math.floor(this.displayCount / 2),
-      direction: "left",
-      cnt: this.displayCount * 3
+      selectedIndex: this.days.findIndex(({d}) => this.startAt === d),
+      perPage: 5,
+      initialNavigateToDone: false,
     };
   },
+  created() {
+    this.updatePerPage();
+
+    this.onWindowResize = _.debounce(this.updatePerPage, 200)
+    window.addEventListener("resize", this.onWindowResize);
+  },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.onWindowResize);
+  },
   watch: {
-    startAt() {
-      this.selectedIndex = this.startAt
-        ? this.days.findIndex(a => a.d === this.startAt)
-        : this.days.findIndex(a => a.active);
+    selectedIndex() {
+      this.$emit("change", this.days[this.selectedIndex].d);
     }
   },
   computed: {
-    selectedDay() {
-      return (
-        this.startAt &&
-        this.days[this.selectedIndex] &&
-        this.days[this.selectedIndex].d
-      );
+    navigateTo() {
+      if (!this.initialNavigateToDone) {
+        this.initialNavigateToDone = true
+        return [this.selectedIndex - this.navigationOffset, false]
+      }
+
+      return [this.selectedIndex - this.navigationOffset, true]
     },
-    startIndex() {
-      return this.days.findIndex(a => a.active);
+    navigationOffset() {
+      return (this.perPage - 1) / 2
     },
-    endIndex() {
-      return this.days.findIndex(a => a.d > this.startAt && !a.active) - 1;
+    firstNavigateableIndex() {
+      return _.findIndex(this.days, 'active')
+    },
+    lastNavigateableIndex() {
+      return _.findLastIndex(this.days, 'active')
     }
   },
   methods: {
     prevPeriod() {
-      this.direction = "right";
-      this.selectedIndex = Math.max(
-        this.selectedIndex - this.displayCount,
-        this.startIndex
-      );
-      this.$emit("input", this.days[this.selectedIndex].d);
+      this.selectedIndex = Math.max(this.selectedIndex - this.perPage, this.firstNavigateableIndex)
     },
     nextPeriod() {
-      this.direction = "left";
-      this.selectedIndex = Math.min(
-        this.selectedIndex + this.displayCount,
-        this.endIndex
-      );
-      this.$emit("input", this.days[this.selectedIndex].d);
+      this.selectedIndex = Math.min(this.selectedIndex + this.perPage, this.lastNavigateableIndex)
     },
-    selectDay(d) {
-      const target = this.days.indexOf(d);
-      this.direction = target > this.selectedIndex ? "left" : "right";
-      this.selectedIndex = target;
-      this.$emit("input", d.d);
-    }
+    onSlideClick(index) {
+      this.selectedIndex = index
+    },
+    updatePerPage() {
+      if (window.innerWidth >= 1440) return this.perPage = 9
+      if (window.innerWidth >= 1024) return this.perPage = 7
+      if (window.innerWidth >= 768) return this.perPage = 5
+      if (window.innerWidth >= 425) return this.perPage = 3
+
+      return this.perPage = 1
+    },
   }
 };
 </script>
 
 <style lang="scss">
 .cldr-row {
-  position: relative;
-}
-.cldr-row button {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 3rem;
-}
-.cldr-row button:last-child {
-  right: 0;
-  left: auto;
-}
-.cldr-days-wrap {
-  position: relative;
-  left: 10vw;
-  width: 80vw;
-  height: 6em;
-  overflow-x: hidden;
+  $day-slide-width: 90px;
+
   display: flex;
-  flex-direction: row;
   justify-content: center;
-  align-items: center;
-}
 
-.cldr-row-day {
-  display: inline-block;
-  position: absolute;
-  margin: 0;
-  top: 0;
-  width: 4rem;
-  height: 4.5rem;
-  overflow: hidden;
-  cursor: pointer;
-  text-align: center;
-  transition: all 0.5s;
-  color: white;
-  border: 2px solid white;
-  border-radius: 3px;
+  button {
+    width: 80px;
+    height: 76px;
+    color: white;
+    border: none;
+    font-size: 3rem;
+    font-weight: bold;
+    opacity: .8;
 
-  &.selected {
-    background: white;
-    color: black;
+    &:hover {
+      opacity: 1;
+      color: white;
+    }
+
+    &:disabled {
+      opacity: .2
+    }
   }
 
-  &.inactive {
-    color: #aaa;
-    pointer-events: none;
+  .carousel {
+    margin-left: 20px;
+    margin-right: 20px;
+    width: $day-slide-width;
+
+    @media screen and (min-width: 425px) {
+      width: 3 * $day-slide-width;
+    }
+
+    @media screen and (min-width: 768px) {
+      width: 5 * $day-slide-width;
+    }
+
+    @media screen and (min-width: 1024px) {
+      width: 7 * $day-slide-width;
+    }
+
+    @media screen and (min-width: 1440px) {
+      width: 9 * $day-slide-width;
+    }
+
+    .VueCarousel-slide {
+      width: $day-slide-width;
+      text-align: center;
+    }
   }
 }
 </style>

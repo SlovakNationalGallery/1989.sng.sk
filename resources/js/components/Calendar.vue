@@ -4,7 +4,7 @@
     <transition name="slide">
       <months-view v-if="showCalendar" :days="days" @input="setDate($event)" />
     </transition>
-    <row-view :days="days" :startAt="startAtDay" @input="setDate($event)" />
+    <row-view :days="days" :startAt="startAt" @change="setDate($event)" />
   </div>
 </template>
 
@@ -24,17 +24,16 @@ dayjs.extend(weekOfYear);
 export default {
   name: "Calendar",
   components: { RowView, MonthsView },
-  props: ["start", "end", "startAt", "dayCallback"],
+  props: ["start", "end", "startAt"],
   data() {
     return {
       days: [],
       cldr: [],
-      startAtDay: this.startAt || "",
       showCalendar: false
     };
   },
   created() {
-    dayjs.locale('sk');  
+    dayjs.locale('sk');
     let day = dayjs(this.start, "YYYY-MM-DD")
       .startOf("week")
       .subtract(1, "week");
@@ -58,17 +57,11 @@ export default {
     }
   },
   methods: {
-    setDate(date, runCallback = true) {
-      runCallback && this.dayCallback(date);
+    setDate(date) {
+      Router.push({ name: 'day-entries', params: { date }});
       this.showCalendar = false;
-      this.startAtDay = date;
     }
   },
-  watch: {
-    $route(to, from) {
-      this.setDate(to.params.date, false);
-    }
-  }
 };
 </script>
 
