@@ -94,6 +94,19 @@ class Item extends Model
         return $full_name;
     }
 
+    public function getPreviewAttribute()
+    {
+        // @todo: return smallest variant of image
+
+        if ($this->file) {
+            return $this->file;
+        } elseif ($this->video && (!empty($this->video->image))) {
+            return $this->video->image;
+        }
+
+        return null;
+    }
+
     /*
     |--------------------------------------------------------------------------
     | MUTATORS
