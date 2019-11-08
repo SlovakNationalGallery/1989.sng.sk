@@ -1,4 +1,96 @@
-.topic {
+#topic {
+    background-color: $gray-light;
+
+    .header {
+        .container {
+            position: relative;
+        }
+
+        #top-nav {
+            color: $white;
+            & > .year {
+                font-family: $font-family-base;
+                font-weight: normal;
+            }
+        }
+
+        #title {
+            color: $white;
+        }
+    }
+
+    .cover-image {
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 70vh;
+        background-color: $blue;
+        background-attachment: fixed;
+        background-size: cover;
+        background-position: top center;
+    }
+
+    .cover-image-overlay {
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 70vh;
+        background-color: $overlay-color
+    }
+
+    .jump-to-top {
+        display: inline-block;
+        height: 3em;
+        width: 3em;
+        padding-top: .6em;
+        border-color: $black;
+        border-width: $btn-border-width;
+        border-radius: $btn-border-radius;
+        border-style: solid;
+        margin-bottom: 5px;
+    }
+
+    .related-topic {
+        .image-placeholder {
+            height: 270px;
+        }
+
+        .image-container {
+            height: 270px;
+            background-color: white;
+            margin-left: 10px;
+            margin-top: 10px;
+        }
+
+        .image-container > .image {
+            background-size: cover;
+            background-position: top center;
+            opacity: .85;
+            position: relative;
+            height: 270px;
+            left: -10px;
+            top: -10px;
+            right: 0;
+            transition: opacity .2s ease-in-out;
+
+            &:hover {
+                opacity: 1;
+            }
+        }
+
+        .description  {
+            font-size: 1.2em;
+
+            &> h4 {
+                font-family: $font-family-base;
+                font-weight: 800;
+                padding: 0;
+                margin-top: 1rem;
+                opacity: .5;
+            }
+        }
+    }
+
     .item-container {
         position: relative;
         width: 100%;
@@ -45,5 +137,11 @@
                 top: 0 !important;
             }
         }
+    }
+
+    footer > .container {
+        margin-top: 200px;
+        position: relative;
+        top: -100px;
     }
 }
