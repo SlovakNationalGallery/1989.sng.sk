@@ -106,27 +106,15 @@
                           preview_img = `<img src="${ $(this).data('preview') }" alt="" style="height: 50px; width: auto">`;
                         }
 
-                        var table_row = `
-                        <tr class="array-row item">
-                            <td>
-                                ${preview_img}
-                            </td>
-                            <td>
-                                ${ $(this).text() }
-                            </td>
-                            <td>
-                                ${ $(this).data('type') }
-                            </td>
-                            <td>
-                                <input class="sorter form-control" size="2" data-id="${ $(this).val() }" value="{{ $item->pivot->order }}" name="items_sort[${ $(this).val() }]">
-                            </td>
-                            <td>
-                                <span class="btn btn-sm btn-light sort-handle pull-right ui-sortable-handle"><span class="sr-only">sort item</span><i class="fa fa-sort" role="presentation" aria-hidden="true"></i></span>
-                            </td>
-                            <td>
-                                <button data-id="${ $(this).val() }" class="btn btn-sm btn-light removeItem" type="button"><span class="sr-only">delete item</span><i class="fa fa-trash" role="presentation" aria-hidden="true"></i></button>
-                            </td>
-                        </tr>`;
+                        var table_row = '\
+                        <tr class="array-row item">\
+                            <td>' + preview_img + '</td>\
+                            <td>' + $(this).text() + '</td>\
+                            <td>' + $(this).data('type') + '</td>\
+                            <td><input class="sorter form-control" size="2" data-id="' + $(this).val() + '" value="0" name="items_sort[' + $(this).val() + ']"></td>\
+                            <td><span class="btn btn-sm btn-light sort-handle pull-right ui-sortable-handle"><span class="sr-only">sort item</span><i class="fa fa-sort" role="presentation" aria-hidden="true"></i></span></td>\
+                            <td><button data-id="' + $(this).val() + '" class="btn btn-sm btn-light removeItem" type="button"><span class="sr-only">delete item</span><i class="fa fa-trash" role="presentation" aria-hidden="true"></i></button></td>\
+                        </tr>';
 
                          $('#table > tbody').append(table_row);
                      });
