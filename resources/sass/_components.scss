@@ -1,0 +1,21 @@
+.item {
+    & > .item-image {
+        .item-image-background {
+            background-color: white;
+            margin-top: 10px;
+            margin-left: 10px;
+
+            .item-image-container {
+                position: relative;
+                left: -10px;
+                top: -10px;
+                box-shadow: 0 3px 10px rgba($black, .075);
+            }
+
+            .item-image-description {
+                padding: 10px 20px;
+                box-shadow: 0 2px 5px rgba($black, .075);
+            }
+        }
+    }
+}
