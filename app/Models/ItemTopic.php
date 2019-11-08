@@ -30,8 +30,10 @@ class ItemTopic extends Pivot
         parent::boot();
 
         static::creating(function ($model) {
-            $max_order = self::where('topic_id', $model->topic_id)->max('order');
-            $model->order = ($max_order !== null) ? ++$max_order : 0;
+            if ($model->order === null) {
+                $max_order = self::where('topic_id', $model->topic_id)->max('order');
+                $model->order = ($max_order !== null) ? ++$max_order : 0;
+            }
 
             // set default size and position
             $file = \App\Models\Item::find($model->item_id)->file;

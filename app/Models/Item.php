@@ -24,6 +24,7 @@ class Item extends Model
         'type',
         'text',
         'file',
+        'video',
         'source',
         'author',
         'author_role',
@@ -33,6 +34,10 @@ class Item extends Model
     ];
     // protected $hidden = [];
     // protected $dates = [];
+
+    protected $casts = [
+        'video' => 'object',
+    ];
 
     const COMPONENT_PREFIX = 'components.items.';
 
@@ -87,6 +92,19 @@ class Item extends Model
         $full_name = ($this->author) ? $this->author . ': ' . $this->name : $this->name;
         $full_name .= ($this->year) ? ' (' . $this->year . ')' : '';
         return $full_name;
+    }
+
+    public function getPreviewAttribute()
+    {
+        // @todo: return smallest variant of image
+
+        if ($this->file) {
+            return $this->file;
+        } elseif ($this->video && (!empty($this->video->image))) {
+            return $this->video->image;
+        }
+
+        return null;
     }
 
     /*
