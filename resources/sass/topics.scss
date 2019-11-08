@@ -2,10 +2,6 @@
     background-color: $gray-light;
 
     .header {
-        .container {
-            position: relative;
-        }
-
         #top-nav {
             color: $white;
             & > .year {
@@ -139,9 +135,13 @@
         }
     }
 
-    footer > .container {
-        margin-top: 200px;
-        position: relative;
-        top: -100px;
+    footer {
+        background-color: $blue;
+
+        &> .container {
+            margin-top: 200px;
+            position: relative;
+            top: -100px;
+        }
     }
 }

@@ -26,7 +26,7 @@
     <div class="header text-center">
         <div class="cover-image"></div>
         <div class="cover-image-overlay"></div>
-        <div class="container pt-2">
+        <div class="container position-relative pt-2">
             <a href="/" title="Prejsť na úvodnú stránku"><h3 id="top-nav">ČAS-OPIS <span class="year">1989</span></h3></a>
             <h1 id="title" class="mt-5">{{ $topic->name }}</h1>
             <div id="share-button-placeholder"></div>
@@ -44,7 +44,7 @@
         @yield('items')
     </div>
 
-    <footer style="background-color: #4384FF">
+    <footer>
         <div class="container">
             <div class="row">
                 <div id="previous-topic" class="col-md-6 related-topic">
