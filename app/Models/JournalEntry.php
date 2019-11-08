@@ -11,6 +11,10 @@ class JournalEntry extends Model
 
     protected $fillable = [
         'written_at',
+        'weather',
+        'excerpt',
+        'content',
+        'zatkuliak',
     ];
 
     protected $dates = [
