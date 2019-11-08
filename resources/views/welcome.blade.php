@@ -67,10 +67,6 @@
         padding: 2rem 1rem;
     }
 
-    .header span {
-        font-family: 'AvenirLTPro-Roman';
-    }
-
     .subheader {
         transform: translate(33%, -3em);
         position: relative;
@@ -78,8 +74,10 @@
         max-width: 40vw;
         min-width: 250px;
         background: #D43C3D;
-        font-family: 'AvenirLTPro-Black';
         z-index: 10;
+        font-weight: bold;
+        font-size: 1.5em;
+        top: 3em;
     }
 
     .subheader .cnt {
@@ -215,7 +213,7 @@
         <div class="subheader shift-block with-bg">
             <div class="bg"></div>
             <div class="cnt">
-                <b>Ako sa tvorili a šírili kľúčové myšlienky Novembra 1989?</b> <br />Deň po dni sledujeme vývoj Neznej
+                <strong>Ako sa tvorili a šírili kľúčové myšlienky Novembra 1989?</strong> <br />Deň po dni sledujeme vývoj Nežnej
                 revolúcie v denníku Júliusa Kollera a prostredníctvom fotografií, plagátov, rozhovorov a&nbsp;videí spoznávame
                 kreativitu občanov, ich požiadavky, názory a nádeje.
             </div>
@@ -227,65 +225,64 @@
             </div>
         </div>
     </div>
-</div>
+
+    <div class="newsletter shift-block">
+        <div class="intro with-bg">
+            <div class="bg">&nbsp;</div>
+            <div class="cnt container-fluid row">
+                <div class="col-md-3"><img src="{{asset('images/intro/calendar-icon.svg')}}" /></div>
+                <div class="col-md-9">
+                    <h3>Sledujte udalosti v&nbsp;reálnom čase</h3>
+                    Prihláste sa na odber pravidelného súhrnu udalostí prelomového obdobia, spolu s&nbsp;výberom
+                    tém.
+                </div>
+            </div>
+        </div>
+    </div>
 
 
-<div class="newsletter shift-block">
-    <div class="intro with-bg">
+    <div class="newsletter2 with-bg shift-block paper-border">
         <div class="bg">&nbsp;</div>
-        <div class="cnt container-fluid row">
-            <div class="col-md-3"><img src="{{asset('images/intro/calendar-icon.svg')}}" /></div>
-            <div class="col-md-9">
-                <h3>Sledujte udalosti v&nbsp;reálnom čase</h3>
-                Prihláste sa na odber pravidelného súhrnu udalostí prelomového obdobia, spolu s&nbsp;výberom
-                tém.
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<div class="newsletter2 with-bg shift-block paper-border">
-    <div class="bg">&nbsp;</div>
-    <div class="block-paper">
-        <form id="subscribe_form" class="container-fluid">
-            <h3>Prihláste sa na newsletter</h3>
-            <div class="row">
-                <div class="col-md-6 col-sm-12">
-                    <input type="email" name="user_email" id="user_email" class="form-control">
+        <div class="block-paper">
+            <form id="subscribe_form" class="container-fluid">
+                <h3>Prihláste sa na newsletter</h3>
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <input type="email" name="user_email" id="user_email" class="form-control">
+                    </div>
+                    <div class="col-md-6 offset-md-0 col-sm-8 offset-sm-5">
+                        {{ csrf_field() }}
+                        <button id="submit" type="submit" class="btn btn-dark">Chcem byť v obraze</button>
+                    </div>
                 </div>
-                <div class="col-md-6 offset-md-0 col-sm-8 offset-sm-5">
-                    {{ csrf_field() }}
-                    <button id="submit" type="submit" class="btn btn-dark">Chcem byť v obraze</button>
+            </form>
+            <div id="subscribe_form_done" class="row" style="display: none;">
+                <h3>Vďaka!</h3>
+            </div>
+            <div id="subscribe_form_error" class="row" style="display: none;">
+                <div class="col-sm-12">
+                    Auč:( Niekde asi máme chybu, skúste to prosím neskôr.
                 </div>
             </div>
-        </form>
-        <div id="subscribe_form_done" class="row" style="display: none;">
-            <h3>Vďaka!</h3>
-        </div>
-        <div id="subscribe_form_error" class="row" style="display: none;">
-            <div class="col-sm-12">
-                Auč:( Niekde asi máme chybu, skúste to prosím neskôr.
-            </div>
         </div>
     </div>
-</div>
 
-<div class="for-schools shift-block with-bg">
-    <div class="bg">&nbsp;</div>
-    <div class="cnt">
-        <h3>Pre školy</h3>
-        Čoskoro zverejníme prvý zo série článkov pre študentov, ktoré na príklade tém Novembra 89 priblížia
-        princípy, vznik a šírenie konšpiračných teórií.
+    <div class="for-schools shift-block with-bg">
+        <div class="bg">&nbsp;</div>
+        <div class="cnt">
+            <h3>Pre školy</h3>
+            Čoskoro zverejníme prvý zo série článkov pre študentov, ktoré na príklade tém Novembra 89 priblížia
+            princípy, vznik a šírenie konšpiračných teórií.
+        </div>
     </div>
-</div>
 
-<div class="footer">
-    <div class="icons row">
-        <a class="col-sm-12" href="http://www.sng.sk" title="Slovenská národná galéria"><img
-                src="{{asset('images/intro/sng_web.svg')}}" /><br />SNG</a>
+    <div class="footer">
+        <div class="icons row">
+            <a class="col-sm-12" href="http://www.sng.sk" title="Slovenská národná galéria"><img
+                    src="{{asset('images/intro/sng_web.svg')}}" /><br />SNG</a>
+        </div>
+        <div>Vyrobil: <a href="http://www.lab.sng.sk">lab.SNG</a></div>
     </div>
-    <div>Vyrobil: <a href="http://www.lab.sng.sk">lab.SNG</a></div>
 </div>
 @stop
 
