@@ -241,7 +241,7 @@ class ItemCrudController extends CrudController
         ]);
         $this->crud->addColumn([
             'name' => 'video',
-            'type' => 'video',
+            'type' => 'vimeo_embed',
             'label' => 'Video',
         ]);
         $this->crud->addColumn([
