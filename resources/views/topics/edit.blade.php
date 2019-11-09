@@ -47,12 +47,13 @@
         .item-container.resize {
           background: repeating-linear-gradient(
             45deg,
-            #f8f9fa,
-            #f8f9fa 10px,
+            #eaeaea,
+            #eaeaea 10px,
             #f0f0f0 10px,
             #f0f0f0 20px
           );
-          border: 1px dashed #aaa;
+          border-collapse: collapse;
+          border: 1px dashed #bbb;
         }
 
         .top-right {
@@ -108,34 +109,6 @@
     <script src="{{ asset('/js/edit.js') }}"></script>
 
     <script>
-        function repositionItems() {
-
-          var ratio = $( window ).width() / 1280;
-
-          $( '.item-container' ).each(function( index ) {
-            var height = $(this).data('orig-height') || 0;
-            $(this).css("height", height * ratio);
-          });
-
-          $( '.item' ).each(function( index ) {
-            var width = $(this).data('orig-width') || 0;
-            var height = $(this).data('orig-height') || 0;
-
-            var x = (parseFloat($(this).data('orig-x')) || 0) * ratio;
-            var y = (parseFloat($(this).data('orig-y')) || 0) * ratio;
-
-            $(this).css("height", height * ratio);
-            $(this).css("width", width * ratio);
-
-            $(this).css("left", x + 'px');
-            $(this).css("top", y + 'px');
-
-            $(this).attr('data-x', x)
-            $(this).attr('data-y', y)
-
-          });
-        }
-
         $(window).on("resize", function () {
             repositionItems();
         }).resize();

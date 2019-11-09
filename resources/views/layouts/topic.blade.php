@@ -82,7 +82,7 @@
             </div>
         </div>
         <div class="text-center">
-            <a href="#top" title="Na začiatok stránky" class="jump-to-top"><img src="{{ asset('images/caret-up.svg') }}" /></a>
+            <a href="#top" title="Na začiatok stránky" class="jump-to-top"><img src="{{ asset('images/caret-up.svg') }}" alt="šípka hore" /></a>
         </div>
     </footer>
 </div>

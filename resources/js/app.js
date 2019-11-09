@@ -1,6 +1,8 @@
 require('./bootstrap');
 
 require('./filters');
+require('./topic');
+
 window.Router = require('./router').default
 
 Vue.component('calendar', require('./components/Calendar.vue').default);
@@ -10,3 +12,4 @@ Vue.component('transition-page', require('./components/TransitionPage.vue').defa
 Vue.component('item-text', require('./components/ItemText.vue').default);
 
 new Vue({ router: window.Router, el: '#app' })
+
