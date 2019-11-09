@@ -3,6 +3,8 @@ require('./bootstrap');
 require('./filters');
 require('./topic');
 
+import "magnific-popup";
+
 window.Router = require('./router').default
 
 Vue.component('calendar', require('./components/Calendar.vue').default);
