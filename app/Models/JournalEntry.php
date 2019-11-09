@@ -36,7 +36,24 @@ class JournalEntry extends Model
         return $this->belongsToMany('App\Models\JournalTag', null, 'entry_id', 'tag_id');
     }
 
-    public function getContentForFrontpageAttribute() {
+    public function setExcerptAttribute($value)
+    {
+        $this->attributes['excerpt'] = preg_replace_callback('/"tag:\/\/(.+?)"/m', function($matches) {
+            $tag = urldecode($matches[1]);
+            return "\"tag://$tag\"";
+        }, $value);
+    }
+
+    public function getContentFormattedAttribute() {
+        return $this->formatForDisplay($this->content);
+    }
+
+    public function getExcerptFormattedAttribute() {
+        if (!$this->excerpt) return null;
+        return $this->formatForDisplay($this->excerpt);
+    }
+
+    private function formatForDisplay($content) {
         $tagsCategories = [];
         foreach($this->tags()->with('categories')->get() as $tag) {
             $tagsCategories[$tag->subject] = $tag->categories->pluck('name')->all();
@@ -47,6 +64,6 @@ class JournalEntry extends Model
             $categories = join(',', $tagsCategories[$tag]);
 
             return "<span class=\"journal-entry-tag\" data-tag=\"$tag\" data-tag-categories=\"$categories\">$matches[2]</span>";
-        }, $this->content);
+        }, $content);
     }
 }

@@ -3,13 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\JournalEntry;
-use DB;
 
 class DayController extends Controller
 {
     public function dayViewParams($date)
     {
-        $days = JournalEntry::all()->pluck('written_at');
+        $days = JournalEntry::orderBy('written_at', 'asc')->pluck('written_at');
 
         $entries = JournalEntry::where('written_at', '=', $date)->get();
 

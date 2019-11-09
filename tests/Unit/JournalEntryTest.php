@@ -23,6 +23,6 @@ class JournalEntryTest extends TestCase
         ]);
         $journalEntry->tags()->attach($tag);
 
-        $this->assertEquals('<span class="journal-entry-tag" data-tag="Tag name" data-tag-categories="some category,another category">tag word</span>', $journalEntry->content_for_frontpage);
+        $this->assertEquals('<span class="journal-entry-tag" data-tag="Tag name" data-tag-categories="some category,another category">tag word</span>', $journalEntry->content_formatted);
     }
 }

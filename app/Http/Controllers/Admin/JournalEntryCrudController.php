@@ -92,7 +92,7 @@ class JournalEntryCrudController extends CrudController
 
         $this->crud->addColumns([
             [
-                'name' => 'content_for_frontpage',
+                'name' => 'content_formatted',
                 'type' => 'html',
             ],
         ]);
