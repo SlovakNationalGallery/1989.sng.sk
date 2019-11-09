@@ -50,7 +50,7 @@
                 <div id="previous-topic" class="col-md-6 related-topic">
                 @if ($previousTopic)
                     @if ($previousTopic->cover_image)
-                        <a href="{{ route('topics.show', $nextTopic) }}">
+                        <a href="{{ route('topics.show', $previousTopic) }}">
                             <div class="image-container"><div class="image"></div></div>
                         </a>
                     @else
