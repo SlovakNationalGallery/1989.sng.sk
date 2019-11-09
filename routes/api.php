@@ -16,3 +16,14 @@ use Illuminate\Http\Request;
 
 Route::post('/subscribe', 'SubscriptionController@store');
 Route::apiResource('journal-entries', 'Api\JournalEntryController', ['as' => 'api']);
+Route::get('/vimeo/{id}', function ($id) {
+
+    $client_id = config('vimeo.client_id');
+    $client_secret = config('vimeo.client_secret');
+    $access_token = config('vimeo.access_token');
+
+    $lib = new \Vimeo\Vimeo($client_id, $client_secret, $access_token);
+    $response = $lib->request('/videos/' . $id, [], 'GET');
+    return $response['body'];
+
+});

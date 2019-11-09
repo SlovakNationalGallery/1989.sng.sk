@@ -155,7 +155,7 @@ class ItemCrudController extends CrudController
         ]);
         $this->crud->addField([
             'name' => 'video',
-            'type' => 'video',
+            'type' => 'vimeo',
             'label' => 'Link to video file on Vimeo',
             'wrapperAttributes' => [
                'data-only-for-type' => 'video'
@@ -241,7 +241,7 @@ class ItemCrudController extends CrudController
         ]);
         $this->crud->addColumn([
             'name' => 'video',
-            'type' => 'video',
+            'type' => 'vimeo_embed',
             'label' => 'Video',
         ]);
         $this->crud->addColumn([
