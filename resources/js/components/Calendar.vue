@@ -3,7 +3,7 @@
     <transition name="slide">
       <months-view v-if="showCalendar" :days="days" @input="setDate($event)" />
     </transition>
-    <row-view :days="days" :startAt="currentDay" @change="setDate($event)" />
+    <row-view :days="days" :startAt="startAt" @change="setDate($event)" />
     <div class="container-fluid buttons row">
       <!-- <div class="offset-sm-2 col-sm-4 offset-md-3 col-md-3">
         <button
@@ -38,7 +38,7 @@ dayjs.extend(weekOfYear);
 export default {
   name: "Calendar",
   components: { RowView, MonthsView },
-  props: ["start", "end", "startAt", "today"],
+  props: ["start", "end", "startAt", 'today'],
   data() {
     return {
       days: [],
@@ -48,9 +48,7 @@ export default {
     };
   },
   created() {
-    dayjs.locale("sk");
-    this.currentDay = this.startAt;
-
+    dayjs.locale('sk');
     let day = dayjs(this.start, "YYYY-MM-DD")
       .startOf("week")
       .subtract(1, "week");
@@ -78,12 +76,13 @@ export default {
       if (this.currentDay === date) {
         return;
       }
-      Router.push({ name: "day-entries", params: { date } });
+      Router.push({ name: 'day-entries', params: { date }});
       this.currentDay = date;
       this.showCalendar = false;
     }
-  }
+  },
 };
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
