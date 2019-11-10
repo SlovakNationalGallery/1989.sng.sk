@@ -52,7 +52,7 @@
 
 <body class="@yield('body-class', '')">
   <div id="overlay">
-    <div class="container-fluid py-4 h-100 px-lg-4 px-xxl-5" id="app">
+    <div id="app">
       @yield('content')
     </div>
   </div>

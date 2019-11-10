@@ -74,7 +74,7 @@ export default {
   text-align: center;
   color: white;
   padding-left: 0;
-  font-family: "AvenirLTPro-Roman";
+  font-family: "AvenirLTPro";
 }
 
 .selected-topics .selection-for span {
@@ -85,7 +85,8 @@ export default {
   display: block;
   font-weight: normal;
   padding: 0.5rem;
-  font-family: "AvenirLTPro-Black";
+  font-family: "AvenirLTPro";
+  font-style: oblique;
 }
 
 .selected-topic img {

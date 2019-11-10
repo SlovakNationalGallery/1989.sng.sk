@@ -1,3 +1,1 @@
-<div>
-    {!! $item->text !!}
-</div>
+<item-text content="{{ parsedown($item->text) }}"></item-text>

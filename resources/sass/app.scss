@@ -8,6 +8,9 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+// Magnific PopUp
+@import '~magnific-popup/src/css/main';
+
 @import 'mixins';
 
 @import 'animations';
@@ -16,5 +19,8 @@
 @import 'buttons';
 @import 'commons';
 @import 'header';
+@import 'components';
 @import 'footer';
 @import 'letters_expositions';
+
+@import 'topics';

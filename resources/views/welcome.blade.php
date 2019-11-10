@@ -36,6 +36,9 @@
         padding: 1rem;
     }
 
+    font-weight: bold;
+    font-size: 1.5em;
+    top: 3em;
 
     .deadline {
         max-width: 30vw;
@@ -207,10 +210,12 @@
     </div>
 </div>
 
-<div class="for-schools shift-block doubled-bg">
-    <h3>Pre školy</h3>
-    Čoskoro zverejníme prvý zo série článkov pre študentov, ktoré na príklade tém Novembra 89 priblížia
-    princípy, vznik a šírenie konšpiračných teórií.
+<div class="for-schools shift-block doubled-bg bg-v3">
+    <div class="cnt">
+        <h3>Pre školy</h3>
+        Čoskoro zverejníme prvý zo série článkov pre študentov, ktoré na príklade tém Novembra 89 priblížia
+        princípy, vznik a šírenie konšpiračných teórií.
+    </div>
 
 </div>
 
@@ -242,7 +247,7 @@ $("#subscribe_form").submit(function($frm){
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-    
+
     $.post('../api/subscribe', {'user_email': $("#user_email").val()}, function(e){
         if (e.res || e.subscribed){
             $("#subscribe_form").slideUp();

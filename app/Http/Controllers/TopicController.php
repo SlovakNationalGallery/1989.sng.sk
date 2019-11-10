@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use \App\Models\Topic;
-use \App\Models\Item;
 use \App\Models\ItemTopic;
 
 class TopicController extends Controller
@@ -15,27 +14,25 @@ class TopicController extends Controller
         $this->middleware(\Backpack\Base\app\Http\Middleware\CheckIfAdmin::class, ['except' => ['show']]);
     }
 
-    public function show(Request $request, $slug)
+    public function show(Topic $topic)
     {
-        $topic = Topic::where('slug', $slug)->firstOrFail();
-        // @todo
-        return 'todo';
+        if (!$topic->is_active) abort(404);
+
+        $nextTopic = $topic->nextTopic()->active()->first();
+        $previousTopic = $topic->previousTopic()->active()->first();
+
+        return view('topics/show', compact('topic', 'nextTopic', 'previousTopic'));
     }
 
-    public function visualEditor(Request $request, $slug)
+    public function edit(Topic $topic)
     {
-
-        $topic = Topic::where('slug', $slug)->firstOrFail();
-        return view('visual-editor', [
-            'topic' => $topic
-        ]);
+        $nextTopic = $topic->nextTopic;
+        $previousTopic = $topic->previousTopic;
+        return view('topics/edit', compact('topic', 'nextTopic', 'previousTopic'));
     }
 
-    public function save(Request $request, $slug)
+    public function update(Topic $topic, Request $request)
     {
-
-        $topic = Topic::where('slug', $slug)->firstOrFail();
-
         $ratio = ItemTopic::DEFAULT_CONTAINER_WIDTH / $request->input('windowWidth');
 
         $items_data = $request->input('items');

@@ -4,8 +4,8 @@
 <div class="subheader shift-block with-bg">
     <div class="bg"></div>
     <div class="cnt">
-        <b>Ako sa tvorili a šírili kľúčové myšlienky Novembra 1989?</b> <br />Deň po dni sledujeme vývoj Neznej
-        revolúcie v denníku Júliusa Kollera a prostredníctvom fotografií, plagátov, rozhovorov a&nbsp;videí spoznávame
-        kreativitu občanov, ich požiadavky, názory a nádeje.
+        <strong>Ako sa tvorili a šírili kľúčové myšlienky Novembra 1989?</strong> <br />Deň po dni sledujeme vývoj
+        Nežnej revolúcie v denníku Júliusa Kollera a prostredníctvom fotografií, plagátov, rozhovorov a&nbsp;videí
+        spoznávame kreativitu občanov, ich požiadavky, názory a nádeje.
     </div>
 </div>

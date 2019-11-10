@@ -57,8 +57,8 @@ export default {
     window.removeEventListener("resize", this.onWindowResize);
   },
   watch: {
-    selectedIndex() {
-      this.$emit("change", this.days[this.selectedIndex].d);
+    startAt(){
+        this.selectedIndex = this.days.findIndex(({d}) => this.startAt === d);
     }
   },
   computed: {
@@ -88,7 +88,8 @@ export default {
       this.selectedIndex = Math.min(this.selectedIndex + this.perPage, this.lastNavigateableIndex)
     },
     onSlideClick(index) {
-      this.selectedIndex = index
+      this.selectedIndex = index;
+      this.$emit("change", this.days[this.selectedIndex].d);
     },
     updatePerPage() {
       if (window.innerWidth >= 1440) return this.perPage = 9

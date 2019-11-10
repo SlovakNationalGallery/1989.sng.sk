@@ -7,7 +7,7 @@
         For more information please visit Commercial Type at http://commercialtype.com or email us at info[at]commercialtype.com
 
         Copyright (C) 2019 Schwartzco Inc.
-        License: 1910-CLDVLZ     
+        License: 1910-CLDVLZ
 */
 
 @font-face {
@@ -28,27 +28,27 @@
 /**
  * @license
  * MyFonts Webfont Build ID 3826067, 2019-10-18T07:00:57-0400
- * 
+ *
  * The fonts listed in this notice are subject to the End User License
- * Agreement(s) entered into by the website owner. All other parties are 
+ * Agreement(s) entered into by the website owner. All other parties are
  * explicitly restricted from using the Licensed Webfonts(s).
- * 
+ *
  * You may obtain a valid license at the URLs below.
- * 
+ *
  * Webfont: AvenirLTPro-Roman by Linotype
  * URL: https://www.myfonts.com/fonts/linotype/avenir/pro-55-roman/
- * 
+ *
  * Webfont: AvenirLTPro-Oblique by Linotype
  * URL: https://www.myfonts.com/fonts/linotype/avenir/pro-55-oblique/
- * 
+ *
  * Webfont: AvenirLTPro-Black by Linotype
  * URL: https://www.myfonts.com/fonts/linotype/avenir/pro-95-black/
- * 
- * 
+ *
+ *
  * License: https://www.myfonts.com/viewlicense?type=web&buildid=3826067
  * Licensed pageviews: 250,000
  * Webfonts copyright: Copyright &#x00A9; 2014 Monotype GmbH. All rights reserved.
- * 
+ *
  * © 2019 MyFonts Inc
 */
 
@@ -56,22 +56,28 @@
 @import url('//hello.myfonts.net/count/3a6193');
 
 @font-face {
-    font-family: 'AvenirLTPro-Roman';
+    font-family: 'AvenirLTPro';
     src: url('../fonts/3A6193_0_0.eot');
     src: url('../fonts/3A6193_0_0.eot?#iefix') format('embedded-opentype'), url('../fonts/3A6193_0_0.woff2') format('woff2'),
         url('../fonts/3A6193_0_0.woff') format('woff'), url('../fonts/3A6193_0_0.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
 }
 
 @font-face {
-    font-family: 'AvenirLTPro-Oblique';
+    font-family: 'AvenirLTPro';
     src: url('../fonts/3A6193_1_0.eot');
     src: url('../fonts/3A6193_1_0.eot?#iefix') format('embedded-opentype'), url('../fonts/3A6193_1_0.woff2') format('woff2'),
         url('../fonts/3A6193_1_0.woff') format('woff'), url('../fonts/3A6193_1_0.ttf') format('truetype');
+    font-weight: 400;
+    font-style: oblique;
 }
 
 @font-face {
-    font-family: 'AvenirLTPro-Black';
+    font-family: 'AvenirLTPro';
     src: url('../fonts/3A6193_2_0.eot');
     src: url('../fonts/3A6193_2_0.eot?#iefix') format('embedded-opentype'), url('../fonts/3A6193_2_0.woff2') format('woff2'),
         url('../fonts/3A6193_2_0.woff') format('woff'), url('../fonts/3A6193_2_0.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
 }

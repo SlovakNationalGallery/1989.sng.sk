@@ -8,6 +8,11 @@
         @foreach ($results as $item)
             <tr class="array-row item">
                 <td>
+                    @if ($item->preview)
+                        <img src="{{ asset($item->preview) }}" alt="{{ $item->full_name }}" style="height: 50px; width: auto">
+                    @endif
+                </td>
+                <td>
                     {{ $item->full_name  }}
                 </td>
                 <td>

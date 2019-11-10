@@ -94,8 +94,8 @@ function save() {
   $('#save').addClass("disabled");
   $('#save').html("saving...");
   $.ajax({
-      url: './save',
-      type: "POST",
+      url: document.URL.substring(0, document.URL.lastIndexOf("/")),
+      type: "PUT",
       data: exportItems(),
       contentType: "application/json",
       // complete: callback

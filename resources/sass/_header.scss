@@ -21,7 +21,8 @@
 }
 
 .header span {
-    font-family: 'AvenirLTPro-Roman';
+    font-family: 'AvenirLTPro';
+    font-style: oblique;
 }
 
 .subheader {
@@ -31,7 +32,8 @@
     max-width: 40vw;
     min-width: 250px;
     background: $purple;
-    font-family: 'AvenirLTPro-Black';
+    font-family: 'AvenirLTPro';
+    font-weight: 400;
     z-index: 10;
 }
 

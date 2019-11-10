@@ -1,57 +1,12 @@
-@extends('layouts.master')
+@extends('layouts.topic')
 @push('styles')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" />
 
     <style>
-
         .drag-and-resize {
           box-sizing: border-box;
           z-index: 50;
         }
-
-
-        #items div.item img {
-          width: 100%;
-          height: 100%;
-          -webkit-transition: opacity .2s ease-in-out;
-          -moz-transition: opacity .2s ease-in-out;
-          transition: opacity .2s ease-in-out;
-
-        }
-
-        #items div.item a:hover img {
-          opacity: 0.9;
-        }
-
-        #items div.item {
-          background-color: #fff;
-          position: absolute;
-          z-index: 10;
-        }
-
-        #items div.item button {
-          position: absolute;
-          top: 7px;
-          right: 10px;
-        }
-
-        @media(max-width: 720px) {
-
-            #items .item-container {
-              height: auto !important;
-            }
-
-            #items div.item {
-              margin: 0 0 30px 0 !important;
-              width: 100% !important;
-              height: auto !important;
-              position: static !important;
-              left: 0 !important;
-              top: 0 !important;
-            }
-        }
-
-
         /* magnific popup */
 
         .mfp-with-zoom .mfp-container,
@@ -92,12 +47,13 @@
         .item-container.resize {
           background: repeating-linear-gradient(
             45deg,
-            #f8f9fa,
-            #f8f9fa 10px,
+            #eaeaea,
+            #eaeaea 10px,
             #f0f0f0 10px,
             #f0f0f0 20px
           );
-          border: 1px dashed #aaa;
+          border-collapse: collapse;
+          border: 1px dashed #bbb;
         }
 
         .top-right {
@@ -109,26 +65,20 @@
     </style>
 @endpush
 
-@section('body-class', 'bg-light')
-
-@section('content')
-
-<div id="result">
-    @if (Session::has('status'))
-        <div class="alert alert-success  offset4 span4"><button type="button" class="close">×</button>{{ Session::get('status') }}</div>
-    @endif
-</div>
+@section('before-items')
+    <div id="result">
+        @if (Session::has('status'))
+            <div class="alert alert-success  offset4 span4"><button type="button" class="close">×</button>{{ Session::get('status') }}</div>
+        @endif
+    </div>
 
 
-<div class="header text-center">
-    <h1>{{ $topic->name }}</h1>
-</div>
+    <div class="position-fixed top-right p-2">
+        <a href="#" onclick="event.preventDefault(); save();" class="btn btn-secondary" id="save">Save</a>
+    </div>
+@endsection
 
-<div class="position-fixed top-right p-2">
-    <a href="#" onclick="event.preventDefault(); save();" class="btn btn-secondary" id="save">Save</a>
-</div>
-
-<div id="items">
+@section('items')
     @foreach ($topic->items as $i=>$item)
         <div class="item-container" style="height: {{$item->pivot->container}}px" data-orig-height="{{$item->pivot->container}}" >
             <div
@@ -151,10 +101,7 @@
             </div>
         </div>
     @endforeach
-</div>
-
-@stop
-
+@endsection
 
 @push('scripts')
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script> --}}
@@ -162,34 +109,6 @@
     <script src="{{ asset('/js/edit.js') }}"></script>
 
     <script>
-        function repositionItems() {
-
-          var ratio = $( window ).width() / 1280;
-
-          $( '.item-container' ).each(function( index ) {
-            var height = $(this).data('orig-height') || 0;
-            $(this).css("height", height * ratio);
-          });
-
-          $( '.item' ).each(function( index ) {
-            var width = $(this).data('orig-width') || 0;
-            var height = $(this).data('orig-height') || 0;
-
-            var x = (parseFloat($(this).data('orig-x')) || 0) * ratio;
-            var y = (parseFloat($(this).data('orig-y')) || 0) * ratio;
-
-            $(this).css("height", height * ratio);
-            $(this).css("width", width * ratio);
-
-            $(this).css("left", x + 'px');
-            $(this).css("top", y + 'px');
-
-            $(this).attr('data-x', x)
-            $(this).attr('data-y', y)
-
-          });
-        }
-
         $(window).on("resize", function () {
             repositionItems();
         }).resize();
