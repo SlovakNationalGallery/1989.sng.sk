@@ -18,7 +18,7 @@
 @section('content')
 @include('components.header')
 <div id="calendar" class="container">
-    <calendar start="{{ $days->first()->toDateString() }}" end="{{ $days->last()->toDateString() }}"
+    <calendar :available-days='{{ $days }}'
         today="{{ $today }}" start-at="{{ $date }}"></calendar>
 </div>
 <transition-page>

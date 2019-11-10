@@ -10,16 +10,22 @@
             <div class="col-md-8">
               <div class="intro">
                 <h1>Časo-pis</h1>
-                <i>
-                  Denník Júliusa Kollera dokumentujúci udalosti a nálady
-                  v spoločnosti počas zlomového roku
-                </i>
               </div>
             </div>
             <div class="col-md-4 read-casopis">
               <!-- <a :href="'/journal-entries/' + date" class="read-casopis"> -->
               <img class="w-100" src="/images/read_casopis.jpg" />
               <!-- </a> -->
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="intro">
+                <i>
+                  Denník Júliusa Kollera dokumentujúci udalosti a nálady
+                  v spoločnosti počas zlomového roku
+                </i>
+              </div>
             </div>
           </div>
         </div>
@@ -95,14 +101,24 @@ export default {
   methods: {
     getData(date, callback) {
       const self = this;
-      axios.get(`/api/journal-entries/${date}`).then(({ data: { data } }) => {
-        const entry = data;
-        axios.get(`/api/random-topics/?${date}`).then((topics) => {
-          self.topics = topics.data;
-          self.dayData = entry;
+      axios.get(`/api/journal-entries/${date}`).then(
+        ({ data: { data } }) => {
+          const entry = data;
+          axios.get(`/api/random-topics/?${date}`).then(topics => {
+            self.topics = topics.data;
+            self.dayData = entry;
+            callback && callback();
+          });
+        },
+        () => {
+          self.topics = null;
+          self.dayData = {
+            weather: '',
+            excerpt: 'Pre daný deň neexistuje záznam v denníku'
+          };
           callback && callback();
-        });
-      });
+        }
+      );
       return;
     }
   }
