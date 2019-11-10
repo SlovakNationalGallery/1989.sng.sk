@@ -40,17 +40,17 @@
 
             <div class="row d-flex align-items-center">
                 <div class="col-sm-3 ">
-                    <a class="btn btn-dark" href="o-projekte">O projekte</a>
+                    <a class="btn btn-dark" href="/o-projekte">O projekte</a>
                 </div>
                 <div class="col-sm-3 ">
                     <a href="http://www.sng.sk" title="Slovenská národná galéria">
-                        <img src="{{asset('images/SNG_logo_with_title.svg')}}" />
+                        <img src="{{asset('images/SNG_logo_with_title.svg')}}" style="height: 2.5rem" />
 
                 </div>
                 <div class="col-sm-3 ">
 
                     <a href="https://spolocnost.o2.sk/ferova-nadacia" title="O2: Sloboda nie je samozrejmosť">
-                        <img src="{{asset('images/sloboda_o2.svg')}}" />
+                        <img src="{{asset('images/sloboda_o2.svg')}}" style="height: 5rem" />
                     </a>
 
                 </div>

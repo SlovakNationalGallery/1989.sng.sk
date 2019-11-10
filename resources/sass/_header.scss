@@ -1,50 +1,49 @@
-.header-wrapper {
+.casopis-header {
     padding-top: 5rem;
-}
 
-.header {
-    transform: translate(2em);
-    width: 70%;
-    max-width: 40rem;
-    margin: 5rem auto 4rem auto;
-    padding: 2.5em 1em;
-}
+    .header {
+        transform: translate(2em);
+        width: 70%;
+        max-width: 40rem;
+        margin: 5rem auto 4rem auto;
+        padding: 2.5em 1em;
+        * {
+            text-align: center;
+        }
 
-.header * {
-    text-align: center;
-}
+        &::after {
+            background-image: url('/images/intro/01-Cover-01.png');
+            background-position: center;
+        }
 
-.header::after {
-    background-image: url('/images/intro/01-Cover-01.png');
-    background-position: center;
-}
+        .cnt {
+            margin-bottom: 1rem;
+            padding: 2rem 1rem;
+        }
 
-.header .cnt {
-    margin-bottom: 1rem;
-    padding: 2rem 1rem;
-}
+        span {
+            font-family: 'AvenirLTPro';
+            font-style: oblique;
+        }
+    }
 
-.header span {
-    font-family: 'AvenirLTPro';
-    font-style: oblique;
-}
+    .subheader {
+        transform: translate(33%, -5em);
+        position: relative;
+        margin: auto;
+        max-width: 50%;
+        min-width: 250px;
+        background: $purple;
+        font-family: 'AvenirLTPro';
+        font-weight: 400;
+        z-index: 10;
+    }
 
-.subheader {
-    transform: translate(33%, -5em);
-    position: relative;
-    margin: auto;
-    max-width: 50%;
-    min-width: 250px;
-    background: $purple;
-    font-family: 'AvenirLTPro';
-    font-weight: 400;
-    z-index: 10;
-}
-
-.subheader .cnt {
-    margin-bottom: 1rem;
-    padding: 2rem 1rem;
-    transform: translate(-0.5rem, -0.5rem);
-    background-image: url('/images/perex.png');
-    background-size: cover;
+    .subheader .cnt {
+        margin-bottom: 1rem;
+        padding: 2rem 1rem;
+        transform: translate(-0.5rem, -0.5rem);
+        background-image: url('/images/perex.png');
+        background-size: cover;
+    }
 }

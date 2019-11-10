@@ -1,4 +1,4 @@
-<div class="container header-wrapper">
+<div class="container casopis-header">
     <div class="header file-paper bg-v1 shift-block">
         <h1>ČAS-OPIS <span>1989</span></h1>
     </div>
