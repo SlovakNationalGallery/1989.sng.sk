@@ -18,8 +18,8 @@
 @section('content')
 @include('components.header')
 <div id="calendar" class="container">
-    <calendar :available-days='{{ $days }}'
-        today="{{ $today }}" start-at="{{ $date }}"></calendar>
+    <calendar :available-days='{{ $days }}' start="{{ $days->first()->toDateString() }}"
+        end="{{ $days->last()->toDateString() }}" today="{{ $today }}" start-at="{{ $date }}"></calendar>
 </div>
 <transition-page>
     <router-view></router-view>
