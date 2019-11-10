@@ -1,5 +1,5 @@
 @extends('layouts.master')
-
+@section('page_title', "$topic->name • Čas-opis 1989")
 @push('styles')
 <style>
     #topic .cover-image {

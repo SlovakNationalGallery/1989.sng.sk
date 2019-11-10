@@ -10,7 +10,7 @@
   <meta name="description"
     content="Deň po dni sledujeme vývoj Neznej revolúcie v denníku Júliusa Kollera a prostredníctvom fotografií, plagátov, rozhovorov a videí spoznávame kreativitu občanov, ich požiadavky, názory a nádeje.">
 
-  <meta property="og:title" content="Čas-opis 1989" />
+  <meta property="og:title" content="@yield('page_title', 'Čas-opis 1989')" />
   <meta property="og:description"
     content="Deň po dni sledujeme vývoj Neznej revolúcie v denníku Júliusa Kollera a prostredníctvom fotografií, plagátov, rozhovorov a videí spoznávame kreativitu občanov, ich požiadavky, názory a nádeje." />
   <meta property="og:keywords"
@@ -22,9 +22,7 @@
   <meta property="og:site_name" content="Čas-opis 1989" />
   @show
 
-  <title>
-    Čas-opis 1989
-  </title>
+  <title>@yield('page_title', 'Čas-opis 1989')</title>
 
   <!-- Favicons-->
   <link rel="shortcut icon" href="favicon.png">
