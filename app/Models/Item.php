@@ -58,6 +58,10 @@ class Item extends Model
                 $component = 'image';
                 break;
 
+            case 'video':
+                $component = 'video';
+                break;
+
             default:
                 $component = 'text';
                 break;

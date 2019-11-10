@@ -6,6 +6,8 @@
 
             @if ($item->file)
                 <a href="{{ asset($item->file) }}" class="image-link" title="{{ $item->full_name }}" data-source="{{ $item->source }}">
+            @elseif ($item->video)
+                <a href="{{ $item->video->url }}" class="vimeo-link" title="{{ $item->full_name }}" data-source="{{ $item->source }}">
             @endif
 
             <div
@@ -18,7 +20,7 @@
                     @include($item->getComponent(), ['item' => $item])
             </div>
 
-            @if ($item->file)
+            @if ($item->file || $item->video)
                 </a>
             @endif
         </div>
@@ -62,6 +64,15 @@
                 }
               }
 
+            });
+
+            $('.vimeo-link').magnificPopup({
+                    disableOn: 700,
+                    type: 'iframe',
+                    mainClass: 'mfp-fade',
+                    removalDelay: 160,
+                    preloader: false,
+                    fixedContentPos: false
             });
         });
     </script>
