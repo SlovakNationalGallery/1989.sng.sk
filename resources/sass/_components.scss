@@ -35,15 +35,12 @@
         }
     }
 
-    &>.item-text {
-        .item-text-content {
-            padding-left: 4em;
-            padding-top: 2em;
-            padding-right: 1em;
-        }
+    & .item-text {
+        padding-left: 4em;
+        padding-top: 2em;
+        padding-right: 1em;
 
-        .read-more-link {
-            padding-left: 4em;
+        .item-text-read-more-link {
 
             .btn-link {
                 border: none;
@@ -51,6 +48,23 @@
                 color: $black;
                 font-weight: bold;
             }
+        }
+    }
+
+    & .item-author-text {
+        padding-left: 2em;
+        padding-top: 2em;
+
+        .author-name {
+            font-family: $font-family-base;
+        }
+
+        img {
+            filter: grayscale(100%);
+        }
+
+        .item-text {
+            padding-left: 0;
         }
     }
 }

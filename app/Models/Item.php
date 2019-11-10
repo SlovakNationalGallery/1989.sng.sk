@@ -62,6 +62,10 @@ class Item extends Model
                 $component = 'video';
                 break;
 
+            case 'author_text':
+                $component = 'author_text';
+                break;
+
             default:
                 $component = 'text';
                 break;

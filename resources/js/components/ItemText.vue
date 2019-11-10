@@ -1,8 +1,8 @@
 <template>
-  <div class="item-text block-paper">
+  <div class="item-text">
     <div v-html="displayedContent" class="item-text-content"></div>
 
-    <div v-if="truncateable" class="item-text read-more-link">
+    <div v-if="truncateable" class="item-text-read-more-link">
       <button type="button" class="btn btn-link" @click="showAll = !showAll">{{ showAll ? 'Zatvoriť ↑' : 'Celý text ↓'}}</button>
     </div>
   </div>
