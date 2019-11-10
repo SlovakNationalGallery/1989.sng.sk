@@ -24,12 +24,17 @@
 @section('content')
 <div id="topic">
     <div class="header text-center">
-        <div class="cover-image"></div>
-        <div class="cover-image-overlay"></div>
-        <div class="container position-relative pt-2">
-            <a href="/" title="Prejsť na úvodnú stránku"><h3 id="top-nav">ČAS-OPIS <span class="year">1989</span></h3></a>
-            <h1 id="title" class="mt-5">{{ $topic->name }}</h1>
-            <div id="share-button-placeholder"></div>
+        <div class="cover-image">
+            <div class="cover-image-overlay"></div>
+            <div class="container pt-2">
+                <a href="/" title="Prejsť na úvodnú stránku"><h3 id="top-nav">ČAS-OPIS <span class="year">1989</span></h3></a>
+                <div id="title-container">
+                    <h1 id="title" class="mt-5">{{ $topic->name }}</h1>
+                </div>
+                <div id="share-button-placeholder"></div>
+            </div>
+        </div>
+        <div id="description-container" class="container position-relative">
             <div class="row">
                 <div id="description" class="offset-lg-3 col-lg-6 file-paper text-left pt-4 pr-5">
                     {!! parsedown($topic->description) !!}

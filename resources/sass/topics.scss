@@ -8,10 +8,31 @@
                 font-family: $font-family-base;
                 font-weight: normal;
             }
+
+            @include media-breakpoint-down(sm) {
+                font-size: $h4-font-size;
+            }
+        }
+
+        #title-container {
+            min-height: 40vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            margin-bottom: 10rem;
         }
 
         #title {
             color: $white;
+
+            @include media-breakpoint-down(sm) {
+                font-size: $h2-font-size;
+            }
+        }
+
+        #description-container {
+            top: -10rem;
+            margin-bottom: -10rem;
         }
 
         #description {
@@ -20,10 +41,6 @@
     }
 
     .cover-image {
-        position: absolute;
-        left: 0;
-        right: 0;
-        height: 70vh;
         background-color: $gray-dark;
         background-attachment: fixed;
         background-size: cover;
@@ -34,7 +51,6 @@
         position: absolute;
         left: 0;
         right: 0;
-        height: 70vh;
         background-color: $overlay-color
     }
 
