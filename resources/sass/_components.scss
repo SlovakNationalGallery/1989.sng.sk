@@ -26,6 +26,11 @@
                 left: -10px;
                 top: -10px;
                 box-shadow: 0 3px 10px rgba($black, .075);
+
+                & > img {
+                    width: 100%;
+                    height: 100%;
+                }
             }
 
             .item-image-description {
