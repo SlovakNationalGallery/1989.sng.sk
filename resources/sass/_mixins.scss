@@ -41,18 +41,18 @@ $zigzag-paper-bgr-width: 2rem;
     background: linear-gradient(
             to right,
             rgba(255, 255, 255, 0),
-            rgba(255, 255, 255, 0) $offset-left,
-            rgba(255, 255, 255, 1) $offset-left,
-            rgba(255, 255, 255, 1) 50%,
-            rgba(255, 255, 255, 0) 50%
+            rgba(255, 255, 255, 0) $offset-left * 0.99,
+            rgba(255, 255, 255, 1) $offset-left * 0.99,
+            rgba(255, 255, 255, 1) 51%,
+            rgba(255, 255, 255, 0) 51%
         ),
         linear-gradient(
             to left,
             rgba(255, 255, 255, 0),
-            rgba(255, 255, 255, 0) $offset-right,
-            rgba(255, 255, 255, 1) $offset-right,
-            rgba(255, 255, 255, 1) 50%,
-            rgba(255, 255, 255, 0) 50%
+            rgba(255, 255, 255, 0) $offset-right * 0.99,
+            rgba(255, 255, 255, 1) $offset-right * 0.99,
+            rgba(255, 255, 255, 1) 51%,
+            rgba(255, 255, 255, 0) 51%
         );
 
     padding: 1rem ($offset-right + 0.5rem) 1rem ($offset-left + 0.5rem);
