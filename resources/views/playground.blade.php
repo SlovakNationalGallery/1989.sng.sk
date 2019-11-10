@@ -2,10 +2,6 @@
 @push('styles')
 
 <style>
-    html {
-        font-size: 9pt;
-    }
-
     div[class*="bg-"]>.bg {
         background-image: url("{{asset('/images/intro/01-Cover-01.png')}}");
     }

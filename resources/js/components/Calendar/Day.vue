@@ -48,6 +48,7 @@ export default {
   font-weight: bold;
   opacity: .5;
   pointer-events: none;
+  user-select: none;
 
   .month {
     font-size: 12px;

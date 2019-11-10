@@ -1,10 +1,24 @@
 <template>
   <div id="calendar" class="cldr">
-    <span @click="showCalendar = !showCalendar">📅</span>
     <transition name="slide">
       <months-view v-if="showCalendar" :days="days" @input="setDate($event)" />
     </transition>
-    <row-view :days="days" :startAt="startAt" @change="setDate($event)" />
+    <row-view :days="days" :startAt="currentDay" @change="setDate($event)" />
+    <div class="container-fluid buttons row">
+      <div class="offset-sm-2 col-sm-4 offset-md-4 col-md-2">
+        <button class="btn btn-dark w-100" @click="setDate(today)">
+          Dnes
+        </button>
+      </div>
+      <div class=" col-sm-4 col-md-2">
+        <button
+          class="btn btn-dark w-100"
+          @click="showCalendar = !showCalendar"
+        >
+          Kalendár
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -24,16 +38,19 @@ dayjs.extend(weekOfYear);
 export default {
   name: "Calendar",
   components: { RowView, MonthsView },
-  props: ["start", "end", "startAt"],
+  props: ["start", "end", "startAt", "today"],
   data() {
     return {
       days: [],
       cldr: [],
-      showCalendar: false
+      showCalendar: false,
+      currentDay: this.startAt
     };
   },
   created() {
-    dayjs.locale('sk');
+    dayjs.locale("sk");
+    this.currentDay = this.startAt;
+
     let day = dayjs(this.start, "YYYY-MM-DD")
       .startOf("week")
       .subtract(1, "week");
@@ -58,10 +75,14 @@ export default {
   },
   methods: {
     setDate(date) {
-      Router.push({ name: 'day-entries', params: { date }});
+      if (this.currentDay === date) {
+        return;
+      }
+      Router.push({ name: "day-entries", params: { date } });
+      this.currentDay = date;
       this.showCalendar = false;
     }
-  },
+  }
 };
 </script>
 
@@ -69,6 +90,9 @@ export default {
 <style lang="scss">
 .cldr {
   position: relative;
+  .buttons {
+    margin: 1rem;
+  }
 }
 .weekend {
   font-weight: bolder;

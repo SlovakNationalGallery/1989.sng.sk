@@ -46,6 +46,9 @@
         @extend %before-after-sizing;
         background-size: cover;
     }
+    > .bg {
+        z-index: 0 !important;
+    }
 }
 
 .bg-v1 {
@@ -78,6 +81,9 @@
     .bg {
         transform: translate(-$background-shift, + $background-shift);
     }
+}
+[class*='bg-'] > .bg {
+    z-index: 0 !important;
 }
 
 .ruled::before {

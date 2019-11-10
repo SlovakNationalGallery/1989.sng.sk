@@ -21,6 +21,7 @@
     <calendar
         start="{{ $days->first()->toDateString() }}"
         end="{{ $days->last()->toDateString() }}"
+        today="{{ $today }}"
         start-at="{{ $date }}"
     ></calendar>
 </div>

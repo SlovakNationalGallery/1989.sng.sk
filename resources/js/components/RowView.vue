@@ -105,7 +105,7 @@ export default {
 <style lang="scss">
 .cldr-row {
   $day-slide-width: 90px;
-
+  user-select: none;
   display: flex;
   justify-content: center;
 
@@ -116,7 +116,7 @@ export default {
     border: none;
     font-size: 3rem;
     font-weight: bold;
-    opacity: .8;
+    opacity: 0.8;
 
     &:hover {
       opacity: 1;
@@ -124,7 +124,7 @@ export default {
     }
 
     &:disabled {
-      opacity: .2
+      opacity: 0.2;
     }
   }
 

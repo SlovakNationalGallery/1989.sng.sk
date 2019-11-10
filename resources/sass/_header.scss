@@ -30,7 +30,7 @@
     margin: auto;
     max-width: 40vw;
     min-width: 250px;
-    background: #d43c3d;
+    background: $purple;
     font-family: 'AvenirLTPro-Black';
     z-index: 10;
 }
@@ -39,6 +39,6 @@
     margin-bottom: 1rem;
     padding: 2rem 1rem;
     transform: translate(-0.5rem, -0.5rem);
-    background-image: url('/images/intro/02-Perex-01.png');
+    background-image: url('/images/perex.png');
     background-size: cover;
 }
