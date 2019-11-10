@@ -43,6 +43,18 @@ a:hover {
     padding: 1.3rem;
 }
 
+.jump-to-top {
+    display: inline-block;
+    height: 3em;
+    width: 3em;
+    padding-top: .6em;
+    border-color: $black;
+    border-width: $btn-border-width;
+    border-radius: $btn-border-radius;
+    border-style: solid;
+    margin-bottom: 5px;
+}
+
 /// MORE content-focused styling
 
 // DAY VIEW

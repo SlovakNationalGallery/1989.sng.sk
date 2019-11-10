@@ -6,7 +6,7 @@
         <dt>{{ $cat }}</dt>
         @foreach ($topics[$catKey] as $topic)
         @if ($topic->is_active)
-            <dd><a href="#TODO">{{ $topic->name }}</a></dd>
+            <dd class="active"><a href="/{{ $topic->slug }}">{{ $topic->name }}</a></dd>
         @else
             <dd class="inactive">{{ $topic->name }}</dd>
         @endif
