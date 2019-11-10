@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Backpack\CRUD\CrudTrait;
 
+use Illuminate\Support\Str;
+
 class Item extends Model
 {
     use CrudTrait;
@@ -89,8 +91,11 @@ class Item extends Model
 
     public function getFullNameAttribute()
     {
-        $full_name = ($this->author) ? $this->author . ': ' . $this->name : $this->name;
-        $full_name .= ($this->year) ? ' (' . $this->year . ')' : '';
+        $full_name = ($this->author) ? $this->author . ' – ' . $this->name : $this->name;
+        if (($this->year) && Str::contains($full_name, [$this->year])) {
+            $full_name .= '(' . $this->year . ')';
+        }
+
         return $full_name;
     }
 
