@@ -1,5 +1,6 @@
 @extends('layouts.master')
 @section('page_title', "$topic->name • Čas-opis 1989")
+@section('og_image', asset($topic->cover_image))
 @push('styles')
 <style>
     #topic .cover-image {

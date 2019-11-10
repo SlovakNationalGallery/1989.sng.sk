@@ -18,7 +18,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:author" content="http://lab.sng.sk/" />
   <meta property="og:url" content="{{ url()->current() }}" />
-  <meta property="og:image" content="{{ asset('/images/Og-Cas-OPIS.png') }}" />
+  <meta property="og:image" content="@yield('og_image', asset('/images/Og-Cas-OPIS.png'))" />
   <meta property="og:site_name" content="Čas-opis 1989" />
   @show
 
