@@ -30,6 +30,7 @@ class Topic extends Model
         'cover_image',
         'category',
         'is_active',
+        'is_visible',
     ];
 
     public static $available_categories = [

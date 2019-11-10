@@ -113,7 +113,6 @@ export default {
       this.selectedIndex = index;
     },
     updatePerPage() {
-      if (window.innerWidth >= 1440) return (this.perPage = 9);
       if (window.innerWidth >= 1024) return (this.perPage = 7);
       if (window.innerWidth >= 768) return (this.perPage = 5);
       if (window.innerWidth >= 425) return (this.perPage = 3);
@@ -126,7 +125,7 @@ export default {
 
 <style lang="scss">
 .cldr-row {
-  $day-slide-width: 90px;
+  $day-slide-width: 85px;
   user-select: none;
   display: flex;
   justify-content: center;
@@ -165,10 +164,6 @@ export default {
 
     @media screen and (min-width: 1024px) {
       width: 7 * $day-slide-width;
-    }
-
-    @media screen and (min-width: 1440px) {
-      width: 9 * $day-slide-width;
     }
 
     .VueCarousel-slide {
