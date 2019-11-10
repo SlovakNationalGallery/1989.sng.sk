@@ -35,13 +35,13 @@
         $( document ).ready(function() {
             $('.image-link').magnificPopup({
               type: 'image',
-              mainClass: 'mfp-with-zoom', // this class is for CSS animation below
+              mainClass: 'mfp-with-zoom',
 
               zoom: {
-                enabled: true, // By default it's false, so don't forget to enable it
+                enabled: true,
 
-                duration: 300, // duration of the effect, in milliseconds
-                easing: 'ease-in-out', // CSS transition easing function
+                duration: 300,
+                easing: 'ease-in-out',
 
                 opener: function(openerElement) {
                   return openerElement.is('img') ? openerElement : openerElement.find('img');
