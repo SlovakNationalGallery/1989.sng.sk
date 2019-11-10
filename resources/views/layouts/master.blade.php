@@ -27,7 +27,7 @@
   </title>
 
   <!-- Favicons-->
-  <link rel="shortcut icon" href="favicon.png">
+  <link rel="shortcut icon" href="/favicon.ico">
 
   @yield('link')
 
@@ -52,10 +52,10 @@
 
 <body class="@yield('body-class', '')">
   <div id="overlay">
+  </div>
     <div id="app">
       @yield('content')
     </div>
-  </div>
   <script type="text/javascript" src="{{ mix('/js/manifest.js') }}"></script>
   <script type="text/javascript" src="{{ mix('/js/vendor.js') }}"></script>
   <script type="text/javascript" src="{{ mix('/js/app.js') }}"></script>

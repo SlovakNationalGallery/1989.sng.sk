@@ -1,8 +1,12 @@
+.header-wrapper {
+    padding-top: 5rem;
+}
+
 .header {
     transform: translate(2em);
-    width: 40vw;
+    width: 70%;
     max-width: 40rem;
-    margin: auto;
+    margin: 5rem auto 4rem auto;
     padding: 2.5em 1em;
 }
 
@@ -26,10 +30,10 @@
 }
 
 .subheader {
-    transform: translate(33%, -3em);
+    transform: translate(33%, -5em);
     position: relative;
     margin: auto;
-    max-width: 40vw;
+    max-width: 50%;
     min-width: 250px;
     background: $purple;
     font-family: 'AvenirLTPro';

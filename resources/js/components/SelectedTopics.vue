@@ -12,7 +12,7 @@
         </h3>
       </div>
     </div>
-    <div class="row">
+    <div class="row justify-content-center">
       <div class="col-md-4 col-sm-12 selected-topic" v-for="$topic in topics">
         <!-- na mobile by som sem dal carousel -->
         <div class="white">
