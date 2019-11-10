@@ -5,17 +5,17 @@
     </transition>
     <row-view :days="days" :startAt="currentDay" @change="setDate($event)" />
     <div class="container-fluid buttons row">
-      <div class="offset-sm-2 col-sm-4 offset-md-4 col-md-2">
-        <button class="btn btn-dark w-100" @click="setDate(today)">
-          Dnes
-        </button>
-      </div>
-      <div class=" col-sm-4 col-md-2">
+      <!-- <div class="offset-sm-2 col-sm-4 offset-md-3 col-md-3">
         <button
           class="btn btn-dark w-100"
           @click="showCalendar = !showCalendar"
         >
           Kalendár
+        </button>
+      </div> -->
+      <div class="offset-sm-4 col-sm-4  offset-md-5 col-md-3">
+        <button class="btn btn-dark w-100" @click="setDate(today)">
+          Dnes
         </button>
       </div>
     </div>
