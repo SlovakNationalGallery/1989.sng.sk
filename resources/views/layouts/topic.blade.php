@@ -3,7 +3,12 @@
 @push('styles')
 <style>
     #topic .cover-image {
-        background-image: url("/{{ $topic->cover_image }}");
+        background:
+            linear-gradient(
+                rgba(0, 0, 0, 0.35),
+                rgba(0, 0, 0, 0.35)
+            ),
+            url("/{{ $topic->cover_image }}");
     }
 
     #previous-topic .image {
@@ -25,7 +30,6 @@
 <div id="topic">
     <div class="header text-center">
         <div class="cover-image">
-            <div class="cover-image-overlay"></div>
             <div class="container pt-2">
                 <a href="/" title="Prejsť na úvodnú stránku"><h3 id="top-nav">ČAS-OPIS <span class="year">1989</span></h3></a>
                 <div id="title-container">
