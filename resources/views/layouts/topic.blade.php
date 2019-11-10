@@ -31,7 +31,7 @@
             <h1 id="title" class="mt-5">{{ $topic->name }}</h1>
             <div id="share-button-placeholder"></div>
             <div class="row">
-                <div class="offset-lg-3 col-lg-6 file-paper text-left pt-4 pr-5">
+                <div id="description" class="offset-lg-3 col-lg-6 file-paper text-left pt-4 pr-5">
                     {!! parsedown($topic->description) !!}
                 </div>
             </div>

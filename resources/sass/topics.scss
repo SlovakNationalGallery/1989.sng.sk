@@ -13,6 +13,10 @@
         #title {
             color: $white;
         }
+
+        #description {
+            z-index: 99;
+        }
     }
 
     .cover-image {
@@ -20,7 +24,7 @@
         left: 0;
         right: 0;
         height: 70vh;
-        background-color: $blue;
+        background-color: $gray-dark;
         background-attachment: fixed;
         background-size: cover;
         background-position: top center;
