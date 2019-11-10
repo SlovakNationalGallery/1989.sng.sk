@@ -3,7 +3,7 @@
 
 <style>
     body {
-        background-image: url("{{asset('/images/intro/BG-0' . random_int(1,2) . '.jpg') }}");
+        background-image: url("{{asset('/images/intro/BG-0' . random_int(1, 4) . '.jpg') }}");
         background-attachment: fixed;
         background-size: cover;
         text-align: center;
