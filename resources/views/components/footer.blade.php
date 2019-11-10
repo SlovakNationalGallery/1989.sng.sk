@@ -45,7 +45,7 @@
                 <div class="col-sm-3 ">
                     <a href="http://www.sng.sk" title="Slovenská národná galéria">
                         <img src="{{asset('images/SNG_logo_with_title.svg')}}" style="height: 2.5rem" />
-
+                    </a>
                 </div>
                 <div class="col-sm-3 ">
 
