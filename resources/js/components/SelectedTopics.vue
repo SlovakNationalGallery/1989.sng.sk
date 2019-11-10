@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-sm-12">
         <h3 class="selection-for">
-          Výber tém pre
+          <span class="selection">Výber tém pre</span>
           <span class="date"
             >{{ dateJS.format("D.") }}
             <span class="underline">{{ dateJS.format("MMMM") }}</span>
@@ -74,19 +74,18 @@ export default {
   text-align: center;
   color: white;
   padding-left: 0;
-  font-family: "AvenirLTPro";
 }
 
-.selected-topics .selection-for span {
-  font-weight: normal;
-}
-
-.selected-topics .selection-for .date {
+.selected-topics .selection-for .selection {
   display: block;
   font-weight: normal;
   padding: 0.5rem;
   font-family: "AvenirLTPro";
   font-style: oblique;
+}
+.selected-topics .selection-for .date {
+  font-family: "AvenirLTPro";
+  font-weight: 700;
 }
 
 .selected-topic img {
