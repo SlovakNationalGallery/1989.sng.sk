@@ -38,7 +38,7 @@ dayjs.extend(weekOfYear);
 export default {
   name: "Calendar",
   components: { RowView, MonthsView },
-  props: ["available-days", "end", "startAt", "today"],
+  props: ["available-days", "start", "end", "startAt", "today"],
   data() {
     return {
       days: [],
