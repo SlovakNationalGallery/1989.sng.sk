@@ -3,7 +3,11 @@
 @section('items')
     @foreach ($topic->items as $i=>$item)
         <div class="item-container" style="height: {{$item->pivot->container}}px" data-orig-height="{{$item->pivot->container}}" >
-            <a href="{{ asset($item->file) }}" class="image-link" title="{{ $item->full_name }}" data-source="{{ $item->source }}">
+
+            @if ($item->file)
+                <a href="{{ asset($item->file) }}" class="image-link" title="{{ $item->full_name }}" data-source="{{ $item->source }}">
+            @endif
+
             <div
                 class="item"
                 data-orig-x="{{$item->pivot->pos_x}}"
@@ -11,15 +15,12 @@
                 data-orig-width="{{$item->pivot->width}}"
                 data-orig-height="{{$item->pivot->height}}"
                 style="left: {{$item->pivot->pos_x}}px; top: {{$item->pivot->pos_y}}px; width: {{$item->pivot->width}}px; height: {{$item->pivot->height}}px;" >
-                @if ($item->file)
-
-                        @include($item->getComponent(), ['item' => $item])
-
-                @else
                     @include($item->getComponent(), ['item' => $item])
-                @endif
             </div>
-            </a>
+
+            @if ($item->file)
+                </a>
+            @endif
         </div>
     @endforeach
 @endsection
