@@ -25,10 +25,23 @@
 }
 
 .tableau-paper {
-    @include paper-bck(1rem, true);
+    @include paper-bck(1rem, 1rem);
     &::before {
         @extend %before-after-sizing;
         @extend %tableau-paper-bgr;
+    }
+    &::after,
+    .bg {
+        @extend %before-after-sizing;
+        background-size: cover;
+    }
+}
+
+.zigzag-paper {
+    @include paper-bck(0, $zigzag-paper-bgr-width);
+    &::before {
+        @extend %before-after-sizing;
+        @extend %zigzag-paper-bgr;
     }
     &::after,
     .bg {
@@ -45,6 +58,9 @@
     .bg {
         @extend %before-after-sizing;
         background-size: cover;
+    }
+    > .bg {
+        z-index: 0 !important;
     }
 }
 
@@ -78,6 +94,9 @@
     .bg {
         transform: translate(-$background-shift, + $background-shift);
     }
+}
+[class*='bg-'] > .bg {
+    z-index: 0 !important;
 }
 
 .ruled::before {

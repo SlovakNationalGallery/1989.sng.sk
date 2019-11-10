@@ -6,7 +6,7 @@
 
 <style>
     body {
-        background-image: url("{{asset('/images/intro/BG-0' . random_int(2, 4) . '.jpg') }}");
+        background-image: url("{{asset('/images/intro/BG-0' . random_int(1, 4) . '.jpg') }}");
         background-attachment: fixed;
         background-size: cover;
         background-position: top center;
@@ -16,18 +16,19 @@
 @endpush
 
 @section('content')
-
-<div id="calendar">
-    <calendar
-        start="{{ $days->first()->toDateString() }}"
-        end="{{ $days->last()->toDateString() }}"
-        start-at="{{ $date }}"
-    ></calendar>
+@include('components.header')
+<div id="calendar" class="container">
+    <calendar start="{{ $days->first()->toDateString() }}" end="{{ $days->last()->toDateString() }}"
+        today="{{ $today }}" start-at="{{ $date }}"></calendar>
 </div>
 <transition-page>
     <router-view></router-view>
 </transition-page>
+
+@include('components.newsletter')
+
 @include('components.letters_expositions')
-@include('components.footer', ['topics' => App\Models\Topic::orderBy('name', 'asc')->get()->groupBy('category')]);
+
+@include('components.footer', ['topics' => App\Models\Topic::orderBy('name', 'asc')->get()->groupBy('category')])
 
 @stop

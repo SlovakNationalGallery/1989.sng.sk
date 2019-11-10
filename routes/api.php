@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\JournalEntry;
+use App\Models\Topic;
 use Illuminate\Http\Request;
 
 /*
@@ -15,6 +16,7 @@ use Illuminate\Http\Request;
 */
 
 Route::post('/subscribe', 'SubscriptionController@store');
+Route::get('/random-topics', 'Api\RandomTopicController@get');
 Route::apiResource('journal-entries', 'Api\JournalEntryController', ['as' => 'api']);
 Route::get('/vimeo/{id}', function ($id) {
 

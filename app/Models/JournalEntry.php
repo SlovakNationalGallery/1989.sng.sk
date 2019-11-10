@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Backpack\CRUD\CrudTrait;
+use Exception;
 
 class JournalEntry extends Model
 {
@@ -38,32 +39,40 @@ class JournalEntry extends Model
 
     public function setExcerptAttribute($value)
     {
-        $this->attributes['excerpt'] = preg_replace_callback('/"tag:\/\/(.+?)"/m', function($matches) {
+        $this->attributes['excerpt'] = preg_replace_callback('/"tag:\/\/(.+?)"/m', function ($matches) {
             $tag = urldecode($matches[1]);
             return "\"tag://$tag\"";
         }, $value);
     }
 
-    public function getContentFormattedAttribute() {
+    public function getContentFormattedAttribute()
+    {
         return $this->formatForDisplay($this->content);
     }
 
-    public function getExcerptFormattedAttribute() {
+    public function getExcerptFormattedAttribute()
+    {
         if (!$this->excerpt) return null;
         return $this->formatForDisplay($this->excerpt);
     }
 
-    private function formatForDisplay($content) {
+    private function formatForDisplay($content)
+    {
         $tagsCategories = [];
-        foreach($this->tags()->with('categories')->get() as $tag) {
+        foreach ($this->tags()->with('categories')->get() as $tag) {
             $tagsCategories[$tag->subject] = $tag->categories->pluck('name')->all();
         };
 
-        return preg_replace_callback('/<a\s+href="tag:\/\/(.+?)">((.|\n)*?)<\/a>/m', function($matches) use ($tagsCategories) {
+        return preg_replace_callback('/<a\s+href="tag:\/\/(.+?)">((.|\n)*?)<\/a>/m', function ($matches) use ($tagsCategories) {
             $tag = $matches[1];
-            $categories = join(',', $tagsCategories[$tag]);
+            // TODO FIXME nicer handling of missing categories
+            if (isset($tagsCategories[$tag])) {
+                $categories = join(',', $tagsCategories[$tag]);
 
-            return "<span class=\"journal-entry-tag\" data-tag=\"$tag\" data-tag-categories=\"$categories\">$matches[2]</span>";
+                return "<span class=\"journal-entry-tag\" data-tag=\"$tag\" data-tag-categories=\"$categories\">$matches[2]</span>";
+            } else {
+                return $matches[2];
+            }
         }, $content);
     }
 }

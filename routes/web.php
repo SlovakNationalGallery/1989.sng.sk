@@ -15,12 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
-Route::get('/day', function () {
-    // TODO some intro page?
-    return redirect('/day/1989-10-01');
-});
-
 Route::get('/playground', function () {
     return view('playground');
 });

@@ -1,10 +1,24 @@
 <template>
   <div id="calendar" class="cldr">
-    <span @click="showCalendar = !showCalendar">📅</span>
     <transition name="slide">
       <months-view v-if="showCalendar" :days="days" @input="setDate($event)" />
     </transition>
     <row-view :days="days" :startAt="startAt" @change="setDate($event)" />
+    <div class="container-fluid buttons row">
+      <!-- <div class="offset-sm-2 col-sm-4 offset-md-3 col-md-3">
+        <button
+          class="btn btn-dark w-100"
+          @click="showCalendar = !showCalendar"
+        >
+          Kalendár
+        </button>
+      </div> -->
+      <div class="offset-sm-4 col-sm-4  offset-md-5 col-md-2">
+        <button class="btn btn-dark w-100" @click="setDate(today)">
+          Dnes
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -24,12 +38,13 @@ dayjs.extend(weekOfYear);
 export default {
   name: "Calendar",
   components: { RowView, MonthsView },
-  props: ["start", "end", "startAt"],
+  props: ["start", "end", "startAt", 'today'],
   data() {
     return {
       days: [],
       cldr: [],
-      showCalendar: false
+      showCalendar: false,
+      currentDay: this.startAt
     };
   },
   created() {
@@ -58,17 +73,25 @@ export default {
   },
   methods: {
     setDate(date) {
+      if (this.currentDay === date) {
+        return;
+      }
       Router.push({ name: 'day-entries', params: { date }});
+      this.currentDay = date;
       this.showCalendar = false;
     }
   },
 };
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
 .cldr {
   position: relative;
+  .buttons {
+    margin: 1rem auto;
+  }
 }
 .weekend {
   font-weight: bolder;

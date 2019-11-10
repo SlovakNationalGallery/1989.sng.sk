@@ -2,10 +2,6 @@
 @push('styles')
 
 <style>
-    html {
-        font-size: 9pt;
-    }
-
     div[class*="bg-"]>.bg {
         background-image: url("{{asset('/images/intro/01-Cover-01.png')}}");
     }
@@ -156,6 +152,47 @@
             <div class="col-md-2">
                 <div class="tableau-paper bg-v4">
                     <h4>tableau-paper bg-v4</h4>
+                    <div class="bg"> </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="zigzag-paper ">
+                    <h4>zigzag-paper </h4>
+                    <div class="bg"> </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="zigzag-paper bg-v0">
+                    <h4>zigzag-paper + bg</h4>
+                    <div class="bg"> </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="zigzag-paper bg-v1">
+                    <h4>zigzag-paper bg-v1</h4>
+                    <div class="bg"> </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="zigzag-paper bg-v2">
+                    <h4>zigzag-paper bg-v2</h4>
+                    <div class="bg"> </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="zigzag-paper bg-v3">
+                    <h4>zigzag-paper bg-v3</h4>
+                    <div class="bg"> </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="zigzag-paper bg-v4">
+                    <h4>zigzag-paper bg-v4</h4>
                     <div class="bg"> </div>
                 </div>
             </div>

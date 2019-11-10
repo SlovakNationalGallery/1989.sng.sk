@@ -41,6 +41,12 @@ class TopicCrudController extends CrudController
             'label' => 'Is active',
             'type' => 'boolean',
         ]);
+        
+        $this->crud->addColumn([
+            'name' => 'is_visible',
+            'label' => 'Is visible',
+            'type' => 'boolean',
+        ]);
 
         $this->crud->addColumn([
             'name' => 'items',
@@ -55,24 +61,26 @@ class TopicCrudController extends CrudController
         ]);
 
         $this->crud->addFilter([
-          'name' => 'category',
-          'type' => 'dropdown',
-          'label'=> 'Category'
-        ], function() {
+            'name' => 'category',
+            'type' => 'dropdown',
+            'label' => 'Category'
+        ], function () {
             return \App\Models\Topic::$available_categories;
-        }, function($value) {
+        }, function ($value) {
             $this->crud->addClause('where', 'category', $value);
         });
 
-        $this->crud->addFilter([
-          'type' => 'simple',
-          'name' => 'active',
-          'label'=> 'Active'
-        ],
-        false,
-        function() {
-            $this->crud->addClause('active');
-        });
+        $this->crud->addFilter(
+            [
+                'type' => 'simple',
+                'name' => 'active',
+                'label' => 'Active'
+            ],
+            false,
+            function () {
+                $this->crud->addClause('active');
+            }
+        );
 
 
         $this->crud->allowAccess('show'); // to show a "preview" button https://backpackforlaravel.com/docs/3.4/crud-buttons#default-buttons
@@ -144,7 +152,7 @@ class TopicCrudController extends CrudController
                 if ($entryId) $query = $query->where('id', '!=', $entryId);
 
                 return $query->orderBy('name', 'ASC')->get();
-             }),
+            }),
         ]);
 
         $this->crud->addField([
@@ -163,6 +171,12 @@ class TopicCrudController extends CrudController
             'type' => 'checkbox',
             'label' => 'Is active',
             'hint' => 'Will be not displayed on frontend until is published'
+        ]);
+        $this->crud->addField([
+            'name' => 'is_visible',
+            'type' => 'checkbox',
+            'label' => 'Is visible',
+            'hint' => 'Will not be listed in list until checked'
         ]);
 
         // add asterisk for fields that are required in TopicRequest
@@ -250,6 +264,11 @@ class TopicCrudController extends CrudController
                 'type' => 'boolean',
             ],
             [
+                'label' => 'Is visible',
+                'name' => 'is_visible',
+                'type' => 'boolean',
+            ],
+            [
                 'label' => 'Created at',
                 'name' => 'created_at',
                 'type' => 'datetime',
@@ -264,7 +283,8 @@ class TopicCrudController extends CrudController
         return $content;
     }
 
-    private function setPreviousTopic(TopicRequest $request) {
+    private function setPreviousTopic(TopicRequest $request)
+    {
         if ($request->get('next_topic_id') == null) return;
 
         $topic = $this->crud->entry;
