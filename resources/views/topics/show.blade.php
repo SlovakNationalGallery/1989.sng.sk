@@ -3,7 +3,7 @@
 @section('items')
     @foreach ($topic->items as $i=>$item)
         <div class="item-container" style="height: {{$item->pivot->container}}px" data-orig-height="{{$item->pivot->container}}" >
-            <a href="{{ asset($item->file) }}" class="image-link" title="{{ $item->name }}" data-author="{{ $item->author }}">
+            <a href="{{ asset($item->file) }}" class="image-link" title="{{ $item->full_name }}" data-source="{{ $item->source }}">
             <div
                 class="item"
                 data-orig-x="{{$item->pivot->pos_x}}"
@@ -52,9 +52,12 @@
                 titleSrc: function(item) {
                   var title = '';
                   if (item.el.attr('title')) {
-                    title += item.el.attr('title') + '<br>';
+                    title += item.el.attr('title');
                   }
-                  return title + '&copy; ' + item.el.attr('data-author');
+                  if (item.el.attr('data-source')) {
+                    title += '<br>' + '&copy; ' + item.el.attr('data-source');
+                  }
+                  return title;
                 }
               }
 
