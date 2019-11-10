@@ -8,6 +8,9 @@ h2,
 h3,
 h4 {
     padding: 0.5em;
+    a {
+        color: $white;
+    }
 }
 
 h2 {
@@ -21,8 +24,44 @@ a:hover {
 }
 
 #overlay {
-    padding-top: 10vh;
+
     background: rgba(0, 0, 0, 0.6);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+#app > *{
+    position: relative;
+}
+
+.centered {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.underline {
+    background: url('/images/underline.svg');
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: 100% auto;
+    margin: -1.3rem;
+    padding: 1.3rem;
+}
+
+.jump-to-top {
+    display: inline-block;
+    height: 3em;
+    width: 3em;
+    padding-top: .6em;
+    border-color: $black;
+    border-width: $btn-border-width;
+    border-radius: $btn-border-radius;
+    border-style: solid;
+    margin: 2rem;
 }
 
 /// MORE content-focused styling

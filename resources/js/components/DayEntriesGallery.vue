@@ -16,10 +16,10 @@
                 </i>
               </div>
             </div>
-            <div class="col-md-4">
-              <a :href="'/journal-entries/' + date" class="read-casopis">
-                <img class="w-100" src="/images/read_casopis.jpg" />
-              </a>
+            <div class="col-md-4 read-casopis">
+              <!-- <a :href="'/journal-entries/' + date" class="read-casopis"> -->
+              <img class="w-100" src="/images/read_casopis.jpg" />
+              <!-- </a> -->
             </div>
           </div>
         </div>
@@ -60,6 +60,12 @@
         </transition-page>
       </div>
     </div>
+
+    <transition-page>
+      <div v-if="topics">
+        <selected-topics :date="date" :topics="topics"></selected-topics>
+      </div>
+    </transition-page>
   </div>
 </template>
 
@@ -70,7 +76,8 @@ export default {
   data() {
     return {
       availableDays: [],
-      dayData: ""
+      dayData: "",
+      topics: []
     };
   },
   computed: {
@@ -79,15 +86,25 @@ export default {
     }
   },
   mounted() {
-    axios.get(`/api/journal-entries/${this.date}`).then(({ data: { data } }) => {
-      this.dayData = data;
-    });
+    this.getData(this.date);
   },
   beforeRouteUpdate(to, from, next) {
-    axios.get(`/api/journal-entries/${to.params.date}`).then(({ data: { data } }) => {
-      this.dayData = data;
-      next();
-    });
+    this.getData(to.params.date, next);
+  },
+
+  methods: {
+    getData(date, callback) {
+      const self = this;
+      axios.get(`/api/journal-entries/${date}`).then(({ data: { data } }) => {
+        const entry = data;
+        axios.get(`/api/random-topics/?${date}`).then((topics) => {
+          self.topics = topics.data;
+          self.dayData = entry;
+          callback && callback();
+        });
+      });
+      return;
+    }
   }
 };
 </script>

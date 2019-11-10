@@ -34,18 +34,6 @@
         background-color: $overlay-color
     }
 
-    .jump-to-top {
-        display: inline-block;
-        height: 3em;
-        width: 3em;
-        padding-top: .6em;
-        border-color: $black;
-        border-width: $btn-border-width;
-        border-radius: $btn-border-radius;
-        border-style: solid;
-        margin-bottom: 5px;
-    }
-
     .related-topic {
         .image-placeholder {
             height: 270px;

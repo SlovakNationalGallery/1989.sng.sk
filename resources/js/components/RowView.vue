@@ -1,6 +1,11 @@
 <template>
   <div class="cldr-row">
-    <button @click="prevPeriod()" :disabled="selectedIndex - navigationOffset <= firstNavigateableIndex">〈</button>
+    <button
+      @click="prevPeriod()"
+      :disabled="selectedIndex - navigationOffset <= firstNavigateableIndex"
+    >
+      〈
+    </button>
     <carousel
       class="carousel"
       :navigateTo="navigateTo"
@@ -19,13 +24,18 @@
         ></calendar-day>
       </slide>
     </carousel>
-    <button @click="nextPeriod()" :disabled="selectedIndex + navigationOffset >= lastNavigateableIndex">〉</button>
+    <button
+      @click="nextPeriod()"
+      :disabled="selectedIndex + navigationOffset >= lastNavigateableIndex"
+    >
+      〉
+    </button>
   </div>
 </template>
 
 <script>
-import CalendarDay from './Calendar/Day'
-import { Carousel, Slide } from 'vue-carousel';
+import CalendarDay from "./Calendar/Day";
+import { Carousel, Slide } from "vue-carousel";
 
 export default {
   name: "RowView",
@@ -42,15 +52,15 @@ export default {
   },
   data() {
     return {
-      selectedIndex: this.days.findIndex(({d}) => this.startAt === d),
+      selectedIndex: this.days.findIndex(({ d }) => this.startAt === d),
       perPage: 5,
-      initialNavigateToDone: false,
+      initialNavigateToDone: false
     };
   },
   created() {
     this.updatePerPage();
 
-    this.onWindowResize = _.debounce(this.updatePerPage, 200)
+    this.onWindowResize = _.debounce(this.updatePerPage, 200);
     window.addEventListener("resize", this.onWindowResize);
   },
   beforeDestroy() {
@@ -59,45 +69,57 @@ export default {
   watch: {
     selectedIndex() {
       this.$emit("change", this.days[this.selectedIndex].d);
+    },
+    $route(to) {
+      const toIndex = this.days.findIndex(({ d }) => to.params.date === d);
+      if (toIndex != this.selectedIndex) {
+        this.selectedIndex = toIndex;
+      }
     }
   },
   computed: {
     navigateTo() {
       if (!this.initialNavigateToDone) {
-        this.initialNavigateToDone = true
-        return [this.selectedIndex - this.navigationOffset, false]
+        this.initialNavigateToDone = true;
+        return [this.selectedIndex - this.navigationOffset, false];
       }
 
-      return [this.selectedIndex - this.navigationOffset, true]
+      return [this.selectedIndex - this.navigationOffset, true];
     },
     navigationOffset() {
-      return (this.perPage - 1) / 2
+      return (this.perPage - 1) / 2;
     },
     firstNavigateableIndex() {
-      return _.findIndex(this.days, 'active')
+      return _.findIndex(this.days, "active");
     },
     lastNavigateableIndex() {
-      return _.findLastIndex(this.days, 'active')
+      return _.findLastIndex(this.days, "active");
     }
   },
   methods: {
     prevPeriod() {
-      this.selectedIndex = Math.max(this.selectedIndex - this.perPage, this.firstNavigateableIndex)
+      this.selectedIndex = Math.max(
+        this.selectedIndex - this.perPage,
+        this.firstNavigateableIndex
+      );
     },
     nextPeriod() {
-      this.selectedIndex = Math.min(this.selectedIndex + this.perPage, this.lastNavigateableIndex)
+      this.selectedIndex = Math.min(
+        this.selectedIndex + this.perPage,
+        this.lastNavigateableIndex
+      );
     },
     onSlideClick(index) {
-      this.selectedIndex = index
+      this.selectedIndex = index;
     },
     updatePerPage() {
-      if (window.innerWidth >= 1440) return this.perPage = 9
-      if (window.innerWidth >= 1024) return this.perPage = 7
-      if (window.innerWidth >= 768) return this.perPage = 5
-      if (window.innerWidth >= 425) return this.perPage = 3
+      if (window.innerWidth >= 1440) return (this.perPage = 9);
+      if (window.innerWidth >= 1024) return (this.perPage = 7);
+      if (window.innerWidth >= 768) return (this.perPage = 5);
+      if (window.innerWidth >= 425) return (this.perPage = 3);
 
-      return this.perPage = 1
-    },
+      return (this.perPage = 1);
+    }
   }
 };
 </script>
@@ -105,7 +127,7 @@ export default {
 <style lang="scss">
 .cldr-row {
   $day-slide-width: 90px;
-
+  user-select: none;
   display: flex;
   justify-content: center;
 
@@ -116,7 +138,7 @@ export default {
     border: none;
     font-size: 3rem;
     font-weight: bold;
-    opacity: .8;
+    opacity: 0.8;
 
     &:hover {
       opacity: 1;
@@ -124,7 +146,7 @@ export default {
     }
 
     &:disabled {
-      opacity: .2
+      opacity: 0.2;
     }
   }
 

@@ -1,27 +1,24 @@
-<div id="letters-expositions">
+<div id="letters-expositions" class="container">
    <div class="shift-block-container" style="height: 2rem">
 
       <div id="expos" class="shift-block bg-v4">
-         <h4>Výstavy k Novembru '89</h4>
-         <div class="author">Slovenská národná galéria</div>
-         <div>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore
-            et
-            dolore
-            magna aliquyam erat, sed diam voluptua.</div>
-         <button class="btn btn-dark"><a href="http://sng.sk">Prejsť na stránku</a></button>
-
+         <h4>Výstavy a podujatia</h4>
+         <div>K výročiu Nežnej revolúcie chystá SNG bohatý sprievodný program. Naši partneri Slovenské národné múzeum -
+            Historické múzeum a Slovenské centrum dizajnu pripravili k novembru 1989 zaujímavé výstavy.
+         </div>
+         <a class="btn btn-dark" href="/vzdelavacie-aktivity-k-novembru-1989">Prejsť na stránku</a>
       </div>
    </div>
+
    <div class="shift-block-container">
 
       <div id="letters" class="shift-block bg-v1">
-         <h4>Vzdelávacie listy k Novembru '89</h4>
-         <div class="author"> Juraj Smatana</div>
-         <div>Nežná revolúcia sa nezaobišla bez konšpirácií z radov politikov a rôznych neprajníkov. Spoznajte niektoré
-            z nich
-            prostredníctvom vzdelávacích listov Juraja Smatanu.</div>
-         <button class="btn"><a href="#TODO">Prejsť na stránku</a></button>
+         <h4>Vzdelávacie aktivity</h4>
+         <div>Oddelenie galerijnej pedagogiky SNG v spolupráci so stredoškolským učiteľom a občianskym aktivistom
+            Jurajom Smatanom vytvorilo materiál podporujúci výskumnú a objavnú činnosť študentov.
+         </div>
+         <a class="btn" href="/podujatia-vystavy">Prejsť na stránku</a>
+
       </div>
    </div>
-
 </div>
