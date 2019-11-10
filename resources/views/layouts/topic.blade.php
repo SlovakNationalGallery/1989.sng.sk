@@ -1,9 +1,15 @@
 @extends('layouts.master')
-
+@section('page_title', "$topic->name • Čas-opis 1989")
+@section('og_image', asset($topic->cover_image))
 @push('styles')
 <style>
     #topic .cover-image {
-        background-image: url("/{{ $topic->cover_image }}");
+        background:
+            linear-gradient(
+                rgba(0, 0, 0, 0.35),
+                rgba(0, 0, 0, 0.35)
+            ),
+            url("/{{ $topic->cover_image }}");
     }
 
     #previous-topic .image {
@@ -24,14 +30,18 @@
 @section('content')
 <div id="topic">
     <div class="header text-center">
-        <div class="cover-image"></div>
-        <div class="cover-image-overlay"></div>
-        <div class="container position-relative pt-2">
-            <a href="/" title="Prejsť na úvodnú stránku"><h3 id="top-nav">ČAS-OPIS <span class="year">1989</span></h3></a>
-            <h1 id="title" class="mt-5">{{ $topic->name }}</h1>
-            <div id="share-button-placeholder"></div>
+        <div class="cover-image">
+            <div class="container pt-2">
+                <a href="/" title="Prejsť na úvodnú stránku"><h3 id="top-nav">ČAS-OPIS <span class="year">1989</span></h3></a>
+                <div id="title-container">
+                    <h1 id="title" class="mt-5">{{ $topic->name }}</h1>
+                </div>
+                <div id="share-button-placeholder"></div>
+            </div>
+        </div>
+        <div id="description-container" class="container position-relative">
             <div class="row">
-                <div class="offset-lg-3 col-lg-6 file-paper text-left pt-4 pr-5">
+                <div id="description" class="offset-lg-3 col-lg-6 file-paper text-left pt-4 pr-5">
                     {!! parsedown($topic->description) !!}
                 </div>
             </div>
