@@ -120,7 +120,7 @@ if (is_array($value)) {
 
                             video.id = videoId;
                             video.title = v.name;
-                            video.image = v.pictures.sizes[0].link;
+                            video.image = v.pictures.sizes[v.pictures.sizes.length - 1].link;
                             video.url = v.link;
                             video.width = v.width;
                             video.height = v.height;

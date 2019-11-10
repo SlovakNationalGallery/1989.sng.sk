@@ -36,20 +36,29 @@ class ItemTopic extends Pivot
             }
 
             // set default size and position
-            $file = \App\Models\Item::find($model->item_id)->file;
-            $model->setDefaultSizeAndPosition($file);
+
+            $item = \App\Models\Item::find($model->item_id);
+
+            if ($item->video && isSet($item->video->width) && isSet($item->video->height)) {
+                $model->setDefaultSizeAndPosition(null, $item->video->width, $item->video->height);
+            } else {
+                $model->setDefaultSizeAndPosition($item->file);
+            }
         });
 
         // @TODO - apply reordering after deleting from pivot table for items with order > $model->order
     }
 
-    public function setDefaultSizeAndPosition($file = null)
+    public function setDefaultSizeAndPosition($file = null, $full_width = null, $full_height = null)
     {
         $width = self::DEFAULT_WIDTH;
         $height = self::DEFAULT_HEIGHT;
 
         if ($file && file_exists(public_path($file)) ) {
             list($full_width, $full_height) = getimagesize(public_path($file));
+        }
+
+        if (isSet($full_width) && isSet($full_height)) {
             $height = $full_height * ($width / $full_width);
         }
 
