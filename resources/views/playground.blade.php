@@ -163,6 +163,47 @@
     </div>
 
     <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="zigzag-paper ">
+                    <h4>zigzag-paper </h4>
+                    <div class="bg"> </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="zigzag-paper bg-v0">
+                    <h4>zigzag-paper + bg</h4>
+                    <div class="bg"> </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="zigzag-paper bg-v1">
+                    <h4>zigzag-paper bg-v1</h4>
+                    <div class="bg"> </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="zigzag-paper bg-v2">
+                    <h4>zigzag-paper bg-v2</h4>
+                    <div class="bg"> </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="zigzag-paper bg-v3">
+                    <h4>zigzag-paper bg-v3</h4>
+                    <div class="bg"> </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="zigzag-paper bg-v4">
+                    <h4>zigzag-paper bg-v4</h4>
+                    <div class="bg"> </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
         <div class="block-paper">
             <div class="ruled">
                 <h1>.ruled h1</h1>

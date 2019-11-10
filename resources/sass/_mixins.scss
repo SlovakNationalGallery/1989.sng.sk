@@ -28,36 +28,32 @@
     background-size: 1.25rem 1.2rem;
 }
 
-@mixin paper-bck($offset, $doubled: false) {
+$zigzag-paper-bgr-width: 2rem;
+%zigzag-paper-bgr {
+    background: url("/images/zigzag-paper.svg") top right repeat-y;
+    background-repeat: repeat-y;
+    background-size: $zigzag-paper-bgr-width;
+}
+
+@mixin paper-bck($offset-left: 0, $offset-right: 0) {
     position: relative;
     z-index: 1;
-    @if $doubled {
-        background: linear-gradient(
-                to right,
-                rgba(255, 255, 255, 0),
-                rgba(255, 255, 255, 0) $offset * 0.9,
-                rgba(255, 255, 255, 1) $offset * 0.9,
-                rgba(255, 255, 255, 1) 50%,
-                rgba(255, 255, 255, 0) 50%
-            ),
-            linear-gradient(
-                to left,
-                rgba(255, 255, 255, 0),
-                rgba(255, 255, 255, 0) $offset * 0.9,
-                rgba(255, 255, 255, 1) $offset * 0.9,
-                rgba(255, 255, 255, 1) 50%,
-                rgba(255, 255, 255, 0) 50%
-            );
+    background: linear-gradient(
+            to right,
+            rgba(255, 255, 255, 0),
+            rgba(255, 255, 255, 0) $offset-left,
+            rgba(255, 255, 255, 1) $offset-left,
+            rgba(255, 255, 255, 1) 50%,
+            rgba(255, 255, 255, 0) 50%
+        ),
+        linear-gradient(
+            to left,
+            rgba(255, 255, 255, 0),
+            rgba(255, 255, 255, 0) $offset-right,
+            rgba(255, 255, 255, 1) $offset-right,
+            rgba(255, 255, 255, 1) 50%,
+            rgba(255, 255, 255, 0) 50%
+        );
 
-        padding: 1rem ($offset + 0.5rem);
-    } @else {
-        background: transparent
-            linear-gradient(
-                to right,
-                rgba(255, 255, 255, 0),
-                rgba(255, 255, 255, 0) $offset * 0.98,
-                white $offset * 0.98
-            );
-        padding: 1rem 0rem 1rem ($offset + 0.5rem);
-    }
+    padding: 1rem ($offset-right + 0.5rem) 1rem ($offset-left + 0.5rem);
 }
