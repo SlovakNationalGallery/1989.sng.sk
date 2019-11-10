@@ -38,7 +38,7 @@ dayjs.extend(weekOfYear);
 export default {
   name: "Calendar",
   components: { RowView, MonthsView },
-  props: ["start", "end", "startAt", 'today'],
+  props: ["available-days", "start", "end", "startAt", "today"],
   data() {
     return {
       days: [],
@@ -48,24 +48,26 @@ export default {
     };
   },
   created() {
-    dayjs.locale('sk');
+    const ds = this.availableDays.map(d => dayjs(d).format("YYYY-MM-DD"));
+    dayjs.locale("sk");
     let day = dayjs(this.start, "YYYY-MM-DD")
       .startOf("week")
+      .set("year", 1989)
       .subtract(1, "week");
     const end = dayjs(this.end, "YYYY-MM-DD")
       .endOf("week")
+      .set("year", 1989)
       .add(1, "week");
     this.days = [];
     while (day.isBefore(end) || day.isSame(end)) {
+      const dateString = day.format("YYYY-MM-DD");
       const newDay = {
-        d: day.format("YYYY-MM-DD"),
+        d: dateString,
         dt: day.date(),
         m: day.format("MMMM"),
         y: day.format("YYYY"),
         w: +day.week(),
-        active:
-          (day.isAfter(this.start) || day.isSame(this.start)) &&
-          day.isBefore(this.end)
+        active: ds.indexOf(dateString) > -1
       };
       day = day.add(1, "day");
       this.days.push(newDay);
@@ -76,13 +78,12 @@ export default {
       if (this.currentDay === date) {
         return;
       }
-      Router.push({ name: 'day-entries', params: { date }});
+      Router.push({ name: "day-entries", params: { date } });
       this.currentDay = date;
       this.showCalendar = false;
     }
-  },
+  }
 };
-
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
