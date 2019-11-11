@@ -124,6 +124,13 @@ class Item extends Model
         return null;
     }
 
+    public function getFormatedTextAttribute()
+    {
+        $text = parsedown($this->text);
+        $text =  str_replace('<img ','<img class="img-fluid" ',$text);
+        return $text;
+    }
+
     /*
     |--------------------------------------------------------------------------
     | MUTATORS
