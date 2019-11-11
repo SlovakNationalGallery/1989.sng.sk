@@ -15,10 +15,6 @@
         transform: translate(0.5rem, -0.5rem);
     }
 
-    .newsletter button#submit {
-        background: #637fcf !important;
-    }
-
     #subscribe_form .row > div{
         padding: .5rem;
     }
@@ -41,7 +37,7 @@
                 </div>
                 <div class="col-md-6 col-lg-5 offset-md-0 col-sm-8 offset-sm-4">
                     {{ csrf_field() }}
-                    <button id="submit" type="submit" class="btn btn-dark">Chcem byť v obraze</button>
+                    <button id="submit" type="submit" class="btn btn-info">Chcem byť v obraze</button>
                 </div>
             </div>
         </form>

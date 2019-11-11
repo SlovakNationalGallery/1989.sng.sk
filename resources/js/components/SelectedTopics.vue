@@ -13,7 +13,7 @@
       </div>
     </div>
     <div class="row justify-content-center">
-      <div class="col-md-4 col-sm-12 selected-topic" v-for="$topic in topics">
+      <div class="col-md-4 col-sm-12 selected-topic" v-for="$topic in topics" :key="$topic.slug">
         <!-- na mobile by som sem dal carousel -->
         <div class="white">
           <a :href="'/' + $topic.slug">
@@ -36,9 +36,7 @@
               >...</span
             >
           </p>
-          <button class="btn btn-dark">
-            <a :href="'/' + $topic.slug">Čítaj viac</a>
-          </button>
+          <a class="btn btn-outline-light" :href="'/' + $topic.slug">Čítaj viac</a>
         </div>
       </div>
     </div>

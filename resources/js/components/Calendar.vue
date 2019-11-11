@@ -14,7 +14,7 @@
         </button>
       </div> -->
       <div class="offset-sm-4 col-sm-4  offset-md-5 col-md-2">
-        <button class="btn btn-dark w-100" @click="setDate(today)">
+        <button class="btn btn-outline-light w-100" @click="setDate(today)">
           Dnes
         </button>
       </div>

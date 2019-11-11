@@ -55,11 +55,23 @@ a:hover {
     height: 3em;
     width: 3em;
     padding-top: 0.6em;
-    border-color: $black;
-    border-width: $btn-border-width;
-    border-radius: $btn-border-radius;
-    border-style: solid;
     margin: 2rem;
+
+    &.btn-outline-light {
+        stroke: $light;
+
+        &:hover {
+            stroke: $body-color;
+        }
+    }
+
+    &.btn-outline-dark {
+        stroke: $body-color;
+
+        &:hover {
+            stroke: $light;
+        }
+    }
 }
 
 /// MORE content-focused styling

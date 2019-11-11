@@ -31,8 +31,11 @@
     </div>
 
     <div class="text-center">
-        <a href="#top" title="Na začiatok stránky" class="jump-to-top btn btn-dark"><img
-                src="{{ asset('images/caret-up-white.svg') }}" alt="šípka hore" /></a>
+        <a href="#top" title="Na začiatok stránky" class="jump-to-top btn btn-outline-light">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="10" viewBox="0 0 16 10">
+                <path class="a" d="M14,14.281l-6.993-7.5L0,14.281" style="fill:none;stroke-width:3px;" transform="translate(1.096 -4.588)"/>
+            </svg>
+        </a>
     </div>
 
 
@@ -42,7 +45,7 @@
 
             <div class="row d-flex align-items-center">
                 <div class="col-sm-3 ">
-                    <a class="btn btn-dark" href="/o-projekte">O projekte</a>
+                    <a class="btn btn-outline-light" href="/o-projekte">O projekte</a>
                 </div>
                 <div class="col-sm-3 ">
                     <a href="http://www.sng.sk" title="Slovenská národná galéria">
@@ -58,7 +61,6 @@
                 </div>
                 <div class="col-sm-3 ">
                     Vyrobil: <a href="http://www.lab.sng.sk">lab.SNG</a>
-
                 </div>
             </div>
         </div>
