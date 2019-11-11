@@ -99,9 +99,13 @@ class Item extends Model
 
     public function getFullNameAttribute()
     {
-        $full_name = ($this->author) ? $this->author . ' – ' . $this->name : $this->name;
-        if (($this->year) && Str::contains($full_name, [$this->year])) {
-            $full_name .= '(' . $this->year . ')';
+        $full_name = ($this->author) ? $this->author . ', ' . $this->name : $this->name;
+        $full_name .= '. ';
+        if (($this->year) && !Str::contains($full_name, [$this->year])) {
+            $full_name .= $this->year . '. ';
+        }
+        if (($this->source)) {
+            $full_name .= $this->source . '. ';
         }
 
         return $full_name;
