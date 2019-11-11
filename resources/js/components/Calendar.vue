@@ -3,7 +3,7 @@
     <transition name="slide">
       <months-view v-if="showCalendar" :days="days" @input="setDate($event)" />
     </transition>
-    <row-view :days="days" :startAt="startAt" @change="setDate($event)" />
+    <row-view :days="days" :startAt="defaultDate" @change="setDate" />
     <div class="container-fluid buttons row">
       <!-- <div class="offset-sm-2 col-sm-4 offset-md-3 col-md-3">
         <button
@@ -38,50 +38,32 @@ dayjs.extend(weekOfYear);
 export default {
   name: "Calendar",
   components: { RowView, MonthsView },
-  props: ["available-days", "start", "end", "startAt", "today"],
+  props: ["startDate", "endDate", "activeDatesStart", "activeDatesEnd", "today", "defaultDate"],
   data() {
     return {
-      days: [],
-      cldr: [],
       showCalendar: false,
-      currentDay: this.startAt
     };
   },
-  created() {
-    const ds = this.availableDays.map(d => dayjs(d).format("YYYY-MM-DD"));
-    dayjs.locale("sk");
-    let day = dayjs(this.start, "YYYY-MM-DD")
-      .startOf("week")
-      .set("year", 1989)
-      .subtract(1, "week");
-    const end = dayjs(this.end, "YYYY-MM-DD")
-      .endOf("week")
-      .set("year", 1989)
-      .add(1, "week");
-    this.days = [];
-    while (day.isBefore(end) || day.isSame(end)) {
-      const dateString = day.format("YYYY-MM-DD");
-      const newDay = {
-        d: dateString,
-        dt: day.date(),
-        m: day.format("MMMM"),
-        y: day.format("YYYY"),
-        w: +day.week(),
-        active: ds.indexOf(dateString) > -1
-      };
-      day = day.add(1, "day");
-      this.days.push(newDay);
-    }
+  computed: {
+    days() {
+      const days = [];
+      const end = dayjs(this.endDate);
+
+      for (var day = dayjs(this.startDate); !day.isAfter(end); day = day.add(1, 'day')) {
+        days.push({
+          d: day.format('YYYY-MM-DD'),
+          active: !day.isBefore(this.activeDatesStart) && !day.isAfter(this.activeDatesEnd),
+        })
+      }
+
+      return days
+    },
   },
   methods: {
     setDate(date) {
-      if (this.currentDay === date) {
-        return;
-      }
-      Router.push({ name: "day-entries", params: { date } });
-      this.currentDay = date;
+      if (date !== _.get(this, '$route.params.date')) Router.push({ name: "days", params: { date } });
       this.showCalendar = false;
-    }
+    },
   }
 };
 </script>
