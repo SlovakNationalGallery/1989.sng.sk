@@ -1,6 +1,6 @@
 <template>
   <div class="cldr-row">
-    <button
+    <button class="btn"
       @click="prevPeriod()"
       :disabled="selectedIndex - navigationOffset <= firstNavigateableIndex"
     >
@@ -24,7 +24,7 @@
         ></calendar-day>
       </slide>
     </carousel>
-    <button
+    <button class="btn"
       @click="nextPeriod()"
       :disabled="selectedIndex + navigationOffset >= lastNavigateableIndex"
     >
