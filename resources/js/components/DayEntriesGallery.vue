@@ -94,8 +94,8 @@ export default {
   mounted() {
     this.getData(this.date);
   },
-  beforeRouteUpdate(to, from, next) {
-    this.getData(to.params.date, next);
+  afterRouteUpdate(to, from) {
+    this.getData(to.params.date);
   },
 
   methods: {

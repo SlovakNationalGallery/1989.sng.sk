@@ -14,9 +14,9 @@ const router = new VueRouter({
         meta: { transitionName: 'slide' },
       },
       {
-        path: '/day/:date?',
+        path: '/:date?',
         component: DayEntriesGallery,
-        name: 'day-entries',
+        name: 'days',
         props: ({params}) => ({ date: params.date}),
       }
     ]

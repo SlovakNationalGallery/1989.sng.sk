@@ -11,19 +11,11 @@
 |
 */
 
-Route::get('/', function () {
-    return redirect()->route('day');
-});
+Route::get('/', 'DayController@index')->name('days.index');;
 
-Route::get('coming-soon', function () {
-    return view('welcome');
-});
-
-Route::get('/playground', function () {
-    return view('playground');
-});
-
-Route::get('/day/{date?}', 'DayController@dayViewParams')->name('day');
+Route::get('/{day}', 'DayController@show')
+    ->where('day', '^\d{4}-\d{2}-\d{2}$')
+    ->name('days.show');
 
 Route::get('journal-entries', function () {
     return view('journal_entries');
@@ -33,6 +25,17 @@ Route::get('journal-entries/{journalEntry}', function () {
     return view('journal_entries');
 })->name('journal-entries.show');
 
+Route::get('/day/{day}', function ($day) {
+    return redirect()->route('days.show', $day);
+});
+
+Route::get('coming-soon', function () {
+    return view('welcome');
+});
+
+Route::get('/playground', function () {
+    return view('playground');
+});
 
 Route::get('/{topic}', 'TopicController@show')->name('topics.show');
 Route::get('/{topic}/edit', 'TopicController@edit')->name('topics.edit');
