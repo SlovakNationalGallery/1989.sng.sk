@@ -8,5 +8,5 @@
             <p class="mb-0 small text-muted">{{ $item->author_role }}</p>
         </div>
     </div>
-    <item-text content="{{ parsedown($item->text) }}"></item-text>
+    <item-text content="{{ $item->formated_text }}"></item-text>
 </div>
