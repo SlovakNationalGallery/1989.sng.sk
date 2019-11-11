@@ -76,6 +76,8 @@
 </template>
 
 <script>
+import dayjs from "dayjs";
+
 export default {
   name: "DayEntriesGallery",
   props: ["date"],
@@ -100,11 +102,13 @@ export default {
 
   methods: {
     getData(date, callback) {
+      //TODO make sure fallbackDate does not run outside the journal range
+      const fallbackDate = dayjs().set('year', 1989).format('YYYY-MM-DD');
       const self = this;
-      axios.get(`/api/journal-entries/${date}`).then(
+      axios.get(`/api/journal-entries/${date || fallbackDate}`).then(
         ({ data: { data } }) => {
           const entry = data;
-          axios.get(`/api/random-topics/?${date}`).then(topics => {
+          axios.get(`/api/random-topics/?${date || fallbackDate}`).then(topics => {
             self.topics = topics.data;
             self.dayData = entry;
             callback && callback();
