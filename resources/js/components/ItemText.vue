@@ -10,6 +10,7 @@
 
 <script>
 const MAX_LENGTH = 500
+const READ_MORE_DELIMITER = '<hr />'
 
 export default {
   name: "ItemText",
@@ -26,7 +27,11 @@ export default {
   },
   computed: {
     displayedContent() {
-      if (this.showAll) return this.content
+      if (this.showAll) return this.content.replace(READ_MORE_DELIMITER, '')
+
+      const delimiterIndex = this.content.indexOf(READ_MORE_DELIMITER)
+      if (delimiterIndex > -1) return this.content.substring(0, delimiterIndex)
+
       return _.truncate(this.content, { length: MAX_LENGTH, separator: ' '})
     },
     truncateable() {
