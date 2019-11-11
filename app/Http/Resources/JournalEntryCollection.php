@@ -18,7 +18,6 @@ class JournalEntryCollection extends ResourceCollection
             'data' => $this->collection->map(function($journalEntry) {
                 return [
                     'written_at' => $journalEntry->written_at->toDateString(),
-                    'is_active' => $journalEntry->is_active
                 ];
             })
         ];
