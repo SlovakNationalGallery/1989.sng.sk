@@ -6,15 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="csrf-token" content="{{ csrf_token() }}">
-
-  <meta name="description"
-    content="Deň po dni sledujeme vývoj Neznej revolúcie v denníku Júliusa Kollera a prostredníctvom fotografií, plagátov, rozhovorov a videí spoznávame kreativitu občanov, ich požiadavky, názory a nádeje.">
-
+  <meta name="description" content="@yield('page_description', 'Deň po dni sledujeme vývoj Nežnej revolúcie v denníku Júliusa Kollera a prostredníctvom fotografií, plagátov, rozhovorov a videí spoznávame kreativitu občanov, ich požiadavky, názory a nádeje.')">
   <meta property="og:title" content="@yield('page_title', 'Čas-opis 1989')" />
-  <meta property="og:description"
-    content="Deň po dni sledujeme vývoj Neznej revolúcie v denníku Júliusa Kollera a prostredníctvom fotografií, plagátov, rozhovorov a videí spoznávame kreativitu občanov, ich požiadavky, názory a nádeje." />
-  <meta property="og:keywords"
-    content="November 1989, Nežná revolúcia, Július Koller, Verejnosť proti násiliu, plagáty, Čas-opis" />
+  <meta property="og:description" content="@yield('page_description', 'Deň po dni sledujeme vývoj Nežnej revolúcie v denníku Júliusa Kollera a prostredníctvom fotografií, plagátov, rozhovorov a videí spoznávame kreativitu občanov, ich požiadavky, názory a nádeje.')">
+  <meta property="og:keywords" content="November 1989, Nežná revolúcia, Július Koller, Verejnosť proti násiliu, plagáty, Čas-opis" />
   <meta property="og:type" content="website" />
   <meta property="og:author" content="http://lab.sng.sk/" />
   <meta property="og:url" content="{{ url()->current() }}" />
