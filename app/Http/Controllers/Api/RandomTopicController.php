@@ -13,9 +13,10 @@ class RandomTopicController extends Controller
         return response()->json(
             Topic::select('slug', 'name', 'cover_image', 'description')
                 ->where([
-                    ['category', '<>', 'author']    
+                    ['category', '<>', 'author']
                 ])
                 ->active()
+                ->visible()
                 ->inRandomOrder()
                 ->limit(3)
                 ->get()

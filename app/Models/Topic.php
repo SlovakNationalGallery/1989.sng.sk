@@ -109,6 +109,11 @@ class Topic extends Model
         return $query->where('is_active', 1);
     }
 
+    public function scopeVisible($query)
+    {
+        return $query->where('is_visible', 1);
+    }
+
     /*
     |--------------------------------------------------------------------------
     | ACCESORS
