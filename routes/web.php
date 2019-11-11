@@ -12,6 +12,10 @@
 */
 
 Route::get('/', function () {
+    return redirect()->route('day');
+});
+
+Route::get('coming-soon', function () {
     return view('welcome');
 });
 
