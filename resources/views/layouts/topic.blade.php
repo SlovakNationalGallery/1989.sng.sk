@@ -4,7 +4,7 @@
 @push('styles')
 <style>
     #topic .cover-image {
-        background:
+        background-image:
             linear-gradient(
                 rgba(0, 0, 0, 0.35),
                 rgba(0, 0, 0, 0.35)
