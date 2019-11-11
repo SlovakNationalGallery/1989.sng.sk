@@ -1,3 +1,3 @@
 <div class="block-paper">
-    <item-text content="{{ parsedown($item->text) }}"></item-text>
+    <item-text content="{{ $item->formated_text }}"></item-text>
 </div>
