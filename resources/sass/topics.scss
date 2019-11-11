@@ -42,10 +42,14 @@
 
     .cover-image {
         background-color: $gray-dark;
-        background-attachment: fixed;
         background-size: cover;
         background-position: top center;
+
+        @include media-breakpoint-up(sm) {
+            background-attachment: fixed;
+        }
     }
+
 
     .jump-to-top {
         display: inline-block;
