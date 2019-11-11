@@ -53,15 +53,23 @@
               image: {
                 verticalFit: true,
                 titleSrc: function(item) {
-                  var title = '';
+                  var title = '<div class="mt-1">';
                   if (item.el.attr('title')) {
                     title += item.el.attr('title');
                   }
                   if (item.el.attr('data-text')) {
                     title += '<br>' + item.el.attr('data-text');
                   }
+                  title += '</div>';
                   return title;
                 }
+              },
+
+              callbacks: {
+                  resize: function() {
+                      var img = this.content.find('img');
+                      img.css('max-height', parseFloat(img.css('max-height')) * 0.95);
+                  }
               }
 
             });
