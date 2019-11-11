@@ -1,6 +1,8 @@
 <template>
   <div class="cldr-row">
-    <button class="btn"
+    <button
+      class="btn"
+      v-if="showButtons"
       @click="prevPeriod()"
       :disabled="selectedIndex - navigationOffset <= firstNavigateableIndex"
     >
@@ -11,7 +13,7 @@
       :navigateTo="navigateTo"
       :scrollPerPage="false"
       :paginationEnabled="false"
-      :mouse-drag="false"
+      :mouseDrag="false"
       :perPage="perPage"
     >
       <slide v-for="(day, i) in days" :key="day.d">
@@ -24,7 +26,9 @@
         ></calendar-day>
       </slide>
     </carousel>
-    <button class="btn"
+    <button
+      class="btn"
+      v-if="showButtons"
       @click="nextPeriod()"
       :disabled="selectedIndex + navigationOffset >= lastNavigateableIndex"
     >
@@ -54,6 +58,7 @@ export default {
     return {
       selectedIndex: this.days.findIndex(({ d }) => this.startAt === d),
       perPage: 5,
+      showButtons: true,
       initialNavigateToDone: false
     };
   },
@@ -113,11 +118,20 @@ export default {
       this.selectedIndex = index;
     },
     updatePerPage() {
-      if (window.innerWidth >= 1024) return (this.perPage = 7);
-      if (window.innerWidth >= 768) return (this.perPage = 5);
-      if (window.innerWidth >= 425) return (this.perPage = 3);
+      if (window.innerWidth >= 768) {
+        this.perPage = 7;
+        this.showButtons = true;
+        return
+      }
 
-      return (this.perPage = 1);
+      if (window.innerWidth >= 425) {
+        this.perPage = 3;
+        this.showButtons = true;
+        return
+      }
+
+      this.perPage = 3;
+      this.showButtons = false;
     }
   }
 };
@@ -131,7 +145,6 @@ export default {
   justify-content: center;
 
   button {
-    width: 80px;
     height: 76px;
     color: white;
     border: none;
@@ -152,19 +165,12 @@ export default {
   .carousel {
     margin-left: 20px;
     margin-right: 20px;
-    width: $day-slide-width;
-
-    @media screen and (min-width: 425px) {
-      width: 3 * $day-slide-width;
-    }
+    width: 3 * $day-slide-width;
 
     @media screen and (min-width: 768px) {
-      width: 5 * $day-slide-width;
-    }
-
-    @media screen and (min-width: 1024px) {
       width: 7 * $day-slide-width;
     }
+
 
     .VueCarousel-slide {
       width: $day-slide-width;
