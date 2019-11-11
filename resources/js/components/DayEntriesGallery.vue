@@ -96,10 +96,11 @@ export default {
   mounted() {
     this.getData(this.date);
   },
-  afterRouteUpdate(to, from) {
-    this.getData(to.params.date);
+  watch:{
+    $route(to){
+      this.getData(to.params.date);
+    }
   },
-
   methods: {
     getData(date, callback) {
       //TODO make sure fallbackDate does not run outside the journal range
