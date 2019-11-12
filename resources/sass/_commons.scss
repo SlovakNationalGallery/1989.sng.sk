@@ -74,7 +74,11 @@ h2 {
 // DAY VIEW
 
 .day-content {
-    margin-top: 10rem;
+    margin-top: 8rem;
+
+    @include media-breakpoint-up(md) {
+      margin-top: 10rem;
+    }
 
     .container-fluid {
         padding-right: 2rem;
