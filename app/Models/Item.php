@@ -105,7 +105,11 @@ class Item extends Model
             $full_name .= $this->year . '. ';
         }
         if (($this->source)) {
-            $full_name .= $this->source . '. ';
+            $full_name .= $this->source;
+        }
+
+        if (substr($full_name, -2) == '. ') {
+            $full_name = substr($full_name, 0, -2);
         }
 
         return $full_name;
