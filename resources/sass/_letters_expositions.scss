@@ -20,7 +20,7 @@
         background: $blue;
         &::after {
             @extend %before-after-sizing;
-            background: url('/images/vystavy.png');
+            background: url('/images/vystavy.jpg');
         }
     }
 }
