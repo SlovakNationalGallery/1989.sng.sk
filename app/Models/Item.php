@@ -70,6 +70,10 @@ class Item extends Model
                 $component = 'quotation';
                 break;
 
+            case 'topic':
+                $component = 'topic';
+                break;
+
             default:
                 $component = 'text';
                 break;

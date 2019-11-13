@@ -179,6 +179,18 @@ class ItemCrudController extends CrudController
            'allows_null' => true,
            'wrapperAttributes' => [
                'data-only-for-type' => 'text quotation image sound video comment author_text'
+           ],
+        ]);
+
+        $available_topics = \App\Models\Topic::pluck('name', 'id');
+        $this->crud->addField([
+            'name' => 'source',
+            'label' => 'Topic',
+            'type' => 'select2_from_array_allow_new',
+            'options' => $available_topics,
+            'allows_null' => true,
+            'wrapperAttributes' => [
+                'data-only-for-type' => 'topic'
             ],
         ]);
 
