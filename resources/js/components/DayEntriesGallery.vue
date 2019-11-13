@@ -14,7 +14,7 @@
             </div>
             <div class="col-md-4 read-casopis">
               <!-- <a :href="'/journal-entries/' + date" class="read-casopis"> -->
-              <img class="w-100" src="/images/read_casopis.jpg" />
+              <img class="w-100 d-none d-md-block" src="/images/read_casopis.jpg" />
               <!-- </a> -->
             </div>
           </div>

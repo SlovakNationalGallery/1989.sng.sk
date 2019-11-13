@@ -1,6 +1,6 @@
 <div class="container casopis-header">
     <div class="header file-paper bg-v1 shift-block">
-        <h1>ČAS-OPIS <span>1989</span></h1>
+        <h1 class="p-0 p-md-2 p-lg-4">ČAS-OPIS <span>1989</span></h1>
     </div>
     <div class="subheader shift-block with-bg">
         <div class="bg"></div>
