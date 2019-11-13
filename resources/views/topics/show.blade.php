@@ -86,8 +86,8 @@
         $(document).click(function(event) {
 
             $('.item-container').removeClass('focused');
-
-            if ($(event.target).is('.item-author-text, .item-text') || ($(event.target).parents('.item-author-text, .item-text').length > 0)) {
+            const targets = '.item-author-text, .item-text, .item-quotation';
+            if ($(event.target).is(targets) || ($(event.target).parents(targets).length > 0)) {
                 $(event.target).parents('.item-container').addClass('focused');
             }
         });

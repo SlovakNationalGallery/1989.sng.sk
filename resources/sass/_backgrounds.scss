@@ -50,6 +50,19 @@
     }
 }
 
+.bordered-paper{
+    @include paper-bck(0, $bordered-paper-bgr-width);
+    &::before {
+        @extend %before-after-sizing;
+        @extend %bordered-paper-bgr;
+    }
+    &::after,
+    .bg {
+        @extend %before-after-sizing;
+        background-size: cover;
+    }
+}
+
 .doubled-bg {
     &::before {
         @extend %before-after-sizing;

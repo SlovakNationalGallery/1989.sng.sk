@@ -35,6 +35,13 @@ $zigzag-paper-bgr-width: 2rem;
     background-size: $zigzag-paper-bgr-width;
 }
 
+$bordered-paper-bgr-width: 3rem;
+%bordered-paper-bgr {
+    background: url("/images/bordered-paper.svg") top left repeat-y;
+    background-repeat: repeat-y;
+    background-size: $bordered-paper-bgr-width;
+}
+
 @mixin paper-bck($offset-left: 0, $offset-right: 0) {
     position: relative;
     z-index: 1;

@@ -65,6 +65,10 @@ class Item extends Model
             case 'author_text':
                 $component = 'author_text';
                 break;
+            
+            case 'quotation':
+                $component = 'quotation';
+                break;
 
             default:
                 $component = 'text';
