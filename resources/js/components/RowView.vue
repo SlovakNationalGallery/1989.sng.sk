@@ -14,6 +14,7 @@
       :scrollPerPage="false"
       :paginationEnabled="false"
       :mouseDrag="false"
+      :touchDrag="false"
       :perPage="perPage"
     >
       <slide v-for="(day, i) in days" :key="day.d">
