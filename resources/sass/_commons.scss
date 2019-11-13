@@ -77,7 +77,7 @@ h2 {
     margin-top: 8rem;
 
     @include media-breakpoint-up(md) {
-      margin-top: 10rem;
+        margin-top: 10rem;
     }
 
     .container-fluid {
@@ -197,5 +197,11 @@ h2 {
             color: $light;
             background: $blue;
         }
+    }
+}
+
+.item-container {
+    .drag-and-resize {
+        background: rgba(0, 0, 0, 0.2);
     }
 }

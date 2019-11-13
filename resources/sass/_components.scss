@@ -111,6 +111,11 @@
         }
     }
 
+    & .item-slogan {
+        padding: 0;
+        z-index: 2;
+    }
+
     .item-fade {
         position: relative;
         height: 6rem;
@@ -127,7 +132,6 @@
         .item-topic-description {
             background: rgba(0, 0, 0, 0.4);
             padding: 1rem;
-
         }
     }
 }
