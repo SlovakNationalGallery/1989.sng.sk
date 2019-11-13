@@ -93,19 +93,4 @@ export default {
   margin: 0;
 }
 
-div.topic-preview {
-  transform: translate(-0.5em, -0.5em);
-  background-color: $gray-dark;
-  background-size: cover;
-  background-position: top center;
-  width: 100%;
-  padding-bottom: 65%;
-  opacity: 0.9;
-  transition: opacity, transform .2s ease-in-out;
-  .white a:hover & {
-    opacity: 1.0;
-    transform: translate(-0.3em, -0.3em);
-  }
-}
-
 </style>
