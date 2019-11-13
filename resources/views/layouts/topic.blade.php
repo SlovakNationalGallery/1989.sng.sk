@@ -60,13 +60,11 @@
             <div class="row">
                 <div id="previous-topic" class="col-md-6 related-topic">
                 @if ($previousTopic)
-                    @if ($previousTopic->cover_image)
-                        <a href="{{ route('topics.show', $previousTopic) }}">
-                            <div class="image-container"><div class="image"></div></div>
-                        </a>
-                    @else
-                        <div class="image-placeholder"></div>
-                    @endif
+                    <div class="white">
+                      <a href="{{ route('topics.show', $previousTopic) }}">
+                        <div class="topic-preview" style="background-image: url('{{ asset($previousTopic->cover_image) }}'"></div>
+                      </a>
+                    </div>
                     <div class="description px-4">
                         <h4>Predchádzajúce</h4>
                         <a href="{{ route('topics.show', $previousTopic) }}"><h3 class="p-0" style="color: white">{{ $previousTopic->name }}</h3></a>
@@ -76,13 +74,11 @@
                 </div>
                 <div id="next-topic" class="col-md-6 related-topic">
                 @if ($nextTopic)
-                    @if ($nextTopic->cover_image)
-                        <a href="{{ route('topics.show', $nextTopic) }}">
-                            <div class="image-container"><div class="image"></div></div>
-                        </a>
-                    @else
-                        <div class="image-placeholder"></div>
-                    @endif
+                    <div class="white">
+                      <a href="{{ route('topics.show', $nextTopic) }}">
+                        <div class="topic-preview" style="background-image: url('{{ asset($nextTopic->cover_image) }}'"></div>
+                      </a>
+                    </div>
                     <div class="description px-4">
                         <h4>Nasledujúce</h4>
                         <a href="{{ route('topics.show', $nextTopic) }}"><h3 class="p-0" style="color: white">{{ $nextTopic->name }}</h3></a>
