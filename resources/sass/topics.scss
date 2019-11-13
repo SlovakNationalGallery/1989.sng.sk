@@ -96,8 +96,7 @@
         width: 100%;
         min-height: 1px;
 
-        &.item-type-text,
-        &.item-type-author_text {
+        &.focused {
             z-index: 20;
         }
     }
