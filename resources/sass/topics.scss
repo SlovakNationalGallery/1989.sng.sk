@@ -66,6 +66,32 @@
     }
 
     .related-topic {
+        .image-placeholder {
+            height: 270px;
+        }
+
+        .image-container {
+            height: 270px;
+            background-color: white;
+            margin-left: 10px;
+            margin-top: 10px;
+        }
+
+        .image-container > .image {
+            background-size: cover;
+            background-position: top center;
+            opacity: .85;
+            position: relative;
+            height: 270px;
+            left: -10px;
+            top: -10px;
+            right: 0;
+            transition: opacity .2s ease-in-out;
+
+            &:hover {
+                opacity: 1;
+            }
+        }
 
         .topic-preview {
             padding-bottom: 50%;
@@ -101,6 +127,10 @@
         }
 
         @media(max-width: 720px) {
+
+            .item-container {
+                height: auto !important;
+            }
 
             div.item {
                 margin: 0 0 30px 0 !important;
