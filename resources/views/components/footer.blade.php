@@ -45,7 +45,7 @@
 
             <div class="row d-flex align-items-center">
                 <div class="col-sm-3 ">
-                    <a class="btn btn-outline-light" href="/o-projekte">O projekte</a>
+                    <a class="btn btn-outline-light" href="/o-projekte">O&nbsp;projekte</a>
                 </div>
                 <div class="col-sm-3 ">
                     <a href="http://www.sng.sk" title="Slovenská národná galéria">
@@ -59,8 +59,8 @@
                     </a>
 
                 </div>
-                <div class="col-sm-3 ">
-                    Vyrobil: <a href="http://www.lab.sng.sk">lab.SNG</a>
+                <div class="col-sm-3">
+                    Vyrobil: <a class="text-light" href="http://www.lab.sng.sk">lab.SNG</a>
                 </div>
             </div>
         </div>
