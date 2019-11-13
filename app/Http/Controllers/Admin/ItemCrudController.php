@@ -176,9 +176,7 @@ class ItemCrudController extends CrudController
            'label' => 'Source',
            'type' => 'select2_from_array_allow_new',
            'options' => $available_sources,
-           'attributes' => [
-               "placeholder" => 'For topic use topic id'
-           ],
+           'hint'=> 'Pre typ <strong><i>topic</i></strong> sem zadaj Topic ID (cislo)',
            'allows_null' => true,
            'wrapperAttributes' => [
                'data-only-for-type' => 'text quotation image sound video comment author_text topic'
