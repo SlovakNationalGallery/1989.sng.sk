@@ -75,7 +75,6 @@
             });
 
             $('.vimeo-link').magnificPopup({
-                    disableOn: 700,
                     type: 'iframe',
                     mainClass: 'mfp-fade',
                     removalDelay: 160,
