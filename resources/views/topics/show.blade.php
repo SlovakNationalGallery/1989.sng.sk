@@ -4,7 +4,7 @@
     @foreach ($topic->items as $i=>$item)
         <div class="item-container item-type-{{ $item->type }}" style="height: {{$item->pivot->container}}px" data-orig-height="{{$item->pivot->container}}" >
 
-            @if ($item->file)
+            @if ($item->file && $item->type != 'slogan')
                 <a href="{{ asset($item->file) }}" class="image-link" title="{{ $item->full_name }}" data-text="{{ $item->text }}">
             @elseif ($item->video)
                 <a href="{{ $item->video->url }}" class="vimeo-link" title="{{ $item->full_name }}" data-text="{{ $item->text }}">
