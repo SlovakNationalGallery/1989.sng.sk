@@ -20,7 +20,7 @@
   <title>@yield('page_title', 'Čas-opis 1989')</title>
 
   <!-- Favicons-->
-  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
 
   @yield('link')
 
