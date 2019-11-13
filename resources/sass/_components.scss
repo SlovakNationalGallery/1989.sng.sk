@@ -98,8 +98,8 @@
         }
     }
     & .item-quotation {
-        padding-left: 3em;
-        padding-top: 1em;
+        position: relative;
+        padding: 1rem 1rem 1rem 3rem;
 
         .item-text {
             padding-left: 0;
