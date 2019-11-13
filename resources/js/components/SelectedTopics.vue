@@ -17,11 +17,7 @@
         <!-- na mobile by som sem dal carousel -->
         <div class="white">
           <a :href="'/' + $topic.slug">
-            <img
-              v-if="$topic.cover_image"
-              class="w-100"
-              :src="'/' + $topic.cover_image"
-            />
+            <div class="topic-preview" v-bind:style="{ backgroundImage: 'url(' + $topic.cover_image + ')' }"></div>
           </a>
         </div>
         <div class="description">
@@ -60,6 +56,9 @@ export default {
 };
 </script>
 <style lang="scss">
+
+@import '~@/_variables.scss';
+
 .selected-topics {
   margin-top: 3rem;
 }
@@ -70,7 +69,7 @@ export default {
 
 .selected-topics .selection-for {
   text-align: center;
-  color: white;
+  color: $white;
   padding-left: 0;
 }
 
@@ -78,23 +77,35 @@ export default {
   display: block;
   font-weight: normal;
   padding: 0.5rem;
-  font-family: "AvenirLTPro";
+  font-family: $font-family-base;
   font-style: oblique;
 }
 .selected-topics .selection-for .date {
-  font-family: "AvenirLTPro";
-  font-weight: 700;
-}
-
-.selected-topic img {
-  transform: translate(-0.5em, -0.5em);
+  font-family: $font-family-base;
+  font-weight: $headings-font-weight;
 }
 
 .selected-topic .description {
-  color: white;
+  color: $white;
   text-align: left;
 }
 .selected-topic .description h4 {
   margin: 0;
 }
+
+div.topic-preview {
+  transform: translate(-0.5em, -0.5em);
+  background-color: $gray-dark;
+  background-size: cover;
+  background-position: top center;
+  width: 100%;
+  padding-bottom: 65%;
+  opacity: 0.9;
+  transition: opacity, transform .2s ease-in-out;
+  .white a:hover & {
+    opacity: 1.0;
+    transform: translate(-0.3em, -0.3em);
+  }
+}
+
 </style>
