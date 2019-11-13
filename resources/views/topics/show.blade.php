@@ -82,6 +82,15 @@
                     fixedContentPos: false
             });
         });
+
+        $(document).click(function(event) {
+
+            $('.item-container').removeClass('focused');
+
+            if ($(event.target).is('.item-author-text, .item-text') || ($(event.target).parents('.item-author-text, .item-text').length > 0)) {
+                $(event.target).parents('.item-container').addClass('focused');
+            }
+        });
     </script>
 
 @endpush
