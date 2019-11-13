@@ -176,22 +176,13 @@ class ItemCrudController extends CrudController
            'label' => 'Source',
            'type' => 'select2_from_array_allow_new',
            'options' => $available_sources,
+           'attributes' => [
+               "placeholder" => 'For topic use topic id'
+           ],
            'allows_null' => true,
            'wrapperAttributes' => [
-               'data-only-for-type' => 'text quotation image sound video comment author_text'
+               'data-only-for-type' => 'text quotation image sound video comment author_text topic'
            ],
-        ]);
-
-        $available_topics = \App\Models\Topic::pluck('name', 'id');
-        $this->crud->addField([
-            'name' => 'source',
-            'label' => 'Topic',
-            'type' => 'select2_from_array_allow_new',
-            'options' => $available_topics,
-            'allows_null' => true,
-            'wrapperAttributes' => [
-                'data-only-for-type' => 'topic'
-            ],
         ]);
 
         $this->crud->addField([
