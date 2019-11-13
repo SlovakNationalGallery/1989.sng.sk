@@ -51,10 +51,10 @@
 }
 
 .bordered-paper{
-    @include paper-bck(0, $bordered-paper-bgr-width);
     &::before {
         @extend %before-after-sizing;
         @extend %bordered-paper-bgr;
+        background-color: white;
     }
     &::after,
     .bg {

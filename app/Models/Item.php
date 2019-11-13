@@ -65,9 +65,17 @@ class Item extends Model
             case 'author_text':
                 $component = 'author_text';
                 break;
-            
+
             case 'quotation':
                 $component = 'quotation';
+                break;
+
+            case 'topic':
+                $component = 'topic';
+                break;
+
+            case 'slogan':
+                $component = 'slogan';
                 break;
 
             default:
@@ -135,7 +143,7 @@ class Item extends Model
     public function getFormatedTextAttribute()
     {
         $text = parsedown($this->text);
-        $text =  str_replace('<img ','<img class="img-fluid" ',$text);
+        $text =  str_replace('<img ', '<img class="img-fluid" ', $text);
         return $text;
     }
 

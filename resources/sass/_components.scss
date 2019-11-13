@@ -98,8 +98,8 @@
         }
     }
     & .item-quotation {
-        padding-left: 3em;
-        padding-top: 1em;
+        position: relative;
+        padding: 1rem 1rem 1rem 3rem;
 
         .item-text {
             padding-left: 0;
@@ -111,11 +111,27 @@
         }
     }
 
+    & .item-slogan {
+        padding: 0;
+        z-index: 2;
+    }
+
     .item-fade {
         position: relative;
         height: 6rem;
         margin-top: -6rem;
         background: linear-gradient(to bottom, white, rgba(255, 255, 255, 0) 0%, white 80%);
         z-index: 1;
+    }
+
+    & .item-topic {
+        background-size: cover;
+        background-position: top center;
+        text-align: center;
+
+        .item-topic-description {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 1rem;
+        }
     }
 }

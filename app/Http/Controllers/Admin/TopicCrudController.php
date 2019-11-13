@@ -34,14 +34,14 @@ class TopicCrudController extends CrudController
         |--------------------------------------------------------------------------
         */
 
-        $this->crud->setColumns(['name', 'category']);
+        $this->crud->setColumns(['id', 'name', 'category']);
 
         $this->crud->addColumn([
             'name' => 'is_active',
             'label' => 'Is active',
             'type' => 'boolean',
         ]);
-        
+
         $this->crud->addColumn([
             'name' => 'is_visible',
             'label' => 'Is visible',
