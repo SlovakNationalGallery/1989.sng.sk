@@ -27,7 +27,7 @@ class DayController extends Controller
         $selectedDay = Carbon::parse($day);
         $today = Carbon::today()->year(1989)->endOfDay();
 
-        $activeDatesStart = Carbon::parse('1989-11-01');
+        $activeDatesStart = Carbon::parse('1989-10-01');
         $activeDatesEnd = $today;
 
         if (backpack_user()) {
