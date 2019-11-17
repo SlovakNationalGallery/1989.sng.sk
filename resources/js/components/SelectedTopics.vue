@@ -17,12 +17,12 @@
         <!-- na mobile by som sem dal carousel -->
         <div class="white">
           <a :href="'/' + $topic.slug">
-            <div class="topic-preview" v-bind:style="{ backgroundImage: 'url(' + $topic.cover_image + ')' }"></div>
+            <div class="topic-preview" v-bind:style="{ backgroundImage: 'url(' + encodeURIComponent($topic.cover_image) + ')' }"></div>
           </a>
         </div>
         <div class="description">
           <h3>
-            <a :href="'/' + $topic.slug">
+            <a :href="'/' + encodeURIComponent($topic.slug)">
               {{ $topic.name }}
             </a>
           </h3>
@@ -32,7 +32,7 @@
               >...</span
             >
           </p>
-          <a class="btn btn-outline-light" :href="'/' + $topic.slug">Čítaj viac</a>
+          <a class="btn btn-outline-light" :href="'/' + encodeURIComponent($topic.slug)">Čítaj viac</a>
         </div>
       </div>
     </div>
