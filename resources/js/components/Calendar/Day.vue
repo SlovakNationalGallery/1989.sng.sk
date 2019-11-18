@@ -1,8 +1,8 @@
 <template>
-  <div class="cldr-day" @click="$emit('click', $event)" :class="{ selected, active }">
+  <button type="button" class="cldr-day btn px-0" @click="$emit('click', $event)" :disabled="disabled " :class="{ active }">
     {{ dateParsed.format("D") }}
     <div class="month">{{ dateParsed.format("MMMM") }}</div>
-  </div>
+  </button>
 </template>
 
 <script>
@@ -17,11 +17,11 @@ export default {
       type: String,
       required: true,
     },
-    active: {
+    disabled: {
       type: Boolean,
       default: false,
     },
-    selected: {
+    active: {
       type: Boolean,
       default: false,
     },
@@ -35,41 +35,23 @@ export default {
 </script>
 
 <style lang="scss">
-.cldr-day {
+.cldr-day.btn {
   width: 76px;
   height: 76px;
-  padding-top: 10px;
   text-align: center;
-  color: white;
-  border: 4px solid white;
-  transition: all, .3s;
+  border-width: 4px;
   border-radius: 4px;
   font-size: 28px;
   font-weight: bold;
-  opacity: .5;
-  pointer-events: none;
-  user-select: none;
+
+  &:focus {
+    box-shadow: none !important;
+  }
 
   .month {
     font-size: 12px;
     font-weight: normal;
     margin-top: -8px;
-  }
-
-  &.selected {
-    color: black;
-    background: white;
-  }
-
-  &.active {
-    opacity: 1;
-    cursor: pointer;
-    pointer-events: inherit;
-
-    &:hover {
-      color: black;
-      background: white;
-    }
   }
 }
 </style>

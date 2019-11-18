@@ -19,11 +19,11 @@
     >
       <slide v-for="(day, i) in days" :key="day.d">
         <calendar-day
-          class="day"
+          :class="dayClass || 'btn-outline-light'"
           :date="day.d"
-          :active="day.active"
-          :selected="selectedIndex === i"
-          @click="onSlideClick(i)"
+          :disabled="!day.active"
+          :active="selectedIndex === i"
+          @click="onSelectedDayChange(i)"
         ></calendar-day>
       </slide>
     </carousel>
@@ -46,18 +46,20 @@ export default {
   name: "RowView",
   components: { CalendarDay, Carousel, Slide },
   props: {
-    startAt: {
-      type: String,
-      required: true
-    },
     days: {
       type: Array,
       required: true
+    },
+    selectedDay: {
+      type: String,
+      required: true
+    },
+    dayClass: {
+      type: String,
     }
   },
   data() {
     return {
-      selectedIndex: this.days.findIndex(({ d }) => this.startAt === d),
       perPage: 5,
       showButtons: true,
       initialNavigateToDone: false
@@ -72,25 +74,17 @@ export default {
   beforeDestroy() {
     window.removeEventListener("resize", this.onWindowResize);
   },
-  watch: {
-    selectedIndex() {
-      this.$emit("change", this.days[this.selectedIndex].d);
-    },
-    $route(to) {
-      const toIndex = this.days.findIndex(({ d }) => to.params.date === d);
-      if (toIndex != this.selectedIndex) {
-        this.selectedIndex = toIndex;
-      }
-    }
-  },
   computed: {
+    selectedIndex() {
+      return this.days.findIndex(({ d }) => this.selectedDay === d)
+    },
     navigateTo() {
       if (!this.initialNavigateToDone) {
         this.initialNavigateToDone = true;
         return [this.selectedIndex - this.navigationOffset, false];
       }
 
-      return [this.selectedIndex - this.navigationOffset, true];
+      return [Math.max(this.selectedIndex - this.navigationOffset, 0), true];
     },
     navigationOffset() {
       return (this.perPage - 1) / 2;
@@ -104,19 +98,19 @@ export default {
   },
   methods: {
     prevPeriod() {
-      this.selectedIndex = Math.max(
+      this.onSelectedDayChange(Math.max(
         this.selectedIndex - this.perPage,
         this.firstNavigateableIndex
-      );
+      ));
     },
     nextPeriod() {
-      this.selectedIndex = Math.min(
+      this.onSelectedDayChange(Math.min(
         this.selectedIndex + this.perPage,
         this.lastNavigateableIndex
-      );
+      ));
     },
-    onSlideClick(index) {
-      this.selectedIndex = index;
+    onSelectedDayChange(selectedIndex) {
+       this.$emit("change", this.days[selectedIndex].d);
     },
     updatePerPage() {
       if (window.innerWidth >= 768) {
@@ -139,6 +133,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import '~bootstrap/scss/bootstrap';
+
 .cldr-row {
   $day-slide-width: 85px;
   user-select: none;
@@ -146,7 +142,7 @@ export default {
   justify-content: center;
   padding: 0.2rem;
 
-  button {
+  & > button {
     height: 76px;
     color: white;
     border: none;
@@ -177,6 +173,12 @@ export default {
     .VueCarousel-slide {
       width: $day-slide-width;
       text-align: center;
+    }
+  }
+
+  &.dark {
+    & > button {
+      @extend .text-dark
     }
   }
 }
