@@ -1,24 +1,26 @@
 <template>
   <div>
-    <h3>Gallery</h3>
-    <p>{{ availableDays.length }} entries</p>
     <div v-if="filter">
-      <p>Filter: {{ filter }} <router-link :to="{ name: 'journal-entries', params: { date: currentDate } }">Zrušiť</router-link></p>
+      <p>Filter: {{ filter }} <router-link :to="{ name: 'journal-entries', params: { date } }">Zrušiť</router-link></p>
     </div>
-    <router-link
+    <calendar-row-view
+      class="dark mt-4"
+      dayClass="btn-outline-dark"
+      :days="availableDays.map(day => ({ d: day.written_at, active: true }))"
+      :selectedDay="date"
+      @change="onDaySelected"
+    ></calendar-row-view>
+    <!-- <router-link
       v-for="day in availableDays"
       :key="day.written_at"
       :to="{ name: 'journal-entries', params: { date: day.written_at }, query: { filter } }"
     >
       {{ day.written_at | romanize }}
-    </router-link>
-    <br />
-    <router-link :to="{ name: 'journal-entries', params: { date: previousDate }, query: { filter } }">Previous</router-link>
-    <router-link :to="{ name: 'journal-entries', params: { date: nextDate }, query: { filter } }">Next</router-link>
+    </router-link> -->
 
     <transition-page>
       <keep-alive :max="10">
-        <journal-entry :key="date" :date="currentDate"></journal-entry>
+        <journal-entry :key="date" :date="date"></journal-entry>
       </keep-alive>
     </transition-page>
   </div>
@@ -26,10 +28,12 @@
 
 <script>
 import dayjs from 'dayjs'
+import CalendarRowView from "./RowView";
 
 export default {
   name: "JournalEntriesGallery",
   props: ['date', 'filter'],
+  components: { CalendarRowView },
   data() {
     return {
       availableDays: [],
@@ -37,17 +41,6 @@ export default {
   },
   mounted() {
     this.fetchAvailableDays(this.filter);
-  },
-  computed: {
-    previousDate() {
-      return dayjs(this.date).subtract(1, 'day').format('YYYY-MM-DD')
-    },
-    nextDate() {
-      return dayjs(this.date).add(1, 'day').format('YYYY-MM-DD')
-    },
-    currentDate() {
-      return this.date
-    }
   },
   watch: {
     filter(newValue, oldValue) {
@@ -61,6 +54,9 @@ export default {
         .then(({data: {data}}) => {
           this.availableDays = data
         })
+    },
+    onDaySelected(date) {
+      Router.push({ name: "journal-entries", params: { date } });
     }
   },
 }

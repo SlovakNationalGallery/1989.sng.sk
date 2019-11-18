@@ -11,18 +11,16 @@
 |
 */
 
+use App\Models\JournalEntry as JournalEntry;
+
 Route::get('/', 'DayController@index')->name('days.index');;
 
 Route::get('/{day}', 'DayController@show')
     ->where('day', '^\d{4}-\d{2}-\d{2}$')
     ->name('days.show');
 
-Route::get('journal-entries', function () {
-    return view('journal_entries');
-})->name('journal-entries.index');
-
-Route::get('journal-entries/{journalEntry}', function () {
-    return view('journal_entries');
+Route::get('journal-entries/{journalEntry}', function (JournalEntry $journalEntry) {
+    return view('journal_entries', compact('journalEntry'));
 })->name('journal-entries.show');
 
 Route::get('/day/{day}', function ($day) {

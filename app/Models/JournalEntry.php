@@ -56,6 +56,13 @@ class JournalEntry extends Model
         return $this->formatForDisplay($this->excerpt);
     }
 
+    public function getWrittenAtRomanizedAttribute()
+    {
+        $romanNumbers = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII'];
+        $monthRomanized = $romanNumbers[$this->written_at->month - 1];
+        return $this->written_at->format("d."). " $monthRomanized. " . $this->written_at->format("Y");
+    }
+
     private function formatForDisplay($content)
     {
         $tagsCategories = [];

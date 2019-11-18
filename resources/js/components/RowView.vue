@@ -10,6 +10,7 @@
     </button>
     <carousel
       class="carousel"
+      v-if="selectedIndex !== -1"
       :navigateTo="navigateTo"
       :scrollPerPage="false"
       :paginationEnabled="false"
@@ -62,12 +63,10 @@ export default {
     return {
       perPage: 5,
       showButtons: true,
-      initialNavigateToDone: false
     };
   },
   created() {
     this.updatePerPage();
-
     this.onWindowResize = _.debounce(this.updatePerPage, 200);
     window.addEventListener("resize", this.onWindowResize);
   },
@@ -79,11 +78,6 @@ export default {
       return this.days.findIndex(({ d }) => this.selectedDay === d)
     },
     navigateTo() {
-      if (!this.initialNavigateToDone) {
-        this.initialNavigateToDone = true;
-        return [this.selectedIndex - this.navigationOffset, false];
-      }
-
       return [Math.max(this.selectedIndex - this.navigationOffset, 0), true];
     },
     navigationOffset() {
