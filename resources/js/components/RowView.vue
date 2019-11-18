@@ -63,6 +63,7 @@ export default {
     return {
       perPage: 5,
       showButtons: true,
+      initialNavigationDone: false,
     };
   },
   created() {
@@ -78,7 +79,14 @@ export default {
       return this.days.findIndex(({ d }) => this.selectedDay === d)
     },
     navigateTo() {
-      return [Math.max(this.selectedIndex - this.navigationOffset, 0), true];
+      const destination = Math.max(this.selectedIndex - this.navigationOffset, 0)
+
+      if (!this.initialNavigationDone) {
+        this.initialNavigationDone = true;
+        return [destination, false];
+      }
+
+      return [destination, true];
     },
     navigationOffset() {
       return (this.perPage - 1) / 2;
