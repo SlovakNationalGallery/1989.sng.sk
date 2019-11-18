@@ -10,25 +10,42 @@
       :selectedDay="date"
       @change="onDaySelected"
     ></calendar-row-view>
-    <!-- <router-link
-      v-for="day in availableDays"
-      :key="day.written_at"
-      :to="{ name: 'journal-entries', params: { date: day.written_at }, query: { filter } }"
-    >
-      {{ day.written_at | romanize }}
-    </router-link> -->
-
-    <transition-page>
+    <transition name="fade">
       <keep-alive :max="10">
         <journal-entry :key="date" :date="date"></journal-entry>
       </keep-alive>
-    </transition-page>
+    </transition>
+    <div class="row py-5">
+      <div class="col-5 pt-2">
+        <router-link
+          :to="{ name: 'journal-entries', params: { date: previousDate }, query: { filter } }"
+          class="btn btn-outline-dark btn-sm"
+          :class="{ disabled: !previousDateEnabled }"
+        >← Predchádzajúci deň</router-link>
+      </div>
+      <div class="col-2 text-center">
+        <a href="#top" title="Na začiatok stránky" class="jump-to-top btn btn-outline-dark btn-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="10" viewBox="0 0 16 10">
+              <path class="a" d="M14,14.281l-6.993-7.5L0,14.281" style="fill:none;stroke-width:3px;" transform="translate(1.096 -4.588)"/>
+          </svg>
+        </a>
+      </div>
+      <div class="col-5 text-right pt-2">
+        <router-link
+          :to="{ name: 'journal-entries', params: { date: nextDate }, query: { filter } }"
+          class="btn btn-outline-dark btn-sm"
+          :class="{ disabled: !nextDateEnabled }"
+        >Naseldujúci deň →</router-link>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import dayjs from 'dayjs'
+import { isEmpty } from "lodash";
 import CalendarRowView from "./RowView";
+
 
 export default {
   name: "JournalEntriesGallery",
@@ -41,6 +58,26 @@ export default {
   },
   mounted() {
     this.fetchAvailableDays(this.filter);
+  },
+  computed: {
+    previousDate() {
+      return dayjs(this.date).subtract(1, 'day').format('YYYY-MM-DD')
+    },
+    nextDate() {
+      return dayjs(this.date).add(1, 'day').format('YYYY-MM-DD')
+    },
+    nextDateEnabled() {
+      if (isEmpty(this.availableDays)) return false;
+
+      const lastDay = dayjs(this.availableDays[this.availableDays.length - 1].written_at);
+      return dayjs(this.date).isBefore(lastDay);
+    },
+    previousDateEnabled() {
+      if (isEmpty(this.availableDays)) return false;
+
+      const firstDay = dayjs(this.availableDays[0].written_at);
+      return dayjs(this.date).isAfter(firstDay);
+    }
   },
   watch: {
     filter(newValue, oldValue) {
