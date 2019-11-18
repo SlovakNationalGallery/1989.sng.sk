@@ -1,6 +1,10 @@
 <template>
   <div class="day-content">
-    <div class="shift-block-container" v-touch:swipe="swipeHandler">
+    <div
+      class="shift-block-container"
+      v-touch:swipe="swipeHandler"
+      ref="anchor"
+    >
       <div class="shift-block koller doubled-bg bg-v3">
         <div class="profile-pic">
           <img class="w-100 h-100" src="/images/koller.jpg" />
@@ -33,22 +37,17 @@
           </div>
         </div>
 
-        <transition-page>
-          <div :key="date">
-            <h4 class="date">{{ date | romanize }}</h4>
-            <div class="weather" v-if="dayData.weather">
-              {{ dayData.weather }}
-            </div>
+        <div :key="date">
+          <h4 class="date">{{ date | romanize }}</h4>
+          <div class="weather" v-if="dayData.weather">
+            {{ dayData.weather }}
           </div>
-        </transition-page>
-
-        <transition-page>
           <day-entry
             :key="date"
             :date="currentDate"
             :content="dayData.excerpt"
           ></day-entry>
-        </transition-page>
+        </div>
       </div>
 
       <div
@@ -58,23 +57,18 @@
         <div class="profile-pic ">
           <img class="w-100 h-100" src="/images/zatkuliak.jpg" />
         </div>
-        <transition-page>
-          <div :key="date">
-            <div v-html="dayData.zatkuliak"></div>
 
-            <div class="credit">
-              ŽATKULIAK, Jozef a kol.: November '89. Prodama, Bratislava 2009
-            </div>
-          </div>
-        </transition-page>
+        <div v-html="dayData.zatkuliak"></div>
+
+        <div class="credit">
+          ŽATKULIAK, Jozef a kol.: November '89. Prodama, Bratislava 2009
+        </div>
       </div>
     </div>
 
-    <transition-page>
-      <div v-if="topics">
-        <selected-topics :date="date" :topics="topics"></selected-topics>
-      </div>
-    </transition-page>
+    <div v-if="topics">
+      <selected-topics :date="date" :topics="topics"></selected-topics>
+    </div>
   </div>
 </template>
 
@@ -82,14 +76,14 @@
 import dayjs from "dayjs";
 import store from "./Store";
 
-
 export default {
   name: "DayEntriesGallery",
   props: ["date"],
   data() {
     return {
       dayData: "",
-      topics: []
+      topics: [],
+      scrollTop: 0
     };
   },
   computed: {
@@ -99,6 +93,7 @@ export default {
   },
   mounted() {
     this.getData(this.date);
+    this.scrollTop = this.$refs.anchor.getBoundingClientRect().y;
   },
   watch: {
     $route(to) {
@@ -115,6 +110,9 @@ export default {
         ({ data }) => {
           this.dayData = data.data;
           this.topics = data.topics;
+          if (this.scrollTop < document.scrollingElement.scrollTop) {
+            window.scrollTo({ top: this.scrollTop, behavior: "smooth" });
+          }
           callback && callback();
         },
         () => {
