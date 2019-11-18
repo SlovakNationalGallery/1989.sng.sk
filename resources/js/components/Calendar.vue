@@ -25,6 +25,7 @@
 <script>
 import RowView from "./RowView";
 import MonthsView from "./MonthsView";
+import store from "./Store";
 
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
@@ -38,32 +39,50 @@ dayjs.extend(weekOfYear);
 export default {
   name: "Calendar",
   components: { RowView, MonthsView },
-  props: ["startDate", "endDate", "activeDatesStart", "activeDatesEnd", "today", "defaultDate"],
+  props: [
+    "startDate",
+    "endDate",
+    "activeDatesStart",
+    "activeDatesEnd",
+    "today",
+    "defaultDate"
+  ],
   data() {
     return {
-      showCalendar: false,
+      showCalendar: false
     };
+  },
+  mounted() {
+    store.activeDatesStart = this.activeDatesStart;
+    store.activeDatesEnd = this.activeDatesEnd;
   },
   computed: {
     days() {
       const days = [];
       const end = dayjs(this.endDate);
 
-      for (var day = dayjs(this.startDate); !day.isAfter(end); day = day.add(1, 'day')) {
+      for (
+        var day = dayjs(this.startDate);
+        !day.isAfter(end);
+        day = day.add(1, "day")
+      ) {
         days.push({
-          d: day.format('YYYY-MM-DD'),
-          active: !day.isBefore(this.activeDatesStart) && !day.isAfter(this.activeDatesEnd),
-        })
+          d: day.format("YYYY-MM-DD"),
+          active:
+            !day.isBefore(this.activeDatesStart) &&
+            !day.isAfter(this.activeDatesEnd)
+        });
       }
 
-      return days
-    },
+      return days;
+    }
   },
   methods: {
     setDate(date) {
-      if (date !== _.get(this, '$route.params.date')) Router.push({ name: "days", params: { date } });
+      if (date !== _.get(this, "$route.params.date"))
+        Router.push({ name: "days", params: { date } });
       this.showCalendar = false;
-    },
+    }
   }
 };
 </script>

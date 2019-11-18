@@ -80,14 +80,14 @@
 
 <script>
 import dayjs from "dayjs";
+import store from "./Store";
+
 
 export default {
   name: "DayEntriesGallery",
   props: ["date"],
   data() {
     return {
-      activeDatesStart: "",
-      activeDatesEnd: "",
       dayData: "",
       topics: []
     };
@@ -114,8 +114,6 @@ export default {
       axios.get(`/api/journal-entries/${date || fallbackDate}`).then(
         ({ data }) => {
           this.dayData = data.data;
-          this.activeDatesStart = data.meta.activeDatesStart;
-          this.activeDatesEnd = data.meta.activeDatesEnd;
           this.topics = data.topics;
           callback && callback();
         },
@@ -138,7 +136,7 @@ export default {
             .set("year", 1989)
             .format("YYYY-MM-DD");
 
-          if (dayAfter > this.activeDatesEnd) return;
+          if (dayAfter > store.activeDatesEnd) return;
 
           Router.push({
             name: "days",
@@ -154,7 +152,7 @@ export default {
             .set("year", 1989)
             .format("YYYY-MM-DD");
 
-          if (dayBefore < this.activeDatesStart) return;
+          if (dayBefore < store.activeDatesStart) return;
 
           Router.push({
             name: "days",

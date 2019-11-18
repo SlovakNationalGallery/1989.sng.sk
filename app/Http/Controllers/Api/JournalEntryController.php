@@ -26,13 +26,6 @@ class JournalEntryController extends Controller
 
     public function show(JournalEntry $journalEntry)
     {
-        $today = Carbon::today()->year(1989)->endOfDay();
-        $activeDatesStart = Carbon::parse('1989-10-01');
-        $activeDatesEnd = $today;
-        if (backpack_user()) {
-            $activeDatesEnd = JournalEntry::orderBy('written_at', 'desc')->first()->written_at;
-        }
-
         $topics = Topic::select('slug', 'name', 'cover_image', 'description')
                 ->where([
                     ['category', '<>', 'author']
@@ -45,8 +38,6 @@ class JournalEntryController extends Controller
 
         return JournalEntryResource::make($journalEntry)->additional([
             'meta' => [
-                'activeDatesStart' => $activeDatesStart->format('Y-m-d'),
-                'activeDatesEnd' => $activeDatesEnd->format('Y-m-d'),
                 'topics' => $topics
             ]
         ]);
