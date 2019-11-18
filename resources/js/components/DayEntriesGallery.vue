@@ -111,13 +111,12 @@ export default {
       const fallbackDate = dayjs()
         .set("year", 1989)
         .format("YYYY-MM-DD");
-      const self = this;
       axios.get(`/api/journal-entries/${date || fallbackDate}`).then(
         ({ data }) => {
-          const entry = data.data;
+          this.dayData = data.data;
           this.activeDatesStart = data.meta.activeDatesStart;
           this.activeDatesEnd = data.meta.activeDatesEnd;
-          this.topics = data.meta.topics;
+          this.topics = data.topics;
           callback && callback();
         },
         () => {
