@@ -1,6 +1,6 @@
 <template>
   <div class="day-content">
-    <div class="shift-block-container ">
+    <div class="shift-block-container" v-touch:swipe="swipeHandler">
       <div class="shift-block koller doubled-bg bg-v3">
         <div class="profile-pic">
           <img class="w-100 h-100" src="/images/koller.jpg" />
@@ -14,7 +14,10 @@
             </div>
             <div class="col-md-4 read-casopis">
               <!-- <a :href="'/journal-entries/' + date" class="read-casopis"> -->
-              <img class="w-100 d-none d-md-block" src="/images/read_casopis.jpg" />
+              <img
+                class="w-100 d-none d-md-block"
+                src="/images/read_casopis.jpg"
+              />
               <!-- </a> -->
             </div>
           </div>
@@ -83,7 +86,8 @@ export default {
   props: ["date"],
   data() {
     return {
-      availableDays: [],
+      activeDatesStart: "",
+      activeDatesEnd: "",
       dayData: "",
       topics: []
     };
@@ -96,35 +100,70 @@ export default {
   mounted() {
     this.getData(this.date);
   },
-  watch:{
-    $route(to){
+  watch: {
+    $route(to) {
       this.getData(to.params.date);
     }
   },
   methods: {
     getData(date, callback) {
       //TODO make sure fallbackDate does not run outside the journal range
-      const fallbackDate = dayjs().set('year', 1989).format('YYYY-MM-DD');
+      const fallbackDate = dayjs()
+        .set("year", 1989)
+        .format("YYYY-MM-DD");
       const self = this;
       axios.get(`/api/journal-entries/${date || fallbackDate}`).then(
-        ({ data: { data } }) => {
-          const entry = data;
-          axios.get(`/api/random-topics/?${date || fallbackDate}`).then(topics => {
-            self.topics = topics.data;
-            self.dayData = entry;
-            callback && callback();
-          });
+        ({ data }) => {
+          const entry = data.data;
+          this.activeDatesStart = data.meta.activeDatesStart;
+          this.activeDatesEnd = data.meta.activeDatesEnd;
+          this.topics = data.meta.topics;
+          callback && callback();
         },
         () => {
           self.topics = null;
           self.dayData = {
-            weather: '',
-            excerpt: 'Pre daný deň neexistuje záznam v denníku'
+            weather: "",
+            excerpt: "Pre daný deň neexistuje záznam v denníku"
           };
           callback && callback();
         }
       );
       return;
+    },
+    swipeHandler(e) {
+      switch (e) {
+        case "left":
+          const dayAfter = dayjs(this.date, "YYYY-MM-DD")
+            .add(1, "day")
+            .set("year", 1989)
+            .format("YYYY-MM-DD");
+
+          if (dayAfter > this.activeDatesEnd) return;
+
+          Router.push({
+            name: "days",
+            params: {
+              date: dayAfter
+            }
+          });
+          break;
+
+        case "right":
+          const dayBefore = dayjs(this.date, "YYYY-MM-DD")
+            .subtract(1, "day")
+            .set("year", 1989)
+            .format("YYYY-MM-DD");
+
+          if (dayBefore < this.activeDatesStart) return;
+
+          Router.push({
+            name: "days",
+            params: {
+              date: dayBefore
+            }
+          });
+      }
     }
   }
 };
