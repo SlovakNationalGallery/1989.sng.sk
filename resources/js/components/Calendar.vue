@@ -3,7 +3,7 @@
     <transition name="slide">
       <months-view v-if="showCalendar" :days="days" @input="setDate($event)" />
     </transition>
-    <row-view :days="days" :startAt="defaultDate" @change="setDate" />
+    <row-view :days="days" :selectedDay="selectedDay" @change="setDate" />
     <div class="container-fluid buttons row">
       <!-- <div class="offset-sm-2 col-sm-4 offset-md-3 col-md-3">
         <button
@@ -69,7 +69,10 @@ export default {
         });
       }
 
-      return days;
+      return days
+    },
+    selectedDay() {
+      return _.get(this, '$route.params.date', this.defaultDate)
     }
   },
   methods: {
