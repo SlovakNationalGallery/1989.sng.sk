@@ -25,7 +25,6 @@
 <script>
 import RowView from "./RowView";
 import MonthsView from "./MonthsView";
-import store from "./Store";
 
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
@@ -51,10 +50,6 @@ export default {
     return {
       showCalendar: false
     };
-  },
-  mounted() {
-    store.activeDatesStart = this.activeDatesStart;
-    store.activeDatesEnd = this.activeDatesEnd;
   },
   computed: {
     days() {

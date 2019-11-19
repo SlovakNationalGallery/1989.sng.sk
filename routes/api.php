@@ -16,6 +16,8 @@ use Illuminate\Http\Request;
 */
 
 Route::post('/subscribe', 'SubscriptionController@store');
+Route::get('/day/{day}', 'DayController@data');
+
 Route::apiResource('journal-entries', 'Api\JournalEntryController', ['as' => 'api']);
 Route::get('/vimeo/{id}', function ($id) {
 

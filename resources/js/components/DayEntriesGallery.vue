@@ -74,7 +74,6 @@
 
 <script>
 import dayjs from "dayjs";
-import store from "./Store";
 
 export default {
   name: "DayEntriesGallery",
@@ -83,6 +82,8 @@ export default {
     return {
       dayData: "",
       topics: [],
+      activeDatesEnd : "",
+      activeDatesStart: "",
       scrollTop: 0
     };
   },
@@ -106,10 +107,12 @@ export default {
       const fallbackDate = dayjs()
         .set("year", 1989)
         .format("YYYY-MM-DD");
-      axios.get(`/api/journal-entries/${date || fallbackDate}`).then(
+      axios.get(`/api/day/${date || fallbackDate}`).then(
         ({ data }) => {
-          this.dayData = data.data;
+          this.dayData = data.journalEntry;
           this.topics = data.topics;
+          this.activeDatesEnd = data.activeDatesEnd;
+          this.activeDatesStart = data.activeDatesStart;
           if (this.scrollTop < document.scrollingElement.scrollTop) {
             window.scrollTo({ top: this.scrollTop, behavior: "smooth" });
           }
@@ -134,7 +137,7 @@ export default {
             .set("year", 1989)
             .format("YYYY-MM-DD");
 
-          if (dayAfter > store.activeDatesEnd) return;
+          if (dayAfter > this.activeDatesEnd) return;
 
           Router.push({
             name: "days",
@@ -150,7 +153,7 @@ export default {
             .set("year", 1989)
             .format("YYYY-MM-DD");
 
-          if (dayBefore < store.activeDatesStart) return;
+          if (dayBefore < this.activeDatesStart) return;
 
           Router.push({
             name: "days",

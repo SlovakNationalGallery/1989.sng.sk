@@ -26,20 +26,6 @@ class JournalEntryController extends Controller
 
     public function show(JournalEntry $journalEntry)
     {
-        $topics = Topic::select('slug', 'name', 'cover_image', 'description')
-                ->where([
-                    ['category', '<>', 'author']
-                ])
-                ->active()
-                ->visible()
-                ->inRandomOrder()
-                ->limit(3)
-                ->get();
-
-        return JournalEntryResource::make($journalEntry)->additional([
-            'meta' => [
-                'topics' => $topics
-            ]
-        ]);
+        return JournalEntryResource::make($journalEntry);
     }
 }

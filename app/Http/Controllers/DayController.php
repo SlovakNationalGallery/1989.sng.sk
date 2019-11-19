@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\JournalEntry;
+use App\Models\Topic;
 use Carbon\Carbon;
 
 class DayController extends Controller
@@ -22,7 +23,7 @@ class DayController extends Controller
         return $this->show($today->format('Y-m-d'));
     }
 
-    public function show($day)
+    public function data($day)
     {
         $selectedDay = Carbon::parse($day);
         $today = Carbon::today()->year(1989)->endOfDay();
@@ -36,13 +37,33 @@ class DayController extends Controller
 
         if (!$selectedDay->between($activeDatesStart, $activeDatesEnd)) return redirect()->route('days.index');
 
-        return view('day', [
+        $topics = Topic::select('slug', 'name', 'cover_image', 'description')
+            ->where([
+                ['category', '<>', 'author']
+            ])
+            ->active()
+            ->visible()
+            ->inRandomOrder()
+            ->limit(3)
+            ->get();
+
+        $journalEntry =  JournalEntry::where('written_at', $selectedDay->format('Y-m-d'))->first();
+
+
+        return [
+            'topics' => $topics,
+            'journalEntry' => $journalEntry,
             'today' => $today->format('Y-m-d'),
             'selected' => $selectedDay->format('Y-m-d'),
             'startDate' => Carbon::parse(self::START_DATE)->format('Y-m-d'),
             'endDate' => Carbon::parse(self::END_DATE)->format('Y-m-d'),
             'activeDatesStart' => $activeDatesStart->format('Y-m-d'),
             'activeDatesEnd' => $activeDatesEnd->format('Y-m-d'),
-        ]);
+        ];
+    }
+
+    public function show($day)
+    {
+        return view('day', self::data($day));
     }
 }

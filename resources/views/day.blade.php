@@ -29,10 +29,24 @@
 @section('content')
 @include('components.header')
 <div sticky-container>
-    <div id="calendar" class="sticky" v-sticky="true" sticky-offset="{top: 0, bottom: 30}" sticky-side="both"
-        on-stick="onStick" sticky-z-index="20">
-        <calendar start-date="{{ $startDate }}" end-date="{{ $endDate }}" active-dates-start="{{ $activeDatesStart }}"
-            active-dates-end="{{ $activeDatesEnd }}" default-date="{{ $selected }}" today="{{ $today }}"></calendar>
+    <div
+        id="calendar"
+        class="sticky"
+        v-sticky="true"
+        sticky-offset="{top: 0, bottom: 30}"
+        sticky-side="both"
+        on-stick="onStick"
+        sticky-z-index="20"
+    >
+        <calendar
+            start-date="{{ $startDate }}"
+            end-date="{{ $endDate }}"
+            active-dates-start="{{ $activeDatesStart }}"
+            active-dates-end="{{ $activeDatesEnd }}"
+            default-date="{{ $selected }}"
+            today="{{ $today }}"
+        >
+        </calendar>
     </div>
     <router-view></router-view>
 </div>
