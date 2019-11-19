@@ -35,6 +35,9 @@
 
 @include('components.letters_expositions')
 
-@include('components.footer', ['topics' => App\Models\Topic::orderBy('name', 'asc')->get()->groupBy('category')])
+@include('components.footer', [
+    'with_credits' => true
+    ]
+);
 
 @stop

@@ -22,8 +22,25 @@
                 display: inline-block;
                 margin: 0.5rem 0;
             }
-            dd.active {
-                cursor: pointer;
+
+            .recent {
+                z-index: 1000;
+                position: relative;
+
+                &::before {
+                    content: '■ ';
+                    position: absolute;
+                    top: 0;
+                    left: -1rem;
+                    z-index: 1;
+                }
+
+                &.recent-1::before {
+                    color: white;
+                }
+                &.recent-2::before {
+                    color: rgba(white, 0.4);
+                }
             }
             a {
                 color: $white;
