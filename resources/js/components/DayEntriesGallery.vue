@@ -39,7 +39,7 @@
 
         <div :key="date">
           <h4 class="date">{{ date | romanize }}</h4>
-          <div class="weather" v-if="dayData.weather">
+          <div class="weather" v-if="dayData && dayData.weather">
             {{ dayData.weather }}
           </div>
           <day-entry
