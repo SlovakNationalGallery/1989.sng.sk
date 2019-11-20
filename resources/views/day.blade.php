@@ -19,7 +19,7 @@
     }
 
     .top-sticky {
-        background-color: rgba(0, 0, 0, 0.9);
+        background-color: rgba(0, 0, 0, 0.7);
         transition: background-color .5s ease-in-out;
     }
 

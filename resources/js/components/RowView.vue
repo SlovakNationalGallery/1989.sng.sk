@@ -144,6 +144,7 @@ export default {
   user-select: none;
   display: flex;
   justify-content: center;
+  padding: 0.2rem;
 
   button {
     height: 76px;

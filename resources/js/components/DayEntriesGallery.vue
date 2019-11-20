@@ -132,7 +132,7 @@ export default {
     swipeHandler(e) {
       switch (e) {
         case "left":
-          const dayAfter = dayjs(this.date, "YYYY-MM-DD")
+          var dayAfter = dayjs(this.date, "YYYY-MM-DD")
             .add(1, "day")
             .set("year", 1989)
             .format("YYYY-MM-DD");
@@ -148,7 +148,7 @@ export default {
           break;
 
         case "right":
-          const dayBefore = dayjs(this.date, "YYYY-MM-DD")
+          var dayBefore = dayjs(this.date, "YYYY-MM-DD")
             .subtract(1, "day")
             .set("year", 1989)
             .format("YYYY-MM-DD");
