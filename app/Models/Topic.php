@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Backpack\CRUD\CrudTrait;
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 
 class Topic extends Model
@@ -114,12 +115,22 @@ class Topic extends Model
         return $query->where('is_visible', 1);
     }
 
+    public function scopeListing($query)
+    {
+        return $query->visible()->orderBy('name', 'asc')->get()->groupBy('category');
+    }
+
     /*
     |--------------------------------------------------------------------------
     | ACCESORS
     |--------------------------------------------------------------------------
     */
 
+    public function getRecentAttribute()
+    {
+        $dt = Carbon::now();
+        return ceil($dt->diffInDays($this->updated_at) / 5);
+    }
     /*
     |--------------------------------------------------------------------------
     | MUTATORS

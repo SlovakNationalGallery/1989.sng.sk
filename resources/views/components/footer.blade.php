@@ -1,9 +1,5 @@
 @php
-$topics = App\Models\Topic::
-select(DB::raw( '*, CEIL(DATEDIFF(now(), updated_at) / 5) as recent'))
--> orderBy('name', 'asc')
--> get()
--> groupBy('category')
+$topics = App\Models\Topic::listing()
 @endphp
 
 <footer class="w-100">
