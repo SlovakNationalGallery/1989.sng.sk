@@ -11,8 +11,7 @@
     <carousel
       class="carousel"
       v-if="selectedIndex !== -1"
-      :navigateTo="navigateTo"
-      :scrollPerPage="false"
+      :navigationEnabled="true"
       :paginationEnabled="false"
       :mouseDrag="false"
       :touchDrag="false"

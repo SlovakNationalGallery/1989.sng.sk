@@ -51,6 +51,7 @@
 import dayjs from 'dayjs'
 import { isEmpty, get } from "lodash";
 import CalendarRowView from "./RowView";
+import { initializeJournalTagPopovers } from '../journal-entries-popovers';
 
 
 export default {
@@ -65,6 +66,7 @@ export default {
   },
   mounted() {
     this.fetchAvailableDays(this.filter);
+    initializeJournalTagPopovers();
   },
   computed: {
     previousDate() {
@@ -77,9 +79,9 @@ export default {
     },
   },
   watch: {
-    filter(newValue, oldValue) {
+    filter(newValue) {
       this.fetchAvailableDays(newValue)
-    }
+    },
   },
   methods: {
     fetchAvailableDays(filter) {
