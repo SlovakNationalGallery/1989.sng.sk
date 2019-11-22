@@ -10,18 +10,27 @@ use App\Models\JournalEntry;
 use App\Models\Topic;
 use App\Http\Resources\JournalEntryCollection;
 use App\Http\Resources\JournalEntry as JournalEntryResource;
-
+use App\Models\JournalTag;
 
 class JournalEntryController extends Controller
 {
     public function index(Request $request)
     {
-        $tag = $request->query('tag');
-        $journalEntries = JournalEntry::whereHas('tags', function ($query) use ($tag) {
-            if ($tag) $query->where('subject', $tag);
+        $tag = JournalTag::where('subject', $request->query('tag'))->first();
+        $journalEntries = JournalEntry::whereHas('tags', function($query) use ($tag) {
+            if ($tag) $query->where('subject', $tag->subject);
         })->get();
 
-        return new JournalEntryCollection($journalEntries);
+        $response = new JournalEntryCollection($journalEntries);
+        if ($tag) $response = $response->additional([
+            'data' => [
+                'tag' => [
+                    'categories' => $tag->categories->pluck('name')
+                ]
+            ]
+        ]);
+
+        return $response;
     }
 
     public function show(JournalEntry $journalEntry)

@@ -15,11 +15,13 @@ class JournalEntryCollection extends ResourceCollection
     public function toArray($request)
     {
         return [
-            'data' => $this->collection->map(function($journalEntry) {
-                return [
-                    'written_at' => $journalEntry->written_at->toDateString(),
-                ];
-            })
+            'data' => [
+                'days' => $this->collection->map(function($journalEntry) {
+                    return [
+                        'written_at' => $journalEntry->written_at->toDateString(),
+                    ];
+                })
+            ]
         ];
     }
 }

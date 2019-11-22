@@ -1,7 +1,10 @@
 <template>
   <div>
-    <div v-if="filter">
-      <p>Filter: {{ filter }} <router-link :to="{ name: 'journal-entries', params: { date } }">Zrušiť</router-link></p>
+    <div v-if="filter" id="filter" class="text-center pt-3">
+      <p class="lead mb-1">Preskúmať heslo: {{ filter }}</p>
+      <p v-if="filterTagCategories" class="mb-0">Kategórie: {{ filterTagCategories.join(', ') }}</p>
+      <p>Heslo sa nachádza v nasledujúcich dňoch:</p>
+
     </div>
     <calendar-row-view
       class="dark mt-4"
@@ -10,6 +13,9 @@
       :selectedDay="date"
       @change="onDaySelected"
     ></calendar-row-view>
+    <div v-if="filter" id="filter" class="text-center mt-4 mb-1">
+      <router-link class="btn btn-outline-dark" :to="{ name: 'journal-entries', params: { date } }">× Zrušiť filter</router-link>
+    </div>
     <transition name="fade">
       <keep-alive :max="10">
         <journal-entry :key="date" :date="date"></journal-entry>
@@ -54,6 +60,7 @@ export default {
   data() {
     return {
       availableDays: [],
+      filterTagCategories: []
     }
   },
   mounted() {
@@ -79,7 +86,8 @@ export default {
       axios
         .get(`/api/journal-entries`, { params: { tag: filter }  })
         .then(({data: {data}}) => {
-          this.availableDays = data
+          this.availableDays = get(data, 'days', [])
+          this.filterTagCategories = get(data, 'tag.categories', [])
         })
     },
     onDaySelected(date) {
@@ -88,3 +96,14 @@ export default {
   },
 }
 </script>
+<style lang="scss">
+@import "~@/_variables.scss";
+@import '~bootstrap/scss/bootstrap';
+
+#filter {
+  h2 {
+    font-family: $font-family-base;
+    font-size: 2rem;
+  }
+}
+</style>
