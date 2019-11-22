@@ -12,7 +12,7 @@ class JournalEntryTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testContentForFrontPage()
+    public function testContentFormattedAttribute()
     {
         $tag = factory(JournalTag::class)->create(['subject' => 'Tag name']);
         $tag->categories()->attach(factory(JournalTagCategory::class)->create(['name' => 'some category']));

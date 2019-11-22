@@ -72,11 +72,10 @@ class JournalEntry extends Model
 
         return preg_replace_callback('/<a\s+href="tag:\/\/(.+?)">((.|\n)*?)<\/a>/m', function ($matches) use ($tagsCategories) {
             $tag = $matches[1];
-            // TODO FIXME nicer handling of missing categories
+
             if (isset($tagsCategories[$tag])) {
                 $categories = join(',', $tagsCategories[$tag]);
-
-                return "<span class=\"journal-entry-tag\" data-tag=\"$tag\" data-tag-categories=\"$categories\">$matches[2]</span>";
+                return "<a tabindex=\"0\" data-tag=\"$tag\" data-tag-categories=\"$categories\" class=\"journal-entry-tag\" >$matches[2]</a>";
             } else {
                 return $matches[2];
             }
