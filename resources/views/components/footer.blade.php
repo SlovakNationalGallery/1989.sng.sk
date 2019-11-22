@@ -1,3 +1,7 @@
+@php
+$topics = App\Models\Topic::listing()
+@endphp
+
 <footer class="w-100">
     <div class="footer container">
         <div class="row">
@@ -9,7 +13,12 @@
                     @foreach ($topics[$catKey] as $topic)
                     @if($topic->is_visible)
                         @if ($topic->is_active)
-                        <dd class="active"><a href="/{{ $topic->slug }}">{{ $topic->name }}</a></dd>
+                            <dd class="active">
+                                <a href="/{{ $topic->slug }}">{{ $topic->name }}</a>
+                                @if ($topic->is_recent)
+                                    <span class="badge badge-light">nové</span>
+                                @endif
+                            </dd>
                         @else
                         <dd class="inactive">{{ $topic->name }}</dd>
                         @endif
@@ -31,38 +40,29 @@
     </div>
 
     <div class="text-center">
-        <a href="#top" title="Na začiatok stránky" class="jump-to-top btn btn-outline-light">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="10" viewBox="0 0 16 10">
-                <path class="a" d="M14,14.281l-6.993-7.5L0,14.281" style="fill:none;stroke-width:3px;" transform="translate(1.096 -4.588)"/>
+        <a
+            href="#top"
+            title="Na začiatok stránky"
+            class="jump-to-top btn btn-outline-light"
+        >
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="10"
+                viewBox="0 0 16 10"
+            >
+                <path
+                    class="a"
+                    d="M14,14.281l-6.993-7.5L0,14.281"
+                    style="fill:none;stroke-width:3px;"
+                    transform="translate(1.096 -4.588)"
+                />
             </svg>
         </a>
     </div>
 
 
-    <div class="footer credits">
-
-        <div class="container">
-
-            <div class="row d-flex align-items-center">
-                <div class="col-sm-3 ">
-                    <a class="btn btn-outline-light" href="/o-projekte">O&nbsp;projekte</a>
-                </div>
-                <div class="col-sm-3 ">
-                    <a href="http://www.sng.sk" title="Slovenská národná galéria">
-                        <img src="{{asset('images/SNG_logo_with_title.svg')}}" style="height: 2.5rem" />
-                    </a>
-                </div>
-                <div class="col-sm-3 ">
-
-                    <a href="https://spolocnost.o2.sk/ferova-nadacia" title="O2: Sloboda nie je samozrejmosť">
-                        <img src="{{asset('images/sloboda_o2.svg')}}" style="height: 5rem" />
-                    </a>
-
-                </div>
-                <div class="col-sm-3">
-                    Vyrobil: <a class="text-light" href="http://www.lab.sng.sk">lab.SNG</a>
-                </div>
-            </div>
-        </div>
-    </div>
+    @if(isset($with_credits))
+    @include('components.credits')
+    @endif;
 </footer>
