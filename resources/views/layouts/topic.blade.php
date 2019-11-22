@@ -2,6 +2,7 @@
 @section('page_title', "$topic->name • Čas-opis 1989")
 @section('page_description', Str::limit(strip_tags(parsedown($topic->description)), 300))
 @section('og_image', asset($topic->cover_image))
+@section('body-class', 'topic')
 @push('styles')
 <style>
     #topic .cover-image {
