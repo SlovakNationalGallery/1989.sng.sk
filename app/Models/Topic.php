@@ -44,6 +44,8 @@ class Topic extends Model
     // protected $hidden = [];
     // protected $dates = [];
 
+    const RECENT_DAYS = 3;
+
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS
@@ -126,10 +128,12 @@ class Topic extends Model
     |--------------------------------------------------------------------------
     */
 
-    public function getRecentAttribute()
+    public function getIsRecentAttribute()
     {
-        $dt = Carbon::now();
-        return ceil($dt->diffInDays($this->updated_at) / 5);
+        if ($this->updated_at->diffInDays() < self::RECENT_DAYS) {
+            return true;
+        }
+        return false;
     }
     /*
     |--------------------------------------------------------------------------

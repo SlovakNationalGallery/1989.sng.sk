@@ -13,8 +13,11 @@ $topics = App\Models\Topic::listing()
                     @foreach ($topics[$catKey] as $topic)
                     @if($topic->is_visible)
                         @if ($topic->is_active)
-                            <dd class="active {{$topic->recent < 3 ? 'recent recent-'.$topic->recent: '' }}">
+                            <dd class="active">
                                 <a href="/{{ $topic->slug }}">{{ $topic->name }}</a>
+                                @if ($topic->is_recent)
+                                    <span class="badge badge-light">nové</span>
+                                @endif
                             </dd>
                         @else
                         <dd class="inactive">{{ $topic->name }}</dd>
