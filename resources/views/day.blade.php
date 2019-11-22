@@ -23,6 +23,11 @@
         transition: background-color .5s ease-in-out;
     }
 
+    .top-sticky .buttons {
+        display: none;
+    }
+
+
 </style>
 @endpush
 
@@ -30,13 +35,10 @@
 @include('components.header')
 <div sticky-container>
     <div
-        id="calendar"
         class="sticky"
-        v-sticky="true"
-        sticky-offset="{top: 0, bottom: 30}"
+        v-sticky
+        sticky-offset="offset"
         sticky-side="both"
-        on-stick="onStick"
-        sticky-z-index="20"
     >
         <calendar
             start-date="{{ $startDate }}"

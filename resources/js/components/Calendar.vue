@@ -1,10 +1,10 @@
 <template>
-  <div id="calendar" class="cldr">
+  <div id="calendar" class="cldr py-2">
     <transition name="slide">
       <months-view v-if="showCalendar" :days="days" @input="setDate($event)" />
     </transition>
     <row-view :days="days" :startAt="defaultDate" @change="setDate" />
-    <div class="container-fluid buttons row d-none d-md-block d-lg-block d-xl-block">
+    <div class="container-fluid buttons row">
       <!-- <div class="offset-sm-2 col-sm-4 offset-md-3 col-md-3">
         <button
           class="btn btn-dark w-100"
