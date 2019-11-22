@@ -1,5 +1,5 @@
 <template>
-  <div id="calendar" class="cldr">
+  <div id="calendar" class="cldr py-2">
     <transition name="slide">
       <months-view v-if="showCalendar" :days="days" @input="setDate($event)" />
     </transition>
@@ -38,10 +38,17 @@ dayjs.extend(weekOfYear);
 export default {
   name: "Calendar",
   components: { RowView, MonthsView },
-  props: ["startDate", "endDate", "activeDatesStart", "activeDatesEnd", "today", "defaultDate"],
+  props: [
+    "startDate",
+    "endDate",
+    "activeDatesStart",
+    "activeDatesEnd",
+    "today",
+    "defaultDate"
+  ],
   data() {
     return {
-      showCalendar: false,
+      showCalendar: false
     };
   },
   computed: {
@@ -49,21 +56,28 @@ export default {
       const days = [];
       const end = dayjs(this.endDate);
 
-      for (var day = dayjs(this.startDate); !day.isAfter(end); day = day.add(1, 'day')) {
+      for (
+        var day = dayjs(this.startDate);
+        !day.isAfter(end);
+        day = day.add(1, "day")
+      ) {
         days.push({
-          d: day.format('YYYY-MM-DD'),
-          active: !day.isBefore(this.activeDatesStart) && !day.isAfter(this.activeDatesEnd),
-        })
+          d: day.format("YYYY-MM-DD"),
+          active:
+            !day.isBefore(this.activeDatesStart) &&
+            !day.isAfter(this.activeDatesEnd)
+        });
       }
 
-      return days
-    },
+      return days;
+    }
   },
   methods: {
     setDate(date) {
-      if (date !== _.get(this, '$route.params.date')) Router.push({ name: "days", params: { date } });
+      if (date !== _.get(this, "$route.params.date"))
+        Router.push({ name: "days", params: { date } });
       this.showCalendar = false;
-    },
+    }
   }
 };
 </script>

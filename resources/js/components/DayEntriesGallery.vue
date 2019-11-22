@@ -1,6 +1,10 @@
 <template>
   <div class="day-content">
-    <div class="shift-block-container ">
+    <div
+      class="shift-block-container"
+      v-touch:swipe="swipeHandler"
+      ref="anchor"
+    >
       <div class="shift-block koller doubled-bg bg-v3">
         <div class="profile-pic">
           <img class="w-100 h-100" src="/images/koller.jpg" />
@@ -16,7 +20,10 @@
             </div>
             <div class="col-md-4 read-casopis">
               <!-- <a :href="'/journal-entries/' + date" class="read-casopis"> -->
-              <img class="w-100 d-none d-md-block" src="/images/read_casopis.jpg" />
+              <img
+                class="w-100 d-none d-md-block"
+                src="/images/read_casopis.jpg"
+              />
               <!-- </a> -->
             </div>
           </div>
@@ -32,21 +39,16 @@
           </div>
         </div>
 
-        <transition-page>
-          <div :key="date">
-            <div class="weather" v-if="dayData.weather">
-              {{ dayData.weather }}
-            </div>
+        <div :key="date">
+          <div class="weather" v-if="dayData && dayData.weather">
+            {{ dayData.weather }}
           </div>
-        </transition-page>
-
-        <transition-page>
           <day-entry
             :key="date"
             :date="currentDate"
             :content="dayData.excerpt"
           ></day-entry>
-        </transition-page>
+        </div>
       </div>
 
       <div
@@ -56,28 +58,23 @@
         <div class="profile-pic ">
           <img class="w-100 h-100" src="/images/zatkuliak.jpg" />
         </div>
-        <transition-page>
-          <div :key="date">
-            <div v-html="dayData.zatkuliak"></div>
 
-            <div class="credit">
-              <a
-                href="http://forumhistoriae.sk/documents/10180/734133/zatkuliak-november89-full.pdf" target="_blank"
-                title="Prejsť na e-knihu"
-              >
-                ŽATKULIAK, Jozef a kol.: November '89. Prodama, Bratislava 2009
-              </a>
-            </div>
-          </div>
-        </transition-page>
+        <div v-html="dayData.zatkuliak"></div>
+
+        <div class="credit">
+            <a
+              href="http://forumhistoriae.sk/documents/10180/734133/zatkuliak-november89-full.pdf" target="_blank"
+              title="Prejsť na e-knihu"
+            >
+              ŽATKULIAK, Jozef a kol.: November '89. Prodama, Bratislava 2009
+            </a>
+        </div>
       </div>
     </div>
 
-    <transition-page>
-      <div v-if="topics">
-        <selected-topics :date="date" :topics="topics"></selected-topics>
-      </div>
-    </transition-page>
+    <div v-if="topics">
+      <selected-topics :date="date" :topics="topics"></selected-topics>
+    </div>
   </div>
 </template>
 
@@ -89,9 +86,11 @@ export default {
   props: ["date"],
   data() {
     return {
-      availableDays: [],
       dayData: "",
-      topics: []
+      topics: [],
+      activeDatesEnd : "",
+      activeDatesStart: "",
+      scrollTop: 0
     };
   },
   computed: {
@@ -101,36 +100,74 @@ export default {
   },
   mounted() {
     this.getData(this.date);
+    this.scrollTop = this.$refs.anchor.getBoundingClientRect().y;
   },
-  watch:{
-    $route(to){
+  watch: {
+    $route(to) {
       this.getData(to.params.date);
     }
   },
   methods: {
     getData(date, callback) {
       //TODO make sure fallbackDate does not run outside the journal range
-      const fallbackDate = dayjs().set('year', 1989).format('YYYY-MM-DD');
-      const self = this;
-      axios.get(`/api/journal-entries/${date || fallbackDate}`).then(
-        ({ data: { data } }) => {
-          const entry = data;
-          axios.get(`/api/random-topics/?${date || fallbackDate}`).then(topics => {
-            self.topics = topics.data;
-            self.dayData = entry;
-            callback && callback();
-          });
+      const fallbackDate = dayjs()
+        .set("year", 1989)
+        .format("YYYY-MM-DD");
+      axios.get(`/api/day/${date || fallbackDate}`).then(
+        ({ data }) => {
+          this.dayData = data.journalEntry;
+          this.topics = data.topics;
+          this.activeDatesEnd = data.activeDatesEnd;
+          this.activeDatesStart = data.activeDatesStart;
+          if (this.scrollTop < document.scrollingElement.scrollTop) {
+            window.scrollTo({ top: this.scrollTop, behavior: "smooth" });
+          }
+          callback && callback();
         },
         () => {
           self.topics = null;
           self.dayData = {
-            weather: '',
-            excerpt: 'Pre daný deň neexistuje záznam v denníku'
+            weather: "",
+            excerpt: "Pre daný deň neexistuje záznam v denníku"
           };
           callback && callback();
         }
       );
       return;
+    },
+    swipeHandler(e) {
+      switch (e) {
+        case "left":
+          var dayAfter = dayjs(this.date, "YYYY-MM-DD")
+            .add(1, "day")
+            .set("year", 1989)
+            .format("YYYY-MM-DD");
+
+          if (dayAfter > this.activeDatesEnd) return;
+
+          Router.push({
+            name: "days",
+            params: {
+              date: dayAfter
+            }
+          });
+          break;
+
+        case "right":
+          var dayBefore = dayjs(this.date, "YYYY-MM-DD")
+            .subtract(1, "day")
+            .set("year", 1989)
+            .format("YYYY-MM-DD");
+
+          if (dayBefore < this.activeDatesStart) return;
+
+          Router.push({
+            name: "days",
+            params: {
+              date: dayBefore
+            }
+          });
+      }
     }
   }
 };
