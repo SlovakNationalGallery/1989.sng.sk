@@ -37,6 +37,7 @@
 
 <script>
 import { Carousel, Slide } from "vue-carousel";
+import { initializeJournalTagPopovers } from '../journal-entries-popovers';
 
 export default {
   name: "JournalEntry",
@@ -52,30 +53,7 @@ export default {
   },
   mounted() {
     this.fetchData(this.date);
-    const component = this;
-
-    $('body').popover({
-      placement: 'bottom',
-      trigger: 'focus',
-      html: true,
-      content: function() {
-        const tag = $(this).data('tag');
-        const categories = $(this).data('tag-categories').split(',');
-        const url = Router.resolve({
-          name: 'journal-entries',
-          params: { date: component.date, },
-          query: { filter: tag },
-        }).href;
-
-        return `
-          <strong>${tag}</strong><br />
-          <span>Kategórie: ${categories.join(', ')}</span><br />
-          <a href="${url}">Preskúmať heslo</a>
-        `;
-      },
-      title: '',
-      selector: '.journal-entry-tag'
-    })
+    initializeJournalTagPopovers(this.date)
   },
   watch: {
     date(newDate, oldDate) {
@@ -103,15 +81,6 @@ export default {
 <style lang="scss">
 @import "~@/_variables.scss";
 @import '~bootstrap/scss/bootstrap';
-
-a.journal-entry-tag {
-  color: $body-color;
-  &:hover {
-    color: $body-color;
-    text-decoration-color: $blue;
-  }
-  font-weight: bold;
-}
 
 .slide {
   cursor: pointer;

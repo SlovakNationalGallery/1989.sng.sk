@@ -3,3 +3,14 @@
         font-family: $font-family-base;
     }
 }
+
+a.journal-entry-tag {
+    color: $body-color;
+    cursor: pointer;
+
+    &:hover {
+      color: $body-color;
+      text-decoration-color: $blue;
+    }
+    font-weight: bold;
+  }
