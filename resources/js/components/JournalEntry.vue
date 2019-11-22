@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-5">
+  <div class="mt-3">
     <div id="ximage-container" class="ratio-container">
       <picture
         v-if="detailedTranscriptionPageId"
