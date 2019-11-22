@@ -16,26 +16,26 @@
       </keep-alive>
     </transition>
     <div class="row py-5">
-      <div class="col-5 pt-2">
-        <router-link
-          :to="{ name: 'journal-entries', params: { date: previousDate }, query: { filter } }"
-          class="btn btn-outline-dark btn-sm"
-          :class="{ disabled: !previousDateEnabled }"
-        >← Predchádzajúci deň</router-link>
-      </div>
-      <div class="col-2 text-center">
+      <div class="col-sm-2 order-1 order-sm-2 text-center">
         <a href="#top" title="Na začiatok stránky" class="jump-to-top btn btn-outline-dark btn-sm">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="10" viewBox="0 0 16 10">
               <path class="a" d="M14,14.281l-6.993-7.5L0,14.281" style="fill:none;stroke-width:3px;" transform="translate(1.096 -4.588)"/>
           </svg>
         </a>
       </div>
-      <div class="col-5 text-right pt-2">
+      <div class="col-sm-5 order-2 order-sm-1 pt-2">
+        <router-link
+          :to="{ name: 'journal-entries', params: { date: previousDate }, query: { filter } }"
+          class="btn btn-outline-dark btn-sm btn-block"
+          :class="{ disabled: !this.previousDate }"
+        >← Predchádzajúci deň</router-link>
+      </div>
+      <div class="col-sm-5 order-3 text-right pt-2">
         <router-link
           :to="{ name: 'journal-entries', params: { date: nextDate }, query: { filter } }"
-          class="btn btn-outline-dark btn-sm"
-          :class="{ disabled: !nextDateEnabled }"
-        >Naseldujúci deň →</router-link>
+          class="btn btn-outline-dark btn-sm btn-block"
+          :class="{ disabled: !this.nextDate }"
+        >Nasledujúci deň →</router-link>
       </div>
     </div>
   </div>
@@ -43,7 +43,7 @@
 
 <script>
 import dayjs from 'dayjs'
-import { isEmpty } from "lodash";
+import { isEmpty, get } from "lodash";
 import CalendarRowView from "./RowView";
 
 
@@ -61,23 +61,13 @@ export default {
   },
   computed: {
     previousDate() {
-      return dayjs(this.date).subtract(1, 'day').format('YYYY-MM-DD')
+      const previousDayIndex = this.availableDays.findIndex(({written_at}) => written_at === this.date) - 1
+      return get(this.availableDays[previousDayIndex], 'written_at');
     },
     nextDate() {
-      return dayjs(this.date).add(1, 'day').format('YYYY-MM-DD')
+      const nextDayIndex = this.availableDays.findIndex(({written_at}) => written_at === this.date) + 1
+      return get(this.availableDays[nextDayIndex], 'written_at');
     },
-    nextDateEnabled() {
-      if (isEmpty(this.availableDays)) return false;
-
-      const lastDay = dayjs(this.availableDays[this.availableDays.length - 1].written_at);
-      return dayjs(this.date).isBefore(lastDay);
-    },
-    previousDateEnabled() {
-      if (isEmpty(this.availableDays)) return false;
-
-      const firstDay = dayjs(this.availableDays[0].written_at);
-      return dayjs(this.date).isAfter(firstDay);
-    }
   },
   watch: {
     filter(newValue, oldValue) {
@@ -93,7 +83,7 @@ export default {
         })
     },
     onDaySelected(date) {
-      Router.push({ name: "journal-entries", params: { date } });
+      Router.push({ name: "journal-entries", params: { date }, query: { filter: this.filter } });
     }
   },
 }
