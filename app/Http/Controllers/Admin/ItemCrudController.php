@@ -203,6 +203,10 @@ class ItemCrudController extends CrudController
         // add asterisk for fields that are required in ItemRequest
         $this->crud->setRequiredFields(StoreRequest::class, 'create');
         $this->crud->setRequiredFields(UpdateRequest::class, 'edit');
+
+        if (!$this->request->has('order')) {
+            $this->crud->orderBy('updated_at', 'DESC');
+        }
     }
 
     public function store(StoreRequest $request)
