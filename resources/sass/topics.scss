@@ -153,3 +153,11 @@
         }
     }
 }
+
+.topic footer {
+    background-color: $blue;
+
+    .inactive {
+        color: rgba(0,0,0,0.6);
+    }
+}

@@ -2,6 +2,7 @@
 @section('page_title', "$topic->name • Čas-opis 1989")
 @section('page_description', Str::limit(strip_tags(parsedown($topic->description)), 300))
 @section('og_image', asset($topic->cover_image))
+@section('body-class', 'topic')
 @push('styles')
 <style>
     #topic .cover-image {
@@ -88,13 +89,8 @@
                 </div>
             </div>
         </div>
-        <div class="text-center">
-            <a href="#top" title="Na začiatok stránky" class="jump-to-top btn btn-outline-dark">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="10" viewBox="0 0 16 10">
-                    <path class="a" d="M14,14.281l-6.993-7.5L0,14.281" style="fill:none;stroke-width:3px;" transform="translate(1.096 -4.588)"/>
-                </svg>
-            </a>
-        </div>
     </footer>
 </div>
+@include('components.footer')
 @endsection
+

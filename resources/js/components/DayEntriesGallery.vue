@@ -62,7 +62,12 @@
         <div v-html="dayData.zatkuliak"></div>
 
         <div class="credit">
-          ŽATKULIAK, Jozef a kol.: November '89. Prodama, Bratislava 2009
+            <a
+              href="http://forumhistoriae.sk/documents/10180/734133/zatkuliak-november89-full.pdf" target="_blank"
+              title="Prejsť na e-knihu"
+            >
+              ŽATKULIAK, Jozef a kol.: November '89. Prodama, Bratislava 2009
+            </a>
         </div>
       </div>
     </div>
