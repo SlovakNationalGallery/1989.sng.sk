@@ -80,6 +80,7 @@
 
 <script>
 import dayjs from "dayjs";
+import { initializeJournalTagPopovers } from '../journal-entries-popovers';
 
 export default {
   name: "DayEntriesGallery",
@@ -95,12 +96,15 @@ export default {
   },
   computed: {
     currentDate() {
-      return this.date;
+      //TODO make sure fallbackDate does not run outside the journal range
+      const fallbackDate = dayjs().set('year', 1989).format('YYYY-MM-DD');
+      return this.date || fallbackDate
     }
   },
   mounted() {
     this.getData(this.date);
     this.scrollTop = this.$refs.anchor.getBoundingClientRect().y;
+    initializeJournalTagPopovers(this.currentDate);
   },
   watch: {
     $route(to) {
@@ -109,11 +113,7 @@ export default {
   },
   methods: {
     getData(date, callback) {
-      //TODO make sure fallbackDate does not run outside the journal range
-      const fallbackDate = dayjs()
-        .set("year", 1989)
-        .format("YYYY-MM-DD");
-      axios.get(`/api/day/${date || fallbackDate}`).then(
+      axios.get(`/api/day/${this.currentDate}`).then(
         ({ data }) => {
           this.dayData = data.journalEntry;
           this.topics = data.topics;
