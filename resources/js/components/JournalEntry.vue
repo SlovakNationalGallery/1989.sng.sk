@@ -37,7 +37,6 @@
 
 <script>
 import { Carousel, Slide } from "vue-carousel";
-import { initializeJournalTagPopovers } from '../journal-entries-popovers';
 
 export default {
   name: "JournalEntry",
@@ -53,12 +52,6 @@ export default {
   },
   mounted() {
     this.fetchData(this.date);
-    initializeJournalTagPopovers(this.date)
-  },
-  watch: {
-    date(newDate, oldDate) {
-      this.fetchData(this.newDate);
-    }
   },
   methods: {
     fetchData(date) {

@@ -104,7 +104,7 @@ export default {
   mounted() {
     this.getData(this.date);
     this.scrollTop = this.$refs.anchor.getBoundingClientRect().y;
-    initializeJournalTagPopovers(this.currentDate);
+    initializeJournalTagPopovers();
   },
   watch: {
     $route(to) {

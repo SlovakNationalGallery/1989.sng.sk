@@ -1,14 +1,15 @@
-export function initializeJournalTagPopovers(linkDate) {
+export function initializeJournalTagPopovers() {
   $('body').popover({
     placement: 'bottom',
     trigger: 'focus',
     html: true,
     content: function() {
       const tag = $(this).data('tag');
+      const date = $(this).data('date');
       const categories = $(this).data('tag-categories').split(',');
       const url = Router.resolve({
         name: 'journal-entries',
-        params: { date: linkDate },
+        params: { date },
         query: { filter: tag },
       }).href;
 
