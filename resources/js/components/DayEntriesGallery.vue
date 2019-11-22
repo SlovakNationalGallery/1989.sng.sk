@@ -9,7 +9,9 @@
           <div class="row">
             <div class="col-md-8">
               <div class="intro">
-                <h1>Časo-pis</h1>
+                <div :key="date">
+                  <h2 class="date py-3 pt-md-5">{{ date | romanize }}</h2>
+                </div>
               </div>
             </div>
             <div class="col-md-4 read-casopis">
@@ -20,7 +22,7 @@
           </div>
           <div class="row">
             <div class="col-md-12">
-              <div class="intro">
+              <div class="intro text-muted">
                 <i>
                   Denník Júliusa Kollera dokumentujúci udalosti a nálady
                   v spoločnosti počas zlomového roku
@@ -32,7 +34,6 @@
 
         <transition-page>
           <div :key="date">
-            <h4 class="date">{{ date | romanize }}</h4>
             <div class="weather" v-if="dayData.weather">
               {{ dayData.weather }}
             </div>
