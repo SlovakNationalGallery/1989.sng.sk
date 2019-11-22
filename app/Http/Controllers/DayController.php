@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\JournalEntry;
 use App\Models\Topic;
 use Carbon\Carbon;
+use App\Http\Resources\JournalEntry as JournalEntryResource;
 
 class DayController extends Controller
 {
@@ -49,10 +50,9 @@ class DayController extends Controller
 
         $journalEntry =  JournalEntry::where('written_at', $selectedDay->format('Y-m-d'))->first();
 
-
         return [
             'topics' => $topics,
-            'journalEntry' => $journalEntry,
+            'journalEntry' => JournalEntryResource::make($journalEntry),
             'today' => $today->format('Y-m-d'),
             'selected' => $selectedDay->format('Y-m-d'),
             'startDate' => Carbon::parse(self::START_DATE)->format('Y-m-d'),
