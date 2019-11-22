@@ -31,7 +31,7 @@
     </carousel>
     <h2 class="h5 px-0">{{date | romanize }}</h2>
     <p>{{weather}}</p>
-    <div :is="contentCompiled"></div>
+    <div v-html="content"></div>
   </div>
 </template>
 
@@ -52,18 +52,30 @@ export default {
   },
   mounted() {
     this.fetchData(this.date);
-  },
-  computed: {
-    contentCompiled() {
-      const regex = /<a\s+href="tag:\/\/(.+?)">(.*?)<\/a>/gs;
-      const contentWithRouterLinks = this.content.replace(
-        regex,
-        `<router-link :to="{ name: 'journal-entries', params: { date: '${this.date}' }, query: { filter: '$1' }}">$2</router-link>`
-      );
+    const component = this;
 
-      const template = Vue.compile(`<div>${contentWithRouterLinks}</div>`);
-      return { ...template, data: () => ({}) };
-    }
+    $('body').popover({
+      placement: 'bottom',
+      trigger: 'focus',
+      html: true,
+      content: function() {
+        const tag = $(this).data('tag');
+        const categories = $(this).data('tag-categories').split(',');
+        const url = Router.resolve({
+          name: 'journal-entries',
+          params: { date: component.date, },
+          query: { filter: tag },
+        }).href;
+
+        return `
+          <strong>${tag}</strong><br />
+          <span>Kategórie: ${categories.join(', ')}</span><br />
+          <a href="${url}">Preskúmať heslo</a>
+        `;
+      },
+      title: '',
+      selector: '.journal-entry-tag'
+    })
   },
   watch: {
     date(newDate, oldDate) {
@@ -88,8 +100,18 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "~@/_variables.scss";
+@import '~bootstrap/scss/bootstrap';
+
+a.journal-entry-tag {
+  color: $body-color;
+  &:hover {
+    color: $body-color;
+    text-decoration-color: $blue;
+  }
+  font-weight: bold;
+}
 
 .slide {
   cursor: pointer;

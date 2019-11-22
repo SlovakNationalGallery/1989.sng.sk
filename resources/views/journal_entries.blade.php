@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('page_title', "$journalEntry->written_at_romanized • Čas-opis 1989")
+@section('page_title', "$journalEntry->written_at_romanized • Denník Júliusa Kollera • Čas-opis 1989")
 @section('page_description', Str::limit(strip_tags($journalEntry->content), 300))
 
 @section('content')
