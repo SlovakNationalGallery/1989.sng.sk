@@ -76,7 +76,7 @@ class JournalEntry extends Model
             if (isset($tagsCategories[$tag])) {
                 $categories = join(',', $tagsCategories[$tag]);
                 $written_at = $this->written_at->toDateString();
-                return "<a tabindex=\"0\" data-tag=\"$tag\" data-tag-categories=\"$categories\" data-date=\"$written_at\" class=\"journal-entry-tag\" >$matches[2]</a>";
+                return "<a tabindex=\"0\" data-tag=\"$tag\" data-tag-categories=\"$categories\" data-date=\"$written_at\" class=\"journal-entry-tag\">$matches[2]</a>";
             } else {
                 return $matches[2];
             }

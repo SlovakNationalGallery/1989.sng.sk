@@ -23,6 +23,9 @@ class JournalEntryTest extends TestCase
         ]);
         $journalEntry->tags()->attach($tag);
 
-        $this->assertEquals('<span class="journal-entry-tag" data-tag="Tag name" data-tag-categories="some category,another category">tag word</span>', $journalEntry->content_formatted);
+        $this->assertEquals(
+            '<a tabindex="0" data-tag="Tag name" data-tag-categories="some category,another category" data-date="' . $journalEntry->written_at->toDateString() . '" class="journal-entry-tag">tag word</a>',
+            $journalEntry->content_formatted
+        );
     }
 }
