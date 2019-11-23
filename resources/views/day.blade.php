@@ -35,7 +35,7 @@
 @include('components.header')
 <div sticky-container>
     <div
-        class="sticky"
+        class="sticky py-2"
         v-sticky
         sticky-offset="offset"
         sticky-side="both"
