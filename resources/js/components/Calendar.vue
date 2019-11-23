@@ -1,9 +1,15 @@
 <template>
-  <div id="calendar" class="cldr py-2">
-    <transition name="slide">
+  <div id="calendar" class="cldr">
+    <!-- <transition name="slide">
       <months-view v-if="showCalendar" :days="days" @input="setDate($event)" />
-    </transition>
-    <row-view :days="days" :selectedDay="selectedDay" @change="setDate" />
+    </transition> -->
+    <div class="container">
+      <div class="row">
+        <div class="offset-lg-2 col-lg-8">
+          <row-view ref="rowView" :days="days" :currentDate="currentDate" @change="setDate" />
+        </div>
+      </div>
+    </div>
     <div class="container-fluid buttons row">
       <!-- <div class="offset-sm-2 col-sm-4 offset-md-3 col-md-3">
         <button
@@ -14,7 +20,7 @@
         </button>
       </div> -->
       <div class="offset-sm-4 col-sm-4  offset-md-5 col-md-2">
-        <button class="btn btn-outline-light w-100" @click="setDate(today)">
+        <button class="btn btn-outline-light w-100" @click="goToToday">
           Dnes
         </button>
       </div>
@@ -71,15 +77,18 @@ export default {
 
       return days
     },
-    selectedDay() {
-      return _.get(this, '$route.params.date', this.defaultDate)
+    currentDate() {
+      return _.get(this, '$route.params.date') || this.defaultDate
     }
   },
   methods: {
     setDate(date) {
-      if (date !== _.get(this, "$route.params.date"))
-        Router.push({ name: "days", params: { date } });
+      if (date !== _.get(this, "$route.params.date")) Router.push({ name: "days", params: { date } });
       this.showCalendar = false;
+    },
+    goToToday() {
+      this.setDate(this.today)
+      this.$refs.rowView.navigateToCurrentDate()
     }
   }
 };

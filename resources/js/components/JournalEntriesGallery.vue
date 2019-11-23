@@ -7,10 +7,11 @@
 
     </div>
     <calendar-row-view
+      v-if="availableDays.length > 0"
       class="dark mt-4"
       dayClass="btn-outline-dark"
       :days="availableDays.map(day => ({ d: day.written_at, active: true }))"
-      :selectedDay="date"
+      :currentDate="date"
       @change="onDaySelected"
     ></calendar-row-view>
     <div v-if="filter" id="filter" class="text-center mt-4 mb-1">

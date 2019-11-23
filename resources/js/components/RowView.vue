@@ -1,21 +1,19 @@
 <template>
   <div class="cldr-row">
-    <button
-      class="btn"
-      v-if="showButtons"
-      @click="prevPeriod()"
-      :disabled="selectedIndex - navigationOffset <= firstNavigateableIndex"
-    >
-      〈
-    </button>
     <carousel
       class="carousel"
-      v-if="selectedIndex !== -1"
-      :navigationEnabled="true"
-      :paginationEnabled="false"
-      :mouseDrag="false"
-      :touchDrag="false"
-      :perPage="perPage"
+      ref="carousel"
+      v-if="this.days.length > 0"
+      :navigate-to="navigateTo"
+      :navigation-enabled="true"
+      :pagination-enabled="false"
+      :navigation-next-label="`<a class='btn btn-link text-light'>&gt;</a>`"
+      :navigation-prev-label="`<a class='btn btn-link text-light'>&lt;</a>`"
+      :scroll-per-page="false"
+      :mouse-drag="false"
+      :touch-drag="false"
+      :per-page="1"
+      :per-page-custom="perPageBreakpoints"
     >
       <slide v-for="(day, i) in days" :key="day.d">
         <calendar-day
@@ -27,20 +25,13 @@
         ></calendar-day>
       </slide>
     </carousel>
-    <button
-      class="btn"
-      v-if="showButtons"
-      @click="nextPeriod()"
-      :disabled="selectedIndex + navigationOffset >= lastNavigateableIndex"
-    >
-      〉
-    </button>
   </div>
 </template>
 
 <script>
 import CalendarDay from "./Calendar/Day";
 import { Carousel, Slide } from "vue-carousel";
+import { isEmpty } from "lodash";
 
 export default {
   name: "RowView",
@@ -50,7 +41,7 @@ export default {
       type: Array,
       required: true
     },
-    selectedDay: {
+    currentDate: {
       type: String,
       required: true
     },
@@ -60,74 +51,65 @@ export default {
   },
   data() {
     return {
-      perPage: 5,
-      showButtons: true,
-      initialNavigationDone: false,
+      navigateTo: [],
+      perPageBreakpoints: [
+        [1200, 7],
+        [768, 5],
+        [576, 3],
+        [425, 2],
+      ]
     };
   },
-  created() {
-    this.updatePerPage();
-    this.onWindowResize = _.debounce(this.updatePerPage, 200);
-    window.addEventListener("resize", this.onWindowResize);
-  },
-  beforeDestroy() {
-    window.removeEventListener("resize", this.onWindowResize);
+  mounted() {
+    this.navigateToCurrentDate(false);
   },
   computed: {
     selectedIndex() {
-      return this.days.findIndex(({ d }) => this.selectedDay === d)
+      return this.days.findIndex(({ d }) => this.currentDate === d);
     },
-    navigateTo() {
-      const destination = Math.max(this.selectedIndex - this.navigationOffset, 0)
-
-      if (!this.initialNavigationDone) {
-        this.initialNavigationDone = true;
-        return [destination, false];
-      }
-
-      return [destination, true];
+  },
+  watch: {
+    days(newDays, oldDays) {
+      // Update navigation state if days have changed (e.g. after removing a filter)
+      if (_.isEqual(newDays, oldDays)) return;
+      this.navigateToCurrentDate();
     },
-    navigationOffset() {
-      return (this.perPage - 1) / 2;
-    },
-    firstNavigateableIndex() {
-      return _.findIndex(this.days, "active");
-    },
-    lastNavigateableIndex() {
-      return _.findLastIndex(this.days, "active");
+    currentDate() {
+      // Re-navigate to account for race conditions
+      if (this.navigateTo.length > 0) this.navigateToCurrentDate()
     }
   },
   methods: {
-    prevPeriod() {
-      this.onSelectedDayChange(Math.max(
-        this.selectedIndex - this.perPage,
-        this.firstNavigateableIndex
-      ));
-    },
-    nextPeriod() {
-      this.onSelectedDayChange(Math.min(
-        this.selectedIndex + this.perPage,
-        this.lastNavigateableIndex
-      ));
-    },
     onSelectedDayChange(selectedIndex) {
-       this.$emit("change", this.days[selectedIndex].d);
+      this.navigateTo = []
+      this.$emit("change", this.days[selectedIndex].d);
     },
-    updatePerPage() {
-      if (window.innerWidth >= 768) {
-        this.perPage = 7;
-        this.showButtons = true;
+
+    navigateToCurrentDate(animateNavigation) {
+      const animate = (animateNavigation === undefined) ? true : animateNavigation;
+
+      // Navigate to first element if there's no more pages
+      if (this.days.length < this.daysPerPage()) {
+        this.navigateTo = [0, animate]
         return
       }
 
-      if (window.innerWidth >= 425) {
-        this.perPage = 3;
-        this.showButtons = true;
+      // Navigation to last element does not work -- go few elements before it
+      if (this.selectedIndex > this.days.length - this.daysPerPage()) {
+        this.navigateTo = [this.days.length - this.daysPerPage(), animate]
         return
       }
 
-      this.perPage = 3;
-      this.showButtons = false;
+      this.navigateTo = [this.selectedIndex, animate]
+    },
+
+    daysPerPage() {
+      if (this.$refs.carousel) return this.$refs.carousel.currentPerPage;
+
+      const windowWidth = window.innerWidth;
+      const breakpoint = this.perPageBreakpoints.find(([width, perPageCount]) => windowWidth >= width)
+      if (breakpoint) return breakpoint[1]
+      return 1
     }
   }
 };
@@ -137,48 +119,26 @@ export default {
 @import '~bootstrap/scss/bootstrap';
 
 .cldr-row {
-  $day-slide-width: 85px;
-  user-select: none;
-  display: flex;
-  justify-content: center;
-  padding: 0.2rem;
-
-  & > button {
-    height: 76px;
-    color: white;
-    border: none;
-    font-size: 3rem;
-    font-weight: bold;
-    opacity: 0.8;
-
-    &:hover {
-      opacity: 1;
-      color: white;
-    }
-
-    &:disabled {
-      opacity: 0.2;
-    }
-  }
+  margin-left: 52px;
+  margin-right: 52px;
 
   .carousel {
-    margin-left: 20px;
-    margin-right: 20px;
-    width: 3 * $day-slide-width;
-
-    @media screen and (min-width: 768px) {
-      width: 7 * $day-slide-width;
+    .VueCarousel-slide {
+      text-align: center;
     }
 
+    .VueCarousel-navigation--disabled > *{
+      @extend .disabled
+    }
 
-    .VueCarousel-slide {
-      width: $day-slide-width;
-      text-align: center;
+    .VueCarousel-navigation-button > * {
+      text-decoration: none;
+      font-size: 2rem;
     }
   }
 
   &.dark {
-    & > button {
+    & .VueCarousel-navigation-button > * {
       @extend .text-dark
     }
   }
