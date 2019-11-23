@@ -7,7 +7,7 @@ const router = new VueRouter({
     mode: 'history',
     routes: [
       {
-        path: '/journal-entries/:date?',
+        path: '/denník/:date?',
         component: JournalEntriesGallery,
         name: 'journal-entries',
         props: ({params, query}) => ({ date: params.date, filter: query.filter }),
