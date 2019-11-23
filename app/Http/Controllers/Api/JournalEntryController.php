@@ -19,7 +19,7 @@ class JournalEntryController extends Controller
         $tag = JournalTag::where('subject', $request->query('tag'))->first();
         $journalEntries = JournalEntry::whereHas('tags', function($query) use ($tag) {
             if ($tag) $query->where('subject', $tag->subject);
-        })->get();
+        })->orderBy('written_at', 'asc')->get();
 
         $response = new JournalEntryCollection($journalEntries);
         if ($tag) $response = $response->additional([
