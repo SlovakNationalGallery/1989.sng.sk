@@ -19,7 +19,7 @@ Route::get('/{day}', 'DayController@show')
     ->where('day', '^\d{4}-\d{2}-\d{2}$')
     ->name('days.show');
 
-Route::get('denník/{journalEntry}', function (JournalEntry $journalEntry) {
+Route::get('dennik/{journalEntry}', function (JournalEntry $journalEntry) {
     return view('journal_entries', compact('journalEntry'));
 })->name('journal-entries.show');
 
