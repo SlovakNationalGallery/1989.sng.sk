@@ -118,33 +118,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss">
-@import '~bootstrap/scss/bootstrap';
-
-.cldr-row {
-  margin-left: 52px;
-  margin-right: 52px;
-
-  .carousel {
-    .VueCarousel-slide {
-      text-align: center;
-    }
-
-    .VueCarousel-navigation--disabled > *{
-      @extend .disabled
-    }
-
-    .VueCarousel-navigation-button > * {
-      text-decoration: none;
-      font-size: 2rem;
-    }
-  }
-
-  &.dark {
-    & .VueCarousel-navigation-button > * {
-      @extend .text-dark
-    }
-  }
-}
-</style>
