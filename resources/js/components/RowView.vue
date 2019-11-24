@@ -87,20 +87,24 @@ export default {
 
     navigateToCurrentDate(animateNavigation) {
       const animate = (animateNavigation === undefined) ? true : animateNavigation;
+      const daysPerPage = this.daysPerPage()
+      const leftOffset = Math.floor(daysPerPage / 2)
 
       // Navigate to first element if there's no more pages
-      if (this.days.length < this.daysPerPage()) {
+      if (this.days.length < daysPerPage) {
         this.navigateTo = [0, animate]
         return
       }
 
       // Navigation to last element does not work -- go few elements before it
-      if (this.selectedIndex > this.days.length - this.daysPerPage()) {
-        this.navigateTo = [this.days.length - this.daysPerPage(), animate]
+      const lastNavigateableIndex = this.days.length - daysPerPage
+      if (this.selectedIndex - leftOffset > lastNavigateableIndex) {
+        this.navigateTo = [lastNavigateableIndex, animate]
         return
       }
 
-      this.navigateTo = [this.selectedIndex, animate]
+      // By default, navigate so that selected element is centered
+      this.navigateTo = [Math.max(0, this.selectedIndex - leftOffset), animate]
     },
 
     daysPerPage() {
