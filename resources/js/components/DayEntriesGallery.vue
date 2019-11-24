@@ -14,7 +14,7 @@
             <div class="col-md-8">
               <div class="intro">
                 <div :key="date">
-                  <h2 class="date py-3 pt-md-5">{{ date | romanize }}</h2>
+                  <h2 class="date py-3 pt-md-5">{{ currentDate | romanize }}</h2>
                 </div>
               </div>
             </div>
@@ -39,12 +39,12 @@
           </div>
         </div>
 
-        <div :key="date">
+        <div :key="currentDate">
           <div class="weather" v-if="dayData && dayData.weather">
             {{ dayData.weather }}
           </div>
           <day-entry
-            :key="date"
+            :key="currentDate"
             :date="currentDate"
             :content="dayData.excerpt"
           ></day-entry>
@@ -73,7 +73,7 @@
     </div>
 
     <div v-if="topics">
-      <selected-topics :date="date" :topics="topics"></selected-topics>
+      <selected-topics :date="currentDate" :topics="topics"></selected-topics>
     </div>
   </div>
 </template>
@@ -91,24 +91,24 @@ export default {
       topics: [],
       activeDatesEnd : "",
       activeDatesStart: "",
-      scrollTop: 0
+      scrollTop: 0,
+      //TODO make sure fallbackDate does not run outside the journal range
+      fallbackDate: dayjs().set('year', 1989).format('YYYY-MM-DD'),
     };
   },
   computed: {
     currentDate() {
-      //TODO make sure fallbackDate does not run outside the journal range
-      const fallbackDate = dayjs().set('year', 1989).format('YYYY-MM-DD');
-      return this.date || fallbackDate
+      return this.date || this.fallbackDate
     }
   },
   mounted() {
-    this.getData(this.date);
+    this.getData(this.currentDate);
     this.scrollTop = this.$refs.anchor.getBoundingClientRect().y;
     initializeJournalTagPopovers();
   },
   watch: {
     $route(to) {
-      this.getData(to.params.date);
+      this.getData(to.params.date || this.fallbackDate);
     }
   },
   methods: {
