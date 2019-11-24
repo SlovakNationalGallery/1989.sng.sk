@@ -101,7 +101,6 @@ export default {
 </script>
 <style lang="scss">
 @import "~@/_variables.scss";
-@import '~bootstrap/scss/bootstrap';
 
 #filter {
   h2 {
