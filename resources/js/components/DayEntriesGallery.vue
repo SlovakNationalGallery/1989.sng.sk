@@ -19,12 +19,16 @@
               </div>
             </div>
             <div class="col-md-4 read-casopis">
-              <!-- <a :href="'/journal-entries/' + date" class="read-casopis"> -->
-              <img
-                class="w-100 d-none d-md-block"
-                src="/images/read_casopis.jpg"
-              />
-              <!-- </a> -->
+              <a
+                :href="hrefToGallery"
+                title="Prečítať si originál denníka"
+              >
+                <img
+                  v-if="firstTranscriptionPageId"
+                  class="w-100 d-none d-md-block"
+                  :src="`https://fromthepage.com/image-service/${firstTranscriptionPageId}/full/400,/0/default.jpg`"
+                />
+              </a>
             </div>
           </div>
           <div class="row">
@@ -48,6 +52,7 @@
             :date="currentDate"
             :content="dayData.excerpt"
           ></day-entry>
+          <a :href="hrefToGallery" class="btn btn-sm btn-outline-dark">Prečítať si celý denník</a>
         </div>
       </div>
 
@@ -94,11 +99,18 @@ export default {
       scrollTop: 0,
       //TODO make sure fallbackDate does not run outside the journal range
       fallbackDate: dayjs().set('year', 1989).format('YYYY-MM-DD'),
+      firstTranscriptionPageId: null,
     };
   },
   computed: {
     currentDate() {
       return this.date || this.fallbackDate
+    },
+    hrefToGallery() {
+      return Router.resolve({
+        name: 'journal-entries',
+        params: { date: this.currentDate },
+      }).href
     }
   },
   mounted() {
@@ -119,6 +131,7 @@ export default {
           this.topics = data.topics;
           this.activeDatesEnd = data.activeDatesEnd;
           this.activeDatesStart = data.activeDatesStart;
+          this.firstTranscriptionPageId = data.journalEntry.transcription_pages_ids[0]
           if (this.scrollTop < document.scrollingElement.scrollTop) {
             window.scrollTo({ top: this.scrollTop, behavior: "smooth" });
           }
