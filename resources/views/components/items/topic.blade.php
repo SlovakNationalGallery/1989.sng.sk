@@ -7,7 +7,7 @@ $topic = App\Models\Topic::where('id', $item->source)->first();
         <h2 class='text-light pt-0'>{{ $topic->name}}</h2>
         {{ isset($item->text) ? $item->text : substr($topic->description, 0, 400).'…'}}
         <div>
-            <a class="mt-4 px-5 btn btn-outline-blue" href="/{{$topic->slug}}" target="_blank">Zisti viac</a>
+            <a class="mt-4 px-5 btn btn-outline-blue" href="/{{$topic->slug}}">Zisti viac</a>
         </div>
     </div>
 </div>
