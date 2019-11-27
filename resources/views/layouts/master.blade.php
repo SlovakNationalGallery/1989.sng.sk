@@ -44,6 +44,8 @@
 </head>
 
 <body class="@yield('body-class', '')">
+  @include('components.menu')
+
   <div id="overlay">
   </div>
     <div id="app">

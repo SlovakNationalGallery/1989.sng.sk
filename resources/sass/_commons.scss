@@ -37,7 +37,7 @@ h2 {
 }
 
 .underline {
-    background: url('/images/underline.svg');
+    background: url("/images/underline.svg");
     background-repeat: no-repeat;
     background-position: bottom;
     background-size: 100% auto;
@@ -123,7 +123,7 @@ h2 {
             padding: 2rem 0 2rem 1rem;
 
             &::before {
-                background: url('/images/bg_koller.png');
+                background: url("/images/bg_koller.png");
             }
             .ruled {
                 padding: 0rem 2rem 2rem 0;
@@ -162,7 +162,7 @@ h2 {
                 background: white;
             }
             &::after {
-                background: url('/images/bg_koller_reply.png');
+                background: url("/images/bg_koller_reply.png");
             }
             .credit {
                 text-align: right;
@@ -210,4 +210,36 @@ h2 {
     &:hover {
         color: $gray;
     }
+}
+
+.topics {
+    @media (min-width: map-get($grid-breakpoints, sm)) {
+        column-count: 2;
+    }
+    @media (min-width: map-get($grid-breakpoints, md)) {
+        column-count: 3;
+    }
+    dl {
+        break-inside: avoid;
+        text-align: left;
+        padding: 0 0 1rem 0;
+        margin: 0;
+        color: $gray;
+
+        dt {
+            font-weight: bold;
+            color: white;
+            text-transform: uppercase;
+            border-bottom: 1px solid white;
+            display: inline-block;
+            margin: 0.5rem 0;
+        }
+
+        a {
+            color: $white;
+        }
+    }
+}
+.new-topics {
+    color: $white;
 }
