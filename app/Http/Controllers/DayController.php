@@ -10,7 +10,7 @@ use App\Http\Resources\JournalEntry as JournalEntryResource;
 class DayController extends Controller
 {
     const START_DATE = '1989-10-01';
-    const END_DATE = '1989-12-01';
+    const END_DATE = '1989-12-31';
 
     public function index()
     {
@@ -29,7 +29,7 @@ class DayController extends Controller
         $selectedDay = Carbon::parse($day);
         $today = Carbon::today()->year(1989)->endOfDay();
 
-        $activeDatesStart = Carbon::parse('1989-10-01');
+        $activeDatesStart = Carbon::parse(self::START_DATE);
         $activeDatesEnd = $today;
 
         if (backpack_user()) {
