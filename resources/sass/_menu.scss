@@ -2,7 +2,7 @@ $background--color: #1e2023;
 $icon--color: #1e2023;
 $font--color: #ffffff;
 $font--color--active: #000000;
-$transition--length: 0.8;
+$transition--length: .8;
 
 //default state
 .menu-icon {
@@ -32,13 +32,13 @@ $transition--length: 0.8;
 }
 
 .nav {
-    min-width: 20rem;
     $height: 100vh;
     $transition--easing: cubic-bezier(0.77, 0, 0.175, 1);
     position: fixed;
     top: 0;
     left: 0;
     bottom: 0;
+    right: 0;
     z-index: -1;
     &:before,
     &:after {
@@ -59,12 +59,14 @@ $transition--length: 0.8;
         transition-delay: 0.1s;
     }
     &__content {
-        position: fixed;
+        position: absolute;
         top: 5rem;
-        width: 100%;
-        height: $height;
+        bottom: 0;
+        left: 0;
+        right: 0;
         text-align: center;
         font-weight: 200;
+        overflow: auto;
     }
     &__list-item {
         transition-delay: $transition--length + s;
@@ -124,7 +126,7 @@ body.nav-active {
             transition: opacity 0.3s ease, transform 0.3s ease, color 0.3s ease;
             @for $i from 0 through $menu--items--count {
                 &:nth-child(#{$i}) {
-                    transition-delay: $transition--length * $i / 8 + 0.5 + s;
+                    transition-delay: $transition--length * $i / 8 + $transition--length  + s;
                 }
             }
         }

@@ -30,7 +30,7 @@ $topics = App\Models\Topic::listing()
                 <h4 id="top-nav">Podujatia a výstavy</h4>
             </a>
         </div>
-        <div class="nav__list-item py-3">
+        <div class="nav__list-item py-3 topics">
             @foreach (App\Models\Topic::$available_categories as $catKey => $cat)
             @if (isset($topics[$catKey]))
             <dl class="">
