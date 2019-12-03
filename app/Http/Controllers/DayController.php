@@ -9,7 +9,7 @@ use App\Http\Resources\JournalEntry as JournalEntryResource;
 
 class DayController extends Controller
 {
-    const START_DATE = '1989-09-01';
+    const START_DATE = '1989-10-01';
     const END_DATE = '1989-12-31';
 
     public function index()
