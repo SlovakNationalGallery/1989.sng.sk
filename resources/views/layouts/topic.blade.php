@@ -52,7 +52,7 @@
 
     @yield('before-items')
 
-    <div id="items">
+    <div id="items" class="card-columns">
         @yield('items')
     </div>
 
