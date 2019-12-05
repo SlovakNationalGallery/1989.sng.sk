@@ -32,25 +32,25 @@ $topics = App\Models\Topic::listing()
         </div>
         <div class="nav__list-item py-3 topics">
             @foreach (App\Models\Topic::$available_categories as $catKey => $cat)
-            @if (isset($topics[$catKey]))
-            <dl class="">
-                <dt>{{ $cat }}</dt>
-                @foreach ($topics[$catKey] as $topic)
-                @if($topic->is_visible)
-                @if ($topic->is_active)
-                <dd class="active">
-                    <a href="/{{ $topic->slug }}">{{ $topic->name }}</a>
-                    @if ($topic->is_recent)
-                    <span class="badge badge-light">nové</span>
-                    @endif
-                </dd>
-                @else
-                <dd class="inactive">{{ $topic->name }}</dd>
+                @if (isset($topics[$catKey]))
+                <dl class="">
+                    <dt>{{ $cat }}</dt>
+                    @foreach ($topics[$catKey] as $topic)
+                        @if($topic->is_visible)
+                            @if ($topic->is_active)
+                                <dd class="active">
+                                    <a href="/{{ $topic->slug }}">{{ $topic->name }}</a>
+                                    @if ($topic->is_recent)
+                                        <span class="badge badge-light">nové</span>
+                                    @endif
+                                </dd>
+                            @else
+                                <dd class="inactive">{{ $topic->name }}</dd>
+                            @endif
+                        @endif
+                    @endforeach
+                </dl>
                 @endif
-                @endif
-                @endforeach
-            </dl>
-            @endif
             @endforeach
         </div>
     </div>
