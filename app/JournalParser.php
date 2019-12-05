@@ -139,13 +139,13 @@ class JournalDOMElement extends DOMElement
     public function isDate()
     {
         // Exception due to source typo at https://fromthepage.com/lab-sng/december-1989/12-december/display/557798
-        if (Str::contains($this->textContent, '7. XII. 1')) return true;
+        if ($this->textContent == '7. XII. 1') return true;
         return preg_match('/^\s*\d{1,2}\.\s?[XIV]{1,4}\.\s?1989\s*$/', $this->textContent);
     }
 
     public function getParsedDate()
     {
-        if (Str::contains($this->textContent, '7. XII. 1')) return new Carbon('1989-12-07');
+        if ($this->textContent == '7. XII. 1') return new Carbon('1989-12-07');
 
         $trimmed = preg_replace('/\s/', '', $this->textContent);
         $trimmed = str_replace('.VIII.', '.8.', $trimmed);
@@ -159,7 +159,7 @@ class JournalDOMElement extends DOMElement
 
     public function isWeather()
     {
-        return preg_match('/^\s*\*\*\*.+\*\*\*\s*$/', $this->textContent);
+        return preg_match('/\A\s*\*\*\*.+?\*\*\*\s*\Z/s', $this->textContent);
     }
 
     public function isPageDelimiter()
@@ -170,6 +170,7 @@ class JournalDOMElement extends DOMElement
     public function getParsedWeather()
     {
         $trimmed = str_replace('***', '', $this->textContent);
+        $trimmed = preg_replace('/\s+/s', ' ', $trimmed);
         $trimmed = trim($trimmed);
         return $trimmed;
     }
