@@ -1,0 +1,185 @@
+$background--color: #1e2023;
+$icon--color: #1e2023;
+$font--color: #ffffff;
+$font--color--active: #000000;
+$transition--length: .8;
+$size: 30px;
+$padding: 5px;
+
+//default state
+.menu-icon {
+    height: $size + ($padding*2);
+    width: $size + ($padding*2);
+    position: fixed;
+    z-index: 1002;
+    left: 1.0em;
+    top: 0.5em;
+    cursor: pointer;
+    padding: (($padding*2) + ceil($padding/2)) $padding 0 $padding;
+    background-color: rgba(0,0,0, 0.5);
+    border-radius: 50%;
+    display: inline-block;
+
+    &.nav-up {
+        top: -40px;
+    }
+
+
+    @media (min-width: map-get($grid-breakpoints, md)) {
+        left: 1.4em;
+        top: 1.4em;
+    }
+
+    &__line {
+        height: 2px;
+        width: $size;
+        display: block;
+        background-color: $font--color;
+        margin-bottom: 4px;
+        transition: transform 0.2s ease, background-color 0.5s ease;
+    }
+    &__line-left {
+        // width: $size / 2;
+    }
+    &__line-right {
+        // width: $size / 2;
+        float: right;
+    }
+}
+
+.nav {
+    $height: 100vh;
+    $transition--easing: cubic-bezier(0.77, 0, 0.175, 1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
+    &:before,
+    &:after {
+        content: "";
+        position: fixed;
+        width: 100%;
+        height: $height;
+        background: rgba(#eaeaea, 0.2);
+        z-index: -1;
+        transition: transform $transition--easing $transition--length + s;
+        transform: translateX(0%) translateY(-100%);
+    }
+    &:after {
+        background: rgba(#ffffff, 1);
+        transition-delay: 0s;
+    }
+    &:before {
+        transition-delay: 0.1s;
+    }
+    &__content {
+        position: absolute;
+        top: 5rem;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-weight: 200;
+        overflow: auto;
+    }
+    &__list-item {
+        transition-delay: $transition--length + s;
+        opacity: 0;
+        transform: translate(0%, 100%);
+        transition: opacity 0.2s ease, transform 0.3s ease;
+    }
+
+    h3,
+    h4 {
+        padding-left: 0;
+        &:hover {
+            text-decoration: underline !important;
+        }
+    }
+
+    .topics {
+        @media (min-width: map-get($grid-breakpoints, sm)) {
+            column-count: 2;
+        }
+        @media (min-width: map-get($grid-breakpoints, md)) {
+            column-count: 3;
+        }
+        dl {
+            break-inside: avoid;
+            text-align: left;
+            padding: 0 0 1rem 0;
+            margin: 0;
+            color: $gray;
+
+            dt {
+                font-weight: bold;
+                color: white;
+                text-transform: uppercase;
+                border-bottom: 1px solid white;
+                display: inline-block;
+                margin: 0.5rem 0;
+            }
+
+            a {
+                color: $white;
+            }
+        }
+    }
+    .new-topics {
+        color: $white;
+    }
+}
+
+//active state
+body.nav-active {
+    $menu--items--count: 7;
+    overflow: auto;
+    .menu-icon {
+        background-color: rgba(255,255,255, 1);
+        &__line {
+            background-color: #000;
+            transform: translateX(0px) rotate(-45deg);
+        }
+        &__line-left {
+            transform: translateX(1px) rotate(45deg);
+            width: $size / 2;
+        }
+        &__line-right {
+            transform: translateX(-2px) rotate(45deg);
+            width: $size / 2;
+        }
+    }
+    .nav {
+        visibility: visible;
+        z-index: 1001;
+        dt,
+        a {
+            color: black;
+        }
+        .inactive {
+            color: rgba(0, 0, 0, 0.6);
+        }
+        &:before,
+        &:after {
+            transform: translateX(0%) translateY(0%);
+        }
+        &:after {
+            transition-delay: 0.1s;
+        }
+        &:before {
+            transition-delay: 0s;
+        }
+        &__list-item {
+            opacity: 1;
+            transform: translateX(0%);
+            transition: opacity 0.3s ease, transform 0.3s ease, color 0.3s ease;
+            @for $i from 0 through $menu--items--count {
+                &:nth-child(#{$i}) {
+                    transition-delay: $transition--length * $i / 8 + $transition--length  + s;
+                }
+            }
+        }
+    }
+}
