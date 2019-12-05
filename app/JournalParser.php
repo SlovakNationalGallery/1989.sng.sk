@@ -159,7 +159,7 @@ class JournalDOMElement extends DOMElement
 
     public function isWeather()
     {
-        return preg_match('/^\s*\*\*\*.+\*\*\*\s*$/', $this->textContent);
+        return preg_match('/\A\s*\*\*\*.+?\*\*\*\s*\Z/s', $this->textContent);
     }
 
     public function isPageDelimiter()
@@ -170,6 +170,7 @@ class JournalDOMElement extends DOMElement
     public function getParsedWeather()
     {
         $trimmed = str_replace('***', '', $this->textContent);
+        $trimmed = preg_replace('/\s+/s', ' ', $trimmed);
         $trimmed = trim($trimmed);
         return $trimmed;
     }

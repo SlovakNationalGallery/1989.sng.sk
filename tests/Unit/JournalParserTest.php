@@ -32,6 +32,7 @@ class JournalParserTest extends TestCase
         $entries = self::$parsed->entries;
 
         $this->assertEquals("Ráno +12 °C", $entries[0]->weather);
+        $this->assertEquals("Ráno slnečné +12 °C – cez deň oteplenie +16 °C –", $entries[18]->weather);
     }
 
     public function testExtractsRawEntryFromPages()
