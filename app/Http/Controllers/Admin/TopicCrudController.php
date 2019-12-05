@@ -122,10 +122,18 @@ class TopicCrudController extends CrudController
         ], 'update');
 
         $this->crud->addField([
-            'name' => 'previous_topic',
             'label' => 'Previous Topic',
-            'type' => 'topic_link',
+            'type' => 'select',
+            'name' => 'previous_topic_id',
             'entity' => 'previousTopic',
+            'attribute' => 'name',
+            'model' => 'App\Models\Topic',
+            'options'   => (function ($query) {
+                $entryId = $this->crud->getCurrentEntryId();
+                if ($entryId) $query = $query->where('id', '!=', $entryId);
+
+                return $query->orderBy('name', 'ASC')->get();
+            }),
         ]);
 
         $this->crud->addField([
@@ -194,7 +202,6 @@ class TopicCrudController extends CrudController
         $redirect_location = parent::storeCrud($request);
         // your additional operations after save here
         // use $this->data['entry'] or $this->crud->entry
-        $this->setPreviousTopic($request);
 
         return $redirect_location;
     }
@@ -212,8 +219,6 @@ class TopicCrudController extends CrudController
             $items[$item_id] = ['order' => $order];
         }
         $entry->items()->sync($items);
-
-        $this->setPreviousTopic($request);
 
         return $redirect_location;
     }
@@ -285,14 +290,5 @@ class TopicCrudController extends CrudController
         ]);
 
         return $content;
-    }
-
-    private function setPreviousTopic(TopicRequest $request)
-    {
-        if ($request->get('next_topic_id') == null) return;
-
-        $topic = $this->crud->entry;
-        $nextTopic = $topic->nextTopic;
-        $nextTopic->previousTopic()->associate($topic)->save();
     }
 }
