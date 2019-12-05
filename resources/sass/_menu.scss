@@ -20,6 +20,11 @@ $padding: 5px;
     border-radius: 50%;
     display: inline-block;
 
+    &.nav-up {
+        top: -40px;
+    }
+
+
     @media (min-width: map-get($grid-breakpoints, md)) {
         left: 1.4em;
         top: 1.4em;
