@@ -137,8 +137,13 @@
 }
 
 .cldr-row {
-    margin-left: 52px;
-    margin-right: 52px;
+    margin-left: 100px;
+    margin-right: 100px;
+
+    @media (min-width: map-get($grid-breakpoints, md)) {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
 
     .carousel {
         .VueCarousel-slide {

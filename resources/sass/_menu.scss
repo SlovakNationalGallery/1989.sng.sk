@@ -3,17 +3,28 @@ $icon--color: #1e2023;
 $font--color: #ffffff;
 $font--color--active: #000000;
 $transition--length: .8;
+$size: 30px;
+$padding: 5px;
 
 //default state
 .menu-icon {
-    $size: 30px;
-    height: $size;
-    width: $size;
+    height: $size + ($padding*2);
+    width: $size + ($padding*2);
     position: fixed;
     z-index: 1002;
-    left: 3rem;
-    top: 2.5rem;
+    left: 1.0em;
+    top: 0.5em;
     cursor: pointer;
+    padding: (($padding*2) + ceil($padding/2)) $padding 0 $padding;
+    background-color: rgba(0,0,0, 0.5);
+    border-radius: 50%;
+    display: inline-block;
+
+    @media (min-width: map-get($grid-breakpoints, md)) {
+        left: 1.4em;
+        top: 1.4em;
+    }
+
     &__line {
         height: 2px;
         width: $size;
@@ -23,10 +34,10 @@ $transition--length: .8;
         transition: transform 0.2s ease, background-color 0.5s ease;
     }
     &__line-left {
-        width: $size / 2;
+        // width: $size / 2;
     }
     &__line-right {
-        width: $size / 2;
+        // width: $size / 2;
         float: right;
     }
 }
@@ -121,15 +132,18 @@ body.nav-active {
     $menu--items--count: 7;
     overflow: auto;
     .menu-icon {
+        background-color: rgba(255,255,255, 1);
         &__line {
             background-color: #000;
             transform: translateX(0px) rotate(-45deg);
         }
         &__line-left {
             transform: translateX(1px) rotate(45deg);
+            width: $size / 2;
         }
         &__line-right {
             transform: translateX(-2px) rotate(45deg);
+            width: $size / 2;
         }
     }
     .nav {
