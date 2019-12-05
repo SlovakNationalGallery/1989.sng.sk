@@ -126,8 +126,16 @@
             z-index: 10;
         }
 
-        @media(max-width: 720px) {
+        &.card-columns {
+          // @include media-breakpoint-down(md) {
+          //   column-count: 1;
+          // }
+          @media(min-width: 1280px) {
+            column-count: 1;
+          }
+        }
 
+        @media(max-width: 1279px) {
             .item-container {
                 height: auto !important;
             }

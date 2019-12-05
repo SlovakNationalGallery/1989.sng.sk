@@ -2,7 +2,7 @@
 
 @section('items')
     @foreach ($topic->items as $i=>$item)
-        <div class="item-container item-type-{{ $item->type }}" style="height: {{$item->pivot->container}}px" data-orig-height="{{$item->pivot->container}}" >
+        <div class="card item-container item-type-{{ $item->type }}" style="height: {{$item->pivot->container}}px" data-orig-height="{{$item->pivot->container}}" >
 
             @if ($item->file && $item->type != 'slogan')
                 <a href="{{ asset($item->file) }}" class="image-link" title="{{ $item->full_name }}" data-text="{{ $item->text }}">
