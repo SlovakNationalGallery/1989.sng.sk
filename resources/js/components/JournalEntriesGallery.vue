@@ -19,7 +19,10 @@
         Kalendár
       </button>
     </div>
-    <calendar-full id="calendar-full"></calendar-full>
+    <calendar-full
+      id="calendar-full"
+      :enabledDays="availableDays.map(({written_at}) => written_at)"
+    ></calendar-full>
     <div v-if="filter" id="filter" class="text-center mt-4 mb-1">
       <router-link class="btn btn-outline-dark" :to="{ name: 'journal-entries', params: { date } }">× Zrušiť filter</router-link>
     </div>
