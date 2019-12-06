@@ -2,7 +2,7 @@
 $topics = App\Models\Topic::listing()
 @endphp
 
-<div id="menu-button" class="menu-icon">
+<div id="menu-button" class="menu-icon m-3 m-md-5">
     <span class="menu-icon__line menu-icon__line-left"></span>
     <span class="menu-icon__line"></span>
     <span class="menu-icon__line menu-icon__line-right"></span>
