@@ -92,6 +92,10 @@ export default {
   &.btn-outline-november,
   &.btn-outline-december {
     color: black;
+
+    &:disabled {
+      opacity: .2
+    }
   }
 }
 </style>

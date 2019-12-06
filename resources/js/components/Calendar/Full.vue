@@ -24,6 +24,7 @@
               class="m-1"
               :key="day"
               :date="day"
+              :disabled="enabledDays.indexOf(day) === -1"
             ></day>
           </div>
         </div>
@@ -36,6 +37,7 @@
                 v-if="isDayInRange(day)"
                 color-coded
                 :date="day"
+                :disabled="enabledDays.indexOf(day) === -1"
               ></day>
               <div v-else class="day-filler"></div>
             </div>
@@ -73,6 +75,10 @@ export default {
   props: {
     id: {
       type: String,
+      required: true,
+    },
+    enabledDays: {
+      type: Array,
       required: true,
     },
   },
