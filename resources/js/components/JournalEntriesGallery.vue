@@ -14,6 +14,12 @@
       :currentDate="date"
       @change="onDaySelected"
     ></calendar-row-view>
+    <div class="text-center mt-3">
+      <button type="button" class="btn btn-sm btn-outline-dark" data-toggle="modal" data-target="#calendar-full">
+        Kalendár
+      </button>
+    </div>
+    <calendar-full id="calendar-full"></calendar-full>
     <div v-if="filter" id="filter" class="text-center mt-4 mb-1">
       <router-link class="btn btn-outline-dark" :to="{ name: 'journal-entries', params: { date } }">× Zrušiť filter</router-link>
     </div>
@@ -52,13 +58,14 @@
 import dayjs from 'dayjs'
 import { isEmpty, get } from "lodash";
 import CalendarRowView from "./RowView";
+import CalendarFull from "./Calendar/Full";
 import { initializeJournalTagPopovers } from '../journal-entries-popovers';
 
 
 export default {
   name: "JournalEntriesGallery",
   props: ['date', 'filter'],
-  components: { CalendarRowView },
+  components: { CalendarRowView, CalendarFull },
   data() {
     return {
       availableDays: [],

@@ -73,6 +73,7 @@ export default {
   display: flex;
   justify-content: center;
   margin: auto;
+  position: relative;
 
   &:focus {
     box-shadow: none !important;
@@ -82,7 +83,7 @@ export default {
     font-size: .65rem;
     font-weight: normal;
     position: absolute;
-    bottom: .18rem;
+    bottom: 0;
   }
 
   &.btn-outline-august,
