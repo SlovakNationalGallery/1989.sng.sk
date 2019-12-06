@@ -140,6 +140,6 @@ export default {
 .openseadragon-container :focus { outline: none; }
 
 #image-container {
-  height: 60vh;
+  height: 40vh;
 }
 </style>
