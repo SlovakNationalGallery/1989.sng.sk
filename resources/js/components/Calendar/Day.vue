@@ -63,14 +63,16 @@ export default {
 
 <style lang="scss">
 .cldr-day.btn {
-  width: 4rem;
-  height: 4rem;
+  width: 3.9rem;
+  height: 3.9rem;
   border-width: 3.3px;
-  border-radius: 3px;
+  border-radius: 4px;
   font-size: 1.5rem;
   font-weight: bold;
+
   display: flex;
   justify-content: center;
+  margin: auto;
 
   &:focus {
     box-shadow: none !important;
