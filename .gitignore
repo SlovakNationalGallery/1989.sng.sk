@@ -6,8 +6,10 @@
 /public/css
 /public/fonts
 /public/hot
+/public/images/play-icon.png
 /public/js
 /public/storage
+/public/vendor/openseadragon
 /storage/*.key
 /storage/debugbar
 /vendor
@@ -15,4 +17,3 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-/public/images/play-icon.png
