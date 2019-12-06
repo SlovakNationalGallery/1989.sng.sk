@@ -1,5 +1,5 @@
 <template>
-  <button type="button" class="cldr-day btn px-0" @click="$emit('click', $event)" :disabled="disabled " :class="{ active }">
+  <button type="button" class="cldr-day btn px-0 text-center" @click="$emit('click', $event)" :disabled="disabled " :class="{ active, ...monthClass }">
     {{ dateParsed.format("D") }}
     <div class="month">{{ dateParsed.format("MMMM") }}</div>
   </button>
@@ -36,22 +36,24 @@ export default {
 
 <style lang="scss">
 .cldr-day.btn {
-  width: 76px;
-  height: 76px;
-  text-align: center;
-  border-width: 4px;
-  border-radius: 4px;
-  font-size: 28px;
+  width: 4rem;
+  height: 4rem;
+  border-width: 3.3px;
+  border-radius: 3px;
+  font-size: 1.5rem;
   font-weight: bold;
+  display: flex;
+  justify-content: center;
 
   &:focus {
     box-shadow: none !important;
   }
 
   .month {
-    font-size: 12px;
+    font-size: .64rem;
     font-weight: normal;
-    margin-top: -8px;
+    position: absolute;
+    bottom: .18rem;
   }
 }
 </style>
