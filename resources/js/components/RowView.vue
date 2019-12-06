@@ -1,5 +1,5 @@
 <template>
-  <div class="cldr-row">
+  <div class="cldr-row" :class="{ dark }">
     <carousel
       class="carousel"
       ref="carousel"
@@ -17,7 +17,7 @@
     >
       <slide v-for="(day, i) in days" :key="day.d">
         <calendar-day
-          :class="dayClass || 'btn-outline-light'"
+          :dark="dark"
           :date="day.d"
           :disabled="!day.active"
           :active="selectedIndex === i"
@@ -45,8 +45,8 @@ export default {
       type: String,
       required: true
     },
-    dayClass: {
-      type: String,
+    dark: {
+      type: Boolean,
     }
   },
   data() {
