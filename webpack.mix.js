@@ -22,6 +22,7 @@ mix
   })
   .js('resources/js/app.js', 'public/js')
   .copy('resources/js/edit.js', 'public/js')
+  .copy('node_modules/openseadragon/build/openseadragon/images', 'public/vendor/openseadragon/images')
   .sass('resources/sass/app.scss', 'public/css')
   .polyfill({ enabled: true })
   .extract(['vue', 'bootstrap', 'axios']);

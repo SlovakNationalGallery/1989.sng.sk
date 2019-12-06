@@ -1,18 +1,26 @@
 <template>
   <div class="mt-3">
-    <div id="ximage-container" class="ratio-container">
-      <picture
-        v-if="detailedTranscriptionPageId"
-        :key="detailedTranscriptionPageId">
-        <source media="(min-width: 1200px)" :srcset="`https://fromthepage.com/image-service/${detailedTranscriptionPageId}/full/1200,/0/default.jpg`">
-        <source media="(min-width: 992px)" :srcset="`https://fromthepage.com/image-service/${detailedTranscriptionPageId}/full/992,/0/default.jpg`">
-        <source media="(min-width: 768px)" :srcset="`https://fromthepage.com/image-service/${detailedTranscriptionPageId}/full/768,/0/default.jpg`">
-        <source media="(min-width: 576px)" :srcset="`https://fromthepage.com/image-service/${detailedTranscriptionPageId}/full/576,/0/default.jpg`">
-        <img
-          :src="`https://fromthepage.com/image-service/${detailedTranscriptionPageId}/full/400,/0/default.jpg`"
-        >
-      </picture>
+    <div id="toolbar" class="py-2">
+      <button id="toolbar-zoom-in" class="btn btn-sm btn-light">
+        <i class="fas fa-plus"></i>
+      </button>
+      <button id="toolbar-zoom-out" class="btn btn-sm btn-light">
+        <i class="fas fa-minus"></i>
+      </button>
+      <button id="toolbar-home" class="btn btn-sm btn-light">
+        <i class="fas fa-home"></i>
+      </button>
+      <button id="toolbar-full" class="btn btn-sm btn-light">
+        <i class="fas fa-expand-arrows-alt"></i>
+      </button>
+      <button id="toolbar-prev" class="btn btn-sm btn-light">
+        <i class="fas fa-long-arrow-alt-left"></i>
+      </button>
+      <button id="toolbar-next" class="btn btn-sm btn-light">
+        <i class="fas fa-long-arrow-alt-right"></i>
+      </button>
     </div>
+    <div id="image-container" class="bg-white"></div>
     <carousel
       class="carousel mt-2"
       :perPage="8"
@@ -37,6 +45,14 @@
 
 <script>
 import { Carousel, Slide } from "vue-carousel";
+import OpenSeadragon from "openseadragon";
+
+OpenSeadragon.setString("Tooltips.Home","Počiatočné priblíženie");
+OpenSeadragon.setString("Tooltips.ZoomOut","Oddialiť");
+OpenSeadragon.setString("Tooltips.ZoomIn", "Priblížiť");
+OpenSeadragon.setString("Tooltips.FullPage","Na celú obrazovku");
+OpenSeadragon.setString("Tooltips.NextPage","Ďalšia strana");
+OpenSeadragon.setString("Tooltips.PreviousPage","Predchádzajúca strana");
 
 export default {
   name: "JournalEntry",
@@ -53,6 +69,32 @@ export default {
   mounted() {
     this.fetchData(this.date);
   },
+  watch: {
+    transcriptionPagesIds(transcriptionPagesIds) {
+      if (this.imageViewer) this.imageViewer.destroy();
+
+      this.imageViewer = OpenSeadragon({
+        id: "image-container",
+        prefixUrl: "/vendor/openseadragon/images/",
+        zoomInButton: "toolbar-zoom-in",
+        zoomOutButton: "toolbar-zoom-out",
+        homeButton: "toolbar-home",
+        fullPageButton: "toolbar-full",
+        previousButton: "toolbar-prev",
+        nextButton: "toolbar-next",
+        toolbar: "toolbar",
+        visibilityRatio: 1,
+        minZoomLevel: 1,
+        sequenceMode: true,
+        tileSources: transcriptionPagesIds.map(id => `https://fromthepage.com/image-service/${id}/info.json`)
+      });
+
+      const vm = this;
+      this.imageViewer.addHandler('page', function ({page}) {
+        vm.detailedTranscriptionPageId = vm.transcriptionPagesIds[page]
+      })
+    }
+  },
   methods: {
     fetchData(date) {
       axios
@@ -66,6 +108,7 @@ export default {
     },
     onTranscriptionPageClick(transcriptionPageId) {
       this.detailedTranscriptionPageId = transcriptionPageId;
+      this.imageViewer.goToPage(this.transcriptionPagesIds.indexOf(transcriptionPageId))
     }
   }
 };
@@ -93,24 +136,10 @@ export default {
   }
 }
 
-.ratio-container {
-  position: relative;
+// https://github.com/openseadragon/openseadragon/issues/893
+.openseadragon-container :focus { outline: none; }
 
-  &:after {
-    content: '';
-    display: block;
-    height: 0;
-    width: 100%;
-    padding-bottom: calc(3 / 4 * 100%) ; /* 4:3 */
-  }
-
-  & img {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    margin-left: -50%;
-    height: 100%;
-    display: block;
-  }
+#image-container {
+  height: 60vh;
 }
 </style>
