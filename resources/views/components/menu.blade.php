@@ -2,14 +2,14 @@
 $topics = App\Models\Topic::listing()
 @endphp
 
-<div id="menu-button" class="menu-icon m-3 m-md-5">
+<div id="menu-button" class="menu-icon m-3 ml-md-4 mt-md-4">
     <span class="menu-icon__line menu-icon__line-left"></span>
     <span class="menu-icon__line"></span>
     <span class="menu-icon__line menu-icon__line-right"></span>
 </div>
 
 <div id="menu" class="nav">
-    <div class="nav__content text-left pl-3 pl-lg-5">
+    <div class="nav__content text-left pl-3 pl-md-4">
         <div class="nav__list-item">
             <a href="/" class="text-decoration-none" title="Prejsť na úvodnú stránku">
                 <h3 id="top-nav">ČAS-OPIS <span class="year">1989</span></h3>

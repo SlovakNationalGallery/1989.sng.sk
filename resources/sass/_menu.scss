@@ -20,10 +20,6 @@ $padding: 5px;
     border-radius: 50%;
     display: inline-block;
 
-    &.nav-up {
-        display: none;
-    }
-
     &__line {
         height: 2px;
         width: $size;
@@ -39,6 +35,10 @@ $padding: 5px;
         // width: $size / 2;
         float: right;
     }
+}
+
+:not(.nav-active) > .menu-icon.nav-up {
+    display: none;
 }
 
 .nav {
