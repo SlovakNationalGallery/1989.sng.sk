@@ -34,7 +34,9 @@
     <div class="header text-center">
         <div class="cover-image">
             <div class="container pt-2">
-                <a href="/" class="text-decoration-none" title="Prejsť na úvodnú stránku"><h3 id="top-nav">ČAS-OPIS <span class="year">1989</span></h3></a>
+                <a href="/" class="text-decoration-none" title="Prejsť na úvodnú stránku">
+                    <h3 id="top-nav" class="mt-2 mt-md-0">ČAS-OPIS <span class="year">1989</span></h3>
+                </a>
                 <div id="title-container">
                     <h1 id="title" class="mt-5">{{ $topic->name }}</h1>
                 </div>

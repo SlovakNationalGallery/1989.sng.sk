@@ -5,7 +5,7 @@
 @section('content')
 <div id="journal-entries" class="container">
     <div class="row">
-        <div class="offset-lg-2 col-lg-8 bg-white pt-3 pt-md-5 px-md-5">
+        <div class="offset-lg-2 col-lg-8 bg-white pt-3 pt-md-4 px-md-5">
             <div class="text-right text-md-left">
                 <a href="/" class="btn btn-outline-dark btn-sm">← Domov</a>
             </div>
