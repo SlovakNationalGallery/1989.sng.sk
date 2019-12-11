@@ -4,6 +4,7 @@ require('./filters');
 require('./topic');
 
 import "magnific-popup";
+import Sticky from './sticky';
 
 window.Router = require('./router').default
 
@@ -13,6 +14,7 @@ Vue.component('day-entry', require('./components/DayEntry.vue').default);
 Vue.component('transition-page', require('./components/TransitionPage.vue').default);
 Vue.component('selected-topics', require('./components/SelectedTopics.vue').default);
 Vue.component('item-text', require('./components/ItemText.vue').default);
+Vue.directive('Sticky', Sticky);
 
 new Vue({ router: window.Router, el: '#app' })
 
