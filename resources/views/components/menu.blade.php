@@ -58,7 +58,7 @@ $topics = App\Models\Topic::listing()
 
 @push('scripts')
 <script>
-    $('#menu-button').click(()=> {
+    $('#menu-button').click( function () {
         $('body').toggleClass('nav-active');
     });
 

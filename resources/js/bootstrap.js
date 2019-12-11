@@ -4,7 +4,18 @@ window._ = require('lodash');
 
 // Initialize and configure Vue and its router
 window.Vue = require('vue');
-require('vue-sticky-directive');
+
+
+import Sticky from './sticky';
+
+const install = function(Vue) {
+  Vue.directive('Sticky', Sticky);
+};
+
+if (window.Vue) {
+  window.Vue.use(install);
+}
+
 import Vue2TouchEvents from 'vue2-touch-events';
 window.Vue.use(Vue2TouchEvents);
 
