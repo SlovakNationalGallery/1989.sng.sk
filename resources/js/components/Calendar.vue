@@ -1,26 +1,22 @@
 <template>
   <div id="calendar" class="cldr">
-    <!-- <transition name="slide">
-      <months-view v-if="showCalendar" :days="days" @input="setDate($event)" />
-    </transition> -->
+    <calendar-full
+      id="calendar-full"
+      :enabledDays="activeDays.map(({d}) => d)"
+      :activeDay="currentDate"
+      @dayClick="setDate"
+    ></calendar-full>
     <div class="container">
       <div class="row">
         <div class="offset-lg-2 col-lg-8">
           <row-view ref="rowView" :days="days" :currentDate="currentDate" @change="setDate" />
         </div>
       </div>
-    </div>
-    <div class="container-fluid buttons row">
-      <!-- <div class="offset-sm-2 col-sm-4 offset-md-3 col-md-3">
-        <button
-          class="btn btn-dark w-100"
-          @click="showCalendar = !showCalendar"
-        >
+      <div id="buttons" class="text-center pt-4">
+        <button type="button" class="btn btn-outline-light m-1" data-toggle="modal" data-target="#calendar-full">
           Kalendár
         </button>
-      </div> -->
-      <div class="offset-sm-4 col-sm-4  offset-md-5 col-md-2">
-        <button class="btn btn-outline-light w-100" @click="goToToday">
+        <button class="btn btn-outline-light" @click="goToToday">
           Dnes
         </button>
       </div>
@@ -31,6 +27,7 @@
 <script>
 import RowView from "./RowView";
 import MonthsView from "./MonthsView";
+import CalendarFull from "./Calendar/Full";
 
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
@@ -43,7 +40,7 @@ dayjs.extend(weekOfYear);
 
 export default {
   name: "Calendar",
-  components: { RowView, MonthsView },
+  components: { RowView, MonthsView, CalendarFull },
   props: [
     "startDate",
     "endDate",
@@ -77,6 +74,9 @@ export default {
 
       return days
     },
+    activeDays() {
+      return this.days.filter(({active}) => active)
+    },
     currentDate() {
       return _.get(this, '$route.params.date') || this.defaultDate
     }
@@ -98,8 +98,9 @@ export default {
 <style lang="scss">
 .cldr {
   position: relative;
-  .buttons {
-    margin: 1rem auto;
+
+  & #buttons > .btn {
+    width: 10em;
   }
 }
 .weekend {
