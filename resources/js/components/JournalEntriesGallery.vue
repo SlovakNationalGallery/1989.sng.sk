@@ -14,18 +14,16 @@
       :currentDate="date"
       @change="onDaySelected"
     ></calendar-row-view>
-    <div class="text-center mt-3">
-      <button type="button" class="btn btn-sm btn-outline-dark" data-toggle="modal" data-target="#calendar-full">
+    <div id="button-controls" class="text-center mt-3">
+      <button type="button" class="btn btn-sm btn-outline-dark m-1" data-toggle="modal" data-target="#calendar-full">
         Kalendár
       </button>
+      <router-link v-if="filter" class="btn btn-sm btn-outline-dark m-1" :to="{ name: 'journal-entries', params: { date } }">× Zrušiť filter</router-link>
     </div>
     <calendar-full
       id="calendar-full"
       :enabledDays="availableDays.map(({written_at}) => written_at)"
     ></calendar-full>
-    <div v-if="filter" id="filter" class="text-center mt-4 mb-1">
-      <router-link class="btn btn-outline-dark" :to="{ name: 'journal-entries', params: { date } }">× Zrušiť filter</router-link>
-    </div>
     <transition name="fade">
       <keep-alive :max="10">
         <journal-entry :key="date" :date="date"></journal-entry>
@@ -117,5 +115,9 @@ export default {
     font-family: $font-family-base;
     font-size: 2rem;
   }
+}
+
+#button-controls > * {
+  width: 10em;
 }
 </style>
