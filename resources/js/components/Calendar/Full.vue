@@ -67,21 +67,6 @@ import { chunk, groupBy } from "lodash"
 
 import Day from "./Day"
 
-const FIRST_DAY = dayjs("1989-09-01")
-const LAST_DAY = dayjs("1989-12-31")
-
-//  Generates a range of dates from FIRST_DAY until LAST_DAY,
-//  starting on Monday and ending on Sunday
-function calculateDays() {
-  const start = FIRST_DAY.startOf('week')
-  const end = LAST_DAY.endOf('week')
-
-  return [
-    ...Array(end.diff(start, 'days') + 1)
-    ]
-    .map((_, index) => start.clone().add(index, 'days').format("YYYY-MM-DD"))
-}
-
 export default {
   components: { Day },
   props: {
@@ -100,12 +85,32 @@ export default {
   },
   data() {
     return {
-      days: calculateDays(),
+      firstDay: dayjs("1989-09-01"),
+      lastDay: dayjs("1989-12-31"),
     }
   },
+  created() {
+    axios
+      .get('/api/journal-entries')
+      .then(({data: {data: {days}}}) => {
+        this.firstDay = dayjs(days[0].written_at)
+        this.lastDay = dayjs(days[days.length -1].written_at)
+      })
+  },
   computed: {
+    paddedDays() {
+      //  Range of dates from firstDay until lastDay, padded out
+      //  so that it starts on Monday and ends on Sunday
+      const start = this.firstDay.startOf('week')
+      const end = this.lastDay.endOf('week')
+
+      return [
+        ...Array(end.diff(start, 'days') + 1)
+        ]
+        .map((_, index) => start.clone().add(index, 'days').format("YYYY-MM-DD"))
+    },
     weeks() {
-      return chunk(this.days, 7)
+      return chunk(this.paddedDays, 7)
     },
     months() {
       return Object.values(
@@ -113,22 +118,22 @@ export default {
       )
     },
     firstMonth() {
-      return FIRST_DAY.format("MMMM")
+      return this.firstDay.format("MMMM")
     },
     lastMonth() {
-      return LAST_DAY.format("MMMM")
+      return this.lastDay.format("MMMM")
     },
     daysInRange() {
-      return this.days.slice(
-        this.days.indexOf(FIRST_DAY.format("YYYY-MM-DD")),
-        this.days.indexOf(LAST_DAY.format("YYYY-MM-DD")),
+      return this.paddedDays.slice(
+        this.paddedDays.indexOf(this.firstDay.format("YYYY-MM-DD")),
+        this.paddedDays.indexOf(this.lastDay.format("YYYY-MM-DD")),
       )
     }
   },
   methods: {
     isDayInRange(day) {
       const dayParsed = dayjs(day)
-      return !dayParsed.isBefore(FIRST_DAY) && !dayParsed.isAfter(LAST_DAY)
+      return !dayParsed.isBefore(this.firstDay) && !dayParsed.isAfter(this.lastDay)
     }
   },
   filters: {
