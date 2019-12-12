@@ -28,6 +28,7 @@
               v-for="day in month"
               color-coded
               class="m-1"
+              :active="day === activeDay"
               :key="day"
               :date="day"
               :disabled="enabledDays.indexOf(day) === -1"
@@ -44,6 +45,7 @@
               <day
                 v-if="isDayInRange(day)"
                 color-coded
+                :active="day === activeDay"
                 :date="day"
                 :disabled="enabledDays.indexOf(day) === -1"
                 data-dismiss="modal"
@@ -84,6 +86,10 @@ export default {
   components: { Day },
   props: {
     id: {
+      type: String,
+      required: true,
+    },
+    activeDay: {
       type: String,
       required: true,
     },
