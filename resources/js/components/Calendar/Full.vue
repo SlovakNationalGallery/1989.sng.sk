@@ -31,6 +31,8 @@
               :key="day"
               :date="day"
               :disabled="enabledDays.indexOf(day) === -1"
+              data-dismiss="modal"
+              @click="$emit('dayClick', day)"
             ></day>
           </div>
         </div>
@@ -44,6 +46,8 @@
                 color-coded
                 :date="day"
                 :disabled="enabledDays.indexOf(day) === -1"
+                data-dismiss="modal"
+                @click="$emit('dayClick', day)"
               ></day>
               <div v-else class="day-filler"></div>
             </div>
