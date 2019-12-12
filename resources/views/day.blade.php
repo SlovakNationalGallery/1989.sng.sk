@@ -23,7 +23,7 @@
         transition: background-color .5s ease-in-out;
     }
 
-    .top-sticky .buttons {
+    .top-sticky #buttons {
         display: none;
     }
 
