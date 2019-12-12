@@ -30,6 +30,23 @@ h2 {
     position: relative;
 }
 
+#logo-top-nav {
+    color: $white;
+
+    & > h3 {
+        font-size: 1.5rem;
+    }
+
+    & .year {
+        font-family: $font-family-base;
+        font-weight: normal;
+    }
+
+    @include media-breakpoint-down(sm) {
+        font-size: $h4-font-size;
+    }
+}
+
 .centered {
     text-align: center;
     margin-left: auto;
