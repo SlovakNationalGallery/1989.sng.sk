@@ -109,12 +109,7 @@ h2 {
     }
 
     .read-casopis {
-        display: block;
-        max-width: 200px;
-        float: right;
-        @media (min-width: map-get( $grid-breakpoints, md)) {
-            margin-bottom: -1rem; // compensate image size, on the left side is just a weather caption
-        }
+        max-height: 8rem;
     }
     .day-entry {
         .read-more {
