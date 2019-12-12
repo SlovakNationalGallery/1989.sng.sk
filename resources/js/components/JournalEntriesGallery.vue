@@ -23,6 +23,7 @@
     <calendar-full
       id="calendar-full"
       :enabledDays="availableDays.map(({written_at}) => written_at)"
+      :activeDay="date"
       @dayClick="onDaySelected"
     ></calendar-full>
     <transition name="fade">
