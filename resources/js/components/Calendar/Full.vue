@@ -3,17 +3,23 @@
   <div class="modal-dialog modal-xl" role="navigation">
     <div class="modal-content">
       <div class="modal-header border-0">
-        <h5 class="modal-title"></h5>
-        <button type="button" class="btn btn-sm btn-outline-dark p-1" data-dismiss="modal" aria-label="Zatvoriť">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-8 offset-2 pt-5">
+              <h5 class="title text-center h3" :id="`${id}-title`">
+                <strong>Kalendár</strong> 1989
+                <small class="d-none d-lg-inline"><br/>{{ firstMonth }} &mdash; {{ lastMonth }}</small>
+              </h5>
+            </div>
+            <div class="col-2 text-right pt-3">
+              <button type="button" class="btn btn-sm btn-outline-dark px-0" data-dismiss="modal" aria-label="Zatvoriť">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="modal-body pb-5">
-        <h3 class="title text-center" :id="`${id}-title`">
-          <strong>Kalendár</strong> 1989
-          <small class="d-none d-lg-inline"><br/>{{ firstMonth }} &mdash; {{ lastMonth }}</small>
-        </h3>
-
         <!-- Smaller layout -->
         <div class="d-lg-none d-flex flex-column" v-for="month in months" :key="month[0]">
           <h3 class="month-name text-center pb-0"><small>{{ month[0] | formatMonth }}</small></h3>
@@ -130,17 +136,15 @@ export default {
   width: 3.9rem
 }
 
-.modal-header > button {
-  line-height: 1rem;
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
-.modal-body {
-  & > .title {
-    margin-top: -3rem;
+.modal-header {
+  & button {
+    line-height: 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    width: 2rem;
+    height: 2rem;
   }
-  & > .title, .month-name {
+  & .title, .month-name {
     font-family: $font-family-base;
     font-weight: normal;
   }
