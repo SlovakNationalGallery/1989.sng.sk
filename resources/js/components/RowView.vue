@@ -1,5 +1,5 @@
 <template>
-  <div class="cldr-row" :class="{ dark }">
+  <div class="cldr-row px-4" :class="{ dark }">
     <carousel
       class="carousel"
       ref="carousel"
@@ -7,12 +7,12 @@
       :navigate-to="navigateTo"
       :navigation-enabled="true"
       :pagination-enabled="false"
-      :navigation-next-label="`<a class='btn btn-link text-light'>&gt;</a>`"
-      :navigation-prev-label="`<a class='btn btn-link text-light'>&lt;</a>`"
+      :navigation-next-label="`<a class='btn btn-link text-light px-0'>&gt;</a>`"
+      :navigation-prev-label="`<a class='btn btn-link text-light px-0'>&lt;</a>`"
       :scroll-per-page="false"
       :mouse-drag="false"
       :touch-drag="false"
-      :per-page="1"
+      :per-page="3"
       :per-page-custom="perPageBreakpoints"
     >
       <slide v-for="(day, i) in days" :key="day.d">
@@ -53,10 +53,10 @@ export default {
     return {
       navigateTo: [],
       perPageBreakpoints: [
-        [1200, 7],
-        [768, 5],
-        [576, 3],
-        [425, 2],
+        [768, 7],
+        [525, 6],
+        [425, 5],
+        [375, 4],
       ]
     };
   },

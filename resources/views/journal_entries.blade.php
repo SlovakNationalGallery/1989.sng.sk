@@ -17,8 +17,8 @@ body {
 
 @section('content')
 <div id="journal-entries" class="container">
-    <div class="row text-center">
-        <div class="col text-center pt-2 pt-md-3 pb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 bg-white pt-3 pt-md-5 px-md-5">
             <a href="/" id="logo-top-nav" class="text-decoration-none" title="Prejsť na úvodnú stránku">
                 <h3>ČAS-OPIS <span class="year">1989</span></h3>
             </a>

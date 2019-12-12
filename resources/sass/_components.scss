@@ -137,14 +137,6 @@
 }
 
 .cldr-row {
-    margin-left: 5rem;
-    margin-right: 5rem;
-
-    @media (min-width: map-get($grid-breakpoints, md)) {
-        margin-left: 4rem;
-        margin-right: 4rem;
-    }
-
     .carousel {
         .VueCarousel-slide {
             text-align: center;

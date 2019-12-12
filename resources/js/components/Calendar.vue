@@ -7,8 +7,8 @@
       @dayClick="setDate"
     ></calendar-full>
     <div class="container">
-      <div class="row">
-        <div class="offset-lg-2 col-lg-8">
+      <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
           <row-view ref="rowView" :days="days" :currentDate="currentDate" @change="setDate" />
         </div>
       </div>

@@ -8,7 +8,7 @@
     </div>
     <calendar-row-view
       v-if="availableDays.length > 0"
-      class="mt-4"
+      class="mt-4 mx-xl-5"
       dark
       :days="availableDays.map(day => ({ d: day.written_at, active: true }))"
       :currentDate="date"
