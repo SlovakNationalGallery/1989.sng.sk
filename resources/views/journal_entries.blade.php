@@ -2,6 +2,19 @@
 @section('page_title', "$journalEntry->written_at_romanized • Denník Júliusa Kollera • Čas-opis 1989")
 @section('page_description', Str::limit(strip_tags($journalEntry->content), 300))
 
+@push('styles')
+
+<style>
+body {
+    background-image: url("{{asset('/images/intro/BG-0' . random_int(1, 4) . '.jpg') }}");
+    background-attachment: fixed;
+    background-size: cover;
+    text-align: center;
+    background-position: top center;
+}
+</style>
+@endpush
+
 @section('content')
 <div id="journal-entries" class="container">
     <div class="row text-center">
