@@ -33,6 +33,7 @@
 
 @section('content')
 @include('components.header')
+<div id="calendar-scroll-anchor"></div>
 <div sticky-container>
     <div
         class="sticky py-2"
