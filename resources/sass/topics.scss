@@ -7,7 +7,7 @@
   padding-bottom: 65%;
   opacity: 0.9;
   transition: opacity, transform .2s ease-in-out;
-  .white a:hover & {
+  .bg-white a:hover & {
     opacity: 1.0;
     transform: translate(-0.3em, -0.3em);
   }
