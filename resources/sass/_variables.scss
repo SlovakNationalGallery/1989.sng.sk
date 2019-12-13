@@ -31,6 +31,14 @@ $gray-dark: #333;
 $gray-light: #eaeaea;
 $info: #637fcf;
 
+$theme-colors: (
+  "august": #FF81B1,
+  "september": #DB91E5,
+  "october": #B391FF,
+  "november": #679CFF,
+  "december": #8ADEF2,
+);
+
 $text-muted: $gray;
 
 // Navbar
@@ -69,3 +77,6 @@ $card-bg:                           transparent;
 $card-columns-count:                2;
 $card-columns-gap:                  1.25rem;
 $card-columns-margin:               $card-spacer-y;
+
+// Modals
+$modal-content-border-radius: 0;

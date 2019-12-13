@@ -8,15 +8,24 @@
     </div>
     <calendar-row-view
       v-if="availableDays.length > 0"
-      class="dark mt-4"
-      dayClass="btn-outline-dark"
+      class="mt-4"
+      dark
       :days="availableDays.map(day => ({ d: day.written_at, active: true }))"
       :currentDate="date"
       @change="onDaySelected"
     ></calendar-row-view>
-    <div v-if="filter" id="filter" class="text-center mt-4 mb-1">
-      <router-link class="btn btn-outline-dark" :to="{ name: 'journal-entries', params: { date } }">× Zrušiť filter</router-link>
+    <div id="button-controls" class="text-center mt-3">
+      <button type="button" class="btn btn-sm btn-outline-dark m-1" data-toggle="modal" data-target="#calendar-full">
+        Kalendár
+      </button>
+      <router-link v-if="filter" class="btn btn-sm btn-outline-dark m-1" :to="{ name: 'journal-entries', params: { date } }">× Zrušiť filter</router-link>
     </div>
+    <calendar-full
+      id="calendar-full"
+      :enabledDays="availableDays.map(({written_at}) => written_at)"
+      :activeDay="date"
+      @dayClick="onDaySelected"
+    ></calendar-full>
     <transition name="fade">
       <keep-alive :max="10">
         <journal-entry :key="date" :date="date"></journal-entry>
@@ -52,13 +61,14 @@
 import dayjs from 'dayjs'
 import { isEmpty, get } from "lodash";
 import CalendarRowView from "./RowView";
+import CalendarFull from "./Calendar/Full";
 import { initializeJournalTagPopovers } from '../journal-entries-popovers';
 
 
 export default {
   name: "JournalEntriesGallery",
   props: ['date', 'filter'],
-  components: { CalendarRowView },
+  components: { CalendarRowView, CalendarFull },
   data() {
     return {
       availableDays: [],
@@ -107,5 +117,9 @@ export default {
     font-family: $font-family-base;
     font-size: 2rem;
   }
+}
+
+#button-controls > * {
+  width: 10em;
 }
 </style>

@@ -22,7 +22,7 @@ body {
     transition: background-color .5s ease-in-out;
     z-index: 10;
 }
-.is-affixed .buttons {
+.is-affixed #buttons {
     display: none;
 }
 </style>
@@ -30,6 +30,7 @@ body {
 
 @section('content')
 @include('components.header')
+<div id="calendar-scroll-anchor"></div>
 <div data-v-sticky-container>
     <div v-sticky>
         <div data-v-sticky-inner class="sticky-inner py-2">

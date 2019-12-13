@@ -18,15 +18,15 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-4 read-casopis">
+            <div class="col-md-4 d-none d-md-block pb-2 text-right read-casopis">
               <a
                 :href="hrefToGallery"
                 title="Prečítať si originál denníka"
               >
                 <img
                   v-if="firstTranscriptionPageId"
-                  class="w-100 d-none d-md-block"
-                  :src="`https://fromthepage.com/image-service/${firstTranscriptionPageId}/full/400,/0/default.jpg`"
+                  class="img-fluid mh-100"
+                  :src="`https://fromthepage.com/image-service/${firstTranscriptionPageId}/full/300,/0/default.jpg`"
                 />
               </a>
             </div>

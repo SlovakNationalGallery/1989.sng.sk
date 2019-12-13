@@ -17,18 +17,6 @@
     background-color: $gray-light;
 
     .header {
-        #top-nav {
-            color: $white;
-            & > .year {
-                font-family: $font-family-base;
-                font-weight: normal;
-            }
-
-            @include media-breakpoint-down(sm) {
-                font-size: $h4-font-size;
-            }
-        }
-
         #title-container {
             min-height: 40vh;
             display: flex;

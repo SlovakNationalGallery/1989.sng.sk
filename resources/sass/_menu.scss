@@ -12,23 +12,13 @@ $padding: 5px;
     width: $size + ($padding*2);
     position: fixed;
     z-index: 1002;
-    left: 1.0em;
-    top: 0.5em;
+    left: -$padding;
+    top: -0.25 * $spacer; // Align with Bootstrap spacer utilities
     cursor: pointer;
     padding: (($padding*2) + ceil($padding/2)) $padding 0 $padding;
     background-color: rgba(0,0,0, 0.5);
     border-radius: 50%;
     display: inline-block;
-
-    &.nav-up {
-        top: -40px;
-    }
-
-
-    @media (min-width: map-get($grid-breakpoints, md)) {
-        left: 1.4em;
-        top: 1.4em;
-    }
 
     &__line {
         height: 2px;
@@ -45,6 +35,10 @@ $padding: 5px;
         // width: $size / 2;
         float: right;
     }
+}
+
+:not(.nav-active) > .menu-icon.nav-up {
+    display: none;
 }
 
 .nav {
