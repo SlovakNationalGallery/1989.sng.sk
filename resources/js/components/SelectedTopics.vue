@@ -22,7 +22,7 @@
         </div>
         <div class="description">
           <h3>
-            <a :href="'/' + encodeURIComponent($topic.slug)">
+            <a :href="'/' + encodeURIComponent($topic.slug)" class="text-white">
               {{ $topic.name }}
             </a>
           </h3>

@@ -70,7 +70,7 @@
                     </div>
                     <div class="description px-4">
                         <h4>Súvisiace</h4>
-                        <a href="{{ route('topics.show', $previousTopic) }}"><h3 class="p-0" style="color: white">{{ $previousTopic->name }}</h3></a>
+                        <a href="{{ route('topics.show', $previousTopic) }}" class="text-white"><h3 class="p-0">{{ $previousTopic->name }}</h3></a>
                         <p style="color: white">{{ $topic->previous_topic_blurb }}</p>
                     </div>
                 @endif
@@ -84,7 +84,7 @@
                     </div>
                     <div class="description px-4">
                         <h4>Súvisiace</h4>
-                        <a href="{{ route('topics.show', $nextTopic) }}"><h3 class="p-0" style="color: white">{{ $nextTopic->name }}</h3></a>
+                        <a href="{{ route('topics.show', $nextTopic) }}" class="text-white"><h3 class="p-0">{{ $nextTopic->name }}</h3></a>
                         <p style="color: white">{{ $topic->next_topic_blurb }}</p>
                     </div>
                 @endif
