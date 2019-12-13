@@ -63,7 +63,7 @@
             <div class="row">
                 <div id="previous-topic" class="col-md-6 related-topic">
                 @if ($previousTopic)
-                    <div class="white">
+                    <div class="bg-white">
                       <a href="{{ route('topics.show', $previousTopic) }}">
                         <div class="topic-preview" style="background-image: url('{{ asset($previousTopic->cover_image) }}'"></div>
                       </a>
@@ -77,7 +77,7 @@
                 </div>
                 <div id="next-topic" class="col-md-6 related-topic">
                 @if ($nextTopic)
-                    <div class="white">
+                    <div class="bg-white">
                       <a href="{{ route('topics.show', $nextTopic) }}">
                         <div class="topic-preview" style="background-image: url('{{ asset($nextTopic->cover_image) }}'"></div>
                       </a>

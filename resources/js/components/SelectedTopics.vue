@@ -15,7 +15,7 @@
     <div class="row justify-content-center">
       <div class="col-md-4 col-sm-12 selected-topic" v-for="$topic in topics" :key="$topic.slug">
         <!-- na mobile by som sem dal carousel -->
-        <div class="white">
+        <div class="bg-white">
           <a :href="'/' + $topic.slug">
             <div class="topic-preview" v-bind:style="{ backgroundImage: 'url(' + encodeURIComponent($topic.cover_image) + ')' }"></div>
           </a>
