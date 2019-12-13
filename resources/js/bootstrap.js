@@ -2,11 +2,12 @@ import 'babel-polyfill'
 
 window._ = require('lodash');
 
-// Initialize and configure Vue and its router
+// Initialize and configure Vue
 window.Vue = require('vue');
 
-import Vue2TouchEvents from 'vue2-touch-events';
-window.Vue.use(Vue2TouchEvents);
+// Include for @renatodeleao/vue-sticky-directive
+import ResizeSensor from "resize-sensor"
+window.ResizeSensor = ResizeSensor
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
