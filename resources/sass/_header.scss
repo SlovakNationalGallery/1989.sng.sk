@@ -1,68 +1,39 @@
 .casopis-header {
-    padding-top: 2rem;
-
-    @include media-breakpoint-up(sm) {
-      padding-top: 2rem;
-    }
-    @include media-breakpoint-up(md) {
-      padding-top: 2rem;
-    }
-    @include media-breakpoint-up(lg) {
-      padding-top: 3rem;
-    }
-
-
     .header {
-        transform: translate(2em);
-        width: 70%;
-        max-width: 40rem;
-        margin: 0 0 3rem 0;
-
-        @include media-breakpoint-up(md) {
-          margin: 0 auto 4rem auto;
-        }
-
-        padding: 2.5em 1em;
-        * {
-            text-align: center;
-        }
-
         &::after {
             background-image: url('/images/intro/01-Cover-01.png');
             background-position: center;
         }
 
-        .cnt {
-            margin-bottom: 1rem;
-            padding: 2rem 1rem;
-        }
-
         span {
-            font-family: 'AvenirLTPro';
-            font-style: oblique;
+            font-family: $font-family-base;
+            font-weight: normal;
+            font-size: 1.05em;
         }
     }
 
-    .subheader {
-        transform: translate(33%, -5em);
+    .perex {
         position: relative;
-        margin: auto;
-        max-width: 50%;
-        min-width: 250px;
+        margin-top: -1rem;
         background: $purple;
-        font-family: 'AvenirLTPro';
-        font-weight: 400;
         z-index: 10;
-    }
 
-    .subheader .cnt {
-        margin-bottom: 0.5rem;
-        @include media-breakpoint-up(md) {
-          margin-bottom: -1rem;
+        & > .content {
+            transform: translate(0.5rem, -0.5rem);
+            background-image: url('/images/perex.png');
+            background-size: cover;
+
+            & > h5 {
+                @include media-breakpoint-down(sm) {
+                    font-size: 1em;
+                }
+                font-family: $font-family-base;
+                font-weight: normal;
+
+                & > a {
+                    text-decoration: underline;
+                }
+            }
         }
-        padding: 2rem 1rem;
-        transform: translate(-0.5rem, -0.5rem);
-        background-image: url('/images/perex.png');
-        background-size: cover;
     }
 }
