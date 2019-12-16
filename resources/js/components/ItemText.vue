@@ -1,8 +1,8 @@
 <template>
   <div class="item-text">
     <div v-html="displayedContent" class="item-text-content"></div>
-    
-    <div class="item-fade" v-if="truncateable && !showAll" ></div>
+
+    <div class="item-fade" v-if="truncateable"></div>
     <div class="item-credits" v-if="credits" v-html="credits"></div>
     <div v-if="truncateable" class="item-text-read-more-link">
       <button type="button" class="btn btn-link" @click="showAll = !showAll">
@@ -13,7 +13,6 @@
 </template>
 
 <script>
-const MAX_LENGTH = 500;
 const READ_MORE_DELIMITER = "<hr />";
 
 export default {
@@ -30,7 +29,7 @@ export default {
   },
   data() {
     return {
-      showAll: !this.content.length > MAX_LENGTH
+      showAll: false
     };
   },
   computed: {
@@ -40,10 +39,10 @@ export default {
       const delimiterIndex = this.content.indexOf(READ_MORE_DELIMITER);
       if (delimiterIndex > -1) return this.content.substring(0, delimiterIndex);
 
-      return _.truncate(this.content, { length: MAX_LENGTH, separator: " " });
+      return this.content;
     },
     truncateable() {
-      return this.content.length > MAX_LENGTH;
+      return this.content.indexOf(READ_MORE_DELIMITER) > -1;
     }
   }
 };
