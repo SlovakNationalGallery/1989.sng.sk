@@ -12,7 +12,7 @@
                 <div class="bg"></div>
                 <div class="content p-4">
                     <h5 class="mb-0">
-                        Deň po dni sledujeme vývoj Nežnej revolúcie <a class="text-dark" href="#dennik" id="scroll-to-journal"><strong>v&nbsp;denníku Júliusa Kollera</strong></a>.
+                        Deň po dni sledujeme vývoj Nežnej revolúcie v&nbsp;<a class="text-dark" href="#dennik" id="scroll-to-journal"><strong>denníku Júliusa Kollera</strong></a>.
                         Prostredníctvom fotografií, plagátov, rozhovorov a&nbsp;videí spoznávame na&nbsp;<a class="text-dark" href="#temy" id="scroll-to-topics"><strong>tematických nástenkách</strong></a>
                         kreativitu občanov, ich&nbsp;požiadavky, názory a&nbsp;nádeje.
                     </h5>
