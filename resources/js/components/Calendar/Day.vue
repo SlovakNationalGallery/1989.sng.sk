@@ -1,7 +1,7 @@
 <template>
   <button
     type="button"
-    class="cldr-day btn px-0 text-center"
+    class="cldr-day btn px-0 mx-auto text-center"
     :class="{ active, ...buttonVariant }"
     :disabled="disabled"
     @click="$emit('click', $event)"
@@ -69,11 +69,7 @@ export default {
   border-radius: 4px;
   font-size: 1.5rem;
   font-weight: bold;
-
-  display: flex;
-  justify-content: center;
-  margin: auto;
-  position: relative;
+  padding-top: .55rem;
 
   &:focus {
     box-shadow: none !important;
@@ -82,8 +78,7 @@ export default {
   .month {
     font-size: .65rem;
     font-weight: normal;
-    position: absolute;
-    bottom: 0;
+    margin-top: -7px;
   }
 
   &.btn-outline-august,

@@ -4,6 +4,11 @@ require('./filters');
 require('./topic');
 
 import "magnific-popup";
+import VueStickyDirective from "@renatodeleao/vue-sticky-directive";
+import Vue2TouchEvents from 'vue2-touch-events';
+
+Vue.use(VueStickyDirective);
+Vue.use(Vue2TouchEvents);
 
 window.Router = require('./router').default
 
