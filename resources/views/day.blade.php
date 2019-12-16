@@ -30,7 +30,7 @@ body {
 
 @section('content')
 @include('components.header')
-<div id="calendar-scroll-anchor"></div>
+<div id="dennik"></div>
 <div data-v-sticky-container>
     <div v-sticky>
         <div data-v-sticky-inner class="sticky-inner py-2">

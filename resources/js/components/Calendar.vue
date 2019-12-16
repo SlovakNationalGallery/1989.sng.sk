@@ -83,7 +83,7 @@ export default {
   },
   methods: {
     setDate(date) {
-      document.querySelector('#calendar-scroll-anchor').scrollIntoView({ behavior: 'smooth' })
+      document.querySelector('#dennik').scrollIntoView({ behavior: 'smooth' })
       if (date !== _.get(this, "$route.params.date")) Router.push({ name: "days", params: { date } });
       this.showCalendar = false;
     },
