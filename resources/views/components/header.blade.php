@@ -7,7 +7,7 @@
         </div>
     </div>
     <div class="row mt-5 mt-sm-0">
-        <div class="offset-sm-1 offset-md-3 offset-lg-4 col-sm-10 col-md-8 col-lg-7 col-xl-6 pr-4 pr-sm-5">
+        <div class="offset-sm-1 offset-md-3 offset-lg-4 offset-xl-5 col-sm-10 col-md-8 col-lg-7 col-xl-5 pr-4 pr-sm-5">
             <div class="perex mr-1">
                 <div class="bg"></div>
                 <div class="content p-4">
