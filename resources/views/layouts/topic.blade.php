@@ -63,28 +63,28 @@
             <div class="row">
                 <div id="previous-topic" class="col-md-6 related-topic">
                 @if ($previousTopic)
-                    <div class="white">
+                    <div class="bg-white">
                       <a href="{{ route('topics.show', $previousTopic) }}">
                         <div class="topic-preview" style="background-image: url('{{ asset($previousTopic->cover_image) }}'"></div>
                       </a>
                     </div>
                     <div class="description px-4">
                         <h4>Súvisiace</h4>
-                        <a href="{{ route('topics.show', $previousTopic) }}"><h3 class="p-0" style="color: white">{{ $previousTopic->name }}</h3></a>
+                        <a href="{{ route('topics.show', $previousTopic) }}" class="text-white"><h3 class="p-0">{{ $previousTopic->name }}</h3></a>
                         <p style="color: white">{{ $topic->previous_topic_blurb }}</p>
                     </div>
                 @endif
                 </div>
                 <div id="next-topic" class="col-md-6 related-topic">
                 @if ($nextTopic)
-                    <div class="white">
+                    <div class="bg-white">
                       <a href="{{ route('topics.show', $nextTopic) }}">
                         <div class="topic-preview" style="background-image: url('{{ asset($nextTopic->cover_image) }}'"></div>
                       </a>
                     </div>
                     <div class="description px-4">
                         <h4>Súvisiace</h4>
-                        <a href="{{ route('topics.show', $nextTopic) }}"><h3 class="p-0" style="color: white">{{ $nextTopic->name }}</h3></a>
+                        <a href="{{ route('topics.show', $nextTopic) }}" class="text-white"><h3 class="p-0">{{ $nextTopic->name }}</h3></a>
                         <p style="color: white">{{ $topic->next_topic_blurb }}</p>
                     </div>
                 @endif
