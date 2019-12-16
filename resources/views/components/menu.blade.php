@@ -88,7 +88,7 @@ $topics = App\Models\Topic::listing()
             $('#menu-button').addClass('nav-up');
         } else {
             if (st + $(window).height() < $(document).height()) {
-                if ($('.sticky-inner').css("position") === "relative") {
+                if (($('.sticky-inner').css("position") === "relative") || $(window).width() > 525) {
                     $('#menu-button').removeClass('nav-up');
                 } else {
                     $('#menu-button').addClass('nav-up');
