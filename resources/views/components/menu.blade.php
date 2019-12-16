@@ -87,8 +87,13 @@ $topics = App\Models\Topic::listing()
         if (st > lastScrollTop && st > navbarHeight){
             $('#menu-button').addClass('nav-up');
         } else {
-            if(st + $(window).height() < $(document).height()) {
-                $('#menu-button').removeClass('nav-up');
+            if (st + $(window).height() < $(document).height()) {
+                if ($('.sticky-inner').css("position") === "relative") {
+                    $('#menu-button').removeClass('nav-up');
+                } else {
+                    $('#menu-button').addClass('nav-up');
+                }
+
             }
         }
 
