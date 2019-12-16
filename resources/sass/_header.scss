@@ -1,54 +1,20 @@
 .casopis-header {
-    padding-top: 2rem;
-
-    @include media-breakpoint-up(sm) {
-      padding-top: 2rem;
-    }
-    @include media-breakpoint-up(md) {
-      padding-top: 2rem;
-    }
-    @include media-breakpoint-up(lg) {
-      padding-top: 3rem;
-    }
-
-
     .header {
-        transform: translate(2em);
-        width: 70%;
-        max-width: 40rem;
-        margin: 0 0 3rem 0;
-
-        @include media-breakpoint-up(md) {
-          margin: 0 auto 4rem auto;
-        }
-
-        padding: 2.5em 1em;
-        * {
-            text-align: center;
-        }
-
         &::after {
             background-image: url('/images/intro/01-Cover-01.png');
             background-position: center;
         }
 
-        .cnt {
-            margin-bottom: 1rem;
-            padding: 2rem 1rem;
-        }
-
         span {
             font-family: $font-family-base;
-            font-style: oblique;
+            font-weight: normal;
+            font-size: 1.05em;
         }
     }
 
     .perex {
-        transform: translate(33%, -5em);
         position: relative;
-        margin: auto;
-        max-width: 50%;
-        min-width: 250px;
+        margin-top: -1rem;
         background: $purple;
         z-index: 10;
 
@@ -63,6 +29,10 @@
                 }
                 font-family: $font-family-base;
                 font-weight: normal;
+
+                & > a {
+                    text-decoration: underline;
+                }
             }
         }
     }
