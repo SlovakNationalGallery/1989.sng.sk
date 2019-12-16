@@ -1,4 +1,4 @@
-<div class="container casopis-header mb-5 pb-4 pt-4 pt-lg-5">
+<div class="container casopis-header mb-0 mb-sm-2 mb-md-3 mb-xl-4 pb-4 pt-4 pt-lg-5">
     <div class="row">
         <div class="offset-md-1 offset-lg-2 offset-xl-3 col-md-11 col-lg-9 col-xl-7 pr-4">
             <div class="header pt-5 file-paper bg-v1 ml-1 mr-0 px-0 px-sm-3 pl-xl-5 text-center">
