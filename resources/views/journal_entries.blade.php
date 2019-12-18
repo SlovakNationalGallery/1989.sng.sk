@@ -9,7 +9,6 @@ body {
     background-image: url("{{asset('/images/intro/BG-0' . random_int(1, 4) . '.jpg') }}");
     background-attachment: fixed;
     background-size: cover;
-    text-align: center;
     background-position: top center;
 }
 </style>
@@ -18,7 +17,7 @@ body {
 @section('content')
 <div id="journal-entries" class="container">
     <div class="row justify-content-center">
-        <div class="col-lg-8 bg-white pt-3 pt-md-5 px-md-5">
+        <div class="col pt-2 pt-md-3 mb-3 mb-md-5 text-center">
             <a href="/" id="logo-top-nav" class="text-decoration-none" title="Prejsť na úvodnú stránku">
                 <h3>ČAS-OPIS <span class="year">1989</span></h3>
             </a>
