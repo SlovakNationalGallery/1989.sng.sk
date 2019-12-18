@@ -2,7 +2,7 @@
   <div class="item-text">
     <div v-html="displayedContent" class="item-text-content"></div>
 
-    <div class="item-fade" v-if="truncateable"></div>
+    <div :class="{ 'item-fade': !showAll }"  v-if="truncateable"></div>
     <div class="item-credits" v-if="credits" v-html="credits"></div>
     <div v-if="truncateable" class="item-text-read-more-link">
       <button type="button" class="btn btn-link" @click="showAll = !showAll">
