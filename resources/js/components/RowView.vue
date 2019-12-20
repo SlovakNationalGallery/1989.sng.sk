@@ -31,7 +31,7 @@
 <script>
 import CalendarDay from "./Calendar/Day";
 import { Carousel, Slide } from "vue-carousel";
-import { isEmpty } from "lodash";
+import { isEmpty, debounce } from "lodash";
 
 export default {
   name: "RowView",
@@ -60,8 +60,15 @@ export default {
       ]
     };
   },
+  created() {
+    this.onWindowResize = debounce(this.navigateToCurrentDate.bind(this, false), 100);
+    window.addEventListener("resize", this.onWindowResize);
+  },
   mounted() {
     this.navigateToCurrentDate(false);
+  },
+  destroyed() {
+    window.removeEventListener("resize", this.onWindowResize);
   },
   computed: {
     selectedIndex() {
