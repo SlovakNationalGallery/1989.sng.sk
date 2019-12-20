@@ -45,7 +45,7 @@
         </div>
         <div id="description-container" class="container position-relative">
             <div class="row">
-                <div id="description" class="offset-lg-3 col-lg-6 file-paper text-left pt-4 pr-5">
+                <div id="description" class="offset-lg-3 col-lg-6 file-paper text-left pt-4 pr-4 pr-md-5">
                     {!! parsedown($topic->description) !!}
                 </div>
             </div>

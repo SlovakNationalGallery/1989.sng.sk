@@ -6,3 +6,10 @@ h1 {
     font-size: 5.25em;
   }
 }
+
+h3 {
+  font-size: 1.8em;
+  @include media-breakpoint-up(md) {
+    font-size: $h3-font-size;
+  }
+}

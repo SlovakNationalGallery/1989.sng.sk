@@ -67,9 +67,21 @@
     }
 
     & .item-text {
-        padding-left: 4em;
-        padding-top: 2em;
+        padding-left: 1em;
+        padding-top: 1em;
         padding-right: 1em;
+
+        @include media-breakpoint-up(sm) {
+            padding-left: 2em;
+            padding-top: 1em;
+            padding-right: 1em;
+        }
+
+        @include media-breakpoint-up(lg) {
+            padding-left: 4em;
+            padding-top: 2em;
+            padding-right: 1em;
+        }
 
         .item-text-read-more-link {
             .btn-link {
