@@ -33,7 +33,7 @@
         @slideclick="onTranscriptionPageClick(transcriptionPageId)"
         :class="{active: detailedTranscriptionPageId === transcriptionPageId}"
       >
-        <img :src="`https://fromthepage.com/image-service/${transcriptionPageId}/full/,100/0/default.jpg`" />
+        <img :src="`https://fromthepage.com/image-service/${transcriptionPageId}/full/,150/0/default.jpg`" />
         <hr class="mx-2 mt-2" />
       </slide>
     </carousel>
@@ -71,8 +71,6 @@ export default {
   },
   watch: {
     transcriptionPagesIds(transcriptionPagesIds) {
-      if (this.imageViewer) this.imageViewer.destroy();
-
       this.imageViewer = OpenSeadragon({
         id: "image-container",
         prefixUrl: "/vendor/openseadragon/images/",
@@ -119,6 +117,10 @@ export default {
 
 .slide {
   cursor: pointer;
+
+  & > img {
+    height: 100px;
+  }
 
   hr {
     visibility: hidden;
