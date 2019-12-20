@@ -9,34 +9,40 @@ use App\Http\Resources\JournalEntry as JournalEntryResource;
 
 class DayController extends Controller
 {
-    const START_DATE = '1989-10-01';
+    const START_DATE = '1989-09-01';
     const END_DATE = '1989-12-31';
+    const FALLBACK_DATE = '1989-11-17';
 
     public function index()
     {
         $today = Carbon::today()->year(1989)->endOfDay();
 
         if (!$today->between(Carbon::parse(self::START_DATE), Carbon::parse(self::END_DATE))) {
-            $fallback_date = Carbon::parse('1989-11-17');
-            return $this->show($fallback_date->format('Y-m-d'));
+            return $this->show(Carbon::parse(self::FALLBACK_DATE)->format('Y-m-d'));
         }
 
         return $this->show($today->format('Y-m-d'));
     }
 
+    public function show($day)
+    {
+        return view('day', self::data($day));
+    }
+
     public function data($day)
     {
-        $selectedDay = Carbon::parse($day);
-        $today = Carbon::today()->year(1989)->endOfDay();
-
         $activeDatesStart = Carbon::parse(self::START_DATE);
-        $activeDatesEnd = $today;
+        $activeDatesEnd = Carbon::parse(self::END_DATE)->endOfDay();
+
+        $selectedDay = Carbon::parse($day);
+        $today = Carbon::today()->year(1989);
+
+        $selectedDay = $selectedDay->between($activeDatesStart, $activeDatesEnd) ? $selectedDay : Carbon::parse(self::FALLBACK_DATE);
+        $today = $today->between($activeDatesStart, $activeDatesEnd) ? $today : null;
 
         if (backpack_user()) {
             $activeDatesEnd = JournalEntry::orderBy('written_at', 'desc')->first()->written_at;
         }
-
-        if (!$selectedDay->between($activeDatesStart, $activeDatesEnd)) return redirect()->route('days.index');
 
         $topics = Topic::select('slug', 'name', 'cover_image', 'description')
             ->where([
@@ -53,17 +59,12 @@ class DayController extends Controller
         return [
             'topics' => $topics,
             'journalEntry' => JournalEntryResource::make($journalEntry),
-            'today' => $today->format('Y-m-d'),
+            'today' => isset($today) ? $today->format('Y-m-d') : null,
             'selected' => $selectedDay->format('Y-m-d'),
             'startDate' => Carbon::parse(self::START_DATE)->format('Y-m-d'),
             'endDate' => Carbon::parse(self::END_DATE)->format('Y-m-d'),
             'activeDatesStart' => $activeDatesStart->format('Y-m-d'),
             'activeDatesEnd' => $activeDatesEnd->format('Y-m-d'),
         ];
-    }
-
-    public function show($day)
-    {
-        return view('day', self::data($day));
     }
 }

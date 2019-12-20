@@ -16,7 +16,7 @@
         <button type="button" class="btn btn-outline-light m-1" data-toggle="modal" data-target="#calendar-full">
           Kalendár
         </button>
-        <button class="btn btn-outline-light" @click="goToToday">
+        <button class="btn btn-outline-light" v-if="today" @click="goToToday">
           Dnes
         </button>
       </div>
