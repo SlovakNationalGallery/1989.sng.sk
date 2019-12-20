@@ -97,14 +97,23 @@ export default {
       activeDatesEnd : "",
       activeDatesStart: "",
       scrollTop: 0,
-      //TODO make sure fallbackDate does not run outside the journal range
-      fallbackDate: dayjs().set('year', 1989).format('YYYY-MM-DD'),
       firstTranscriptionPageId: null,
     };
   },
   computed: {
     currentDate() {
       return this.date || this.fallbackDate
+    },
+    fallbackDate() {
+      if (this.activeDatesStart && this.activeDatesEnd) {
+        const start = dayjs(this.activeDatesStart);
+        const end = dayjs(this.activeDatesEnd);
+        const todayIn1989 = dayjs().set('year', 1989);
+
+        if (!todayIn1989.isBefore(start) && !todayIn1989.isAfter(end)) return todayIn1989.format('YYYY-MM-DD')
+      }
+
+      return dayjs('1989-11-17').format('YYYY-MM-DD');
     },
     hrefToGallery() {
       return Router.resolve({
