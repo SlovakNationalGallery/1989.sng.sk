@@ -12,6 +12,7 @@ class DayController extends Controller
     const START_DATE = '1989-09-01';
     const END_DATE = '1989-12-31';
     const FALLBACK_DATE = '1989-11-17';
+    const DAY_UNLOCK_END_DATE = '2019-12-31';
 
     public function index()
     {
@@ -31,18 +32,18 @@ class DayController extends Controller
 
     public function data($day)
     {
-        $activeDatesStart = Carbon::parse(self::START_DATE);
-        $activeDatesEnd = Carbon::parse(self::END_DATE)->endOfDay();
-
         $selectedDay = Carbon::parse($day);
-        $today = Carbon::today()->year(1989);
+        $todayIn1989 = Carbon::today()->year(1989);
+
+        $activeDatesStart = Carbon::parse(self::START_DATE);
+        $activeDatesEnd = $todayIn1989->endOfDay();
+
+        if (backpack_user() || Carbon::today()->isAfter(Carbon::parse(self::DAY_UNLOCK_END_DATE))) {
+            $activeDatesEnd = Carbon::parse(self::END_DATE)->endOfDay();
+        }
 
         $selectedDay = $selectedDay->between($activeDatesStart, $activeDatesEnd) ? $selectedDay : Carbon::parse(self::FALLBACK_DATE);
-        $today = $today->between($activeDatesStart, $activeDatesEnd) ? $today : null;
-
-        if (backpack_user()) {
-            $activeDatesEnd = JournalEntry::orderBy('written_at', 'desc')->first()->written_at;
-        }
+        $today =       $todayIn1989->between($activeDatesStart, $activeDatesEnd) ? $todayIn1989 : null;
 
         $topics = Topic::select('slug', 'name', 'cover_image', 'description')
             ->where([
