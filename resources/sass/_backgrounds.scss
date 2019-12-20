@@ -1,5 +1,8 @@
 .file-paper {
-    @include paper-bck(3rem);
+    @include paper-bck(2rem);
+    @include media-breakpoint-up(sm) {
+        @include paper-bck(3rem);
+    }
     &::before {
         @extend %before-after-sizing;
         @extend %file-paper-bgr;

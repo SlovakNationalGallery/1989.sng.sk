@@ -18,8 +18,12 @@
 %file-paper-bgr {
     background-image: url("/images/file-paper.svg");
     background-repeat: repeat-y;
-    background-size: 3rem auto;
-    width: 3rem;
+    background-size: 2rem auto;
+    width: 2rem;
+    @include media-breakpoint-up(sm) {
+        background-size: 3rem auto;
+        width: 3rem;
+    }
 }
 
 %tableau-paper-bgr {

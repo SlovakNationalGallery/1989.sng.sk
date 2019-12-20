@@ -16,6 +16,12 @@
 #topic {
     background-color: $gray-light;
 
+    @include media-breakpoint-up(xxl) {
+        p, .item-image-description {
+            font-size: 1.2em;
+        }
+    }
+
     .header {
         #title-container {
             min-height: 40vh;

@@ -41,6 +41,15 @@ $theme-colors: (
 
 $text-muted: $gray;
 
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1600px
+);
+
 // Navbar
 $navbar-dark-color: rgba($white, 0.5);
 $navbar-light-color: rgba($black, 0.5);
