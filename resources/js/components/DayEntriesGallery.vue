@@ -3,7 +3,6 @@
     <div
       class="shift-block-container"
       v-touch:swipe="swipeHandler"
-      ref="anchor"
     >
       <div class="shift-block koller doubled-bg bg-v3">
         <div class="profile-pic">
@@ -13,7 +12,7 @@
           <div class="row">
             <div class="col-md-8">
               <div class="intro">
-                <div :key="date">
+                <div :key="currentDate">
                   <h2 class="date py-3 pt-md-5">{{ currentDate | romanize }}</h2>
                 </div>
               </div>
@@ -89,32 +88,17 @@ import { initializeJournalTagPopovers } from '../journal-entries-popovers';
 
 export default {
   name: "DayEntriesGallery",
-  props: ["date"],
+  props: ["defaultDate", "activeDatesStart", "activeDatesEnd"],
   data() {
     return {
       dayData: "",
+      currentDate: this.defaultDate,
       topics: [],
-      activeDatesEnd : "",
-      activeDatesStart: "",
       scrollTop: 0,
       firstTranscriptionPageId: null,
     };
   },
   computed: {
-    currentDate() {
-      return this.date || this.fallbackDate
-    },
-    fallbackDate() {
-      if (this.activeDatesStart && this.activeDatesEnd) {
-        const start = dayjs(this.activeDatesStart);
-        const end = dayjs(this.activeDatesEnd);
-        const todayIn1989 = dayjs().set('year', 1989);
-
-        if (!todayIn1989.isBefore(start) && !todayIn1989.isAfter(end)) return todayIn1989.format('YYYY-MM-DD')
-      }
-
-      return dayjs('1989-11-17').format('YYYY-MM-DD');
-    },
     hrefToGallery() {
       return Router.resolve({
         name: 'journal-entries',
@@ -124,71 +108,52 @@ export default {
   },
   mounted() {
     this.getData(this.currentDate);
-    this.scrollTop = this.$refs.anchor.getBoundingClientRect().y;
     initializeJournalTagPopovers();
   },
   watch: {
     $route(to) {
-      this.getData(to.params.date || this.fallbackDate);
+      this.currentDate = to.params.date || this.defaultDate
+      this.getData(this.currentDate);
     }
   },
   methods: {
-    getData(date, callback) {
-      axios.get(`/api/day/${this.currentDate}`).then(
+    getData(date) {
+      axios.get(`/api/day/${date}`).then(
         ({ data }) => {
           this.dayData = data.journalEntry;
           this.topics = data.topics;
-          this.activeDatesEnd = data.activeDatesEnd;
-          this.activeDatesStart = data.activeDatesStart;
           this.firstTranscriptionPageId = data.journalEntry.transcription_pages_ids[0]
-          if (this.scrollTop < document.scrollingElement.scrollTop) {
-            window.scrollTo({ top: this.scrollTop, behavior: "smooth" });
-          }
-          callback && callback();
-        },
-        () => {
-          self.topics = null;
-          self.dayData = {
-            weather: "",
-            excerpt: "Pre daný deň neexistuje záznam v denníku"
-          };
-          callback && callback();
         }
       );
-      return;
     },
     swipeHandler(e) {
       switch (e) {
         case "left":
-          var dayAfter = dayjs(this.date, "YYYY-MM-DD")
-            .add(1, "day")
-            .set("year", 1989)
-            .format("YYYY-MM-DD");
+          var dayAfter = dayjs(this.currentDate).add(1, "day")
 
-          if (dayAfter > this.activeDatesEnd) return;
+          if (dayAfter.isAfter(dayjs(this.activeDatesEnd))) return;
 
           Router.push({
             name: "days",
             params: {
-              date: dayAfter
+              date: dayAfter.format("YYYY-MM-DD")
             }
           });
+          setTimeout(() => document.querySelector('#dennik').scrollIntoView({ behavior: 'smooth' }), 100);
           break;
 
         case "right":
-          var dayBefore = dayjs(this.date, "YYYY-MM-DD")
-            .subtract(1, "day")
-            .set("year", 1989)
-            .format("YYYY-MM-DD");
+          var dayBefore = dayjs(this.currentDate).subtract(1, "day")
 
-          if (dayBefore < this.activeDatesStart) return;
+          if (dayBefore.isBefore(dayjs(this.activeDatesStart))) return;
 
           Router.push({
             name: "days",
             params: {
-              date: dayBefore
+              date: dayBefore.format("YYYY-MM-DD")
             }
           });
+          setTimeout(() => document.querySelector('#dennik').scrollIntoView({ behavior: 'smooth' }), 100);
       }
     }
   }

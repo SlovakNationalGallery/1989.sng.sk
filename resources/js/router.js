@@ -17,7 +17,6 @@ const router = new VueRouter({
         path: '/:date?',
         component: DayEntriesGallery,
         name: 'days',
-        props: ({params}) => ({ date: params.date }),
       }
     ]
 })
