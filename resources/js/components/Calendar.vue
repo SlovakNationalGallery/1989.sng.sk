@@ -49,11 +49,6 @@ export default {
     "today",
     "defaultDate"
   ],
-  data() {
-    return {
-      showCalendar: false
-    };
-  },
   computed: {
     days() {
       const days = [];
@@ -83,9 +78,8 @@ export default {
   },
   methods: {
     setDate(date) {
-      document.querySelector('#dennik').scrollIntoView({ behavior: 'smooth' })
+      setTimeout(() => document.querySelector('#dennik').scrollIntoView({ behavior: 'smooth' }), 100);
       if (date !== _.get(this, "$route.params.date")) Router.push({ name: "days", params: { date } });
-      this.showCalendar = false;
     },
     goToToday() {
       this.setDate(this.today)

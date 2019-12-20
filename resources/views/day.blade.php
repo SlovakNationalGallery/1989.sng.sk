@@ -45,7 +45,11 @@ body {
             </calendar>
         </div>
     </div>
-    <router-view></router-view>
+    <router-view
+        default-date="{{ $selected }}"
+        active-dates-start="{{ $activeDatesStart }}"
+        active-dates-end="{{ $activeDatesEnd }}"
+    ></router-view>
 </div>
 
 @include('components.newsletter')
