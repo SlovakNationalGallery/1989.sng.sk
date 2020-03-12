@@ -29,14 +29,6 @@ $topics = App\Models\Topic::listing()
                 @endforeach
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-12 new-topics">
-                <h3>
-                    Nové témy <br />pribudnú čoskoro
-                </h3>
-            </div>
-        </div>
-
     </div>
 
     <div class="text-center">
