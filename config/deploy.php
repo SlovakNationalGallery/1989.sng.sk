@@ -93,7 +93,7 @@ return [
 
     'options' => [
         'application' => env('APP_NAME', 'Laravel'),
-        'repository' => 'git@github.com:SlovakNationalGallery/1989.sng.sk.git',
+        'repository' => 'https://github.com/SlovakNationalGallery/1989.sng.sk.git',
         'shared_dirs' => ['storage', 'public/uploads', 'resources/fonts'],
         'bin/php' => '/usr/bin/php7.2',
         'php_fpm_service' => 'php7.2-fpm',
@@ -115,7 +115,7 @@ return [
     'hosts' => [
         '1989.sng.sk' => [
             'deploy_path' => '/var/www/1989.sng.sk',
-            'user' => 'webumenia',
+            'user' => 'lab_sng',
         ],
     ],
 
